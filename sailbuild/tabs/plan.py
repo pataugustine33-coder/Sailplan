@@ -1,7 +1,7 @@
 """
 Plan tab renderer — the primary deliverable.
 
-Layout (columns A-AA = 27 columns):
+Layout (columns A-AB = 28 columns):
   A  WP                 (5)    centered
   B  Description        (24)   left-aligned, wraps
   C  Cum NM             (8)    right-aligned, 0.0
@@ -22,13 +22,14 @@ Layout (columns A-AA = 27 columns):
   R  AWS (kt)           (9)    right-aligned, 0.0
   S  AWA (°)            (8)    centered
   T  Sail Mode          (28)   left-aligned, wraps
-  U  Wind/Sea Rose      (18)   embedded PNG (120×120) or "—"
-  V  Notes              (60)   left-aligned, wraps, top-anchored
-  W  Weather Risk       (40)   left-aligned, wraps, color-coded fill
-  X  Sea Source         (38)   left-aligned, wraps, italic
-  Y  Cum Time (hr)      (11)   right-aligned, 0.0
-  Z  Cum Sailing (hr)   (11)   right-aligned, 0.0
-  AA Cum Motoring (hr)  (11)   right-aligned, 0.0
+  U  Wind/Sea Rose      (18)   embedded PNG (120×120) — boat geometry
+  V  Polar @ TWS        (18)   embedded PNG (120×120) — boat polar at this TWS with TWA marker
+  W  Notes              (60)   left-aligned, wraps, top-anchored
+  X  Weather Risk       (40)   left-aligned, wraps, color-coded fill
+  Y  Sea Source         (38)   left-aligned, wraps, italic
+  Z  Cum Time (hr)      (11)   right-aligned, 0.0
+  AA Cum Sailing (hr)   (11)   right-aligned, 0.0
+  AB Cum Motoring (hr)  (11)   right-aligned, 0.0
 
 Frozen panes at D4 — WP/Description/Cum NM/ETA stay visible when scrolling
 right; column headers stay visible when scrolling down.
@@ -71,14 +72,15 @@ COLUMNS = [
     ("AWA (°)",            8,  "center"),     # S
     ("Sail Mode",          28, "text"),       # T
     ("Wind/Sea Rose",      18, "center"),     # U
-    ("Notes",              60, "text"),       # V
-    ("Weather Risk",       40, "text"),       # W
-    ("Sea Source",         38, "text"),       # X
-    ("Cum Time (hr)",      11, "number"),     # Y
-    ("Cum Sailing (hr)",   11, "number"),     # Z
-    ("Cum Motoring (hr)",  11, "number"),     # AA
+    ("Polar @ TWS",        18, "center"),     # V — boat polar curve at this TWS, TWA marker
+    ("Notes",              60, "text"),       # W
+    ("Weather Risk",       40, "text"),       # X
+    ("Sea Source",         38, "text"),       # Y
+    ("Cum Time (hr)",      11, "number"),     # Z
+    ("Cum Sailing (hr)",   11, "number"),     # AA
+    ("Cum Motoring (hr)",  11, "number"),     # AB
 ]
-N_COLS = len(COLUMNS)  # 27
+N_COLS = len(COLUMNS)  # 28
 
 
 def render_plan_tab(ws, plan_meta: dict, commentary: str, legs: list,
@@ -118,6 +120,7 @@ def render_plan_tab(ws, plan_meta: dict, commentary: str, legs: list,
         r = 4 + leg_idx
         _write_leg_row(ws, r, leg)
         _embed_rose(ws, r, leg)
+        _embed_mini_polar(ws, r, leg, passage)
 
         if leg.course_out is not None:
             if leg.is_motor:
@@ -238,30 +241,31 @@ def _write_leg_row(ws, r, leg):
         style_text_cell(ws.cell(r, 20), leg.sail_mode or "Inlet entry")
 
     # U: Rose is embedded separately via _embed_rose
+    # V: Mini polar is embedded separately via _embed_mini_polar
 
-    # V: Notes — wrapping text, top-aligned
-    notes_cell = ws.cell(r, 22, value=leg.notes)
+    # W: Notes — wrapping text, top-aligned
+    notes_cell = ws.cell(r, 23, value=leg.notes)
     notes_cell.alignment = align_text_top()
     notes_cell.font = Font(name="Calibri", size=10)
     notes_cell.border = thin_border()
 
-    # W: Weather Risk — colored fill matches risk_color, wrapping text
-    risk_cell = ws.cell(r, 23, value=leg.weather_risk)
+    # X: Weather Risk — colored fill matches risk_color, wrapping text
+    risk_cell = ws.cell(r, 24, value=leg.weather_risk)
     risk_cell.alignment = align_text_top()
     risk_cell.font = Font(name="Calibri", size=10)
     risk_cell.fill = fill(leg.risk_color)
     risk_cell.border = thin_border()
 
-    # X: Sea Source — italic gray
-    seasrc_cell = ws.cell(r, 24, value=leg.sea_source)
+    # Y: Sea Source — italic gray
+    seasrc_cell = ws.cell(r, 25, value=leg.sea_source)
     seasrc_cell.alignment = align_text_top()
     seasrc_cell.font = Font(name="Calibri", size=9, italic=True, color=COLOR_NOTE_FONT)
     seasrc_cell.border = thin_border()
 
-    # Y-AA: Cumulative time, sailing, motoring
-    style_number_cell(ws.cell(r, 25), round(leg.cum_time_hr, 1), number_format="0.0")
-    style_number_cell(ws.cell(r, 26), round(leg.cum_sailing_hr, 1), number_format="0.0")
-    style_number_cell(ws.cell(r, 27), round(leg.cum_motoring_hr, 1), number_format="0.0")
+    # Z, AA, AB: Cumulative time, sailing, motoring
+    style_number_cell(ws.cell(r, 26), round(leg.cum_time_hr, 1), number_format="0.0")
+    style_number_cell(ws.cell(r, 27), round(leg.cum_sailing_hr, 1), number_format="0.0")
+    style_number_cell(ws.cell(r, 28), round(leg.cum_motoring_hr, 1), number_format="0.0")
 
     # === Row band — applied AFTER per-cell colors, only fills the cells
     # that don't already have meaningful coloring (ETA, Sea From, Weather
@@ -270,7 +274,7 @@ def _write_leg_row(ws, r, leg):
     if leg.row_band:
         band_color = ROW_BAND_COLORS.get(leg.row_band)
         if band_color:
-            protected_cols = {4, 14, 23}  # ETA, Sea From, Weather Risk keep their color
+            protected_cols = {4, 14, 24}  # ETA, Sea From, Weather Risk keep their color
             for c in range(1, N_COLS + 1):
                 if c in protected_cols:
                     continue
@@ -309,9 +313,9 @@ def _write_totals_row(ws, r, total_nm, total_time, sailing_total, motoring_total
     detail_cell.fill = fill(COLOR_SUBHEADER_FILL)
     detail_cell.alignment = Alignment(horizontal="left", vertical="center")
     detail_cell.border = thin_border()
-    ws.merge_cells(start_row=r, start_column=3, end_row=r, end_column=24)
+    ws.merge_cells(start_row=r, start_column=3, end_row=r, end_column=25)
 
-    for col, val in [(25, total_time), (26, sailing_total), (27, motoring_total)]:
+    for col, val in [(26, total_time), (27, sailing_total), (28, motoring_total)]:
         c = ws.cell(r, col, value=round(val, 1))
         c.font = Font(name="Calibri", size=11, bold=True, color=COLOR_TITLE_FONT)
         c.fill = fill(COLOR_SUBHEADER_FILL)
@@ -467,3 +471,55 @@ def _embed_timeline_strip(ws, anchor_row, legs):
     except Exception:
         # Silently degrade — the totals row + table still convey the data
         pass
+
+
+def _embed_mini_polar(ws, row, leg, passage):
+    """Render the small polar curve for this leg at its TWS, with a red dot
+    marking the current TWA. Embedded in column V (22).
+
+    Anchored right next to the wind/sea rose in column U so the two visuals
+    sit side-by-side: rose tells you the geometry, polar tells you where
+    you are on the speed curve.
+
+    Skipped for terminal WPs (no leg metrics) or if the polar generator
+    raises. Falls back to "—" in the cell in those cases.
+    """
+    from ..charts import mini_polar_png_bytes
+    from openpyxl.drawing.image import Image as XLImage
+    from openpyxl.styles import Alignment
+
+    # Skip if no outbound leg
+    if leg.course_out is None or leg.twa is None:
+        cell = ws.cell(row, 22, value="—")
+        cell.alignment = Alignment(horizontal="center", vertical="center")
+        cell.border = thin_border()
+        return
+
+    # Use the midpoint of the wind speed range as the TWS for the polar.
+    # (The actual polar is bilinear-interpolated across TWS so any value
+    # in the range gives a reasonable curve.)
+    tws_mid = (leg.wind_kt_low + leg.wind_kt_high) / 2 if leg.wind_kt_low else 10
+
+    # Get design number from the passage so we use the right polar grid
+    # (D1170 for HR48, D1206 for HR54, etc.)
+    design = (passage or {}).get("vessel", {}).get("design_number", "D1170")
+
+    try:
+        png_buf = mini_polar_png_bytes(
+            tws=tws_mid,
+            twa=leg.twa,
+            design=design,
+            output_px=160,
+        )
+    except Exception:
+        cell = ws.cell(row, 22, value="—")
+        cell.alignment = Alignment(horizontal="center", vertical="center")
+        cell.border = thin_border()
+        return
+
+    img = XLImage(png_buf)
+    img.width = 120
+    img.height = 120
+    img.anchor = f"V{row}"
+    ws.add_image(img)
+    # Row height already set to 95 by _embed_rose
