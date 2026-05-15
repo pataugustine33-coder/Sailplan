@@ -3,6 +3,30 @@
 Major design decisions and feature additions, in reverse chronological order.
 
 ---
+## 2026-05-15 — Mini polar charts per WP
+
+Per-waypoint boat polar curves now embedded in a new Plan tab column V
+("Polar @ TWS"), positioned right next to the wind/sea rose. Each polar
+shows the vessel's speed curve at the WP's mid-range TWS with a red dot
+marking the actual TWA at that leg.
+
+Visual answer to "are we at the speed peak or speed valley for this leg?"
+At a glance you see:
+- Where you sit on the polar (red dot position)
+- The curve's shape (where peak speed lives at this TWS)
+- Whether nudging the angle 10-20° would gain or lose speed
+
+Uses the same `polar_speed(tws, twa, design)` function that drives the
+ETA calculation, so the chart matches the workbook's computed values.
+Design number (D1170 / D1206) flows through from passage YAML so HR48
+and HR54 passages each render their correct polar shape.
+
+Plan tab now has 28 columns (A through AB). Notes/Risk/Sea Source/Cum
+columns shifted right by one to accommodate the new visual column.
+Frozen panes remain at D4.
+
+---
+
 ## 2026-05-15 — Visualization layer (matplotlib charts)
 
 Picture-is-worth-a-thousand-words pass. Added three chart types via a new
