@@ -1,0 +1,24 @@
+# Python bytecode
+__pycache__/
+*.pyc
+*.pyo
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Build outputs (the .xlsx workbooks are generated from inputs, not committed)
+*.xlsx
+*.kml
+*.gpx
+
+# Editor temp files
+*.swp
+*~
+.vscode/
+.idea/
+
+# Local environment
+.venv/
+venv/
+*.env
