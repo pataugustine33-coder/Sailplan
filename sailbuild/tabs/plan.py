@@ -141,7 +141,7 @@ def render_plan_tab(ws, plan_meta: dict, commentary: str, legs: list,
     _embed_timeline_strip(ws, timeline_anchor_row, legs)
 
     # === Legend block ===
-    legend_anchor = timeline_anchor_row + 14  # leave room for the chart
+    legend_anchor = timeline_anchor_row + 19  # leave room for the taller chart (340 px ≈ 17 rows)
     last_legend_row = _write_legend_block(ws, legend_anchor)
 
     # === Footer note (vessel polar reference) ===
@@ -455,16 +455,17 @@ def _embed_timeline_strip(ws, anchor_row, legs):
     """
     try:
         from ..charts import timeline_strip_png_bytes
-        buf = timeline_strip_png_bytes(legs, output_w_px=1200, output_h_px=240)
+        # Taller chart for readability — 340 px output → 320 px embed → ~17 rows of vertical space
+        buf = timeline_strip_png_bytes(legs, output_w_px=1200, output_h_px=340)
         if buf is None:
             return
         img = XLImage(buf)
         img.width = 1100
-        img.height = 220
+        img.height = 320
         img.anchor = f"A{anchor_row}"
         ws.add_image(img)
-        # Set row heights to accommodate the chart (~12 rows × 20 units = ~240 px)
-        for r in range(anchor_row, anchor_row + 12):
+        # Reserve ~17 rows × 20 units ≈ 340 px for the taller chart
+        for r in range(anchor_row, anchor_row + 17):
             cur = ws.row_dimensions[r].height
             if cur is None or cur < 20:
                 ws.row_dimensions[r].height = 20
