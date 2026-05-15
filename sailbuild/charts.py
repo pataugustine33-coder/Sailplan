@@ -53,9 +53,13 @@ def radar_chart_png_bytes(axes_data, title="Risk Profile", output_px=520):
     scores = [a["score"] for a in axes_data]
     n = len(labels)
 
-    # Angles for each axis (evenly distributed around the circle)
-    # +pi/2 to put first axis at top; closed loop for the polygon
-    angles = [n_i / n * 2 * math.pi + math.pi / 2 for n_i in range(n)]
+    # Angles for each axis (evenly distributed around the circle), starting
+    # at the top and going clockwise. Use np.linspace + modulo to keep all
+    # values in [0, 2π] — matplotlib polar plots get confused when angles
+    # exceed 2π and may render only a partial wedge.
+    base_angles = np.linspace(0, 2 * math.pi, n, endpoint=False)
+    # Rotate so first axis is at top, going clockwise: angle = π/2 - i*step
+    angles = [(math.pi / 2 - a) % (2 * math.pi) for a in base_angles]
     angles_closed = angles + [angles[0]]
     scores_closed = scores + [scores[0]]
 
@@ -133,7 +137,8 @@ def radar_overlay_png_bytes(plans_data, title="Plan Comparison", output_px=580):
 
     labels = [a["name"] for a in plans_data[0]["axes"]]
     n = len(labels)
-    angles = [n_i / n * 2 * math.pi + math.pi / 2 for n_i in range(n)]
+    base_angles = np.linspace(0, 2 * math.pi, n, endpoint=False)
+    angles = [(math.pi / 2 - a) % (2 * math.pi) for a in base_angles]
     angles_closed = angles + [angles[0]]
 
     colors_default = [COLOR_PLAN_A, COLOR_PLAN_B, "#9E480E", "#636363"]
