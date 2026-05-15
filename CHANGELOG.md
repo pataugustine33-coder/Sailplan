@@ -3,6 +3,50 @@
 Major design decisions and feature additions, in reverse chronological order.
 
 ---
+## 2026-05-15 — Visualization layer (matplotlib charts)
+
+Picture-is-worth-a-thousand-words pass. Added three chart types via a new
+`sailbuild/charts.py` module using matplotlib + PNG embedding (same pattern
+as the wind/sea rose):
+
+### Risk Bowtie Radar Chart
+The six-axis Risk Bowtie scores (Stability, Motion Comfort, Capsize
+Resistance, Speed Margin, Heel Margin, Range) now render as a polar/spider
+chart at the top of each Bowtie tab. Background zones color-code the 1-10
+scale (red <4, yellow 4-7, green 7+). Score annotations at each vertex.
+The polygon shape tells you the vessel's profile at a glance: balanced =
+good all-rounder, spiky = strengths/weaknesses, small = concerning.
+
+### Wind/Sea Timeline Strip
+Horizontal chart spanning the passage width, embedded between the totals
+row and legend block on each Plan tab. Wind speed as vertical bars (sustained)
+with gust marks where present, sea height as a line on a secondary y-axis.
+SCA threshold (18 kt) and reef threshold (25 kt) drawn as dashed reference
+lines. Shows the shape of the passage at a glance — where the rough patches
+are without reading individual WP rows.
+
+### Daylight-Banded KML Route
+The exported KML route is now split into per-leg LineString segments, each
+colored by the destination WP's ETA window:
+- Green = day arrival at that WP
+- Yellow/amber = twilight arrival
+- Red = night arrival
+
+Open in Google Earth and you see the daylight bands as a visual property
+of the route itself. The primary plan (first defined in passage YAML) drives
+the banding; the GPX file remains plain for chartplotter compatibility.
+
+### Chart Module
+New `sailbuild/charts.py` exposes:
+- `radar_chart_png_bytes(axes_data)` — six-axis radar
+- `radar_overlay_png_bytes(plans_data)` — multi-plan radar overlay (for
+  future Plan A vs Plan B comparison on the Pre-Departure Briefing)
+- `timeline_strip_png_bytes(legs)` — wind/sea timeline
+- `mini_polar_png_bytes(tws, twa, design)` — small polar with TWA marker
+  (for future embedding next to per-WP rose)
+
+All chart generators return BytesIO containing PNG bytes for embedding via
+openpyxl.drawing.image.Image.
 
 ## 2026-05-15 — Gust column wiring fix + verifier strengthening
 

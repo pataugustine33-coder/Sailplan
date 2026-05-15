@@ -247,12 +247,17 @@ if __name__ == "__main__":
               f"({arrival.cum_sailing_hr:.1f} sail / {arrival.cum_motoring_hr:.1f} motor), color {arrival.eta_color}")
 
     # === Route files (KML for Google Earth/My Maps/OpenCPN, GPX for plotters) ===
+    # Pass the primary plan's legs so the KML gets daylight-banded segments
+    # (green=day arrival, yellow=twilight, red=night). The primary plan is
+    # the first one defined in the passage YAML.
     import yaml as _yaml
     from sailbuild.export import write_route_files
     with open(args.passage) as _f:
         _passage = _yaml.safe_load(_f)
     _output_dir = str(Path(args.output).parent)
-    kml_path, gpx_path = write_route_files(_passage, _output_dir)
+    _primary_plan_id = _passage["plans"][0]["id"] if _passage.get("plans") else None
+    _primary_legs = legs.get(_primary_plan_id) if _primary_plan_id else None
+    kml_path, gpx_path = write_route_files(_passage, _output_dir, legs=_primary_legs)
     print(f"✓ Route files:")
     print(f"  KML: {kml_path}")
     print(f"  GPX: {gpx_path}")

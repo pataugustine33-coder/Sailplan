@@ -130,8 +130,15 @@ def render_plan_tab(ws, plan_meta: dict, commentary: str, legs: list,
     totals_row = 4 + len(legs)
     _write_totals_row(ws, totals_row, total_nm, total_time, sailing_total, motoring_total)
 
+    # === Wind/sea timeline strip ===
+    # Visual summary of conditions across the passage — bars for wind kt,
+    # line for sea height, gust marks where present. Sits below the totals
+    # row as the "at-a-glance" picture of what the passage will feel like.
+    timeline_anchor_row = totals_row + 2
+    _embed_timeline_strip(ws, timeline_anchor_row, legs)
+
     # === Legend block ===
-    legend_anchor = totals_row + 2
+    legend_anchor = timeline_anchor_row + 14  # leave room for the chart
     last_legend_row = _write_legend_block(ws, legend_anchor)
 
     # === Footer note (vessel polar reference) ===
@@ -434,3 +441,29 @@ def _embed_rose(ws, row, leg):
     ws.add_image(img)
     # Set row height ~95 to fit the 120 px image (Excel units ≈ 1.33 px each)
     ws.row_dimensions[row].height = 95
+
+
+def _embed_timeline_strip(ws, anchor_row, legs):
+    """Embed a wind/sea timeline chart spanning the passage.
+
+    Anchors at column A and spans the full width of the data section.
+    Provides at-a-glance view of where the rough patches are.
+    """
+    try:
+        from ..charts import timeline_strip_png_bytes
+        buf = timeline_strip_png_bytes(legs, output_w_px=1200, output_h_px=240)
+        if buf is None:
+            return
+        img = XLImage(buf)
+        img.width = 1100
+        img.height = 220
+        img.anchor = f"A{anchor_row}"
+        ws.add_image(img)
+        # Set row heights to accommodate the chart (~12 rows × 20 units = ~240 px)
+        for r in range(anchor_row, anchor_row + 12):
+            cur = ws.row_dimensions[r].height
+            if cur is None or cur < 20:
+                ws.row_dimensions[r].height = 20
+    except Exception:
+        # Silently degrade — the totals row + table still convey the data
+        pass

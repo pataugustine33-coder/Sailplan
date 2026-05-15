@@ -29,13 +29,15 @@ def _route_name_for_files(passage: dict) -> str:
     return safe
 
 
-def write_kml(passage: dict, output_path: str) -> str:
+def write_kml(passage: dict, output_path: str, legs: list = None) -> str:
     """Write a KML 2.2 route file. Returns the path.
 
     The KML contains:
       - <Document> with name and description
       - One <Placemark> per waypoint as a Point (so they show as labeled pins)
-      - One <Placemark> with a <LineString> connecting all WPs in order
+      - Route line segments, optionally color-coded by daylight window
+        when `legs` is provided (one segment per leg, colored by destination
+        WP's ETA color: green=day, yellow=twilight, red=night).
     """
     waypoints = passage["waypoints"]
     route_name = passage["passage"]["name"]
@@ -62,12 +64,25 @@ def write_kml(passage: dict, output_path: str) -> str:
     parts.append('    <LabelStyle><scale>0.9</scale></LabelStyle>')
     parts.append('  </Style>')
 
-    # Style for the route line
+    # Style for the route line — default fallback (no daylight info)
     parts.append('  <Style id="route_style">')
     parts.append('    <LineStyle>')
-    parts.append('      <color>ffff0000</color>')   # blue (kml BGR)
+    parts.append('      <color>ffff0000</color>')   # blue (kml is AABBGGRR)
     parts.append('      <width>3</width>')
     parts.append('    </LineStyle>')
+    parts.append('  </Style>')
+
+    # Daylight band styles — used when legs are provided so each segment
+    # gets colored by the ETA window at the destination WP.
+    # KML colors are AABBGGRR (alpha-blue-green-red).
+    parts.append('  <Style id="route_day">')
+    parts.append('    <LineStyle><color>ff47AD70</color><width>5</width></LineStyle>')  # green
+    parts.append('  </Style>')
+    parts.append('  <Style id="route_twilight">')
+    parts.append('    <LineStyle><color>ff00C0FF</color><width>5</width></LineStyle>')  # amber
+    parts.append('  </Style>')
+    parts.append('  <Style id="route_night">')
+    parts.append('    <LineStyle><color>ff4D50C0</color><width>5</width></LineStyle>')  # red-ish
     parts.append('  </Style>')
 
     # Waypoint placemarks
@@ -89,18 +104,58 @@ def write_kml(passage: dict, output_path: str) -> str:
         parts.append('    </Point>')
         parts.append('  </Placemark>')
 
-    # Route line
-    parts.append('  <Placemark>')
-    parts.append(f'    <name>{xml_escape(route_name)} Route Line</name>')
-    parts.append('    <styleUrl>#route_style</styleUrl>')
-    parts.append('    <LineString>')
-    parts.append('      <tessellate>1</tessellate>')
-    parts.append('      <coordinates>')
-    for wp in waypoints:
-        parts.append(f'        {wp["lon"]:.6f},{wp["lat"]:.6f},0')
-    parts.append('      </coordinates>')
-    parts.append('    </LineString>')
-    parts.append('  </Placemark>')
+    # Route line — segment-by-segment if legs provided, else single line
+    if legs and len(legs) >= 2:
+        # Build a map of wp_id → eta_color so we can look up each segment's color
+        eta_color_by_wp = {l.wp_id: getattr(l, "eta_color", None) for l in legs}
+
+        for i in range(len(waypoints) - 1):
+            wp_a = waypoints[i]
+            wp_b = waypoints[i + 1]
+            # Color the segment by the DESTINATION WP's ETA color — that's
+            # the relevant timing for when you arrive at the end of this leg.
+            color = eta_color_by_wp.get(wp_b["id"], None)
+            if color == "C6EFCE":
+                style_id = "route_day"
+                window = "Day arrival"
+            elif color == "FFEB9C":
+                style_id = "route_twilight"
+                window = "Twilight arrival"
+            elif color == "FFC7CE":
+                style_id = "route_night"
+                window = "Night arrival"
+            else:
+                style_id = "route_style"
+                window = ""
+
+            seg_label = f"{wp_a['id']} → {wp_b['id']}"
+            if window:
+                seg_label += f" ({window})"
+
+            parts.append('  <Placemark>')
+            parts.append(f'    <name>{xml_escape(seg_label)}</name>')
+            parts.append(f'    <styleUrl>#{style_id}</styleUrl>')
+            parts.append('    <LineString>')
+            parts.append('      <tessellate>1</tessellate>')
+            parts.append('      <coordinates>')
+            parts.append(f'        {wp_a["lon"]:.6f},{wp_a["lat"]:.6f},0')
+            parts.append(f'        {wp_b["lon"]:.6f},{wp_b["lat"]:.6f},0')
+            parts.append('      </coordinates>')
+            parts.append('    </LineString>')
+            parts.append('  </Placemark>')
+    else:
+        # Plain route line (no daylight info)
+        parts.append('  <Placemark>')
+        parts.append(f'    <name>{xml_escape(route_name)} Route Line</name>')
+        parts.append('    <styleUrl>#route_style</styleUrl>')
+        parts.append('    <LineString>')
+        parts.append('      <tessellate>1</tessellate>')
+        parts.append('      <coordinates>')
+        for wp in waypoints:
+            parts.append(f'        {wp["lon"]:.6f},{wp["lat"]:.6f},0')
+        parts.append('      </coordinates>')
+        parts.append('    </LineString>')
+        parts.append('  </Placemark>')
 
     parts.append('</Document>')
     parts.append('</kml>')
@@ -178,12 +233,18 @@ def write_gpx(passage: dict, output_path: str) -> str:
     return output_path
 
 
-def write_route_files(passage: dict, output_dir: str) -> tuple:
-    """Write both KML and GPX to output_dir. Returns (kml_path, gpx_path)."""
+def write_route_files(passage: dict, output_dir: str, legs: list = None) -> tuple:
+    """Write both KML and GPX to output_dir. Returns (kml_path, gpx_path).
+
+    If `legs` is provided, the KML route line is split into segments and each
+    segment is colored by ETA window at the destination WP (green=day,
+    yellow=twilight, red=night). Open in Google Earth to see daylight bands
+    visually along the route.
+    """
     os.makedirs(output_dir, exist_ok=True)
     base = _route_name_for_files(passage)
     kml_path = os.path.join(output_dir, f"{base}_Route.kml")
     gpx_path = os.path.join(output_dir, f"{base}_Route.gpx")
-    write_kml(passage, kml_path)
+    write_kml(passage, kml_path, legs=legs)
     write_gpx(passage, gpx_path)
     return (kml_path, gpx_path)

@@ -21,6 +21,9 @@ from ..styles import style_header_cell, fill, COLOR_SUBHEADER_FILL, COLOR_GOOD_F
 
 def render_risk_bowtie(ws, passage, plan, legs):
     """Render Risk Bowtie tab for one plan."""
+    from openpyxl.drawing.image import Image as XLImage
+    from ..charts import radar_chart_png_bytes
+
     vessel_label = passage.get("vessel", {}).get("designation", "Vessel")
     ws.cell(1, 1, value=f"{plan['tab_label']} — Risk Bowtie: {vessel_label} Comfort & Safety Radar").font = Font(size=14, bold=True)
     ws.merge_cells("A1:H1")
@@ -34,6 +37,28 @@ def render_risk_bowtie(ws, passage, plan, legs):
 
     # Compute scores
     scores = _compute_scores(passage, legs)
+
+    # === Embed radar chart ===
+    # The chart is the same data as the table below — but visual.
+    # Polygon shape tells you the boat's profile at a glance:
+    # balanced = good all-rounder, spiky = strengths/weaknesses, small = concerning.
+    try:
+        chart_buf = radar_chart_png_bytes(
+            scores["axes"],
+            title=f"{vessel_label} — {plan['tab_label']} Risk Profile",
+            output_px=520,
+        )
+        img = XLImage(chart_buf)
+        img.width = 480
+        img.height = 480
+        img.anchor = "G4"
+        ws.add_image(img)
+        # Reserve enough vertical space for the chart (~26 rows × ~18 units ≈ chart height)
+        for r in range(4, 30):
+            if ws.row_dimensions[r].height is None or ws.row_dimensions[r].height < 20:
+                ws.row_dimensions[r].height = 20
+    except Exception:
+        pass  # If chart generation fails, fall through to table-only view
 
     # Headers
     headers = ["Dimension", "Score (1-10)", "Score 1 anchor", "Score 10 anchor", "What it measures", "Raw value (this plan)"]
