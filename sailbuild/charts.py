@@ -326,9 +326,16 @@ def timeline_strip_png_bytes(legs, output_w_px=1200, output_h_px=340):
 # ======================================================================
 # Mini polar — small chart showing boat polar at this TWS with TWA marker
 # ======================================================================
-def mini_polar_png_bytes(tws, twa, design="D1170", output_px=200):
+def mini_polar_png_bytes(tws, twa, design="D1170", output_px=200, tack="starboard"):
     """Tiny polar plot showing boat speed curve at given TWS,
-    with a marker dot at the current TWA.
+    with a marker dot at the current TWA on the correct tack.
+
+    tack: "starboard" → dot on the right side of the polar (wind from starboard)
+          "port"      → dot on the left side  (wind from port)
+
+    The polar curve itself is mirrored on both sides since the boat performs
+    symmetrically — but the dot indicates which tack the boat is actually on
+    for this leg.
     """
     from .polar import polar_speed
 
@@ -355,16 +362,24 @@ def mini_polar_png_bytes(tws, twa, design="D1170", output_px=200):
             np.concatenate([speeds, speeds[::-1]]),
             color=COLOR_PLAN_A, alpha=0.15)
 
-    # Current TWA marker (use whichever side is closer to 0-180)
+    # Current TWA marker — place on the correct side based on tack.
+    # In matplotlib polar with theta_zero=N, direction=-1:
+    #   positive theta goes clockwise (right = starboard)
+    #   negative theta goes counterclockwise (left = port)
     twa_rad = math.radians(twa)
+    if tack == "port":
+        marker_theta = -twa_rad  # Mirror to the left side
+    else:
+        marker_theta = twa_rad
     current_speed = polar_speed(tws, twa, design)
-    ax.plot(twa_rad, current_speed, marker="o", markersize=9,
+    ax.plot(marker_theta, current_speed, marker="o", markersize=9,
             markerfacecolor=COLOR_BAD, markeredgecolor="white",
             markeredgewidth=1.8, zorder=10)
 
-    # Minimal styling for small size
-    ax.set_xticks(np.radians([0, 45, 90, 135, 180]))
-    ax.set_xticklabels(["0°", "45°", "90°", "135°", "180°"], fontsize=7,
+    # Tick labels at the cardinal points of the polar.
+    # Show angle labels on BOTH sides so the dot's side is unambiguous.
+    ax.set_xticks(np.radians([0, 90, 180, 270]))
+    ax.set_xticklabels(["0°", "90°\nstbd", "180°", "90°\nport"], fontsize=7,
                        color="#595959")
     ax.set_yticks([4, 8])
     ax.set_yticklabels(["4", "8"], fontsize=7, color="#595959")

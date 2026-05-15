@@ -505,12 +505,24 @@ def _embed_mini_polar(ws, row, leg, passage):
     # (D1170 for HR48, D1206 for HR54, etc.)
     design = (passage or {}).get("vessel", {}).get("design_number", "D1170")
 
+    # Determine which tack the boat is on (port or starboard).
+    # rel = (wind_FROM_direction − boat_course) mod 360
+    #   0 to 180   → wind from boat's starboard side → STARBOARD tack
+    #   180 to 360 → wind from boat's port side      → PORT tack
+    # 0 and 180 are exact head/tail wind; either side is fine for the dot.
+    tack = "starboard"
+    if leg.wind_dir_deg is not None and leg.course_out is not None:
+        rel = (leg.wind_dir_deg - leg.course_out) % 360
+        if 180 < rel < 360:
+            tack = "port"
+
     try:
         png_buf = mini_polar_png_bytes(
             tws=tws_mid,
             twa=leg.twa,
             design=design,
             output_px=160,
+            tack=tack,
         )
     except Exception:
         cell = ws.cell(row, 22, value="—")
