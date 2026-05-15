@@ -1,0 +1,118 @@
+# Source manifest for CHS-Beaufort NC passage.
+# Offices: CHS (Charleston SC), ILM (Wilmington NC), MHX (Newport/Morehead NC)
+# Hazard transitions: Frying Pan Shoals, Cape Lookout
+
+route: chs-beaufort
+
+sources:
+  - id: cwf:CHS
+    kind: cwf
+    required: true
+    refresh_hr: 6
+    urls:
+      - https://tgftp.nws.noaa.gov/data/raw/fz/fzus52.kchs.cwf.chs.txt
+      - https://www.ndbc.noaa.gov/data/Forecasts/FZUS52.KCHS.html
+    paste_hint: |
+      Open https://www.ndbc.noaa.gov/data/Forecasts/FZUS52.KCHS.html
+      Paste the full bulletin from "FZUS52 KCHS" header to last "$$".
+
+  - id: cwf:ILM
+    kind: cwf
+    required: true
+    refresh_hr: 6
+    urls:
+      - https://tgftp.nws.noaa.gov/data/raw/fz/fzus52.kilm.cwf.ilm.txt
+      - https://www.ndbc.noaa.gov/data/Forecasts/FZUS52.KILM.html
+    paste_hint: |
+      Open https://www.ndbc.noaa.gov/data/Forecasts/FZUS52.KILM.html
+      Paste full bulletin.
+
+  - id: cwf:MHX
+    kind: cwf
+    required: true
+    refresh_hr: 6
+    urls:
+      - https://tgftp.nws.noaa.gov/data/raw/fz/fzus52.kmhx.cwf.mhx.txt
+      - https://www.ndbc.noaa.gov/data/Forecasts/FZUS52.KMHX.html
+    paste_hint: |
+      Open https://www.ndbc.noaa.gov/data/Forecasts/FZUS52.KMHX.html
+      Paste full bulletin — focus on AMZ150/152/154 zones for Beaufort Inlet approach.
+
+  - id: afd:CHS
+    kind: afd
+    required: true
+    refresh_hr: 6
+    urls:
+      - https://tgftp.nws.noaa.gov/data/raw/fx/fxus62.kchs.afd.chs.txt
+      - https://mesonet.agron.iastate.edu/wx/afos/p.php?pil=AFDCHS
+    paste_hint: |
+      Open https://mesonet.agron.iastate.edu/wx/afos/p.php?pil=AFDCHS
+      Paste FXUS62 KCHS through closing "$$".
+
+  - id: afd:MHX
+    kind: afd
+    required: true
+    refresh_hr: 6
+    urls:
+      - https://tgftp.nws.noaa.gov/data/raw/fx/fxus62.kmhx.afd.mhx.txt
+      - https://mesonet.agron.iastate.edu/wx/afos/p.php?pil=AFDMHX
+    paste_hint: |
+      Open https://mesonet.agron.iastate.edu/wx/afos/p.php?pil=AFDMHX
+      Critical for frontal timing at Beaufort approach.
+
+  - id: buoy:41008
+    kind: buoy
+    required: false
+    refresh_hr: 1
+    location: Grays Reef GA (31.40N 80.87W) — corridor south
+    urls:
+      - https://www.ndbc.noaa.gov/data/realtime2/41008.txt
+      - https://www.ndbc.noaa.gov/station_page.php?station=41008
+    paste_hint: |
+      Open https://www.ndbc.noaa.gov/station_page.php?station=41008
+      Paste latest conditions block, or "no data in last 8 hours" if offline.
+
+  - id: buoy:41036
+    kind: buoy
+    required: true
+    refresh_hr: 1
+    location: Onslow Bay NC (34.21N 77.30W) — corridor mid
+    urls:
+      - https://www.ndbc.noaa.gov/data/realtime2/41036.txt
+      - https://www.ndbc.noaa.gov/station_page.php?station=41036
+    paste_hint: |
+      Open https://www.ndbc.noaa.gov/station_page.php?station=41036
+      Paste latest conditions block.
+
+  - id: buoy:41037
+    kind: buoy
+    required: true
+    refresh_hr: 1
+    location: Cape Lookout NC (34.61N 76.79W) — high priority frontal passage marker
+    urls:
+      - https://www.ndbc.noaa.gov/data/realtime2/41037.txt
+      - https://www.ndbc.noaa.gov/station_page.php?station=41037
+    paste_hint: |
+      Open https://www.ndbc.noaa.gov/station_page.php?station=41037
+      HIGHEST PRIORITY for Beaufort — frontal-passage marker. Include the
+      previous-observations table so we can detect pressure trough timing.
+
+  - id: offshore:Mid_Atl
+    kind: offshore
+    required: false
+    refresh_hr: 6
+    urls:
+      - https://tgftp.nws.noaa.gov/data/forecasts/marine/offshore/an/anz900.txt
+    paste_hint: |
+      Open https://tgftp.nws.noaa.gov/data/forecasts/marine/offshore/an/anz900.txt
+      Paste the AMZ030/035/050 zones (Hatteras corridor).
+
+  - id: nhc:atlantic
+    kind: nhc
+    required: false
+    refresh_hr: 6
+    urls:
+      - https://www.nhc.noaa.gov/text/MIATWOAT.shtml
+    paste_hint: |
+      Open https://www.nhc.noaa.gov/text/MIATWOAT.shtml
+      Paste the Tropical Weather Outlook body.

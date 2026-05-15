@@ -1,0 +1,90 @@
+Expires:202605131300;;457177
+FZUS52 KJAX 122155
+CWFJAX
+
+Coastal Waters Forecast for Northeast Florida/Southeast Georgia
+National Weather Service Jacksonville FL
+555 PM EDT Tue May 12 2026
+
+Atlantic Coastal Waters from Altamaha Sound GA to Flagler Beach
+FL out to 60 nm.
+
+Seas are provided as a range of the average height of the highest
+1/3 of the waves, along with the occasional height of the average
+highest 1/10 of the waves.
+
+
+AMZ400-131300-
+Synopsis for Altamaha Sound GA to Flagler Beach FL out to 60 nm-
+555 PM EDT Tue May 12 2026
+
+.SYNOPSIS...
+
+A frontal boundary moving slowly southward across the northeast
+Florida waters will become stationary across central Florida tonight
+as a weak wave of low pressure currently over the eastern Gulf
+pushes eastward. Meanwhile, high pressure situated along the Mid-
+Atlantic coast will continue to wedge down the southeastern
+seaboard, with Small Craft Advisory conditions overspreading the
+waters south of St. Augustine this afternoon. Widespread showers and
+embedded thunderstorms will continue across our local waters through
+Wednesday morning.
+
+The wave of low pressure will push offshore of the east central
+Florida coast on Wednesday morning, with winds shifting to northerly
+while gradually decreasing as wrap-around showers and possibly a few
+thunderstorms continue into Wednesday afternoon. Another high
+pressure center building over the Great Lakes region will drive a
+dry frontal boundary southward across our local waters on Thursday
+morning, with this feature then weakening as it shifts over the
+southeastern states by Friday.
+
+$$
+
+
+AMZ450-131300-
+Waters from Altamaha Sound GA to Saint Augustine FL out 20 NM-
+555 PM EDT Tue May 12 2026
+
+...SMALL CRAFT ADVISORY IN EFFECT THROUGH WEDNESDAY EVENING...
+
+.TONIGHT...NE winds 15 to 20 kt with gusts to 25 kt. Seas 4 to 6
+ft. Wave Detail: NE 5 ft at 6 seconds and E 2 ft at 9 seconds.
+Showers and thunderstorms likely.
+.WED...NE winds 15 to 20 kt with gusts to 25 kt, diminishing to
+10 to 15 kt in the afternoon. Seas 4 to 6 ft, subsiding to 3 to 5
+ft in the afternoon. Wave Detail: NE 4 ft at 6 seconds and E 2 ft
+at 9 seconds. A chance of showers and thunderstorms.
+.WED NIGHT...N winds 10 to 15 kt. Seas 3 to 4 ft. Wave Detail:
+NE 3 ft at 7 seconds and E 1 ft at 9 seconds.
+.THU...N winds 10 to 15 kt with gusts to 20 kt, becoming NE 10 to
+15 kt in the afternoon. Seas 3 to 4 ft. Wave Detail: NE 3 ft at
+7 seconds.
+.THU NIGHT...NE winds 5 to 10 kt. Seas 2 to 3 ft. Wave Detail:
+NE 2 ft at 7 seconds.
+.FRI...E winds 5 to 10 kt. Seas 2 to 3 ft. Wave Detail: E 2 ft at
+8 seconds.
+
+$$
+
+
+AMZ452-131300-
+Waters from Altamaha Sound GA to Saint Augustine FL from 20 to 60 NM-
+555 PM EDT Tue May 12 2026
+
+...SMALL CRAFT ADVISORY IN EFFECT THROUGH WEDNESDAY EVENING...
+
+.TONIGHT...NE winds 20 to 25 kt with gusts to 30 kt. Seas 5 to 7
+ft. Wave Detail: NE 6 ft at 6 seconds and E 2 ft at 9 seconds.
+Showers and thunderstorms likely.
+.WED...NE winds 15 to 20 kt with gusts to 25 kt. Seas 5 to 6 ft,
+subsiding to 4 to 5 ft in the afternoon. Wave Detail: NE 5 ft at
+6 seconds and E 2 ft at 9 seconds.
+.WED NIGHT...N winds 10 to 15 kt. Seas 4 to 5 ft. Wave Detail:
+NE 4 ft at 7 seconds and E 2 ft at 9 seconds.
+.THU...N winds 10 to 15 kt with gusts to 20 kt. Seas 3 to 5 ft.
+Wave Detail: NE 4 ft at 7 seconds.
+.THU NIGHT...NE winds 5 to 10 kt. Seas 3 to 4 ft. Wave Detail:
+NE 3 ft at 7 seconds.
+
+$$

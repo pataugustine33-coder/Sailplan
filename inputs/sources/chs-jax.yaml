@@ -1,0 +1,134 @@
+# Source manifest for CHS-JAX passage.
+#
+# Each source has:
+#   - id: stable identifier used in build --require and pipeline status
+#   - kind: cwf | afd | buoy | nhc | offshore | high_seas
+#   - urls: ordered list of URLs to try (primary first, then fallbacks)
+#   - refresh_hr: expected refresh cadence (used for freshness tiering)
+#   - required: bool — if true, build refuses without this source unless
+#               --allow-stale is passed
+#   - paste_hint: text shown to the user when fetch fails, describing
+#                 what block to paste and from which URL
+#
+# Notes on fallback ordering, learned 2026-05-12:
+#   - tgftp.nws.noaa.gov/data/raw is the authoritative source for CWF/AFD text.
+#     Fastest and freshest when it works. Sometimes blocked by the fetcher.
+#   - ndbc.noaa.gov/data/Forecasts/FZUS52.K{OFFICE}.html mirrors CWF reliably,
+#     but the same URL has served days-stale AFD content via this fetch path.
+#   - mesonet.agron.iastate.edu/wx/afos is the best AFD fallback — Iowa State
+#     archives every NWS text product and serves the latest by PIL.
+#   - NDBC realtime2 directory has cached 9 days stale via the web_fetch path
+#     in at least one observed cycle; station_page.php is more reliable
+#     for the latest single observation.
+
+route: chs-jax
+
+sources:
+  - id: cwf:CHS
+    kind: cwf
+    required: true
+    refresh_hr: 6
+    urls:
+      - https://tgftp.nws.noaa.gov/data/raw/fz/fzus52.kchs.cwf.chs.txt
+      - https://www.ndbc.noaa.gov/data/Forecasts/FZUS52.KCHS.html
+    paste_hint: |
+      Open https://www.ndbc.noaa.gov/data/Forecasts/FZUS52.KCHS.html
+      Paste the entire bulletin from the "FZUS52 KCHS" header through
+      the last "$$" marker.
+
+  - id: cwf:JAX
+    kind: cwf
+    required: true
+    refresh_hr: 6
+    urls:
+      - https://tgftp.nws.noaa.gov/data/raw/fz/fzus52.kjax.cwf.jax.txt
+      - https://www.ndbc.noaa.gov/data/Forecasts/FZUS52.KJAX.html
+    paste_hint: |
+      Open https://tgftp.nws.noaa.gov/data/raw/fz/fzus52.kjax.cwf.jax.txt
+      Paste everything from "FZUS52 KJAX" header to end of file.
+
+  - id: afd:CHS
+    kind: afd
+    required: true
+    refresh_hr: 6
+    urls:
+      - https://tgftp.nws.noaa.gov/data/raw/fx/fxus62.kchs.afd.chs.txt
+      - https://mesonet.agron.iastate.edu/wx/afos/p.php?pil=AFDCHS
+      - https://forecast.weather.gov/product.php?site=CHS&issuedby=CHS&product=AFD
+    paste_hint: |
+      Open https://mesonet.agron.iastate.edu/wx/afos/p.php?pil=AFDCHS
+      In the gray code block, paste from "FXUS62 KCHS" through closing "$$".
+
+  - id: afd:JAX
+    kind: afd
+    required: true
+    refresh_hr: 6
+    urls:
+      - https://tgftp.nws.noaa.gov/data/raw/fx/fxus62.kjax.afd.jax.txt
+      - https://mesonet.agron.iastate.edu/wx/afos/p.php?pil=AFDJAX
+      - https://forecast.weather.gov/product.php?site=JAX&issuedby=JAX&product=AFD
+    paste_hint: |
+      Open https://mesonet.agron.iastate.edu/wx/afos/p.php?pil=AFDJAX
+      In the gray code block, paste from "FXUS62 KJAX" through closing "$$".
+
+  - id: buoy:41033
+    kind: buoy
+    required: true
+    refresh_hr: 1
+    location: Fripp Island SC (32.28N 80.41W) — corridor primary
+    urls:
+      - https://www.ndbc.noaa.gov/data/realtime2/41033.txt
+      - https://www.ndbc.noaa.gov/station_page.php?station=41033
+    paste_hint: |
+      Open https://www.ndbc.noaa.gov/station_page.php?station=41033
+      Paste the "Conditions at 41033 as of..." block — the latest observation
+      table with Wind Direction, Wind Speed, Wind Gust, Atmospheric Pressure,
+      and ideally the previous-observations table for pressure trend.
+      Include the timestamp line (e.g., "11:40 am EDT").
+
+  - id: buoy:41008
+    kind: buoy
+    required: false   # offline since 4/15 in last observed cycle
+    refresh_hr: 1
+    location: Grays Reef GA (31.40N 80.87W)
+    urls:
+      - https://www.ndbc.noaa.gov/data/realtime2/41008.txt
+      - https://www.ndbc.noaa.gov/station_page.php?station=41008
+    paste_hint: |
+      Open https://www.ndbc.noaa.gov/station_page.php?station=41008
+      If the page shows "Stations with no data in last 8 hours" indicator,
+      just paste that line. Otherwise paste the latest conditions block.
+
+  - id: buoy:41112
+    kind: buoy
+    required: false
+    refresh_hr: 1
+    location: Fernandina Beach FL (30.71N 81.29W) — waves only, no wind/pressure
+    urls:
+      - https://www.ndbc.noaa.gov/data/realtime2/41112.txt
+      - https://www.ndbc.noaa.gov/station_page.php?station=41112
+    paste_hint: |
+      Open https://www.ndbc.noaa.gov/station_page.php?station=41112
+      Paste the Wave Summary block (Significant Wave Height, Swell Height,
+      Swell Period, Swell Direction, etc.).
+
+  - id: offshore:SW_ATL
+    kind: offshore
+    required: false
+    refresh_hr: 6
+    urls:
+      - https://tgftp.nws.noaa.gov/data/forecasts/marine/offshore/am/amz000.txt
+    paste_hint: |
+      Open https://tgftp.nws.noaa.gov/data/forecasts/marine/offshore/am/amz000.txt
+      Paste the AMZ015 / AMZ035 zones (covers Charleston offshore corridor).
+
+  - id: nhc:atlantic
+    kind: nhc
+    required: false   # off-season May 12 — routine outlooks resume May 15
+    refresh_hr: 6
+    urls:
+      - https://www.nhc.noaa.gov/text/MIATWOAT.shtml
+    paste_hint: |
+      Open https://www.nhc.noaa.gov/text/MIATWOAT.shtml
+      Paste the Tropical Weather Outlook body (between the "Tropical Weather
+      Outlook" header and the closing "$$").

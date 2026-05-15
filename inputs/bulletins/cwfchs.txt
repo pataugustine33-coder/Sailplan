@@ -1,0 +1,86 @@
+Expires:202602230330;;067783
+FZUS52 KCHS 221323
+CWFCHS
+
+Coastal Waters Forecast
+National Weather Service Charleston SC
+823 AM EST Sun Feb 22 2026
+
+South Santee River SC to Savannah GA out 20 NM and Savannah GA to
+Altamaha Sound GA out 60 NM, including Charleston Harbor and
+Grays Reef National Marine Sanctuary
+
+
+AMZ300-230330-
+823 AM EST Sun Feb 22 2026
+
+.Synopsis for the coastal waters of south coastal South Carolina
+and north coastal Georgia...
+Strong cold front passage occurring through the region this
+morning, with very strong post-frontal NW winds and building seas
+through tonight. Gale conditions expected through Monday morning,
+gradually subsiding through Tuesday as high pressure builds in
+behind the front.
+
+$$
+
+
+AMZ350-230330-
+Waters from South Santee River to Edisto Beach SC out 20 NM-
+823 AM EST Sun Feb 22 2026
+
+...GALE WARNING IN EFFECT THROUGH MONDAY MORNING...
+
+.TODAY...SW winds 10 to 15 kt, becoming W 15 to 20 kt with gusts
+to 25 kt late this morning, then NW 25 to 30 kt with gusts to
+40 kt. Seas 2 to 3 ft, building to 4 to 6 ft. Wave Detail: SW 3
+ft at 5 seconds and E 1 foot at 9 seconds, becoming W 5 ft at 5
+seconds and E 1 foot at 9 seconds. A slight chance of showers this
+morning.
+.TONIGHT...NW winds 25 to 30 kt with gusts to 40 kt. Seas 5 to 7
+ft. Wave Detail: NW 7 ft at 5 seconds and E 1 foot at 10 seconds.
+.MON...NW winds 20 to 25 kt with gusts to 30 kt. Seas 4 to 6 ft,
+subsiding to 4 to 5 ft in the afternoon. Wave Detail: NW 5 ft at
+5 seconds and NE 1 foot at 6 seconds, becoming N 5 ft at
+6 seconds.
+.MON NIGHT...NW winds 20 to 25 kt, diminishing to 15 to 20 kt
+after midnight. Seas 4 to 5 ft, subsiding to 3 to 4 ft after
+midnight. Wave Detail: N 4 ft at 5 seconds.
+.TUE...NW winds 10 to 15 kt with gusts to 20 kt, becoming W 5 to
+10 kt in the afternoon. Seas 2 to 3 ft. Wave Detail: N 3 ft at
+5 seconds.
+.TUE NIGHT...SW winds 10 to 15 kt, increasing to 15 to 20 kt
+after midnight. Seas 2 to 3 ft, building to 3 to 4 ft after
+midnight. Wave Detail: SW 2 ft at 4 seconds and NE 1 foot at
+9 seconds, becoming SW 4 ft at 5 seconds and E 1 foot at
+10 seconds.
+.WED...SW winds 20 to 25 kt. Seas 4 to 6 ft.
+.WED NIGHT...SW winds 15 to 20 kt. Seas 4 to 6 ft.
+.THU...SW winds 20 to 25 kt. Seas 4 to 5 ft. A slight chance of
+showers.
+.THU NIGHT...SW winds 20 to 25 kt. Seas 5 to 6 ft. Showers
+likely.
+
+$$
+
+
+AMZ354-230330-
+Waters from South Santee River to Edisto Beach SC from 20 to 40 NM-
+823 AM EST Sun Feb 22 2026
+
+...GALE WARNING IN EFFECT THROUGH MONDAY MORNING...
+
+.TODAY...W winds 15 to 20 kt with gusts to 25 kt, becoming NW 25
+to 35 kt with gusts to 45 kt. Seas 3 to 4 ft, building to 6 to 8
+ft. Wave Detail: W 5 ft at 5 seconds and E 2 ft at 9 seconds,
+becoming NW 8 ft at 6 seconds.
+.TONIGHT...NW winds 30 to 35 kt with gusts to 45 kt. Seas 7 to
+9 ft. Wave Detail: NW 9 ft at 6 seconds.
+.MON...NW winds 25 to 30 kt with gusts to 40 kt. Seas 6 to 8 ft.
+Wave Detail: NW 7 ft at 6 seconds.
+.MON NIGHT...NW winds 20 to 25 kt. Seas 5 to 7 ft. Wave Detail:
+NW 6 ft at 6 seconds.
+.TUE...NW winds 10 to 15 kt with gusts to 20 kt. Seas 3 to 4 ft.
+Wave Detail: N 4 ft at 6 seconds.
+
+$$

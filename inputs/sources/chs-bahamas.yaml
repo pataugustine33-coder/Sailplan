@@ -1,0 +1,138 @@
+# Source manifest for CHS-Bahamas passage (typical route via Stuart FL → West End / Abacos).
+# Offices: CHS, JAX, MLB (Melbourne FL), MFL (Miami)
+# Hazard transitions: JAX→MLB Gulf Stream entry, Bahamas bank approach
+
+route: chs-bahamas
+
+sources:
+  - id: cwf:CHS
+    kind: cwf
+    required: true
+    refresh_hr: 6
+    urls:
+      - https://tgftp.nws.noaa.gov/data/raw/fz/fzus52.kchs.cwf.chs.txt
+      - https://www.ndbc.noaa.gov/data/Forecasts/FZUS52.KCHS.html
+    paste_hint: |
+      Open https://www.ndbc.noaa.gov/data/Forecasts/FZUS52.KCHS.html
+
+  - id: cwf:JAX
+    kind: cwf
+    required: true
+    refresh_hr: 6
+    urls:
+      - https://tgftp.nws.noaa.gov/data/raw/fz/fzus52.kjax.cwf.jax.txt
+      - https://www.ndbc.noaa.gov/data/Forecasts/FZUS52.KJAX.html
+    paste_hint: |
+      Open https://tgftp.nws.noaa.gov/data/raw/fz/fzus52.kjax.cwf.jax.txt
+
+  - id: cwf:MLB
+    kind: cwf
+    required: true
+    refresh_hr: 6
+    urls:
+      - https://tgftp.nws.noaa.gov/data/raw/fz/fzus52.kmlb.cwf.mlb.txt
+      - https://www.ndbc.noaa.gov/data/Forecasts/FZUS52.KMLB.html
+    paste_hint: |
+      Open https://www.ndbc.noaa.gov/data/Forecasts/FZUS52.KMLB.html
+      Critical: Flagler Beach to Jupiter Inlet covers Gulf Stream entry zone.
+
+  - id: cwf:MFL
+    kind: cwf
+    required: false
+    refresh_hr: 6
+    urls:
+      - https://tgftp.nws.noaa.gov/data/raw/fz/fzus52.kmfl.cwf.mfl.txt
+      - https://www.ndbc.noaa.gov/data/Forecasts/FZUS52.KMFL.html
+    paste_hint: |
+      Open https://www.ndbc.noaa.gov/data/Forecasts/FZUS52.KMFL.html
+      Needed if route passes Jupiter Inlet south.
+
+  - id: afd:JAX
+    kind: afd
+    required: true
+    refresh_hr: 6
+    urls:
+      - https://tgftp.nws.noaa.gov/data/raw/fx/fxus62.kjax.afd.jax.txt
+      - https://mesonet.agron.iastate.edu/wx/afos/p.php?pil=AFDJAX
+    paste_hint: |
+      Open https://mesonet.agron.iastate.edu/wx/afos/p.php?pil=AFDJAX
+
+  - id: afd:MLB
+    kind: afd
+    required: true
+    refresh_hr: 6
+    urls:
+      - https://tgftp.nws.noaa.gov/data/raw/fx/fxus62.kmlb.afd.mlb.txt
+      - https://mesonet.agron.iastate.edu/wx/afos/p.php?pil=AFDMLB
+    paste_hint: |
+      Open https://mesonet.agron.iastate.edu/wx/afos/p.php?pil=AFDMLB
+      Critical for Gulf Stream wind-against-current timing.
+
+  - id: buoy:41008
+    kind: buoy
+    required: false
+    refresh_hr: 1
+    location: Grays Reef GA (31.40N 80.87W)
+    urls:
+      - https://www.ndbc.noaa.gov/data/realtime2/41008.txt
+      - https://www.ndbc.noaa.gov/station_page.php?station=41008
+
+  - id: buoy:41112
+    kind: buoy
+    required: false
+    refresh_hr: 1
+    location: Fernandina Beach FL (waves only)
+    urls:
+      - https://www.ndbc.noaa.gov/data/realtime2/41112.txt
+      - https://www.ndbc.noaa.gov/station_page.php?station=41112
+
+  - id: buoy:41009
+    kind: buoy
+    required: true
+    refresh_hr: 1
+    location: Canaveral East FL (28.52N 80.18W) — Gulf Stream entry zone primary
+    urls:
+      - https://www.ndbc.noaa.gov/data/realtime2/41009.txt
+      - https://www.ndbc.noaa.gov/station_page.php?station=41009
+    paste_hint: |
+      Open https://www.ndbc.noaa.gov/station_page.php?station=41009
+      Critical Gulf Stream marker.
+
+  - id: buoy:41114
+    kind: buoy
+    required: false
+    refresh_hr: 1
+    location: Fort Pierce FL (27.55N 80.22W)
+    urls:
+      - https://www.ndbc.noaa.gov/data/realtime2/41114.txt
+      - https://www.ndbc.noaa.gov/station_page.php?station=41114
+
+  - id: buoy:41010
+    kind: buoy
+    required: false
+    refresh_hr: 1
+    location: Canaveral 120 NM E (28.88N 78.47W) — offshore reference
+    urls:
+      - https://www.ndbc.noaa.gov/data/realtime2/41010.txt
+      - https://www.ndbc.noaa.gov/station_page.php?station=41010
+
+  - id: offshore:SW_ATL
+    kind: offshore
+    required: true
+    refresh_hr: 6
+    urls:
+      - https://tgftp.nws.noaa.gov/data/forecasts/marine/offshore/am/amz000.txt
+    paste_hint: |
+      Open https://tgftp.nws.noaa.gov/data/forecasts/marine/offshore/am/amz000.txt
+      Includes Gulf Stream waters AMZ070/072/074 — required for the crossing.
+
+  - id: nhc:atlantic
+    kind: nhc
+    required: true
+    refresh_hr: 6
+    urls:
+      - https://www.nhc.noaa.gov/text/MIATWOAT.shtml
+    paste_hint: |
+      Open https://www.nhc.noaa.gov/text/MIATWOAT.shtml
+      Required hurricane-season; off-season note will say "Tropical cyclone
+      formation is not expected during the next 7 days."

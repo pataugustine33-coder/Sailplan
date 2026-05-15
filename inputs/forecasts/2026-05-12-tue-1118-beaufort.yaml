@@ -1,0 +1,590 @@
+# Forecast bundle for Charleston-Beaufort route, Tue 5/12 1118 AM CHS /
+# 1130 AM ILM / 1145 AM MHX cycle.
+# Same synoptic situation as CHS-JAX (Mid-Atlantic ridge wedge after Mon front,
+# weak offshore low passes Wed, dry front Thu AM, building high Fri).
+# Different impacts on a NORTH-bound boat: NE/E winds are now bow-on or beam,
+# not on the quarter as they were for the southbound CHS-JAX route.
+
+cycle:
+  label: "Tue 5/12 cycle (CHS 1118 AM / ILM 1130 AM / MHX 1145 AM)"
+  cwfchs:
+    issued: "2026-05-12T11:18:00-04:00"
+    label_short: "Tue 5/12 1118 AM"
+    label_full: "1118 AM EDT Tue May 12 2026"
+  cwfilm:
+    issued: "2026-05-12T11:30:00-04:00"
+    label_short: "Tue 5/12 1130 AM"
+    label_full: "1130 AM EDT Tue May 12 2026"
+  cwfmhx:
+    issued: "2026-05-12T11:45:00-04:00"
+    label_short: "Tue 5/12 1145 AM"
+    label_full: "1145 AM EDT Tue May 12 2026"
+  afdchs:
+    issued: "2026-05-12T07:14:00-04:00"
+    label_short: "Tue 5/12 714 AM"
+    label_full: "714 AM EDT Tue May 12 2026"
+  afdilm:
+    issued: "2026-05-12T08:02:00-04:00"
+    label_short: "Tue 5/12 802 AM"
+    label_full: "802 AM EDT Tue May 12 2026"
+  afdmhx:
+    issued: "2026-05-12T07:30:00-04:00"
+    label_short: "Tue 5/12 730 AM"
+    label_full: "730 AM EDT Tue May 12 2026"
+
+# Backward-compatibility: the build script references cwfjax in support.py for
+# cycle freshness display. We alias the most-active office's cycle to that key
+# so the existing Format Reference renderer still works.
+# (Architecture note: the cycle keys are referenced by name in compute.py too
+# — both 'cwfchs' and 'cwfjax' are checked. This becomes obvious in stress
+# test — see findings at bottom of file.)
+
+zones:
+  # === KCHS — Charleston, SC ===
+  AMZ350:
+    description: "South Santee River to Edisto Beach SC, out 20 NM"
+    office: CHS
+    SCA:
+      in_effect_until: "Wed 3 AM EDT"
+      reason: "Tue 5/12 NE wind 20-25 g30 post-frontal residual"
+    periods:
+      WED:
+        wind_dir: ENE
+        wind_dir_deg: 67
+        wind_kt: [10, 15]
+        sea_ft: [4, 5]
+        wave_detail:
+          primary: {direction: NE, direction_deg: 45, height_ft: 5, period_s: 7}
+      WED_NIGHT:
+        wind_dir: E
+        wind_dir_deg: 90
+        wind_kt: [5, 10]
+        sea_ft: [3, 4]
+        wave_detail:
+          primary: {direction: E, direction_deg: 90, height_ft: 3, period_s: 7}
+      THU:
+        wind_dir: NW
+        wind_dir_deg: 315
+        wind_kt: [10, 15]
+        sea_ft: [3, 4]
+        wave_detail:
+          primary: {direction: E, direction_deg: 90, height_ft: 3, period_s: 7}
+
+  AMZ370:
+    description: "South Santee to Edisto Beach, 20-60 NM"
+    office: CHS
+    SCA:
+      in_effect_until: "Wed 6 AM EDT"
+      reason: "Outer waters slower to clear post-frontal seas"
+    periods:
+      WED:
+        wind_dir: ENE
+        wind_dir_deg: 67
+        wind_kt: [10, 15]
+        sea_ft: [5, 6]
+        wave_detail:
+          primary: {direction: NE, direction_deg: 45, height_ft: 5, period_s: 7}
+          secondary: {direction: E, direction_deg: 90, height_ft: 2, period_s: 10}
+      THU:
+        wind_dir: NW
+        wind_dir_deg: 315
+        wind_kt: [12, 17]
+        sea_ft: [3, 5]
+        wave_detail:
+          primary: {direction: NE, direction_deg: 45, height_ft: 4, period_s: 8}
+
+  # === KILM — Wilmington, NC ===
+  AMZ254:
+    description: "South Santee SC to Little River Inlet, out 20 NM"
+    office: ILM
+    SCA:
+      in_effect_until: "Wed 3 AM EDT"
+    periods:
+      WED:
+        wind_dir: NE→ENE
+        wind_dir_deg: 56
+        wind_kt: [12, 17]
+        sea_ft: [4, 6]
+        wave_detail:
+          primary: {direction: NE, direction_deg: 45, height_ft: 5, period_s: 7}
+      THU:
+        wind_dir: NW
+        wind_dir_deg: 315
+        wind_kt: [10, 15]
+        sea_ft: [3, 4]
+        wave_detail:
+          primary: {direction: NE, direction_deg: 45, height_ft: 3, period_s: 8}
+
+  AMZ252:
+    description: "Little River Inlet to Cape Fear NC, out 20 NM"
+    office: ILM
+    SCA:
+      in_effect_until: "Wed 6 AM EDT"
+    periods:
+      WED:
+        wind_dir: NE
+        wind_dir_deg: 45
+        wind_kt: [15, 20]
+        sea_ft: [5, 7]
+        wave_detail:
+          primary: {direction: NE, direction_deg: 45, height_ft: 6, period_s: 7}
+      THU:
+        wind_dir: NW
+        wind_dir_deg: 315
+        wind_kt: [12, 17]
+        sea_ft: [3, 5]
+        wave_detail:
+          primary: {direction: NE, direction_deg: 45, height_ft: 4, period_s: 8}
+
+  AMZ250:
+    description: "Cape Fear to Surf City NC, out 20 NM"
+    office: ILM
+    SCA:
+      in_effect_until: "Wed 6 AM EDT"
+    periods:
+      WED:
+        wind_dir: NE
+        wind_dir_deg: 45
+        wind_kt: [15, 20]
+        sea_ft: [5, 7]
+        wave_detail:
+          primary: {direction: NE, direction_deg: 45, height_ft: 6, period_s: 7}
+      WED_NIGHT:
+        wind_dir: NE→E
+        wind_dir_deg: 67
+        wind_kt: [10, 15]
+        sea_ft: [4, 5]
+        wave_detail:
+          primary: {direction: NE, direction_deg: 45, height_ft: 4, period_s: 7}
+      THU:
+        wind_dir: NW
+        wind_dir_deg: 315
+        wind_kt: [12, 17]
+        sea_ft: [3, 4]
+        wave_detail:
+          primary: {direction: NE, direction_deg: 45, height_ft: 3, period_s: 8}
+      THU_NIGHT:
+        wind_dir: NW→N
+        wind_dir_deg: 340
+        wind_kt: [10, 15]
+        sea_ft: [2, 4]
+        wave_detail:
+          primary: {direction: NE, direction_deg: 45, height_ft: 3, period_s: 8}
+
+  AMZ270:
+    description: "Cape Fear to Surf City, 20-60 NM"
+    office: ILM
+    SCA:
+      in_effect_until: "Wed 9 AM EDT"
+    periods:
+      WED:
+        wind_dir: NE
+        wind_dir_deg: 45
+        wind_kt: [18, 23]
+        sea_ft: [6, 8]
+        wave_detail:
+          primary: {direction: NE, direction_deg: 45, height_ft: 7, period_s: 7}
+
+  # === KMHX — Newport / Morehead City, NC ===
+  AMZ158:
+    description: "Surf City to Cape Lookout NC, out 20 NM"
+    office: MHX
+    SCA:
+      in_effect_until: "Wed 6 PM EDT"
+      reason: "Tue 5/12 NE 20-25 g30, slow to ease per AFDMHX"
+    periods:
+      WED:
+        wind_dir: NE
+        wind_dir_deg: 45
+        wind_kt: [15, 20]
+        sea_ft: [5, 7]
+        wave_detail:
+          primary: {direction: NE, direction_deg: 45, height_ft: 6, period_s: 7}
+      WED_NIGHT:
+        wind_dir: NE→ENE
+        wind_dir_deg: 56
+        wind_kt: [10, 15]
+        sea_ft: [4, 5]
+        wave_detail:
+          primary: {direction: NE, direction_deg: 45, height_ft: 4, period_s: 7}
+      THU:
+        wind_dir: NW
+        wind_dir_deg: 315
+        wind_kt: [15, 20]
+        sea_ft: [3, 5]
+        wave_detail:
+          primary: {direction: NE, direction_deg: 45, height_ft: 4, period_s: 8}
+      THU_NIGHT:
+        wind_dir: NW→N
+        wind_dir_deg: 340
+        wind_kt: [10, 15]
+        sea_ft: [3, 4]
+        wave_detail:
+          primary: {direction: NE, direction_deg: 45, height_ft: 3, period_s: 8}
+
+  AMZ156:
+    description: "Cape Lookout to Ocracoke Inlet NC, out 20 NM"
+    office: MHX
+    SCA:
+      in_effect_until: "Wed 6 PM EDT"
+    periods:
+      WED:
+        wind_dir: NE
+        wind_dir_deg: 45
+        wind_kt: [15, 20]
+        sea_ft: [5, 7]
+        wave_detail:
+          primary: {direction: NE, direction_deg: 45, height_ft: 6, period_s: 7}
+      WED_NIGHT:
+        wind_dir: NE
+        wind_dir_deg: 45
+        wind_kt: [10, 15]
+        sea_ft: [4, 5]
+      THU:
+        wind_dir: NW
+        wind_dir_deg: 315
+        wind_kt: [15, 20]
+        sea_ft: [3, 5]
+        wave_detail:
+          primary: {direction: NE, direction_deg: 45, height_ft: 4, period_s: 8}
+      THU_NIGHT:
+        wind_dir: NW→N
+        wind_dir_deg: 340
+        wind_kt: [10, 15]
+        sea_ft: [3, 4]
+        wave_detail:
+          primary: {direction: NE, direction_deg: 45, height_ft: 3, period_s: 8}
+
+# Synopsis text from each office.
+synopses:
+  CHS:
+    zone: AMZ300
+    text: |
+      A cold front far offshore and high pressure passing to our north will cause
+      winds and seas to remain elevated through this evening. Conditions will
+      improve tonight into Wednesday. Another cold front should quickly move
+      through morning Thursday, followed by a broad area of high pressure.
+  ILM:
+    zone: AMZ200
+    text: |
+      Strong high pressure to the north will maintain elevated NE winds across
+      our waters into Wednesday morning. Winds gradually relax Wed afternoon
+      as gradient relaxes. Dry frontal passage Thursday morning brings NW
+      winds, building high pressure Friday into the weekend.
+  MHX:
+    zone: AMZ100
+    text: |
+      A surface ridge across the central Mid-Atlantic states extending offshore
+      maintains a tight pressure gradient over local waters with elevated NE
+      winds and seas through Wednesday. Gradient slowly relaxes Wed afternoon
+      and night. A cold front moves through early Thursday with NW winds and
+      diminishing seas Thursday afternoon into Friday under building high.
+
+afd_marine:
+  CHS: |
+    Today and tonight: Small Craft Advisories remain in effect into tonight for
+    gusty northeast winds behind a cold front. Seas peak this evening between
+    4-7 ft nearshore and 7-8 ft outer waters. Marine conditions gradually
+    improve late tonight as high pressure builds southward. Extended Marine:
+    Low pressure passes offshore Wednesday with minimal additional impacts. A
+    cold front moves through Thursday morning, though winds and seas shouldn't
+    be high enough to prompt SCAs.
+  ILM: |
+    Northeast winds elevated through Wednesday morning at 15-20 kt nearshore,
+    18-23 kt outer waters. Seas 5-7 ft nearshore peaking Tuesday night, 6-8 ft
+    outer waters. SCAs extended into Wednesday morning given slow seas decay
+    behind the front. Improving Wed afternoon. Dry front Thu morning brings
+    NW shift; winds 12-17 kt diminishing through Thursday afternoon.
+  MHX: |
+    Tight pressure gradient between the Mid-Atlantic ridge and the offshore
+    low maintaining elevated NE winds 15-20 kt through Wednesday. Seas 5-7 ft
+    inshore waters. Gradient relaxes Wednesday afternoon-night. Cold front
+    moves through early Thursday with NW winds 15-20 kt. Diminishing winds
+    and seas Thursday afternoon and Thursday night.
+
+waypoint_assignments:
+  # ============================================================
+  # PLAN A: Wed 6 AM departure CHS, north-bound to Beaufort, NC
+  # ============================================================
+  # Key character: Wind is ON THE BOW (NE/ENE) for first half — bow-on bash.
+  # As the boat moves north, gets into ILM and MHX zones where NE wind is
+  # stronger (closer to the ridge gradient max). Frying Pan turn (WP5) is
+  # critical — boat must round Frying Pan with NE 15-20 kt wind essentially
+  # straight on the bow. Will likely motor majority of passage.
+  plan_a:
+    WP1:
+      zone: AMZ350
+      period: WED
+      risk_level: yellow
+      row_band: yellow
+      pressure: 30.18
+      pressure_trend: Rising slow
+      notes_addendum: >
+        Dawn departure CHS in post-frontal ENE residual flow. Course 070° puts
+        wind almost on the nose. Expect bow seas 4-5 ft @ 7s for first 25 NM.
+      weather_risk: >
+        Bow seas 4-5 ft @ 7s @ ENE — close-reach with sea factor 0.72 zone.
+        Sporty, slow, wet. SCA expires Wed 3 AM but residual seas linger.
+        Verify Tue 5 PM CWF for final read.
+    WP2:
+      zone: AMZ370
+      period: WED
+      risk_level: yellow
+      pressure: 30.18
+      pressure_trend: Steady
+      notes_addendum: >
+        Crossing into outer waters AMZ370 (20-60 NM). Seas 5-6 ft, slightly
+        bigger than inshore. Course 060°, wind ENE — still close on the bow.
+      weather_risk: >
+        Outer-waters seas 5-6 ft on close bow. SCA in AMZ370 until Wed 6 AM
+        per outer-waters slower clearance.
+    WP3:
+      zone: AMZ254
+      period: WED
+      risk_level: yellow
+      pressure: 30.17
+      pressure_trend: Steady
+      notes_addendum: >
+        Mid-Long Bay, in KILM AMZ254 inshore. Wind NE→ENE 12-17 kt, seas 4-6.
+      weather_risk: >
+        Crossing forecast office boundary into KILM. Conditions similar to
+        CHS waters — close-reach in NE flow, mostly motor-and-main territory.
+    WP4:
+      zone: AMZ252
+      period: WED
+      risk_level: yellow
+      row_band: salmon
+      pressure: 30.16
+      pressure_trend: Falling slow
+      notes_addendum: >
+        Approaching Frying Pan from S. Course 082° — wind NE 15-20 puts seas
+        right on port bow. AMZ252 forecast 5-7 ft. Crux of the passage.
+      weather_risk: >
+        FRYING PAN APPROACH with NE 15-20 kt on bow, seas 5-7 ft. This is the
+        tactical hazard — boat is heading 082° (E-NE) directly into wind/seas.
+        Motor through, reef if sailing, expect slow going. Monitor Frying Pan
+        buoy 41013 for live wind/seas.
+    WP5:
+      zone: AMZ252
+      period: WED
+      risk_level: red
+      row_band: salmon
+      pressure: 30.15
+      pressure_trend: Falling slow
+      notes_addendum: >
+        FRYING PAN TURN. Course 060° NE-bound, wind NE 15-20 kt at TWA 15°
+        from the bow. Wind on the nose. Must motor — sailing impossible at
+        this TWA. Seas 5-7 ft @ 7s short period.
+      weather_risk: >
+        WIND ON THE NOSE — tactical hazard. Tack required if attempting to
+        sail. Motor the turn at reduced speed for comfort. The 7-second
+        period in 6-foot seas means hobby-horsing. Conservative approach:
+        slow down to 5 kt for better motion.
+    WP6:
+      zone: AMZ250
+      period: WED
+      risk_level: yellow
+      pressure: 30.14
+      pressure_trend: Falling slow
+      notes_addendum: >
+        Past Frying Pan, course turns N (030°). Wind NE 15-20 now on starboard
+        bow at TWA ~45°. Better angle than the approach but still close-hauled.
+      weather_risk: >
+        Wind angle improving past Frying Pan — close reach not close-hauled.
+        Can attempt sailing if seas reduce, or continue motoring-with-main.
+    WP7:
+      zone: AMZ250
+      period: WED_NIGHT
+      risk_level: yellow
+      pressure: 30.12
+      pressure_trend: Falling slow
+      notes_addendum: >
+        Wilmington offshore evening. Wind easing per WED NIGHT forecast to
+        NE→E 10-15 kt as gradient relaxes. Seas slowly subsiding to 4-5 ft.
+      weather_risk: >
+        Evening conditions improving. Twilight transition; wind backing E.
+        Continue close-reach sailing if winds hold ≥8 kt, motor if drops.
+    WP8:
+      zone: AMZ158
+      period: WED_NIGHT
+      risk_level: yellow
+      pressure: 30.10
+      pressure_trend: Falling slow
+      notes_addendum: >
+        Onslow Bay, crossing into KMHX zones. Wind NE→ENE 10-15 kt, seas
+        4-5 ft. AMZ158 SCA still in effect Wed daytime — verify cleared
+        before transit.
+      weather_risk: >
+        KMHX waters: per AFDMHX 'tight pressure gradient...elevated NE winds
+        15-20 kt through Wednesday'. Verify SCA has cleared before continuing.
+        If still SCA-active overnight, consider standoff at WP8 until dawn.
+    WP9:
+      zone: AMZ156
+      period: THU
+      risk_level: yellow
+      pressure: 30.08
+      pressure_trend: Falling slow
+      notes_addendum: >
+        ARRIVAL Beaufort Inlet, Thu early AM. Dry front passing — wind shifting
+        NW. Should be lighter than Wed daytime.
+      weather_risk: >
+        Inlet entry timing at dawn-twilight. Beaufort Inlet bar — check tide
+        timing for slack water or favorable current.
+
+  # ============================================================
+  # PLAN B: Thu 6 AM departure CHS, north-bound to Beaufort, NC
+  # ============================================================
+  # Key character: Departs right at dry frontal passage. NW winds astern as
+  # boat goes north — following / quartering motion. Fast and comfortable,
+  # but winds 15-20 kt in KILM/KMHX zones.
+  plan_b:
+    WP1:
+      zone: AMZ350
+      period: THU
+      risk_level: yellow
+      row_band: yellow
+      pressure: 30.10
+      pressure_trend: Falling slow
+      notes_addendum: >
+        Dawn departure right at dry-frontal passage. Wind shifting NW.
+        Variable in first hour while shift settles.
+      weather_risk: >
+        Departing into NW post-front. Wind on stern quarter for course 070°
+        (TWA ~115°). Should be fast quartering reach.
+    WP2:
+      zone: AMZ254
+      period: THU
+      risk_level: yellow
+      pressure: 30.12
+      pressure_trend: Rising slow
+      override:
+        wind_kt: [12, 15]
+        wind_dir_deg: 315
+        wind_dir_text: NW
+      notes_addendum: >
+        Late morning, NW 12-15 kt astern for course 060°. Strong following
+        reach. Pressure rising as front clears.
+      weather_risk: >
+        Comfortable port-quarter sailing in dry NW air. Fast.
+    WP3:
+      zone: AMZ254
+      period: THU
+      risk_level: yellow
+      pressure: 30.14
+      pressure_trend: Rising
+      notes_addendum: >
+        Mid-Long Bay, continued NW 12-15 kt astern. Course 065° gives TWA ~110°.
+      weather_risk: >
+        Excellent broad-reach conditions. Boat well-suited to this point of sail.
+    WP4:
+      zone: AMZ252
+      period: THU
+      risk_level: yellow
+      pressure: 30.16
+      pressure_trend: Rising
+      notes_addendum: >
+        Approaching Frying Pan in NW astern. Course 082° puts wind at TWA ~125° —
+        broad reach with seas on port quarter. Vastly easier than Plan A
+        rounding.
+      weather_risk: >
+        Comfortable Frying Pan approach in NW air. Pressure rising under
+        building ridge.
+    WP5:
+      zone: AMZ250
+      period: THU
+      risk_level: yellow
+      pressure: 30.18
+      pressure_trend: Rising
+      override:
+        wind_kt: [15, 18]
+        wind_dir_deg: 315
+        wind_dir_text: NW
+      notes_addendum: >
+        FRYING PAN TURN. Course 060°, wind NW 15-18 kt at TWA ~105° — beam
+        reach. Best sailing of the passage. Pressure rising fast.
+      weather_risk: >
+        Beam reach Frying Pan turn — completely different character than Plan A.
+        Fast, controlled, comfortable.
+    WP6:
+      zone: AMZ250
+      period: THU_NIGHT
+      risk_level: green
+      pressure: 30.20
+      pressure_trend: Rising
+      notes_addendum: >
+        Past Frying Pan. Course 030° puts NW wind at TWA 75° — close-beam
+        reach. AMZ250 THU_NIGHT lighter — back below 15 kt.
+      weather_risk: >
+        Comfortable close-beam reach in clearing air.
+    WP7:
+      zone: AMZ158
+      period: THU_NIGHT
+      risk_level: green
+      pressure: 30.21
+      pressure_trend: Rising slow
+      notes_addendum: >
+        Wilmington offshore overnight. Wind NE→ENE 10-15 kt as expected per
+        AMZ158 WED NIGHT forecast extended through Thu. Now in KMHX waters.
+      weather_risk: >
+        Smooth overnight broad-reach in light NW-N flow.
+    WP8:
+      zone: AMZ156
+      period: THU_NIGHT
+      risk_level: green
+      pressure: 30.22
+      pressure_trend: Rising slow
+      notes_addendum: >
+        Onslow Bay overnight. Wind NW→N 10-15 kt, seas 3-4 ft NE residual.
+      weather_risk: >
+        Quiet overnight passage. NW-N wind from astern, course 035° = TWA
+        ~115° broad reach.
+    WP9:
+      zone: AMZ156
+      period: THU_NIGHT
+      risk_level: green
+      row_band: light_green
+      pressure: 30.22
+      pressure_trend: Steady
+      notes_addendum: >
+        ARRIVAL Beaufort Inlet. Light NW-N wind, residual NE swell.
+      weather_risk: >
+        OPTIMAL DAWN ARRIVAL. Light wind, manageable bar entry. Check tide
+        timing at Beaufort.
+
+plan_commentary:
+  plan_a: >
+    Plan A — Depart 6:00 AM Wed May 13 from Charleston Sea Buoy heading north
+    to Beaufort, NC (219 NM).
+
+    *** STRESS TEST INSIGHT: this NORTH-bound route experiences the same Tue
+    5/12 cycle forecast as the south-bound CHS-JAX, but reads as MOTOR-HEAVY
+    instead of sailing-heavy because the post-frontal NE-ENE winds are
+    bow-on, not quartering.
+
+    📍 ARRIVAL: Thu early AM at Beaufort Inlet — exact time depends on motor
+    fraction; expect 35-40 hours total at average ~5.5-6 kt.
+
+    ⚠️ FRYING PAN TURN (WP5) is the crux: NE 15-20 kt wind directly on the
+    bow per AMZ252 forecast. Wind-on-the-nose tactical hazard requires either
+    motor-only or tack out east before continuing N. Salmon-banded.
+
+    ⚠️ KILM/KMHX zones show stronger NE flow than KCHS — gradient is tighter
+    closer to the Mid-Atlantic ridge center. Plan accordingly.
+
+  plan_b: >
+    Plan B — Depart 6:00 AM Thu May 14 from Charleston Sea Buoy heading north
+    to Beaufort, NC (219 NM).
+
+    *** STRESS TEST INSIGHT: This is the OPPOSITE character of Plan A. The dry
+    front Thu morning shifts wind to NW, which is from astern/quarter for the
+    N-bound route. Broad-reach to beam-reach sailing the entire way.
+
+    📍 ARRIVAL: Fri AM dawn at Beaufort Inlet. ~36-38 hours expected at
+    sail-dominated 6+ kt average.
+
+    ✅ FRYING PAN TURN (WP5) becomes a beam-reach pleasure ride at NW 15-18 kt
+    in clearing post-frontal air.
+
+    ⚠️ TRADE-OFFS: (1) Departure right at frontal passage (variable winds
+    first hour). (2) Two-night passage — single-handed fatigue planning
+    matters. Watch discipline critical especially across Onslow Bay overnight.

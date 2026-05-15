@@ -1,0 +1,132 @@
+# Live NDBC buoy observations for Thu May 14 2026 ~4:30 PM EDT pull —
+# Charleston-Beaufort corridor. Pulled via Claude in Chrome from
+# www.ndbc.noaa.gov/data/realtime2/<station>.txt.
+#
+# Verification context: forecast cycle is Thu 5/14 229 PM CHS / 239 PM ILM /
+# 318 PM MHX. Buoys read 4-4:40 PM EDT. Most recent obs ~30 min old.
+
+pull:
+  label: "Thu May 14 2026 ~4:30 PM EDT (~4 hr post-cycle pull, ground-truth)"
+  pull_source: "NDBC realtime2 text feeds via Claude in Chrome. Latency <30 min."
+
+stations:
+  - id: 41004
+    name: Edisto (departure side)
+    lat: 32.502
+    lon: -79.099
+    reading_time: "4:40 PM EDT Thu 5/14"
+    wind_dir: "230° (SW)"
+    wind_kt: 9.7
+    gust_kt: 11.7
+    pressure_inhg: 29.80
+    pressure_trend_3hr_inhg: -0.027
+    wave_height_ft: 2.6
+    wave_period_s: 7
+    mwd_deg: 93
+    status: fresh
+    verification: >
+      Matches CWFCHS AMZ360 "This afternoon SW 5-10 kt, seas 3 ft, E 3 @ 7s"
+      with high confidence. Forecast tracking accurately. Pressure falling
+      slowly = expected ahead of the reinforcing NE surge tonight.
+
+  - id: 41013
+    name: Frying Pan Shoals
+    lat: 33.485
+    lon: -77.586
+    reading_time: "4:40 PM EDT Thu 5/14"
+    wind_dir: "240° (SW)"
+    wind_kt: 5.8
+    gust_kt: 7.8
+    pressure_inhg: 29.78
+    wave_height_ft: 2.95
+    wave_period_s: 7
+    mwd_deg: 139
+    status: fresh
+    verification: >
+      Light SW. CWFILM AMZ252 "this afternoon W 5-10" matches. SE 3 ft @ 7s
+      swell matches forecast Wave Detail. Front passed offshore earlier;
+      local wind in lull before the overnight NW surge per AFDMHX.
+
+  - id: 41037
+    name: Wrightsville Beach (mid-route NC)
+    lat: 34.141
+    lon: -77.711
+    reading_time: "4:08 PM EDT Thu 5/14"
+    wind_dir: "190° (S, variable)"
+    wind_kt: 2.0
+    gust_kt: 7.8
+    pressure_inhg: 29.78
+    status: fresh
+    verification: >
+      Light/variable in current local lull. Earlier today (1 PM EDT) was
+      NW 8-12 — front passed through. Next NW surge expected late tonight
+      per AFDILM. Tracking forecast.
+
+  - id: CLKN7
+    name: Cape Lookout (arrival approach)
+    lat: 34.622
+    lon: -76.524
+    reading_time: "4:50 PM EDT Thu 5/14"
+    wind_dir: "100° (E)"
+    wind_kt: 7.0
+    gust_kt: 8.9
+    pressure_inhg: 29.76
+    status: fresh
+    verification: >
+      Light E 7 kt at shore station — local sea breeze pattern, has not yet
+      shifted to N per CWFMHX AMZ156 "Tonight N winds 10-15 kt." Wind shift
+      expected this evening as gradient sets up. Watch for verification.
+
+  - id: 41036
+    name: Onslow Bay (NDBC)
+    lat: 34.207
+    lon: -76.949
+    status: offline
+    offline_since: "decommissioned or temporarily offline 2026"
+    note: "Not Found on NDBC realtime2 today. Coverage gap on Onslow Bay."
+
+pressure_trend:
+  - station: 41004
+    time: "Thu 4:40 PM"
+    pressure: 29.80
+    delta: "-0.027 inHg/3hr (falling slow)"
+    interpretation: "Edisto pressure falling slow ahead of overnight NE surge per AFDCHS reinforcing front"
+  - station: 41013
+    time: "Thu 4:40 PM"
+    pressure: 29.78
+    delta: "tracking with synoptic"
+    interpretation: "Frying Pan in post-front lull before NW reinforcing surge tonight"
+  - station: 41037
+    time: "Thu 4:08 PM"
+    pressure: 29.78
+    delta: "post-front lull"
+    interpretation: "Wrightsville variable in local minimum"
+  - station: CLKN7
+    time: "Thu 4:50 PM"
+    pressure: 29.76
+    delta: "northward gradient"
+    interpretation: "Cape Lookout pressure ~0.04 inHg lower than Edisto — gradient max north of route, consistent with MHX zone showing NW behind front"
+
+findings: |
+  • Pressure gradient at Thu 4:30 PM: 41004 Edisto 29.80 → 41013 Frying Pan
+    29.78 → 41037 Wrightsville 29.78 → CLKN7 Cape Lookout 29.76. Drops
+    north by ~0.04 inHg / 220 NM. Confirms post-frontal NW gradient setting
+    up over weekend, consistent with all 3 AFDs.
+  • Front already passed offshore today (Thu) per all 3 AFDs. Reinforcing
+    surge tonight expected to bring NE 15-20 g22 at Charleston by Fri AM
+    departure window.
+  • Buoy verification CONFIRMS forecast tracking: 41004 SW 9.7 matches
+    CWFCHS "This afternoon SW 5-10". 41013 SW 5.8 matches CWFILM. No
+    deviation from forecast.
+  • Critical pre-departure check Fri AM: verify 41004 wind has shifted
+    to NE 10-15+ before 10 AM departure. If still SW or variable, NE surge
+    may be late — recheck CWFCHS 11 AM Fri cycle before committing.
+
+front_passage:
+  description: |
+    Front passage Thu afternoon. Post-frontal NW surge expected overnight
+    Thu→Fri AM through ~10 AM Fri. AFDCHS: "brief NE wind surge Friday
+    morning following a reinforcing dry cold front... gusts below 25 kt."
+    Recovery to gentle SW/S flow by Fri afternoon → Sat sail-favorable
+    window. New Moon Sat = spring tide; verify Beaufort Inlet tide
+    station 8656483 before bar entry.

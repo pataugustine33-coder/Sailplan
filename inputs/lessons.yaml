@@ -1,0 +1,124 @@
+# Verification Scorecard methodology lessons.
+# Edit this file to add/modify lessons; the build script reads it directly.
+# Lessons accumulate across passages — they're project-wide, not route-specific.
+
+lessons:
+  - id: Lesson 1
+    headline: Pressure trend is the highest-skill forecast verifier
+    body: >
+      Buoy pressure trends reverse exactly at frontal passage. Use pressure as
+      the master variable for front timing — wind shifts come later and noisier.
+      A pressure trace that bottoms and reverses is unambiguous; wind direction
+      can vary by 30° in convective gusts even with the front far away.
+    captured: 2026-05-11
+
+  - id: Lesson 2
+    headline: Pre-frontal pressure decline can start 12+ hr earlier than forecast
+    body: >
+      Watch for falling pressure BEFORE the forecast says the front arrives.
+      The atmosphere doesn't read forecasts. If pressure is already dropping
+      6 hours ahead of CWF-predicted FP timing, plan for an earlier event.
+    captured: 2026-05-11
+
+  - id: Lesson 3
+    headline: Wind direction across a stationary front is DIAGNOSTIC, not a slow shift
+    body: >
+      Frontal passage = wind direction discontinuity, not a gradual rotation.
+      If you're watching wind back slowly through 30°+ without a sharp shift,
+      you're likely seeing pre-frontal trough features, not the front itself.
+
+  - id: Lesson 4
+    headline: NWS forecast cache unreliable; use OSO + live buoys for ground truth
+    body: >
+      forecast.weather.gov pages can serve stale cached content for hours.
+      For current-state truth, go to NDBC realtime2 (live obs) and OSO bulletins
+      (text-format current obs). Forecast pages are for forecasts, not for "what
+      is the wind doing right now."
+
+  - id: Lesson 5
+    headline: Source attribution discipline matters
+    body: >
+      Every weather assertion in the workbook needs a source tag with timestamp.
+      "E 10-15 kt at WP2" alone is uncheckable; "FORECAST CHS AMZ362 WED
+      (Tue 5/12 1118 AM cycle): E 10-15 kt" is auditable. Without attribution,
+      you can't tell if numbers are forecasts, observations, or guesses.
+
+  - id: Lesson 6
+    headline: Front timing slip cascades down-coast
+    body: >
+      If a front passes 41033 (32.3°N) 2 hours late, it'll likely pass 41008
+      (31.4°N) 2-3 hours late too. Use earlier-latitude buoys as look-ahead
+      indicators for southern WPs.
+
+  - id: Lesson 7
+    headline: When CWF and AFD disagree, AFD wins
+    body: >
+      The CWF is gridded automated output; the AFD is human forecaster
+      interpretation. When they conflict (e.g., CWF says SCA but AFD says
+      conditions are improving faster), trust the AFD narrative.
+
+  - id: Lesson 11
+    headline: CWF bulletins miss critical risk texture; AFD is essential
+    body: >
+      AFD narratives reveal forecaster confidence, SCA thresholds, convective
+      potential, frontal speed concerns. CWF gives numbers; AFD gives context.
+      Pull both at every cycle.
+
+  - id: Lesson 12
+    headline: Distinguish 'forecast says X' from 'forecast wording implies X'
+    body: >
+      'NW 10-15 kt becoming W 5-10 in the afternoon' has implications about
+      timing of frontal passage, post-frontal stability, and afternoon sailing
+      conditions. Capture those implications in Notes; don't just transcribe
+      the wind range.
+
+  - id: Lesson 13
+    headline: Refresh ALL data-source tabs at every cycle, not just Plan tabs
+    body: >
+      Forecast Sources by WP, Live Buoy Data, and the Format Reference
+      freshness panel all carry timestamps. Any tab whose data is older than
+      12 hours is misleading. The build-from-source flow (sailbuild) eliminates
+      this risk by regenerating everything from a single forecast bundle.
+
+  - id: Lesson 14
+    headline: WMO header timestamp is UTC; AFD body header is local time
+    body: >
+      FZUS52 KCHS 121518 means May 12 @ 1518 UTC (= 11:18 AM EDT). The body
+      header inside the bulletin shows local time. Never confuse the two.
+      WMO header = UTC always. Body = local time of the issuing office.
+
+  - id: Lesson 15
+    headline: Use polar interpolation for boat speed, not back-calc from ETA estimates
+    body: >
+      Back-calculated boat speeds from manually estimated ETAs are tautological
+      — they 'verify' your guess. Always compute boat speed = polar(TWS, TWA) ×
+      sea factor, then derive ETA from speed. The other direction creates
+      self-confirming numbers that hide errors.
+
+  - id: Lesson 16
+    headline: Sea Angle must be traceable to a specific Sea From direction
+    body: >
+      Do not copy TWA into Sea Angle. Do not inherit Sea Angle from a sibling
+      plan. Every Sea Angle requires an explicit Sea From with a documented
+      source (Wave Detail or synoptic estimate, tagged accordingly). The build
+      script enforces this by computing Sea Angle = derived(Course, Sea From).
+
+  - id: Lesson 17
+    headline: Forecast cycles can flip plan character entirely
+    body: >
+      Every cycle refresh requires re-asking 'has the plan CHARACTER changed?'
+      — not just 'are the numbers updated?' If sailing-heavy vs motor-heavy
+      classification flips, the recommendation must follow. Don't anchor on the
+      prior cycle's plan character. Example: Tue 5/12 cycle flipped Plan A from
+      motor-heavy to 100% sailing AND Plan B from sailing to motor-heavy in a
+      single forecast update.
+
+  - id: Lesson 18
+    headline: Regenerate, don't edit — stale cells are an architectural failure mode
+    body: >
+      Manually editing individual cells in a workbook will always miss some
+      dependent cells. Notes, Weather Risk, Sea Source, totals row, freshness
+      panels — there's no closed-form way to know you've updated everything.
+      The fix is to make the workbook a script output, not a working document.
+      Edit the inputs (YAML), rerun the script, get a clean workbook.
+    captured: 2026-05-12

@@ -1,0 +1,190 @@
+# Charleston, SC → Beaufort, NC passage definition.
+
+passage:
+  id: chs-beaufort
+  name: Charleston-Beaufort
+  origin: Charleston, SC (Charleston Sea Buoy)
+  destination: Beaufort Inlet, NC (sea buoy)
+  total_nm: 219.0
+
+vessel:
+  designation: HR 48 Mk II
+  design_number: D1170
+  load_config: half-load
+  displacement_lb: 40785
+  motor_speed_kt: 6.0
+  motor_crossover_tws_kt: 7.0
+  fuel_capacity_gal: 110
+  fuel_burn_gph: 1.5
+  rmc_kgm: 467
+  rm_30deg_kgm: 11995
+  rm_max_kgm: 17657
+  brewer_cr: 42.9        # Brewer Comfort Ratio for HR 48 Mk II
+  csf: 1.66              # Capsize Screening Formula for HR 48 Mk II
+
+calibration:
+  sea_factors:
+    steep_chop_bow: 0.72
+    close_reach: 0.87
+    beam_reach: 0.92
+    broad_reach: 0.92
+    reefed_active_trough: 0.85
+
+arrival_timing:
+  destination_label: "Beaufort Inlet"
+  civil_dawn: 5.78
+  sunrise: 6.18
+  sunset: 20.25
+  civil_dusk: 20.83
+  day_window: [6.367, 20.25]
+  twilight_windows:
+    - [5.633, 6.367]
+    - [20.25, 20.833]
+  preferred_window:
+    start: 7.0
+    end: 9.0
+
+tide_stations:
+  - id: 8665530
+    label: "Charleston SC tides (origin)"
+  - id: 8656483
+    label: "Beaufort NC (Duke Marine Lab) tides (destination)"
+
+waypoints:
+  - id: WP1
+    name: Charleston Sea Buoy (departure)
+    lat: 32.7500
+    lon: -79.8500
+    cum_nm: 0.0
+    course_out: 080
+  - id: WP2
+    name: 25 NM offshore Charleston
+    lat: 32.8200
+    lon: -79.3600
+    cum_nm: 25.0
+    course_out: 042
+  - id: WP3
+    name: Long Bay mid (SC offshore)
+    lat: 33.2000
+    lon: -78.9500
+    cum_nm: 56.0
+    course_out: 082
+  - id: WP4
+    name: Approach Frying Pan from S
+    lat: 33.3000
+    lon: -78.1000
+    cum_nm: 99.0
+    course_out: 072
+  - id: WP5
+    name: Frying Pan offshore turn (E of light)
+    lat: 33.4500
+    lon: -77.5500
+    cum_nm: 128.0
+    course_out: 007
+  - id: WP6
+    name: Past Frying Pan / E of Cape Fear
+    lat: 33.8000
+    lon: -77.5000
+    cum_nm: 149.0
+    course_out: 018
+  - id: WP7
+    name: Wilmington offshore
+    lat: 34.0500
+    lon: -77.4000
+    cum_nm: 165.0
+    course_out: 053
+  - id: WP8
+    name: Onslow Bay
+    lat: 34.3000
+    lon: -77.0000
+    cum_nm: 190.0
+    course_out: 035
+  - id: WP9
+    name: Beaufort Inlet sea buoy (arrival)
+    lat: 34.6900
+    lon: -76.6700
+    cum_nm: 219.0
+    course_out: null
+
+plans:
+  - id: plan_a
+    tab_label: "Plan A - Fri 10 AM"
+    qualifier: "as requested"
+    depart_day: Fri
+    depart_date: 2026-05-15
+    depart_hour: 10.0
+  - id: plan_b
+    tab_label: "Plan B - Fri 7 AM"
+    qualifier: "earlier for arrival margin"
+    depart_day: Fri
+    depart_date: 2026-05-15
+    depart_hour: 7.0
+
+route_buoys:
+  - id: 41004
+    name: Edisto
+    lat: 32.501
+    lon: -79.099
+    status: offline
+    offline_since: 2026-05-01
+    relevant_wps:
+      WP1: "~45 NM SE"
+      WP2: "~20 NM W"
+  - id: 41008
+    name: Grays Reef NMS
+    lat: 31.402
+    lon: -80.866
+    relevant_wps:
+      WP1: "~90 NM SSW"
+  - id: 41013
+    name: Frying Pan Shoals
+    lat: 33.485
+    lon: -77.586
+    relevant_wps:
+      WP4: "~22 NM SW"
+      WP5: "~5 NM W (CRITICAL — primary buoy at corner)"
+      WP6: "~20 NM SW"
+  - id: 41110
+    name: Masonboro Inlet (waverider)
+    lat: 34.141
+    lon: -77.711
+    relevant_wps:
+      WP7: "~8 NM W (primary)"
+  - id: 41036
+    name: Onslow Bay (NDBC)
+    lat: 34.207
+    lon: -76.949
+    relevant_wps:
+      WP8: "~8 NM SE (primary)"
+  - id: 41159
+    name: Onslow Bay Outer (waverider)
+    lat: 34.359
+    lon: -76.620
+    relevant_wps:
+      WP8: "~10 NM N"
+      WP9: "~12 NM SW"
+  - id: CLKN7
+    name: Cape Lookout C-MAN
+    lat: 34.622
+    lon: -76.525
+    relevant_wps:
+      WP9: "~10 NM E (primary — frontal passage marker)"
+
+forecast_offices:
+  - office: NWS Charleston SC (KCHS)
+    code: CHS
+    zones:
+      AMZ330: Charleston Harbor
+      AMZ350: South Santee River to Edisto Beach SC, out 20 NM
+      AMZ370: South Santee River to Edisto Beach, 20-60 NM
+  - office: NWS Wilmington NC (KILM)
+    code: ILM
+    zones:
+      AMZ250: Little River Inlet to Surf City NC, out 20 NM
+      AMZ252: Little River Inlet to Surf City NC, 20-60 NM
+  - office: NWS Newport/Morehead City NC (KMHX)
+    code: MHX
+    zones:
+      AMZ150: Surf City NC to Cape Lookout NC, out 20 NM
+      AMZ152: Surf City NC to Cape Lookout NC, 20-60 NM
+      AMZ154: Cape Lookout to Duck NC, out 20 NM

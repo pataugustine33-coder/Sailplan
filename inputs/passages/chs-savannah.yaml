@@ -1,0 +1,142 @@
+# Charleston SC → Savannah GA — offshore passage
+# Departure: Friday 5/15/2026 noon EDT
+# Vessel: Hallberg-Rassy 54 (D1206 half-load)
+# Distance: ~66 NM rhumb-line equivalent across 4 legs
+# Forecast cycle: KCHS 709 PM EDT Thu 5/14 (post-frontal NW, NE surge arriving overnight,
+# then NE 15-20 kt Friday morning shifting to E 10-15 kt afternoon).
+
+passage:
+  name: Charleston-Savannah
+  origin: Charleston SC (Sea Buoy)
+  destination: Savannah GA (Tybee Roads sea buoy)
+  total_nm: 66
+
+vessel:
+  designation: HR 54
+  design_number: D1206
+  load_config: half-load
+  displacement_lb: 49600
+  motor_speed_kt: 6.5
+  motor_crossover_tws_kt: 7.0
+  fuel_capacity_gal: 238
+  fuel_burn_gph: 1.8
+  rmc_kgm: 656
+  rm_30deg_kgm: 16500    # estimated from RM @ 25° = 14619 kg·m × ~1.13
+  rm_max_kgm: 23654
+  brewer_cr: 52.1        # Brewer Comfort Ratio for HR 54 (heavier displacement)
+  csf: 1.55              # Capsize Screening Formula for HR 54 (lower=safer)
+
+calibration:
+  sea_factors:
+    steep_chop_bow: 0.72
+    close_reach: 0.86
+    beam_reach: 0.92
+    broad_reach: 0.92
+    reefed_active_trough: 0.85
+
+arrival_timing:
+  destination_label: "Tybee Roads / Savannah pilot area"
+  civil_dawn: 5.92   # 5:55 AM EDT
+  sunrise: 6.40      # 6:24 AM EDT (Savannah May 15)
+  sunset: 20.20      # 8:12 PM EDT (Savannah May 15)
+  civil_dusk: 20.67  # 8:40 PM EDT
+  day_window: [6.40, 20.20]
+  twilight_windows:
+    - [5.92, 6.40]
+    - [20.20, 20.67]
+  preferred_window:
+    start: 6.90      # 6:55 AM EDT
+    end: 19.50       # 7:30 PM EDT (mid-day-favorable for offshore arrival via Tybee Inlet)
+
+# Forecast offices spanned by this route. KCHS handles the entire passage.
+forecast_offices:
+  - office: NWS Charleston SC (KCHS)
+    code: CHS
+    zones:
+      AMZ360: South Santee River to Edisto Beach SC, out 20 NM
+      AMZ362: Edisto Beach SC to Savannah GA, out 20 NM
+      AMZ364: Savannah GA to Altamaha Sound GA, out 20 NM (includes Grays Reef NMS)
+      AMZ380: South Santee River to Edisto Beach SC, 20-60 NM
+      AMZ382: Edisto Beach SC to Savannah GA, 20-60 NM
+
+tide_stations:
+  - id: 8665530
+    label: "Charleston SC tides (origin)"
+  - id: 8670870
+    label: "Fort Pulaski GA tides (destination, Tybee Roads area)"
+
+route_buoys:
+  - id: 41033
+    name: Fripp Nearshore
+    lat: 32.279
+    lon: -80.406
+    relevant_wps:
+      WP2: "~17 NM S of WP2 (closest to route at this segment)"
+      WP3: "~10 NM SE of WP3 — closest buoy to rhumb line"
+      WP4: "~22 NM NE of WP4"
+  - id: 41004
+    name: Edisto (offshore reference)
+    lat: 32.502
+    lon: -79.099
+    relevant_wps:
+      WP1: "~41 NM SE of Charleston Sea Buoy (per NDBC)"
+      WP2: "~46 NM E of WP2 — offshore AMZ382 reference"
+  - id: 41008
+    name: Grays Reef NMS
+    lat: 31.400
+    lon: -80.866
+    relevant_wps:
+      WP4: "~42 NM SSW of WP4"
+      WP5: "~34 NM S of WP5 — arrival-side reference"
+
+waypoints:
+  - id: WP1
+    name: "Charleston Sea Buoy (departure)"
+    lat: 32.75
+    lon: -79.85
+    cum_nm: 0
+    course_out: 212
+    notes: |
+      Depart Charleston Inlet sea buoy. Plan to motor out the channel
+      from Charleston Harbor (Battery → Ft Sumter → jetties → Sea Buoy)
+      approximately 1 hr before noon EDT to arrive at WP1 by 12:00 PM.
+  - id: WP2
+    name: "Offshore Edisto (15 NM SSW)"
+    lat: 32.55
+    lon: -80.00
+    cum_nm: 14
+    course_out: 220
+  - id: WP3
+    name: "Offshore Beaufort/Hilton Head (mid-route)"
+    lat: 32.30
+    lon: -80.25
+    cum_nm: 34
+    course_out: 227
+  - id: WP4
+    name: "Approach Tybee from NE (~12 NM offshore)"
+    lat: 32.10
+    lon: -80.50
+    cum_nm: 52
+    course_out: 237
+  - id: WP5
+    name: "Tybee Roads sea buoy / Savannah pilot waypoint (arrival)"
+    lat: 31.97
+    lon: -80.74
+    cum_nm: 66
+    course_out: null
+    notes: |
+      Arrival at Tybee Roads sea buoy. From here it's roughly 10 NM
+      inbound up the Savannah River channel to Thunderbolt or downtown.
+      Channel marker pickup: STS pilot operations.
+
+plans:
+  - id: plan_a
+    label: "Plan A — Fri 5/15 10:00 AM EDT depart (HR 54)"
+    tab_label: "Plan A - Fri 10 AM HR54"
+    depart_day: "Fri"
+    depart_hour: 10.00
+  - id: plan_b
+    label: "Plan B — Fri 5/15 12:00 PM EDT depart (HR 54)"
+    tab_label: "Plan B - Fri Noon HR54"
+    depart_day: "Fri"
+    depart_hour: 12.00

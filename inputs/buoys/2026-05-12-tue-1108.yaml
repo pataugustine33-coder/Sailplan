@@ -1,0 +1,158 @@
+# Live NDBC buoy observations for Tue May 12 2026 ~11 AM EDT pull.
+# Combined with passage definition (which lists relevant buoys) for the Live
+# Buoy Data tab.
+
+pull:
+  label: "Tue May 12 2026 ~11:08-11:56 AM EDT (Tue AM verification pull, ~10 hr post-frontal)"
+  pull_source: "NDBC latest_obs (Saildocs URL subs + manual browser paste). Latency <1 hr."
+
+stations:
+  - id: 41008
+    name: WP3 Grays Reef
+    lat: 31.40
+    lon: -80.87
+    reading_time: "1:40 AM Tue 5/12 (no fresh AM pull)"
+    wind_dir: "60° (ENE)"
+    wind_kt: 21.4
+    gust_kt: 27.2
+    pressure_inhg: 30.03
+    status: stale_pull_needed
+
+  - id: 41033
+    name: Fripp Island
+    lat: 32.28
+    lon: -80.41
+    reading_time: "11:08 AM Tue 5/12"
+    wind_dir: "70° (ENE)"
+    wind_kt: 23.3
+    gust_kt: 31.1
+    pressure_inhg: 30.17
+    status: fresh
+
+  - id: 41112
+    name: Fernandina Beach (wave only)
+    lat: 30.71
+    lon: -81.29
+    reading_time: "11:56 AM Tue 5/12"
+    wave_summary: |
+      Seas 6.6 ft @ 7s
+      Wind Wave: NE 6.6 ft @ 7.1s
+      Swell: E 1.0 ft @ 10.5s
+    status: fresh_waves_only
+
+  - id: 41004
+    name: Edisto
+    status: offline
+    offline_since: 2026-05-01
+
+# Pressure trend rows — chronological, most-recent first within each station.
+# Used for the Pressure Trend section of the Live Buoy Data tab.
+pressure_trend:
+  - station: 41008
+    time: "Tue 1:40 AM"
+    pressure: 30.03
+    delta: "+0.07"
+    interpretation: "RISING — post-frontal recovery (cold air mass behind)"
+  - station: 41008
+    time: "Mon 7:40 PM"
+    pressure: 29.96
+    delta: "+0.03"
+    interpretation: "BOTTOMED + reversing — front passing this latitude"
+  - station: 41008
+    time: "Mon 4:40 PM"
+    pressure: 29.93
+    delta: "-0.06"
+    interpretation: "FALLING — front approaching"
+  - station: 41008
+    time: "Mon 1:00 PM"
+    pressure: 29.99
+    delta: "-0.04"
+    interpretation: "Falling accelerating"
+  - station: 41008
+    time: "Mon 12:00 PM"
+    pressure: 30.03
+    delta: "-0.01"
+    interpretation: "Falling slow"
+  - station: 41008
+    time: "Mon 8:00 AM"
+    pressure: 30.04
+    delta: "-0.02"
+    interpretation: "Just past peak"
+  - station: 41008
+    time: "Mon 4:00 AM"
+    pressure: 30.05
+    delta: "peak"
+    interpretation: "Mon AM ridge peak"
+  - station: 41008
+    time: "Sun 6:50 PM"
+    pressure: 29.99
+    delta: "reference"
+    interpretation: "Sun PM baseline (workbook origin)"
+
+  - station: 41033
+    time: "Tue 11:08 AM"
+    pressure: 30.17
+    delta: "+0.10"
+    interpretation: "RISING — high pressure firmly entrenched (Mid-Atlantic ridge wedge per AFD)"
+  - station: 41033
+    time: "Tue 1:08 AM"
+    pressure: 30.07
+    delta: "+0.13"
+    interpretation: "RISING fast — front cleared, strong post-frontal high building"
+  - station: 41033
+    time: "Mon 7:08 PM"
+    pressure: 29.94
+    delta: "+0.02"
+    interpretation: "BOTTOMED — front passing this latitude"
+  - station: 41033
+    time: "Mon 6:08 PM"
+    pressure: 29.92
+    delta: "+0.003"
+    interpretation: "BOTTOMED — front overhead/passing"
+  - station: 41033
+    time: "Mon 5:08 PM"
+    pressure: 29.92
+    delta: "-0.01"
+    interpretation: "Rapid-fall phase ended"
+  - station: 41033
+    time: "Mon 4:08 PM"
+    pressure: 29.92
+    delta: "-0.03"
+    interpretation: "Falling fast"
+  - station: 41033
+    time: "Mon 3:08 PM"
+    pressure: 29.96
+    delta: "-0.01"
+    interpretation: "Falling accelerating"
+  - station: 41033
+    time: "Mon 1:08 PM"
+    pressure: 29.96
+    delta: "-0.02"
+    interpretation: "Falling moderate"
+
+# Free-text findings synthesized from this pull. Goes under the data tables.
+findings: |
+  • 41033 pressure at Tue 11:08 AM = 30.17 inHg, +0.10 inHg since Tue 1:08 AM
+    and +0.25 inHg since front passage Mon evening. Strong post-frontal ridge
+    confirmed.
+  • Wind at 41033 still ENE 23 g31 — SCA conditions persisting at 9+ hr
+    post-front. Confirms AFDCHS that 'winds and seas remain elevated through
+    this evening.'
+  • 41112 wave summary at Tue 11:56 AM: 6.6 ft @ 7s (wind wave dominant from NE)
+    + 1.0 ft E swell @ 10.5s. The 10.5s swell component is the residual that
+    persists through Thu — this is the 'E 3 ft @ 7-8s' that shows up in
+    Plan B Wave Detail.
+  • Wind direction at 41033 (ENE 70°) is the actual NE flow surge described in
+    AFD. By Wed AM forecasts call for backing to E, then dropping to E 10-15
+    by Wed daytime — perfect for Plan A broad reach.
+  • Post-frontal recovery is RUNNING SLOWER than typical: 9 hr post-front and
+    pressure only +0.25 inHg, winds still 20+ kt. Expect a Wednesday morning
+    that hasn't fully calmed.
+
+# Optional: front passage event timing (computed by the analyst from
+# pressure-trend reversals).
+front_passage:
+  description: |
+    FRONT PASSAGE CONFIRMED (Tue 5/12 1-1:40 AM EDT). TIMING: front transited
+    41033 (32.3°N) and 41008 (31.4°N) between 7-7:40 PM Mon and 1-1:40 AM Tue —
+    front speed ~9 kt southward consistent with synoptic forecast.

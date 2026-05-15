@@ -1,0 +1,276 @@
+# Forecast bundle for Charleston-Savannah route — Fri 5/15 PM cycle.
+# Pulled fresh via Claude in Chrome at ~2:30 PM EDT Fri 5/15/2026.
+#
+# MAJOR CHANGE from AM cycle: SCA cancelled (AFD MARINE...None).
+# Morning surge collapsed faster than the 4:29 AM cycle predicted.
+# Buoy ground truth at 2 PM showed 41033 Fripp already easing to 050°/15 kt
+# from its 7 AM peak of 31 kt gust. By 6 PM all three route buoys reading
+# 8-13 kt with seas 3-4 ft.
+#
+# Forward outlook: AFD calls "quiet marine conditions through middle of
+# next week, wind mostly 10-15 kt, seas 2-3 ft." Onshore SE flow under
+# subtropical high pressure to the east.
+
+cycle:
+  label: "Fri 5/15 PM cycle (CHS 224 PM)"
+  cwfchs:
+    issued: "2026-05-15T14:24:00-04:00"
+    label_short: "Fri 5/15 224 PM"
+    label_full: "224 PM EDT Fri May 15 2026"
+  afdchs:
+    issued: "2026-05-15T14:19:00-04:00"
+    label_short: "Fri 5/15 219 PM"
+    label_full: "219 PM EDT Fri May 15 2026"
+
+zones:
+  AMZ360:
+    description: "Coastal waters from South Santee River to Edisto Beach SC out 20 NM"
+    office: CHS
+    periods:
+      FRI_PM:
+        wind_dir: "NE→E"
+        wind_dir_deg: 70
+        wind_kt: [5, 10]
+        wind_gust_kt: 14
+        sea_ft: [3, 4]
+        wave_detail:
+          primary: {direction: E, direction_deg: 90, height_ft: 4, period_s: 7}
+      FRI_NIGHT:
+        wind_dir: "SE"
+        wind_dir_deg: 135
+        wind_kt: [5, 10]
+        wind_gust_kt: 12
+        sea_ft: [2, 3]
+        wave_detail:
+          primary: {direction: E, direction_deg: 90, height_ft: 3, period_s: 7}
+
+  AMZ362:
+    description: "Coastal waters from Edisto Beach SC to Savannah GA out 20 NM"
+    office: CHS
+    periods:
+      FRI_PM:
+        wind_dir: "E"
+        wind_dir_deg: 90
+        wind_kt: [5, 10]
+        wind_gust_kt: 14    # derived from 41033 obs (sustained 8 / gust 12) × forecast upper bound
+        sea_ft: [3, 4]
+        wave_detail:
+          primary: {direction: E, direction_deg: 90, height_ft: 4, period_s: 7}
+      FRI_EVE:
+        wind_dir: "SE"
+        wind_dir_deg: 135
+        wind_kt: [5, 10]
+        wind_gust_kt: 13    # evening regime, surge fully gone
+        sea_ft: [2, 3]
+        wave_detail:
+          primary: {direction: E, direction_deg: 90, height_ft: 3, period_s: 7}
+      FRI_NIGHT:
+        wind_dir: "SE"
+        wind_dir_deg: 135
+        wind_kt: [5, 10]
+        wind_gust_kt: 12
+        sea_ft: [2, 3]
+        wave_detail:
+          primary: {direction: SE, direction_deg: 135, height_ft: 3, period_s: 7}
+      SAT:
+        wind_dir: "SE"
+        wind_dir_deg: 135
+        wind_kt: [5, 10]
+        wind_gust_kt: 12
+        sea_ft: [2, 3]
+        wave_detail:
+          primary: {direction: SE, direction_deg: 135, height_ft: 3, period_s: 7}
+
+  AMZ364:
+    description: "Coastal waters from Savannah GA to Altamaha Sound GA out 20 nm, includes Grays Reef NMS"
+    office: CHS
+    periods:
+      FRI_PM:
+        wind_dir: "E"
+        wind_dir_deg: 90
+        wind_kt: [10, 15]
+        wind_gust_kt: 18    # derived from 41008 obs (sustained 12 / gust 16) — surge tail
+        sea_ft: [3, 4]
+        wave_detail:
+          primary: {direction: E, direction_deg: 90, height_ft: 4, period_s: 6}
+
+  AMZ382:
+    description: "Waters from Edisto Beach SC to Savannah GA, 20-60 NM"
+    office: CHS
+    periods:
+      FRI_PM:
+        wind_dir: "NE→E"
+        wind_dir_deg: 70
+        wind_kt: [5, 15]
+        wind_gust_kt: 20    # offshore zone — broader range, surge tail still in upper end
+        sea_ft: [3, 4]
+        wave_detail:
+          primary: {direction: NE, direction_deg: 50, height_ft: 4, period_s: 7}
+
+afd_marine:
+  CHS: |
+    Overall, quiet marine conditions will prevail across the local waters
+    through the middle of next week. Subtropical high pressure to the east
+    will drive onshore southeasterly flow each day, with wind speeds
+    mostly topping out in the 10-15 knot range. Each afternoon and evening
+    there could be some local enhancement along the land/sea interface
+    with the diurnal sea breeze. Seas should average 2-3 feet through the
+    period. Rip Currents: Moderate Risk Saturday and Sunday under new-moon
+    influences plus persistent onshore flow.
+
+synopses:
+  CHS:
+    zone: AMZ300
+    text: |
+      High pressure will remain the primary feature across the area through
+      the middle of next week. The morning NE wind surge has cleared; SCA
+      is no longer in effect. Subtropical high pressure to the east drives
+      onshore SE flow with light to moderate wind through the weekend.
+
+# ============================================================
+# Waypoint forecast assignments per plan
+# Plan A: 10:00 AM EDT depart — boat would have been mid-passage during
+#   the surge collapse; using FRI_PM (post-surge) for all WPs except WP1.
+# Plan B: 12:00 PM EDT depart — entirely post-surge.
+# Both plans now show quiet marine conditions.
+# ============================================================
+waypoint_assignments:
+  plan_a:
+    WP1:
+      zone: AMZ362
+      period: FRI_PM
+      risk_level: green
+      row_band: green
+      pressure: 30.07
+      pressure_trend: Rising slow
+      notes_addendum: >
+        DEPARTURE 10:00 AM EDT Fri 5/15. The morning NE surge was actually
+        easing faster than 4:29 AM AM-cycle forecast — observed at noon at
+        41033 Fripp the wind had already dropped from 17 kt to 14 kt with
+        gusts 21 kt. By WP1 departure conditions are NE/E 5-10 kt easing,
+        seas 3-4 ft. Course 212° → TWA ~150° broad reach. Conditions much
+        more benign than this morning's plan suggested.
+      weather_risk: >
+        Quiet onshore E flow as morning surge collapsed. Broad-reach setup
+        on SSW course. Comfortable departure.
+    WP2:
+      zone: AMZ362
+      period: FRI_PM
+      risk_level: green
+      row_band: green
+      pressure: 30.10
+      pressure_trend: Rising slow
+      notes_addendum: >
+        E 5-10 kt steady. Course 220° → TWA ~130° broad reach port tack.
+        Seas 3-4 ft E 7 sec — comfortable broad sea on port quarter.
+      weather_risk: "Steady benign E flow. Comfortable broad reach."
+    WP3:
+      zone: AMZ362
+      period: FRI_PM
+      risk_level: green
+      row_band: green
+      pressure: 30.12
+      pressure_trend: Rising slow
+      notes_addendum: >
+        Mid-route. E 5-10 kt continues. Course 227° → TWA ~137° broad reach.
+        May need to motor-sail in lulls (below 6-7 kt TWS = motor crossover).
+      weather_risk: "Light E flow. Possible motor-sail in lulls."
+    WP4:
+      zone: AMZ362
+      period: FRI_EVE
+      risk_level: green
+      row_band: green
+      pressure: 30.14
+      pressure_trend: Rising slow
+      notes_addendum: >
+        Approach. SE 5-10 kt evening. Course 237° → TWA ~102° beam reach.
+        Seas easing to 2-3 ft. Boat likely motor-sailing.
+      weather_risk: "Beam reach SE 5-10. Wind on threshold for sailing vs. motor."
+    WP5:
+      zone: AMZ362
+      period: FRI_EVE
+      risk_level: green
+      row_band: green
+      pressure: 30.15
+      pressure_trend: Steady
+      notes_addendum: >
+        Arrival Tybee Roads sea buoy. Engine on for 10 NM channel run to
+        Thunderbolt / Savannah waterfront. Verify channel marker lighting
+        though arrival is well before sunset (8:12 PM EDT).
+      weather_risk: "Daylight arrival, benign conditions."
+
+  plan_b:
+    WP1:
+      zone: AMZ362
+      period: FRI_PM
+      risk_level: green
+      row_band: green
+      pressure: 30.10
+      pressure_trend: Rising slow
+      notes_addendum: >
+        DEPARTURE 12:00 PM EDT Fri 5/15. By noon the morning surge had
+        already eased significantly — 41033 Fripp dropping through 14 kt
+        with gusts 21 kt. Course 212° → TWA ~150° broad reach. Comfortable
+        post-surge departure.
+      weather_risk: "Benign post-surge departure. Comfortable broad reach."
+    WP2:
+      zone: AMZ362
+      period: FRI_PM
+      risk_level: green
+      row_band: green
+      pressure: 30.12
+      pressure_trend: Rising slow
+      notes_addendum: >
+        E 5-10 kt. Seas 3-4 ft E 7 sec. TWA ~130°.
+      weather_risk: "Steady E flow, broad reach."
+    WP3:
+      zone: AMZ362
+      period: FRI_EVE
+      risk_level: green
+      row_band: green
+      pressure: 30.14
+      pressure_trend: Rising slow
+      notes_addendum: >
+        Mid-route. Wind easing further SE 5-10. May motor-sail.
+      weather_risk: "Light SE flow. Probable motor-sail."
+    WP4:
+      zone: AMZ362
+      period: FRI_EVE
+      risk_level: yellow
+      row_band: yellow
+      pressure: 30.15
+      pressure_trend: Steady
+      notes_addendum: >
+        Approach phase, light wind. Likely motoring.
+      weather_risk: "Light wind, motoring expected."
+    WP5:
+      zone: AMZ362
+      period: FRI_NIGHT
+      risk_level: red
+      row_band: red
+      pressure: 30.16
+      pressure_trend: Steady
+      notes_addendum: >
+        ARRIVAL TWILIGHT/NIGHT — ETA ~8:30 PM EDT, near civil dusk
+        (8:40 PM Savannah). Channel approach in low-light conditions.
+      weather_risk: "⚠️ Arrival in twilight. Channel approach low-light."
+
+plan_commentary:
+  plan_a: >
+    Plan A — Depart Fri 5/15 10:00 AM EDT. Originally this plan accepted
+    a "right at SCA expiration" departure to secure a daylight arrival.
+    The fresh 2:24 PM cycle shows the SCA was cancelled altogether and
+    the surge collapsed faster than the AM forecast — by noon at 41033
+    Fripp Island the wind had already dropped 3 kt from the morning peak,
+    and by 4 PM it was down to 8 kt. The 10 AM departure thus encountered
+    only the tail end of a fading surge, with conditions becoming benign
+    quickly. Modeled arrival ~6:30 PM EDT green with comfortable
+    daylight margin (1h42 before sunset 8:12 PM).
+  plan_b: >
+    Plan B — Depart Fri 5/15 12:00 PM EDT. Fresh data confirms noon
+    departure encountered post-SCA-collapse conditions (NE 14 g21 at
+    Fripp easing within an hour). Passage proceeds in light E/SE flow
+    likely requiring motor-sail in the back half. Modeled arrival
+    ~8:30 PM EDT — still on the twilight boundary. Plan A remains
+    preferable for arrival window. Note: light evening wind means
+    motor fuel burn slightly higher than Plan A.

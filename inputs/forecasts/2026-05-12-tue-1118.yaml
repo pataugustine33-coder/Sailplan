@@ -1,0 +1,415 @@
+# Forecast bundle for Tue May 12 2026 1118 AM CHS / 1200 PM JAX cycle.
+# Pure forecast data. Combined with a passage definition (which assigns
+# zones/periods to WPs) to produce a workbook.
+
+cycle:
+  label: "Tue 5/12 1118 AM CHS / 1200 PM JAX cycle"
+  cwfchs:
+    issued: "2026-05-12T11:18:00-04:00"
+    label_short: "Tue 5/12 1118 AM"
+    label_full: "1118 AM EDT Tue May 12 2026"
+  cwfjax:
+    issued: "2026-05-12T12:00:00-04:00"
+    label_short: "Tue 5/12 1200 PM"
+    label_full: "1200 PM EDT Tue May 12 2026"
+  afdchs:
+    issued: "2026-05-12T07:14:00-04:00"
+    label_short: "Tue 5/12 714 AM"
+    label_full: "714 AM EDT Tue May 12 2026"
+  afdjax:
+    issued: "2026-05-12T08:36:00-04:00"
+    label_short: "Tue 5/12 836 AM"
+    label_full: "836 AM EDT Tue May 12 2026"
+
+# Marine zone forecasts. Periods follow NWS conventions:
+#   TODAY, TONIGHT, MON, MON_NIGHT, TUE, TUE_NIGHT, WED, WED_NIGHT, THU, THU_NIGHT, FRI, ...
+# Each period contains wind, sea, wave_detail (primary swell direction/height/period
+# from NWS Wave Detail when available).
+zones:
+  AMZ360:
+    description: "South Santee River to Edisto Beach SC, out 20 NM"
+    office: CHS
+    SCA:
+      in_effect_until: "Wed 3 AM EDT"
+      reason: "Tue 5/12 NE wind 20-25 g30 post-frontal residual"
+    periods:
+      WED:
+        wind_dir: E
+        wind_dir_deg: 90
+        wind_kt: [10, 15]
+        sea_ft: [4, 5]
+        wave_detail:
+          primary: {direction: SE, direction_deg: 135, height_ft: 5, period_s: 7}
+      WED_NIGHT:
+        wind_dir: SE→SW (after midnight)
+        wind_dir_deg: 135
+        wind_kt: [5, 10]
+        sea_ft: [3, 4]
+        wave_detail:
+          primary: {direction: E, direction_deg: 90, height_ft: 3, period_s: 7}
+      THU:
+        wind_dir: NW→W (afternoon)
+        wind_dir_deg: 315
+        wind_kt: [10, 15]
+        sea_ft: [3, 4]
+        wave_detail:
+          primary: {direction: E, direction_deg: 90, height_ft: 3, period_s: 7}
+          secondary: {direction: E, direction_deg: 90, height_ft: 1, period_s: 11}
+
+  AMZ362:
+    description: "Edisto Beach SC to Savannah GA, out 20 NM"
+    office: CHS
+    SCA:
+      in_effect_until: "Wed 3 AM EDT"
+    periods:
+      WED:
+        wind_dir: E
+        wind_dir_deg: 90
+        wind_kt: [10, 15]
+        sea_ft: [4, 5]
+        wave_detail:
+          primary: {direction: E, direction_deg: 90, height_ft: 5, period_s: 7}
+          secondary: {direction: SE, direction_deg: 135, height_ft: 1, period_s: 11}
+      THU:
+        wind_dir: NW→W (afternoon)
+        wind_dir_deg: 270    # at WP2 timing (afternoon), wind is W
+        wind_kt: [5, 10]     # afternoon range
+        sea_ft: [3, 4]
+        wave_detail:
+          primary: {direction: E, direction_deg: 90, height_ft: 3, period_s: 7}
+
+  AMZ364:
+    description: "Savannah GA to Altamaha Sound GA, out 20 NM (Grays Reef NMS)"
+    office: CHS
+    SCA:
+      in_effect_until: "Wed 3 AM EDT"
+    periods:
+      WED_NIGHT:
+        wind_dir: E→SW (after midnight)
+        wind_dir_deg: 90
+        wind_kt: [5, 10]
+        sea_ft: [3, 4]
+        wave_detail:
+          primary: {direction: E, direction_deg: 90, height_ft: 4, period_s: 8}
+          secondary: {direction: SE, direction_deg: 135, height_ft: 3, period_s: 8}
+      THU:
+        wind_dir: W
+        wind_dir_deg: 270
+        wind_kt: [5, 10]
+        sea_ft: [3, 4]
+        wave_detail:
+          primary: {direction: SE, direction_deg: 135, height_ft: 3, period_s: 8}
+          secondary: {direction: E, direction_deg: 90, height_ft: 2, period_s: 8}
+
+  AMZ450:
+    description: "Altamaha Sound GA to Fernandina Beach FL, out 20 NM"
+    office: JAX
+    periods:
+      WED_NIGHT:
+        wind_dir: N→NW (after midnight)
+        wind_dir_deg: 315
+        wind_kt: [5, 10]
+        sea_ft: [3, 5]
+        sea_ft_occ: 6
+        wave_detail:
+          primary: {direction: E, direction_deg: 90, height_ft: 4, period_s: 9}
+      THU:
+        wind_dir: WNW
+        wind_dir_deg: 290
+        wind_kt: [5, 10]
+        sea_ft: [2, 4]
+        sea_ft_occ: 5
+        wave_detail:
+          primary: {direction: E, direction_deg: 90, height_ft: 3, period_s: 8}
+      THU_NIGHT:
+        wind_dir: NW→N (after midnight)
+        wind_dir_deg: 315
+        wind_kt: [5, 10]
+        sea_ft: [2, 3]
+        wave_detail:
+          primary: {direction: E, direction_deg: 90, height_ft: 3, period_s: 7}
+
+  AMZ452:
+    description: "Fernandina Beach to St. Augustine FL, out 20 NM"
+    office: JAX
+    periods:
+      THU:
+        wind_dir: NW→NE (afternoon)
+        wind_dir_deg: 315
+        wind_kt: [10, 10]   # forecast: "around 10 kt"
+        sea_ft: [3, 4]
+        sea_ft_occ: 5
+        wave_detail:
+          primary: {direction: E, direction_deg: 90, height_ft: 4, period_s: 8}
+      THU_NIGHT:
+        wind_dir: NW→N (after midnight)
+        wind_dir_deg: 360
+        wind_kt: [5, 10]
+        sea_ft: [2, 3]
+        wave_detail:
+          primary: {direction: E, direction_deg: 90, height_ft: 3, period_s: 8}
+
+# Synopsis text from each office (verbatim from the cycle bulletins).
+synopses:
+  CHS:
+    zone: AMZ300
+    text: |
+      A cold front far offshore and high pressure passing to our north will cause
+      winds and seas to remain elevated through this evening. Conditions will
+      improve tonight into Wednesday. Another cold front should quickly move
+      through morning Thursday, followed by a broad area of high pressure.
+  JAX:
+    zone: AMZ400
+    text: |
+      A frontal boundary moving slowly southward across the northeast Florida
+      waters will become stationary across central Florida tonight as a weak wave
+      of low pressure currently over the eastern Gulf pushes eastward. High
+      pressure situated along the Mid-Atlantic coast will continue to wedge down
+      the southeastern seaboard, with Small Craft Advisory conditions
+      overspreading the waters south of St. Augustine this afternoon. The wave
+      of low pressure will push offshore of the east central Florida coast on
+      Wednesday morning, with winds shifting to northerly while gradually
+      decreasing. Another high pressure center building over the Great Lakes
+      region will drive a dry frontal boundary southward across our local waters
+      on Thursday morning. Northwesterly winds in the wake of this dry frontal
+      passage on Thursday morning will shift to northeasterly by Thursday
+      afternoon, with diminishing winds and seas expected on Thursday night and
+      Friday.
+
+# AFD key excerpts (CHS and JAX, current cycle).
+afd_marine:
+  CHS: |
+    Today and tonight: Small Craft Advisories remain in effect into tonight for
+    gusty northeast winds behind a cold front. Seas will rapidly build this
+    morning, peaking this evening between 4-7 ft across the nearshore waters
+    (0-20 nm) and 7-8 across the outer waters (20-60 nm). Marine conditions
+    will gradually improve late tonight as high pressure builds southward.
+    Extended Marine: Low pressure will pass offshore on Wednesday, bringing
+    minimal additional impacts. A cold front should quickly move through the
+    waters Thursday morning. Though, winds and seas shouldn't be high enough to
+    prompt Small Craft Advisories.
+  JAX: |
+    A cold front over the Southeast Georgia waters will move into the Northeast
+    Florida waters through the morning hours today. High pressure will build to
+    the north today with a surge of northeasterly winds with Small Craft
+    Advisory conditions developing throughout the waters. Winds will turn
+    easterly into Wednesday morning with decreasing winds and seas. Showers may
+    linger through Wednesday before another high pressure center builds
+    southward from the Great Lakes region late this week with drier weather
+    conditions into the upcoming weekend.
+
+# Gulf Stream position (from CWFJAX cycle synopsis).
+gulf_stream:
+  effective_date: 2026-05-11
+  positions:
+    - "50 NM east of Flagler Beach"
+    - "53 NM east of Saint Augustine Beach"
+    - "64 NM east-southeast of Jacksonville Beach"
+    - "76 NM east-southeast of St. Simons Island"
+
+# Waypoint-to-zone-period assignment per plan.
+# This is the bridge: passage defines WPs and ETAs; forecast defines zones+periods;
+# this section binds them. The build script uses zone+period to fetch the
+# wind/sea/wave detail from the zones: section above.
+#
+# notes_addendum and weather_risk are passage-specific prose that complement the
+# auto-generated Notes line. They're optional.
+waypoint_assignments:
+  plan_a:
+    WP0:
+      zone: AMZ360
+      period: WED
+      risk_level: yellow
+      row_band: yellow
+      pressure: 30.18
+      pressure_trend: Rising slow
+      notes_addendum: >
+        Post-front clearance — front passed Mon evening ~10 PM, 10 hr post-front
+        at departure. Buoy 41033 Tue 11:08 AM still showing ENE 23 g31 —
+        post-frontal recovery running slower than typical. Expect seas at upper
+        end of 4-5 ft early.
+      weather_risk: >
+        Daylight departure into post-frontal E flow. SCAs ended overnight Tue
+        (3 AM Wed at latest per Tue 5/12 AFDCHS). Residual seas may still be
+        4-5 ft early Wed AM — sporty but well within HR 48 capability. Verify
+        Tue 5 PM CWF for final read on Wed AM sea state.
+    WP1:
+      zone: AMZ360
+      period: WED
+      risk_level: green
+      pressure: 30.19
+      pressure_trend: Steady
+      weather_risk: >
+        Late morning broad-reach sailing. Seas cleaning as residual decays.
+        Comfortable port-quarter geometry.
+    WP2:
+      zone: AMZ362
+      period: WED
+      risk_level: green
+      pressure: 30.18
+      pressure_trend: Steady
+      weather_risk: >
+        Mid-afternoon broad-reach sailing in 4-5 ft @ 7s seas on port quarter.
+        Comfortable. Slight chance of showers.
+    WP3:
+      zone: AMZ364
+      period: WED_NIGHT
+      risk_level: yellow
+      pressure: 30.15
+      pressure_trend: Falling slow
+      weather_risk: >
+        Twilight transition with wind easing. Wave structure cleaner with longer
+        periods (8s vs 7s daytime). Slight chance of tstms per AMZ364 WED NIGHT —
+        monitor SPC and AFDCHS.
+    WP4:
+      zone: AMZ450
+      period: WED_NIGHT
+      risk_level: green
+      pressure: 30.12
+      pressure_trend: Falling slow
+      weather_risk: >
+        Past midnight, light NW wind, clean long-period residual swell from E.
+        Peaceful broad-reach sailing under cold dry air mass. Pressure rising.
+    WP5:
+      zone: AMZ450
+      period: THU
+      risk_level: green
+      pressure: 30.10
+      pressure_trend: Falling slow
+      weather_risk: >
+        Pre-dawn approach in light beam-reach conditions. Easing seas as we
+        approach inlet. ETA right at civil dawn at Mayport.
+    WP6:
+      zone: AMZ452
+      period: THU
+      risk_level: green
+      row_band: light_green
+      pressure: 30.08
+      pressure_trend: Falling slow
+      weather_risk: >
+        OPTIMAL DAWN ARRIVAL achieved. Light NW, 3-4 ft beam seas, light
+        increasing — clean bar entry. If winds run upper end E 15 kt sustained
+        on Wed, arrival could pull 30-45 min earlier into pre-dawn TWILIGHT —
+        manageable but worth monitoring.
+
+  plan_b:
+    WP0:
+      zone: AMZ360
+      period: THU
+      risk_level: yellow
+      row_band: yellow
+      pressure: 30.10
+      pressure_trend: Falling slow
+      notes_addendum: >
+        DEPARTURE RIGHT AT FRONTAL PASSAGE — wind transitioning Wed Night SW 5-10
+        → Thu NW 10-15 between midnight-6 AM Thu. First hour may have variable
+        winds while shift completes.
+      weather_risk: >
+        Early morning departure right at dry-frontal passage. AFDCHS confirms
+        'winds and seas shouldn't be high enough to prompt SCAs' — benign front.
+        First 1-2 hours may have variable winds while shift completes. Verify
+        wind has fully settled to NW before deploying full canvas.
+    WP1:
+      zone: AMZ360
+      period: THU
+      risk_level: yellow
+      pressure: 30.12
+      pressure_trend: Rising slow
+      override:
+        wind_kt: [8, 12]
+        wind_dir_deg: 290
+        wind_dir_text: WNW (veering W)
+      weather_risk: >
+        Mid-morning, wind veering W and dropping. Sailing remains efficient on
+        close-beam reach. Watch wind drop to determine when motor crossover hits.
+    WP2:
+      zone: AMZ362
+      period: THU
+      risk_level: green
+      pressure: 30.16
+      pressure_trend: Rising
+      weather_risk: >
+        Wind below sailing crossover in afternoon. Motor with reduced canvas or
+        main only. Calm 3-4 ft seas on beam-quarter — comfortable.
+    WP3:
+      zone: AMZ364
+      period: THU
+      risk_level: green
+      pressure: 30.20
+      pressure_trend: Rising
+      weather_risk: >
+        Evening, light W wind below sailing threshold. Comfortable 3-4 ft swell.
+        Twilight transition into night. Wind shift to N due overnight (next leg).
+    WP4:
+      zone: AMZ450
+      period: THU_NIGHT
+      risk_level: green
+      pressure: 30.22
+      pressure_trend: Rising slow
+      weather_risk: >
+        Late-night broad reach in light N wind, organized E swell on the
+        quarter. Pressure rising under building high. Peaceful sailing.
+    WP5:
+      zone: AMZ450
+      period: THU_NIGHT
+      risk_level: green
+      pressure: 30.23
+      pressure_trend: Steady
+      override:
+        wind_kt: [8, 12]
+        wind_dir_deg: 360
+        wind_dir_text: N
+      weather_risk: >
+        Pre-dawn calm approach, N wind on stern at light strength. Motor for
+        predictable inlet approach. ETA right at civil dawn at Mayport.
+    WP6:
+      zone: AMZ452
+      period: THU_NIGHT
+      risk_level: green
+      row_band: light_green
+      pressure: 30.22
+      pressure_trend: Steady
+      weather_risk: >
+        OPTIMAL TWILIGHT-DAWN arrival. Light N wind, 2-3 ft beam swell, light
+        increasing rapidly — easiest bar entry. Dawn-arrival problem from
+        earlier modeling fully resolved by lighter Thu wind in Tue cycle.
+
+# Plan-level commentary (the description block at top of each Plan tab).
+plan_commentary:
+  plan_a: >
+    Plan A — Depart 8:00 AM Wed May 13 from Charleston Sea Buoy.
+
+    *** STATUS UPGRADED Tue 5/12 1118 AM CHS / 1200 PM JAX cycle — see
+    Verification Scorecard Lesson 17.
+
+    🔄 PLAN CHARACTER FLIPPED: Tue refresh shows E 10-15 kt throughout Wed
+    daylight (vs Mon forecast E 5-10). This converts WP0-WP3 from a motoring
+    slog to a solid broad-reach sailing window.
+
+    📍 ARRIVAL: Thu 6:29 AM EDT — civil dawn at Mayport is 6:06 AM, sunrise
+    6:33 AM. Arrival within ±5 min of sunrise = DAY/late TWILIGHT.
+
+    ⚠️ TRADE-OFFS: (1) Departure 8 AM Wed sails into elevated residual seas —
+    buoys today show 6-7 ft @ 7s; by Wed 8 AM should be subsiding to 4-5 ft @
+    7s per CWF. (2) E 10-15 is upper end; if winds hit 15 kt sustained, ETAs
+    run ~1 hr earlier, pushing arrival into pre-dawn TWILIGHT.
+
+  plan_b: >
+    Plan B — Depart 6:00 AM Thu May 14 from Charleston Sea Buoy.
+
+    *** STATUS REVISED Tue 5/12 1118 AM CHS / 1200 PM JAX cycle.
+
+    🔄 PLAN CHARACTER FLIPPED: Tue refresh shows lighter Thu winds than Mon
+    forecast — most of Thu is now BELOW the 7 kt motor crossover.
+
+    📍 ARRIVAL: Fri 6:20 AM EDT — civil dawn at Mayport 6:06 AM Fri, sunrise
+    6:25 AM Fri. Arrival 5-14 min before sunrise = TWILIGHT.
+
+    🌊 SEA FROM CORRECTION (major): Earlier synoptic estimates had Sea From
+    W/NW (270-315°) assuming the residual E swell would decay by Thursday.
+    ACTUAL Wave Detail shows E swell PERSISTING at 2-3 ft @ 7-8s throughout
+    Thursday and Friday morning.
+
+    ⚠️ TRADE-OFFS: (1) Departure right at frontal passage (SW→NW transition
+    Thu 4-6 AM). AFDCHS confirms benign dry front — no SCAs. (2) Long
+    stretches motoring Thu PM and overnight — ~20 gal fuel, well within tank.

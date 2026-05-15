@@ -1,0 +1,101 @@
+# NDBC realtime2 buoys pulled fresh via Chrome at ~2:30 PM EDT Fri 5/15/2026.
+# Sources: 41004, 41008, 41033 realtime2 endpoints.
+# Pulled by: Claude in Chrome
+
+pull:
+  label: "7:10 PM EDT Fri 5/15"
+  utc: "2026-05-15T23:10:00Z"
+
+front_passage:
+  description: |
+    Morning NE wind surge has fully cleared. Peak was 7 AM EDT at 41033
+    Fripp (gust 31 kt). The surge collapsed faster than the AM forecast
+    cycle predicted — by noon Fripp was reading 17 kt easing, by 4 PM
+    down to 8 kt. By 7 PM the picture is benign across all three route
+    buoys: 41033 holding E 8 g12, 41008 holding NE 12 g16, 41004 has
+    relaxed further to N 6 g8 with seas down to 3.6 ft. Pressure stable
+    in the 1019-1020 hPa range — high pressure firmly established.
+    No new advisories from CWFCHS 2:24 PM cycle.
+
+stations:
+  - id: 41033
+    name: "Fripp Nearshore (on-route, closest to rhumb line)"
+    lat: 32.279
+    lon: -80.406
+    reading_time: "6:08 PM EDT Fri 5/15"
+    status: "fresh"
+    wind_dir: "E"
+    wind_dir_deg: 90
+    wind_kt: 7.8
+    gust_kt: 11.7
+    wave_ft: null
+    period_s: null
+    swell_dir: null
+    swell_dir_deg: null
+    pressure_hpa: 1019.9
+    pressure_trend: "Stable near 1020 hPa"
+    findings: |
+      PRIMARY ON-ROUTE BUOY. NE surge fully collapsed. Wind backed from
+      040° NE at noon (17 kt, gust 23 kt) → 060° at 4 PM (14 kt, gust 19)
+      → 090° E at 6 PM (8 kt, gust 12). Last hourly update 6:08 PM —
+      sensor reports hourly so next reading expected ~7 PM. Air temp
+      warmed to 19°C as sea breeze dominates. Quiet onshore E flow.
+  - id: 41004
+    name: "Edisto (offshore reference, 41 NM SE of Charleston Sea Buoy per NDBC)"
+    lat: 32.502
+    lon: -79.099
+    reading_time: "7:10 PM EDT Fri 5/15"
+    status: "fresh"
+    wind_dir: "N→NNE"
+    wind_dir_deg: 20
+    wind_kt: 5.8
+    gust_kt: 7.8
+    wave_ft: 3.6
+    period_s: 6
+    swell_dir: "NE"
+    swell_dir_deg: 42
+    pressure_hpa: 1019.7
+    pressure_trend: "Δ -0.9 hPa / 3 hr — slight relaxation"
+    findings: |
+      OFFSHORE REFERENCE. Wind has continued relaxing — now N/NNE 6 kt,
+      gust 8 kt (down from 8/10 at 6:30 PM). Seas holding 3.6 ft NE 6 sec.
+      Pressure starting to soften (-0.9 hPa over 3 hr) — high pressure
+      beginning to subtly shift east but no concerning signal.
+  - id: 41008
+    name: "Grays Reef NMS (arrival side, 40 NM SE of Savannah per NDBC)"
+    lat: 31.400
+    lon: -80.866
+    reading_time: "7:10 PM EDT Fri 5/15"
+    status: "fresh"
+    wind_dir: "NE"
+    wind_dir_deg: 50
+    wind_kt: 11.7
+    gust_kt: 15.6
+    wave_ft: null
+    period_s: null
+    swell_dir: null
+    swell_dir_deg: null
+    pressure_hpa: 1019.1
+    pressure_trend: "Δ -0.6 hPa / 3 hr — slight relaxation"
+    findings: |
+      ARRIVAL-SIDE BUOY. Holding NE 12 kt with gusts 15.6 — still in the
+      surge tail per CWFCHS AMZ364 forecast (E 10-15 kt). Will continue
+      easing through evening to SE 10 kt. Arrival-side conditions for
+      Tybee Roads should be moderate E flow through the rest of the afternoon.
+
+pressure_trend:
+  - station: 41033
+    time: "Fri 6:08 PM"
+    pressure: 30.12
+    delta: "Stable"
+    interpretation: "On-route buoy. NE surge fully collapsed. Wind backed to E 8 kt, gusts 12 kt. Quiet onshore flow established."
+  - station: 41004
+    time: "Fri 7:10 PM"
+    pressure: 30.11
+    delta: "-0.027 inHg/3hr (slight relaxation)"
+    interpretation: "Offshore reference. Wind continuing to ease (now N/NNE 6 g8). Seas holding 3.6 ft. High pressure subtly shifting east."
+  - station: 41008
+    time: "Fri 7:10 PM"
+    pressure: 30.09
+    delta: "-0.018 inHg/3hr (slight relaxation)"
+    interpretation: "Arrival-side buoy. NE 12 g16 holding — surge tail. Will ease to SE 10 kt through evening per CWFCHS forecast."

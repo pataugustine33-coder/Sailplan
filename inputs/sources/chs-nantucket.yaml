@@ -1,0 +1,171 @@
+# Source manifest for CHS-Nantucket passage.
+# Long offshore — multiple offices: CHS, ILM, MHX, AKQ (Wakefield VA), PHI, OKX (New York), BOX (Boston/Taunton)
+# Hazard transitions: Cape Hatteras (Gulf Stream exit), Long Island Sound entry, Nantucket Shoals
+
+route: chs-nantucket
+
+sources:
+  - id: cwf:CHS
+    kind: cwf
+    required: true
+    refresh_hr: 6
+    urls:
+      - https://tgftp.nws.noaa.gov/data/raw/fz/fzus52.kchs.cwf.chs.txt
+      - https://www.ndbc.noaa.gov/data/Forecasts/FZUS52.KCHS.html
+
+  - id: cwf:MHX
+    kind: cwf
+    required: true
+    refresh_hr: 6
+    urls:
+      - https://tgftp.nws.noaa.gov/data/raw/fz/fzus52.kmhx.cwf.mhx.txt
+      - https://www.ndbc.noaa.gov/data/Forecasts/FZUS52.KMHX.html
+    paste_hint: |
+      Open https://www.ndbc.noaa.gov/data/Forecasts/FZUS52.KMHX.html
+      Cape Hatteras / Gulf Stream exit corridor.
+
+  - id: cwf:AKQ
+    kind: cwf
+    required: true
+    refresh_hr: 6
+    urls:
+      - https://tgftp.nws.noaa.gov/data/raw/fz/fzus51.kakq.cwf.akq.txt
+      - https://www.ndbc.noaa.gov/data/Forecasts/FZUS51.KAKQ.html
+    paste_hint: |
+      Open https://www.ndbc.noaa.gov/data/Forecasts/FZUS51.KAKQ.html
+      Wakefield VA — Currituck to Chincoteague.
+
+  - id: cwf:OKX
+    kind: cwf
+    required: true
+    refresh_hr: 6
+    urls:
+      - https://tgftp.nws.noaa.gov/data/raw/fz/fzus51.kokx.cwf.okx.txt
+      - https://www.ndbc.noaa.gov/data/Forecasts/FZUS51.KOKX.html
+    paste_hint: |
+      Open https://www.ndbc.noaa.gov/data/Forecasts/FZUS51.KOKX.html
+      Long Island Sound, NJ coast — required for approach.
+
+  - id: cwf:BOX
+    kind: cwf
+    required: true
+    refresh_hr: 6
+    urls:
+      - https://tgftp.nws.noaa.gov/data/raw/fz/fzus51.kbox.cwf.box.txt
+      - https://www.ndbc.noaa.gov/data/Forecasts/FZUS51.KBOX.html
+    paste_hint: |
+      Open https://www.ndbc.noaa.gov/data/Forecasts/FZUS51.KBOX.html
+      Critical: Nantucket Sound and approach zones.
+
+  - id: afd:MHX
+    kind: afd
+    required: true
+    refresh_hr: 6
+    urls:
+      - https://tgftp.nws.noaa.gov/data/raw/fx/fxus62.kmhx.afd.mhx.txt
+      - https://mesonet.agron.iastate.edu/wx/afos/p.php?pil=AFDMHX
+
+  - id: afd:BOX
+    kind: afd
+    required: true
+    refresh_hr: 6
+    urls:
+      - https://tgftp.nws.noaa.gov/data/raw/fx/fxus61.kbox.afd.box.txt
+      - https://mesonet.agron.iastate.edu/wx/afos/p.php?pil=AFDBOX
+    paste_hint: |
+      Open https://mesonet.agron.iastate.edu/wx/afos/p.php?pil=AFDBOX
+      Critical for Nantucket arrival timing.
+
+  - id: buoy:41001
+    kind: buoy
+    required: true
+    refresh_hr: 1
+    location: Cape Hatteras East 150 NM (34.7N 72.6W) — Gulf Stream exit
+    urls:
+      - https://www.ndbc.noaa.gov/data/realtime2/41001.txt
+      - https://www.ndbc.noaa.gov/station_page.php?station=41001
+
+  - id: buoy:41002
+    kind: buoy
+    required: false
+    refresh_hr: 1
+    location: South Hatteras (31.8N 74.9W)
+    urls:
+      - https://www.ndbc.noaa.gov/data/realtime2/41002.txt
+      - https://www.ndbc.noaa.gov/station_page.php?station=41002
+
+  - id: buoy:44014
+    kind: buoy
+    required: true
+    refresh_hr: 1
+    location: Virginia Beach 64 NM E (36.6N 74.8W)
+    urls:
+      - https://www.ndbc.noaa.gov/data/realtime2/44014.txt
+      - https://www.ndbc.noaa.gov/station_page.php?station=44014
+
+  - id: buoy:44017
+    kind: buoy
+    required: true
+    refresh_hr: 1
+    location: Montauk Point (40.7N 72.0W) — Long Island Sound entry
+    urls:
+      - https://www.ndbc.noaa.gov/data/realtime2/44017.txt
+      - https://www.ndbc.noaa.gov/station_page.php?station=44017
+
+  - id: buoy:44008
+    kind: buoy
+    required: true
+    refresh_hr: 1
+    location: Nantucket SE 54 NM (40.5N 69.2W)
+    urls:
+      - https://www.ndbc.noaa.gov/data/realtime2/44008.txt
+      - https://www.ndbc.noaa.gov/station_page.php?station=44008
+    paste_hint: |
+      Open https://www.ndbc.noaa.gov/station_page.php?station=44008
+      Highest priority for Nantucket arrival.
+
+  - id: buoy:44011
+    kind: buoy
+    required: false
+    refresh_hr: 1
+    location: Georges Bank (41.1N 66.6W) — major weather marker
+    urls:
+      - https://www.ndbc.noaa.gov/data/realtime2/44011.txt
+      - https://www.ndbc.noaa.gov/station_page.php?station=44011
+
+  - id: offshore:NE_Atl
+    kind: offshore
+    required: true
+    refresh_hr: 6
+    urls:
+      - https://tgftp.nws.noaa.gov/data/forecasts/marine/offshore/an/anz800.txt
+    paste_hint: |
+      Open https://tgftp.nws.noaa.gov/data/forecasts/marine/offshore/an/anz800.txt
+      New England offshore — critical for Gulf Stream exit / arrival.
+
+  - id: offshore:Mid_Atl
+    kind: offshore
+    required: true
+    refresh_hr: 6
+    urls:
+      - https://tgftp.nws.noaa.gov/data/forecasts/marine/offshore/an/anz900.txt
+    paste_hint: |
+      Mid-Atlantic offshore — Hatteras corridor.
+
+  - id: high_seas:NATL
+    kind: high_seas
+    required: false
+    refresh_hr: 6
+    urls:
+      - https://tgftp.nws.noaa.gov/data/forecasts/marine/high_seas/north_atlantic.txt
+    paste_hint: |
+      Western Atlantic GMDSS Area IV. Useful for synoptic context only.
+
+  - id: nhc:atlantic
+    kind: nhc
+    required: true
+    refresh_hr: 6
+    urls:
+      - https://www.nhc.noaa.gov/text/MIATWOAT.shtml
+    paste_hint: |
+      Required for summer Nantucket passages — hurricane season risk.

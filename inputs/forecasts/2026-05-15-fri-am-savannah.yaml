@@ -1,0 +1,320 @@
+# Forecast bundle for Charleston-Savannah route, Fri 5/15 AM cycle (T-3 hours from departure).
+# Pulled fresh via Claude in Chrome at ~7:00 AM EDT Fri 5/15/2026.
+#
+# Synoptic: NE surge is ACTIVE. Reinforcing dry cold front passed Thursday evening
+# (visible at Fripp Island 41033 ~6 PM EDT Thu). Post-frontal NE wind surge developed
+# overnight as forecast. SMALL CRAFT ADVISORY now in effect for AMZ360/362/364 until
+# 10 AM EDT today. Buoy 41033 saw peak gust 31 kt at 7 AM. AFDCHS confirms 25-30 kt
+# gusts across nearshore waters this morning.
+#
+# Wind diminishes after 10 AM: NE 15-20 g25 morning → E 10-15 afternoon → SE 5-10 evening.
+# Seas peak 4-5 ft NE 6 sec morning → 3-4 ft NE/E mixed afternoon → 2-3 ft E 7 sec evening.
+# High pressure builds through weekend and into next week — no further marine concerns.
+
+cycle:
+  label: "Fri 5/15 AM cycle (CHS 429 AM)"
+  cwfchs:
+    issued: "2026-05-15T04:29:00-04:00"
+    label_short: "Fri 5/15 429 AM"
+    label_full: "429 AM EDT Fri May 15 2026"
+  afdchs:
+    issued: "2026-05-15T04:31:00-04:00"
+    label_short: "Fri 5/15 431 AM"
+    label_full: "431 AM EDT Fri May 15 2026"
+
+zones:
+  AMZ360:
+    description: "Coastal waters from South Santee River to Edisto Beach SC out 20 NM"
+    office: CHS
+    sca:
+      active: true
+      expires: "2026-05-15T10:00:00-04:00"
+      text: "SMALL CRAFT ADVISORY IN EFFECT UNTIL 10 AM EDT THIS MORNING"
+    periods:
+      FRI:
+        wind_dir: "NE→E"
+        wind_dir_deg: 50
+        wind_kt: [15, 20]
+        wind_gust_kt: 25
+        sea_ft: [3, 4]
+        wave_detail:
+          primary: {direction: NE, direction_deg: 45, height_ft: 4, period_s: 6}
+      FRI_NIGHT:
+        wind_dir: "S"
+        wind_dir_deg: 180
+        wind_kt: [5, 10]
+        sea_ft: [2, 3]
+        wave_detail:
+          primary: {direction: E, direction_deg: 90, height_ft: 3, period_s: 7}
+
+  AMZ362:
+    description: "Coastal waters from Edisto Beach SC to Savannah GA out 20 NM"
+    office: CHS
+    sca:
+      active: true
+      expires: "2026-05-15T10:00:00-04:00"
+      text: "SMALL CRAFT ADVISORY IN EFFECT UNTIL 10 AM EDT THIS MORNING"
+    periods:
+      FRI:
+        wind_dir: "NE"
+        wind_dir_deg: 050
+        wind_kt: [15, 20]
+        wind_gust_kt: 25
+        sea_ft: [4, 5]
+        wave_detail:
+          primary: {direction: NE, direction_deg: 45, height_ft: 4, period_s: 6}
+      FRI_PM:
+        wind_dir: "NE→E"
+        wind_dir_deg: 70
+        wind_kt: [12, 17]
+        wind_gust_kt: 20
+        sea_ft: [3, 4]
+        wave_detail:
+          primary: {direction: NE, direction_deg: 50, height_ft: 4, period_s: 6}
+      FRI_EVE:
+        wind_dir: "E"
+        wind_dir_deg: 95
+        wind_kt: [10, 15]
+        wind_gust_kt: 17
+        sea_ft: [3, 4]
+        wave_detail:
+          primary: {direction: E, direction_deg: 90, height_ft: 4, period_s: 7}
+      FRI_LATE:
+        wind_dir: "SE"
+        wind_dir_deg: 135
+        wind_kt: [5, 10]
+        sea_ft: [2, 3]
+        wave_detail:
+          primary: {direction: E, direction_deg: 90, height_ft: 3, period_s: 7}
+      SAT:
+        wind_dir: "SE"
+        wind_dir_deg: 135
+        wind_kt: [5, 10]
+        sea_ft: [2, 3]
+        wave_detail:
+          primary: {direction: SE, direction_deg: 135, height_ft: 3, period_s: 7}
+
+  AMZ364:
+    description: "Coastal waters from Savannah GA to Altamaha Sound GA out 20 nm, includes Grays Reef NMS"
+    office: CHS
+    sca:
+      active: true
+      expires: "2026-05-15T10:00:00-04:00"
+      text: "SMALL CRAFT ADVISORY IN EFFECT UNTIL 10 AM EDT THIS MORNING"
+    periods:
+      FRI:
+        wind_dir: "NE→E"
+        wind_dir_deg: 60
+        wind_kt: [10, 20]
+        wind_gust_kt: 25
+        sea_ft: [3, 4]
+        wave_detail:
+          primary: {direction: NE, direction_deg: 50, height_ft: 4, period_s: 5}
+
+  AMZ382:
+    description: "Waters from Edisto Beach SC to Savannah GA, 20-60 NM"
+    office: CHS
+    periods:
+      FRI:
+        wind_dir: "NE→E"
+        wind_dir_deg: 55
+        wind_kt: [15, 20]
+        wind_gust_kt: 25
+        sea_ft: [4, 5]
+        wave_detail:
+          primary: {direction: NE, direction_deg: 50, height_ft: 5, period_s: 6}
+
+afd_marine:
+  CHS: |
+    A brief NE wind surge will occur this morning following a reinforcing
+    dry cold front moving through from the north. Wind gusts this morning
+    are showing 25 to 30 knots across the nearshore waters. A Small Craft
+    Advisory has been issued for the nearshore waters, valid through 10 AM
+    this morning. Thereafter winds are forecast to diminish into the
+    afternoon. Saturday through Wednesday: No marine concerns are expected.
+    Winds will average 15 knots or less with seas 2-4 feet. Rip Currents:
+    Slightly increasing tidal ranges with the upcoming new moon plus modest
+    onshore swell will result in Moderate Risk Friday for GA coast and
+    Moderate Risk for all SC/GA beaches on Saturday.
+
+synopses:
+  CHS:
+    zone: AMZ300
+    text: |
+      High pressure will build over the area through the middle of next week.
+      NE surge is active this morning following the reinforcing dry cold front
+      that passed Thu PM. Surge diminishes after 10 AM EDT; high pressure
+      dominates the weekend and into next week with light SE/S flow.
+
+# ============================================================
+# Waypoint forecast assignments per plan
+# Plan A: depart Fri 5/15 noon EDT
+#   WP1 (depart, 12:00 PM): AMZ362 FRI — tail end of NE surge, just past SCA expiration
+#   WP2 (1:35 PM):           AMZ362 FRI_PM — transition NE→E, seas easing
+#   WP3 (~3:55 PM):          AMZ362 FRI_PM/EVE — afternoon E flow
+#   WP4 (~6:05 PM):          AMZ362 FRI_EVE — E 10-15
+#   WP5 (~7:35 PM):          AMZ362 FRI_LATE — wind dropping, seas 2-3 ft
+# ============================================================
+waypoint_assignments:
+  plan_a:
+    WP1:
+      zone: AMZ362
+      period: FRI
+      risk_level: yellow
+      row_band: yellow
+      pressure: 30.02
+      pressure_trend: Rising
+      notes_addendum: >
+        DEPARTURE 10:00 AM EDT — RIGHT AT SCA EXPIRATION. Standing decision
+        trigger normally calls for SCA + 2 hr buffer (= 12:00 PM); this plan
+        accepts the trigger violation in exchange for daylight arrival.
+        Conditions: NE 15-20 g25 expected at WP1 per AMZ362 FRI. Course 212° →
+        TWA ~162° running. Seas 4-5 ft NE 6 sec on starboard quarter. HR 54
+        well within reefable threshold but conditions ARE in SCA territory.
+        Consider main reef + jib reefed at first hint of conditions exceeding
+        forecast. Compare to Plan B (noon departure, post-SCA-buffer) which
+        has gentler conditions but red arrival.
+      weather_risk: >
+        ⚠️ SCA window departure — accepting the trigger violation for daylight
+        arrival. NE 15-20 g25, seas 4-5 ft NE 6 sec. Reefable HR 54 sized for
+        this but elevated demands relative to typical departures.
+    WP2:
+      zone: AMZ362
+      period: FRI_PM
+      risk_level: green
+      row_band: green
+      pressure: 30.07
+      pressure_trend: Rising
+      notes_addendum: >
+        Mid-afternoon transition zone. Wind backing NE→E 12-17 kt as the surge
+        relaxes. Seas easing from 4-5 ft to 3-4 ft. TWA still in broad reach /
+        running range.
+      weather_risk: >
+        Wind in transition NE→E. Seas easing — much more comfortable than WP1.
+    WP3:
+      zone: AMZ362
+      period: FRI_PM
+      risk_level: green
+      row_band: green
+      pressure: 30.10
+      pressure_trend: Rising
+      notes_addendum: >
+        Mid-route. NE→E 12-17 kt steady. Course 227° → TWA ~157° broad reach
+        starboard tack. Seas 3-4 ft NE 6 sec — moderate following sea.
+      weather_risk: >
+        Steady afternoon E flow setting up. Comfortable broad reach.
+    WP4:
+      zone: AMZ362
+      period: FRI_EVE
+      risk_level: green
+      row_band: green
+      pressure: 30.12
+      pressure_trend: Rising slow
+      notes_addendum: >
+        Approach phase. E 10-15 kt fully established. Course 237° →
+        TWA ~142° broad reach port tack. Seas 3-4 ft E 7 sec.
+      weather_risk: >
+        E 10-15 evening regime. Excellent point of sail closing into Tybee.
+    WP5:
+      zone: AMZ362
+      period: FRI_LATE
+      risk_level: yellow
+      row_band: yellow
+      pressure: 30.13
+      pressure_trend: Rising slow
+      notes_addendum: >
+        Arrival Tybee Roads / Savannah pilot WP. Wind dropping SE 5-10 kt.
+        Engine on for the 10 NM inbound channel run to Thunderbolt / downtown.
+        Verify Tybee channel marker lighting; sun low to west — watch glare.
+      weather_risk: >
+        Arrival ~7:35 PM EDT, ~37 min before sunset (8:12 PM EDT). Daylight margin
+        thin but adequate. SCA conditions long gone; wind benign.
+
+  # ----------------------------------------------------------------
+  # Plan B — Fri 5/15 12:00 PM EDT depart (SCA+2hr buffer compliance,
+  # but pushes arrival into night). 2-hour offset from Plan A; same
+  # conditions per WP shifted right on the clock.
+  # ----------------------------------------------------------------
+  plan_b:
+    WP1:
+      zone: AMZ362
+      period: FRI
+      risk_level: yellow
+      row_band: yellow
+      pressure: 30.07
+      pressure_trend: Rising
+      notes_addendum: >
+        DEPARTURE 12:00 PM EDT — SCA expired 10 AM (+2 hr buffer per standing
+        decision trigger). NE surge mostly relaxed; wind 13-18 kt range with
+        residual gusts to 22. Course 212° → TWA ~167° running. Seas 3-4 ft
+        NE 6 sec on starboard quarter — significantly easier than Plan A WP1.
+      weather_risk: >
+        Post-SCA-buffer departure. Wind/seas already easing from morning surge.
+        Comfortable noon broad reach/running start.
+    WP2:
+      zone: AMZ362
+      period: FRI_PM
+      risk_level: green
+      row_band: green
+      pressure: 30.10
+      pressure_trend: Rising
+      notes_addendum: >
+        Wind transition NE→E 12-17 kt. Seas 3-4 ft. Steady broad reach.
+      weather_risk: "Comfortable broad reach as wind clocks NE→E."
+    WP3:
+      zone: AMZ362
+      period: FRI_EVE
+      risk_level: green
+      row_band: green
+      pressure: 30.12
+      pressure_trend: Rising slow
+      notes_addendum: >
+        Course 227° → TWA ~137° broad reach starboard. E 10-15 kt established.
+        Seas 3-4 ft E 7 sec.
+      weather_risk: "Steady E flow setting up. Comfortable."
+    WP4:
+      zone: AMZ362
+      period: FRI_LATE
+      risk_level: yellow
+      row_band: yellow
+      pressure: 30.13
+      pressure_trend: Rising slow
+      notes_addendum: >
+        Approach phase, evening. SE 5-10 kt — wind dropping below crossover
+        threshold for sailing on this course. May need to motor-sail through
+        WP4-WP5 segment to maintain ETA.
+      weather_risk: "Wind dropping below sailing threshold. Likely motor-sail closing leg."
+    WP5:
+      zone: AMZ362
+      period: FRI_LATE
+      risk_level: red
+      row_band: red
+      pressure: 30.13
+      pressure_trend: Steady
+      notes_addendum: >
+        ARRIVAL TWILIGHT/NIGHT — ETA ~8:42 PM EDT, ~2 min past civil dusk
+        (8:40 PM Savannah). Channel approach in DARK. Tybee Roads has lit
+        sea buoy and channel markers but visibility is compromised. Strongly
+        prefer Plan A (10 AM depart) to avoid this approach window.
+      weather_risk: >
+        ⚠️ ARRIVAL PAST CIVIL DUSK. Channel approach in dark. Recommend Plan A.
+
+plan_commentary:
+  plan_a: >
+    Plan A — Depart Fri 5/15 10:00 AM EDT. ARRIVAL 6:42 PM EDT GREEN
+    (1h30 daylight margin before 8:12 PM sunset). Trade-off: 10 AM departure
+    is RIGHT AT SCA EXPIRATION — violates the standing "SCA + 2 hr buffer"
+    decision trigger. Boat enters the AMZ362 zone in tail-end-of-surge
+    conditions (NE 15-20 g25, seas 4-5 ft NE 6 sec). HR 54 is sized for this
+    but conditions are demanding. Recommended for crew comfortable with
+    sporty broad-reach starts; recommended sail plan is one reef in the
+    main + reefed jib at departure, easing as wind diminishes through the
+    afternoon.
+  plan_b: >
+    Plan B — Depart Fri 5/15 12:00 PM EDT (the original request). ARRIVAL
+    8:42 PM EDT RED — past civil dusk (8:40 PM Savannah). Channel approach
+    into Tybee Roads in dark. Trade-off: noon departure satisfies the
+    standing "SCA + 2 hr buffer" rule, boat departs into wind that has
+    already started easing (forecast 12-17 g20), seas down to 3-4 ft.
+    Comfortable passage but compromised arrival window. Not recommended
+    unless skipper is comfortable with night channel entry at Tybee Roads.

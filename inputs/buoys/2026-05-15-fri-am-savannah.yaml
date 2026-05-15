@@ -1,0 +1,110 @@
+# NDBC realtime2 buoys pulled fresh via Chrome at ~7:00 AM EDT Fri 5/15/2026.
+# Sources:
+#   https://www.ndbc.noaa.gov/data/realtime2/41004.txt (Edisto offshore reference)
+#   https://www.ndbc.noaa.gov/data/realtime2/41008.txt (Grays Reef arrival)
+#   https://www.ndbc.noaa.gov/data/realtime2/41033.txt (Fripp on-route)
+#
+# Pulled by: Claude in Chrome
+
+pull:
+  label: "7:00 AM EDT Fri 5/15"
+  utc: "2026-05-15T11:00:00Z"
+
+front_passage:
+  description: |
+    Reinforcing dry cold front passed Thu PM (visible at Fripp 41033 ~5-6 PM
+    EDT Thu). Post-frontal NE wind surge developed overnight and is ACTIVE
+    at all three route buoys this morning. Peak gust observed was 31 kt at
+    Fripp Island 41033 at 7 AM EDT — at the upper edge of AFDCHS's "25-30 kt
+    nearshore" range. SCA in effect for AMZ360/362/364 until 10 AM EDT.
+    Pressure rising at all three buoys: Fripp +3.0 hPa in 7 hr, Edisto +1.8
+    hPa/3hr, Grays Reef +1.2 hPa/3hr — classic high-builds-behind-front pattern.
+    Surge will diminish through the morning; by noon departure conditions
+    will be NE 15-20 g25 → NE 12-17 kt early afternoon, easing further to
+    E 10-15 kt mid/late afternoon and SE 5-10 kt evening.
+
+stations:
+  - id: 41033
+    name: "Fripp Nearshore (on-route, closest to rhumb line)"
+    lat: 32.279
+    lon: -80.406
+    reading_time: "6:08 AM EDT Fri 5/15"
+    status: "fresh"
+    wind_dir: "NE"
+    wind_dir_deg: 40
+    wind_kt: 17.5
+    gust_kt: 23.3
+    wave_ft: null
+    period_s: null
+    swell_dir: null
+    swell_dir_deg: null
+    pressure_hpa: 1016.4
+    pressure_trend: "+3.0 hPa / 7 hr — rising fast (post-frontal)"
+    findings: |
+      PRIMARY ON-ROUTE BUOY. NE surge fully active. Wind evolution overnight:
+      020° / 14 kt @ 3 AM → 050° / 17 kt @ 5 AM → 040° / 20 kt + gust 31 kt
+      @ 7 AM → 030° / 19 kt @ 8 AM → 040° / 17 kt @ 10 AM (6 AM obs).
+      Peak gust 31 kt confirms AFDCHS's "25-30 kt nearshore" call. Wind
+      diminishing slowly through the morning. Air temp dropped to 17.2°C
+      (63°F) — confirms cold dry air mass behind front.
+  - id: 41004
+    name: "Edisto (offshore reference, 41 NM SE of Charleston Sea Buoy per NDBC)"
+    lat: 32.502
+    lon: -79.099
+    reading_time: "6:30 AM EDT Fri 5/15"
+    status: "fresh"
+    wind_dir: "NNE"
+    wind_dir_deg: 30
+    wind_kt: 17.5
+    gust_kt: 21.4
+    wave_ft: 6.2
+    period_s: 6
+    swell_dir: "NNE"
+    swell_dir_deg: 30
+    pressure_hpa: 1016.9
+    pressure_trend: "+1.8 hPa / 3 hr — rising"
+    findings: |
+      OFFSHORE REFERENCE in AMZ382 zone. Seas built to 6.2 ft NNE 6 sec —
+      typical of post-frontal NE surge in offshore waters. Larger than nearshore
+      AMZ362 (forecast 4-5 ft). Wind NNE 17.5 g21 kt steady. Pressure rising
+      smoothly. This zone is OFFSHORE OF THE ROUTE — useful as a "what's
+      happening past the 20 NM line" reference. The route stays inside AMZ362
+      where conditions are more moderate.
+  - id: 41008
+    name: "Grays Reef NMS (arrival side, 40 NM SE of Savannah per NDBC)"
+    lat: 31.400
+    lon: -80.866
+    reading_time: "6:30 AM EDT Fri 5/15"
+    status: "fresh"
+    wind_dir: "NE"
+    wind_dir_deg: 40
+    wind_kt: 19.4
+    gust_kt: 25.3
+    wave_ft: null
+    period_s: null
+    swell_dir: null
+    swell_dir_deg: null
+    pressure_hpa: 1015.6
+    pressure_trend: "+1.2 hPa / 3 hr — rising"
+    findings: |
+      ARRIVAL-SIDE BUOY. NE 19 g25 kt — at the SCA threshold. Will diminish
+      through the day per CWFCHS AMZ364 forecast (NE 20 g25 morning →
+      10-15 g25 late morning → SE 10 kt evening). By the time the boat arrives
+      at WP5 around 7:35 PM EDT, Grays Reef should be reading benign SE 5-10 kt.
+
+pressure_trend:
+  - station: 41033
+    time: "Fri 6:08 AM"
+    pressure: 30.02
+    delta: "+0.089 inHg/7hr (rising fast)"
+    interpretation: "On-route buoy. NE surge actively occurring; pressure now +3 hPa above the 11 PM Thu reading. Front fully cleared, high pressure building. Surge will diminish over next 6 hours."
+  - station: 41004
+    time: "Fri 6:30 AM"
+    pressure: 30.03
+    delta: "+0.053 inHg/3hr (rising)"
+    interpretation: "Offshore reference. Pressure has been rising steadily since 11 PM Thu (+5 hPa total). Seas now 6.2 ft NNE 6 sec confirm offshore NE surge in AMZ382."
+  - station: 41008
+    time: "Fri 6:30 AM"
+    pressure: 30.00
+    delta: "+0.035 inHg/3hr (rising)"
+    interpretation: "Arrival-side buoy. NE 19 g25 confirms upper-end of AMZ364 forecast. By Friday evening expect benign SE 5-10 kt as wind clocks around through E to SE."

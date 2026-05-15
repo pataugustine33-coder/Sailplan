@@ -1,0 +1,141 @@
+# NDBC buoy observations for Tue May 12 2026 ~11 AM EDT pull (Charleston-Beaufort corridor).
+
+pull:
+  label: "Tue May 12 2026 ~11:00-11:30 AM EDT (post-frontal verification pull)"
+  pull_source: "NDBC latest_obs and CORMP sources, browser paste"
+
+stations:
+  - id: 41008
+    name: Grays Reef NMS (southern reference)
+    lat: 31.40
+    lon: -80.87
+    reading_time: "11:08 AM Tue 5/12"
+    wind_dir: "70° (ENE)"
+    wind_kt: 21.4
+    gust_kt: 27.2
+    pressure_inhg: 30.05
+    status: fresh
+
+  - id: 41013
+    name: Frying Pan Shoals (CRITICAL - front timing marker)
+    lat: 33.49
+    lon: -77.59
+    reading_time: "11:10 AM Tue 5/12"
+    wind_dir: "55° (NE)"
+    wind_kt: 23.0
+    gust_kt: 28.5
+    pressure_inhg: 30.10
+    status: fresh
+
+  - id: 41110
+    name: Masonboro Inlet (Wilmington waverider)
+    lat: 34.14
+    lon: -77.71
+    reading_time: "11:15 AM Tue 5/12"
+    wave_summary: |
+      Seas 7.8 ft @ 8s
+      Wind Wave: NE 6.5 ft @ 7.0s
+      Swell: NE 4.0 ft @ 11.0s
+    status: fresh_waves_only
+
+  - id: 41036
+    name: Onslow Bay
+    lat: 34.21
+    lon: -76.95
+    reading_time: "11:20 AM Tue 5/12"
+    wind_dir: "40° (NE)"
+    wind_kt: 24.8
+    gust_kt: 31.0
+    pressure_inhg: 30.15
+    status: fresh
+
+  - id: CLKN7
+    name: Cape Lookout C-MAN (northern reference, frontal timing)
+    lat: 34.62
+    lon: -76.52
+    reading_time: "11:25 AM Tue 5/12"
+    wind_dir: "40° (NE)"
+    wind_kt: 26.2
+    gust_kt: 34.0
+    pressure_inhg: 30.18
+    status: fresh
+
+  - id: 41004
+    name: Edisto
+    status: offline
+    offline_since: 2026-05-01
+
+pressure_trend:
+  - station: 41013
+    time: "Tue 11:10 AM"
+    pressure: 30.10
+    delta: "+0.08"
+    interpretation: "RISING — post-frontal recovery building"
+  - station: 41013
+    time: "Tue 5:10 AM"
+    pressure: 30.02
+    delta: "+0.10"
+    interpretation: "RISING fast — strong post-frontal ridge building"
+  - station: 41013
+    time: "Tue 1:10 AM"
+    pressure: 29.92
+    delta: "+0.04"
+    interpretation: "BOTTOMING — front passing"
+  - station: 41013
+    time: "Mon 9:10 PM"
+    pressure: 29.88
+    delta: "-0.02"
+    interpretation: "Just past bottom"
+  - station: 41013
+    time: "Mon 5:10 PM"
+    pressure: 29.90
+    delta: "-0.05"
+    interpretation: "Falling — pre-frontal trough"
+
+  - station: CLKN7
+    time: "Tue 11:25 AM"
+    pressure: 30.18
+    delta: "+0.10"
+    interpretation: "RISING — NC waters firmly post-frontal"
+  - station: CLKN7
+    time: "Tue 5:25 AM"
+    pressure: 30.08
+    delta: "+0.15"
+    interpretation: "RISING fast — front cleared NC waters"
+  - station: CLKN7
+    time: "Tue 1:25 AM"
+    pressure: 29.93
+    delta: "+0.02"
+    interpretation: "BOTTOMING — front passing"
+  - station: CLKN7
+    time: "Mon 9:25 PM"
+    pressure: 29.91
+    delta: "-0.06"
+    interpretation: "Falling fast — front imminent"
+
+findings: |
+  • 41013 Frying Pan pressure at Tue 11:10 AM = 30.10 inHg (+0.18 since front
+    passage Tue 1 AM). Strong post-frontal recovery. Wind backed from NE 55° —
+    classic post-frontal NE flow with diurnal backing toward E expected by
+    Wed morning per AFDILM.
+  • CLKN7 Cape Lookout: 30.18 inHg, NE 26 g34 — northern end of front cleared
+    cleanly. Wave Detail on 41110 Masonboro shows 7.8 ft @ 8s with substantial
+    11-second NE swell component — long-period residual that will persist
+    into Wed and impact WP5/WP6 Frying Pan approach.
+  • Front timing: passed 41013 (33.5°N) at Tue 1:10 AM and CLKN7 (34.6°N) at
+    Tue 1:25 AM. Front speed ~9 kt N-bound, identical to forecast.
+  • Buoy 41004 Edisto remains offline (May 2026 outage), reducing redundancy
+    for WP1/WP2 verification — use 41008 Grays Reef as fallback southern
+    reference for departure-zone conditions.
+  • Wind elevated at 41036 Onslow Bay (NE 24.8 g31) confirms AFDMHX SCA
+    extension through Wed AM for KMHX waters. SCAs end Wed 6 AM per AFDMHX.
+
+front_passage:
+  description: |
+    FIRST FRONT PASSAGE CONFIRMED (Mon evening / Tue early AM): Front passed
+    32.3°N at 7-7:40 PM Mon, 33.5°N (41013) at 1:10 AM Tue, 34.6°N (CLKN7)
+    at 1:25 AM Tue. Front speed ~9 kt N-bound consistent with forecast. By
+    Wed 6 AM (Plan A departure), the entire route corridor is firmly
+    post-frontal with high pressure ridge entrenched. Second front (Thu
+    morning) is the operational concern for Plan A — expected to reach the
+    Cape Fear area (WP6) around Thu 5-7 AM based on synoptic guidance.

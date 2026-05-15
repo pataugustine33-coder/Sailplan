@@ -1,0 +1,209 @@
+# Forecast bundle for Charleston-Savannah route, Thu 5/14 PM cycle.
+# Pulled fresh via Claude in Chrome at ~9:30 PM EDT Thu 5/14/2026.
+#
+# Synoptic: Reinforcing dry cold front cleared the area Thu PM (around 5-6 PM EDT
+# at Fripp Island per 41033 buoy data). Brief NE wind surge Friday morning
+# (gusts <25 kt per AFDCHS), then E 10-15 afternoon as high pressure builds.
+# No SCAs or Gale warnings on route. Excellent broad-reach setup for SSW course.
+
+cycle:
+  label: "Thu 5/14 PM cycle (CHS 709 PM)"
+  cwfchs:
+    issued: "2026-05-14T19:09:00-04:00"
+    label_short: "Thu 5/14 709 PM"
+    label_full: "709 PM EDT Thu May 14 2026"
+  afdchs:
+    issued: "2026-05-14T19:03:00-04:00"
+    label_short: "Thu 5/14 703 PM"
+    label_full: "703 PM EDT Thu May 14 2026"
+
+zones:
+  AMZ360:
+    description: "Coastal waters from South Santee River to Edisto Beach SC out 20 NM"
+    office: CHS
+    periods:
+      FRI:
+        wind_dir: "NE→E"
+        wind_dir_deg: 50
+        wind_kt: [15, 20]
+        wind_gust_kt: 22
+        sea_ft: [3, 4]
+        wave_detail:
+          primary: {direction: NE, direction_deg: 45, height_ft: 4, period_s: 6}
+      FRI_NIGHT:
+        wind_dir: "S"
+        wind_dir_deg: 180
+        wind_kt: [5, 10]
+        sea_ft: [2, 3]
+        wave_detail:
+          primary: {direction: E, direction_deg: 90, height_ft: 3, period_s: 7}
+
+  AMZ362:
+    description: "Coastal waters from Edisto Beach SC to Savannah GA out 20 NM"
+    office: CHS
+    periods:
+      FRI:
+        wind_dir: "NE→E"
+        wind_dir_deg: 55
+        wind_kt: [15, 20]
+        wind_gust_kt: 22
+        sea_ft: [3, 4]
+        wave_detail:
+          primary: {direction: NE, direction_deg: 45, height_ft: 4, period_s: 6}
+      FRI_PM:
+        wind_dir: "E"
+        wind_dir_deg: 90
+        wind_kt: [10, 15]
+        wind_gust_kt: 17
+        sea_ft: [3, 4]
+        wave_detail:
+          primary: {direction: NE, direction_deg: 50, height_ft: 4, period_s: 6}
+      FRI_EVE:
+        wind_dir: "E"
+        wind_dir_deg: 95
+        wind_kt: [10, 13]
+        wind_gust_kt: 15
+        sea_ft: [2, 3]
+        wave_detail:
+          primary: {direction: E, direction_deg: 90, height_ft: 3, period_s: 7}
+      FRI_NIGHT:
+        wind_dir: "SE"
+        wind_dir_deg: 135
+        wind_kt: [5, 10]
+        sea_ft: [2, 3]
+        wave_detail:
+          primary: {direction: E, direction_deg: 90, height_ft: 3, period_s: 7}
+      SAT:
+        wind_dir: "SE"
+        wind_dir_deg: 135
+        wind_kt: [5, 10]
+        sea_ft: [2, 3]
+        wave_detail:
+          primary: {direction: SE, direction_deg: 135, height_ft: 3, period_s: 7}
+
+  AMZ364:
+    description: "Coastal waters from Savannah GA to Altamaha Sound GA out 20 nm, includes Grays Reef NMS"
+    office: CHS
+    periods:
+      FRI:
+        wind_dir: "NE→E"
+        wind_dir_deg: 60
+        wind_kt: [10, 18]
+        wind_gust_kt: 22
+        sea_ft: [3, 4]
+        wave_detail:
+          primary: {direction: NE, direction_deg: 50, height_ft: 4, period_s: 5}
+
+  AMZ382:
+    description: "Waters from Edisto Beach SC to Savannah GA, 20-60 NM"
+    office: CHS
+    periods:
+      FRI:
+        wind_dir: "NE→E"
+        wind_dir_deg: 55
+        wind_kt: [10, 20]
+        wind_gust_kt: 22
+        sea_ft: [3, 5]
+        wave_detail:
+          primary: {direction: NE, direction_deg: 50, height_ft: 5, period_s: 6}
+
+afd_marine:
+  CHS: |
+    A brief NE wind surge will occur Friday morning following a reinforcing
+    dry cold front moving through from the north. However, wind gusts
+    currently expected to remain below 25 kt. Otherwise, high pressure
+    will maintain tranquil marine conditions through the middle of next
+    week. Rip Currents: Slightly increasing tidal ranges with the upcoming
+    new moon plus modest onshore swell will result in Moderate Risk Friday
+    for GA coast and Moderate Risk for all SC/GA beaches on Saturday.
+
+synopses:
+  CHS:
+    zone: AMZ300
+    text: |
+      High pressure will build over the area through the middle of next week.
+      Reinforcing dry cold front already passed Thu PM; brief NE wind surge
+      Friday AM, then high pressure dominates the weekend with light SE/S flow.
+
+waypoint_assignments:
+  plan_a:
+    WP1:
+      zone: AMZ362
+      period: FRI
+      risk_level: green
+      row_band: green
+      pressure: 30.10
+      pressure_trend: Rising
+      notes_addendum: >
+        DEPARTURE 12:00 PM EDT Fri 5/15. NE 15-20 g22 for SSW course 212° =
+        TWA ~157° running. Pole out for wing-and-wing or set asymmetric.
+        Sea state modest 3-4 ft NE 6 sec following sea.
+      weather_risk: >
+        NE 15-20 broad reach/running on SSW course — favorable downwind setup.
+        Brief NE surge gusts to 22 kt well below HR 54 reefing threshold.
+    WP2:
+      zone: AMZ362
+      period: FRI
+      risk_level: green
+      row_band: green
+      pressure: 30.13
+      pressure_trend: Rising
+      notes_addendum: >
+        Steady NE flow. HR54 polar at TWS 17 TWA 165° broad reach starboard.
+        Sea state modest 3-4 ft NE 6 sec, sea on starboard quarter.
+      weather_risk: >
+        Steady NE broad reach. Sea state moderate, comfortable downwind.
+    WP3:
+      zone: AMZ362
+      period: FRI_PM
+      risk_level: green
+      row_band: green
+      pressure: 30.16
+      pressure_trend: Rising
+      notes_addendum: >
+        Mid-route. Wind backed to E 10-15 per afternoon forecast.
+        Course 227° → TWA = 227-90 = 137° broad reach port tack.
+      weather_risk: >
+        Wind eased to E 10-15 broad reach. Sea state dropping to 3-4 ft.
+    WP4:
+      zone: AMZ362
+      period: FRI_EVE
+      risk_level: green
+      row_band: green
+      pressure: 30.18
+      pressure_trend: Rising
+      notes_addendum: >
+        Course 237° → TWA = 237-95 = 142° broad reach port tack.
+        Seas dropped to 2-3 ft E 7 sec — very comfortable closing leg.
+      weather_risk: >
+        Excellent point of sail. Seas easing in step with wind.
+    WP5:
+      zone: AMZ362
+      period: FRI_EVE
+      risk_level: green
+      row_band: green
+      pressure: 30.19
+      pressure_trend: Rising slow
+      notes_addendum: >
+        Arrival Tybee Roads / Savannah pilot WP. Fire up engine for the 10 NM
+        inbound channel run. Verify channel marker lighting before arrival;
+        sun low to west — possible glare during final approach.
+      weather_risk: >
+        Arrival ~7:30 PM EDT, ~40 min before sunset (8:12 PM EDT). Daylight margin.
+
+plan_commentary:
+  plan_a: >
+    Plan A — Depart Fri 5/15 12:00 PM EDT from Charleston Sea Buoy heading
+    SSW to Tybee Roads / Savannah pilot waypoint (66 NM). Modeled boat speed
+    on the HR 54 polar at the forecast wind/sea mix averages 8.0-8.5 kt
+    over the passage, yielding an arrival around 7:30 PM EDT Friday
+    (~40 minutes before Savannah sunset 8:12 PM EDT). The passage benefits
+    from a textbook downwind/broad-reach setup: NE 15-20 kt at departure
+    becomes E 10-15 in the afternoon as the post-frontal high pressure
+    builds; sea state is modest 3-4 ft NE → 2-3 ft E with periods 6-7 sec.
+    No SCA or Gale forecast through the weekend. Cautions: (1) NE surge
+    gusts to ~22 kt early in the passage — well below HR 54 reefing
+    threshold; (2) approach into Tybee Roads near sunset, verify channel
+    marker lighting and watch for sun glare from the west during final
+    approach. The HR54's 830 NM motor range gives substantial reserve;
+    even fully motoring would burn <8% of fuel capacity.

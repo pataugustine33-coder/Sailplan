@@ -1,0 +1,170 @@
+# Charleston, SC → Jacksonville, FL (Mayport) passage definition.
+# This file describes WHAT the passage is — route, vessel, plans, calibration.
+# It does NOT contain forecast data (that lives in inputs/forecasts/).
+
+passage:
+  id: chs-jax
+  name: Charleston-Jacksonville
+  origin: Charleston, SC (Charleston Sea Buoy CHB)
+  destination: Jacksonville, FL (St. Johns River entrance, Mayport)
+  total_nm: 157.18
+
+vessel:
+  designation: HR 48 Mk II
+  design_number: D1170
+  load_config: half-load
+  displacement_lb: 40785
+  motor_speed_kt: 6.0
+  motor_crossover_tws_kt: 7.0
+  fuel_capacity_gal: 110         # 420 L Volvo D2-75 tank
+  fuel_burn_gph: 1.5             # at 6 kt cruise
+  rmc_kgm: 467
+  rm_30deg_kgm: 11995
+  rm_max_kgm: 17657
+
+# Sea factor lookup. Selector logic:
+#   if TWA < 60 AND period < 6 AND Hs/period >= 0.8: steep_chop_bow
+#   elif TWA < 80: close_reach
+#   elif TWA < 100: beam_reach
+#   elif TWA < 150: broad_reach
+#   else (TWA >= 150, deep running): broad_reach  (no degradation, but motor often)
+calibration:
+  sea_factors:
+    steep_chop_bow: 0.72
+    close_reach: 0.87
+    beam_reach: 0.92
+    broad_reach: 0.92
+    reefed_active_trough: 0.85
+
+# Arrival timing rules at destination. Used for color-coding ETAs.
+# Times in 24-hour decimal-hour format.
+arrival_timing:
+  destination_label: "Mayport / St. Johns River"
+  civil_dawn: 6.10        # 6:06 AM (Fri target) — early dawn
+  sunrise: 6.55           # 6:33 AM (Fri target)
+  sunset: 20.17           # 8:10 PM
+  civil_dusk: 20.75       # 8:45 PM
+  # Color thresholds for ETA cells (in 24-hr decimal):
+  day_window: [6.583, 20.167]       # 6:35 AM - 8:10 PM = GREEN
+  twilight_windows:                  # YELLOW
+    - [5.917, 6.583]                # 5:55-6:35 AM dawn
+    - [20.167, 20.75]               # 8:10-8:45 PM dusk
+  # Everything else is RED (night).
+  preferred_window:
+    start: 7.0            # 7:00 AM
+    end: 8.5              # 8:30 AM
+
+# Waypoints. cum_nm is cumulative distance from departure.
+# course_in is true bearing INTO this waypoint (i.e., the course of the leg
+# from the previous WP to this one). WP0 has no course_in.
+waypoints:
+  - id: WP0
+    name: Charleston Sea Buoy CHB
+    lat: 32.6230
+    lon: -79.7170
+    cum_nm: 0.00
+    course_out: 205        # course of the leg FROM this WP to the next
+  - id: WP1
+    name: Offshore Edisto
+    lat: 32.2000
+    lon: -79.9500
+    cum_nm: 28.00
+    course_out: 212
+  - id: WP2
+    name: East of Tybee/Savannah Bar
+    lat: 31.8000
+    lon: -80.2500
+    cum_nm: 56.44
+    course_out: 220
+  - id: WP3
+    name: East of Grays Reef NMS
+    lat: 31.3000
+    lon: -80.7500
+    cum_nm: 95.85
+    course_out: 216
+  - id: WP4
+    name: East of St. Simons
+    lat: 30.9500
+    lon: -81.0500
+    cum_nm: 121.90
+    course_out: 200
+  - id: WP5
+    name: East of Cumberland Island
+    lat: 30.6000
+    lon: -81.2000
+    cum_nm: 144.28
+    course_out: 197
+  - id: WP6
+    name: JAX Sea Buoy STJ
+    lat: 30.3950
+    lon: -81.2750
+    cum_nm: 157.18
+    course_out: null       # arrival, no outbound leg
+
+# Departure scenario definitions. Each one becomes a Plan tab.
+# The plan ID is referenced in the forecast yaml's waypoint_conditions section.
+plans:
+  - id: plan_a
+    tab_label: "Plan A - Wed 8 AM"
+    qualifier: ""           # e.g., "(ALTERNATE)" or "(REC SAILING)" — appended in title
+    depart_day: Wed
+    depart_date: 2026-05-13
+    depart_hour: 8.0        # decimal hours (8:00 AM)
+  - id: plan_b
+    tab_label: "Plan B - Thu 6 AM"
+    qualifier: ""
+    depart_day: Thu
+    depart_date: 2026-05-14
+    depart_hour: 6.0
+
+# Buoys relevant to this route. Used by the Buoys by WP tab.
+route_buoys:
+  - id: 41033
+    name: Fripp Nearshore SC
+    lat: 32.281
+    lon: -80.408
+    relevant_wps:
+      WP0: "~46 NM SSW"
+  - id: 41008
+    name: Grays Reef NMS
+    lat: 31.402
+    lon: -80.866
+    relevant_wps:
+      WP2: "~46 NM SSW"
+      WP3: "~7 NM W"
+      WP4: "~30 NM N"
+  - id: 41112
+    name: Fernandina Beach Offshore
+    lat: 30.709
+    lon: -81.292
+    relevant_wps:
+      WP4: "~17 NM SSE"
+      WP5: "~7 NM SE"
+      WP6: "~19 NM NNE"
+  - id: 41004
+    name: Edisto (OFFLINE)
+    lat: 32.501
+    lon: -79.099
+    status: offline
+    offline_since: 2026-05-01
+    relevant_wps:
+      WP0: "~37 NM ESE"
+      WP1: "~52 NM E"
+
+# Forecast offices spanned by this route. Used by Forecast Sources tab.
+forecast_offices:
+  - office: NWS Charleston SC (KCHS)
+    code: CHS
+    zones:
+      AMZ340: Charleston Harbor
+      AMZ360: South Santee River to Edisto Beach SC, out 20 NM
+      AMZ362: Edisto Beach SC to Savannah GA, out 20 NM
+      AMZ364: Savannah GA to Altamaha Sound GA, out 20 NM (includes Grays Reef NMS)
+      AMZ384: Savannah to Altamaha Sound, 20-60 NM
+  - office: NWS Jacksonville FL (KJAX)
+    code: JAX
+    zones:
+      AMZ450: Altamaha Sound GA to Fernandina Beach FL, out 20 NM
+      AMZ452: Fernandina Beach to St. Augustine FL, out 20 NM
+      AMZ470: Altamaha Sound to Fernandina Beach, 20-60 NM
+      AMZ472: Fernandina Beach to St. Augustine, 20-60 NM

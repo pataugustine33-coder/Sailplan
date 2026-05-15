@@ -1,0 +1,80 @@
+907
+FXUS62 KCHS 101812
+AFDCHS
+
+Area Forecast Discussion
+National Weather Service Charleston SC
+212 PM EDT Sun May 10 2026
+
+.WHAT HAS CHANGED...
+All sections updated.
+
+&&
+
+.KEY MESSAGES...
+- 1) Periods of unsettled weather could continue into Tuesday. A
+  few thunderstorms on Monday could become severe.
+
+&&
+
+.DISCUSSION...
+KEY MESSAGE 1: Periods of unsettled weather could continue into
+Tuesday. A few thunderstorms on Monday could become severe.
+
+Through tonight: Aloft, nearly zonal flow will continue while a
+subtle stationary surface boundary continues to stretch west-east
+along the Gulf Coast. Morning light rain has completely dissipated
+and the overall outlook through the evening is for minimal diurnal
+convection. Though temperatures are on track to peak in the mid 80s
+this afternoon, model soundings are quite unimpressive with meager
+lapse rates. In the absence of any broad forcing or source of low-
+level convergence, diurnal development will be dependent on surface
+heating. The best chance of isolated showers and thunderstorms will
+be across southeast GA along and south of I-16 where some
+instability could pool. Hi-res model consensus is for little to no
+activity with no real severe weather risk. Overnight, an upstream
+cold front will draw closer but we should remain dry.
+
+Monday: A shift from zonal flow to broad troughing will develop into
+Monday as a mid-level trough swings eastward over the Great Lakes
+and towards the East Coast. Along the southern flank of the broad
+trough, a shortwave trough will dig across the Deep South Monday
+into Monday night. At the surface a cold front will approach the
+region from the west, pushing through the forecast area Monday
+evening.
+
+&&
+
+.AVIATION /18Z SUNDAY THROUGH FRIDAY/...
+VFR conditions are expected to prevail at KCHS, KJZI, and KSAV
+through 18z Monday.
+
+&&
+
+.MARINE...
+Through tonight: Quiet conditions will continue across the local
+waters. A modest sea breeze should result in 10-15 knots along the
+land/sea interface this afternoon and into the evening. Then
+overnight, 5-10 knot southwest flow will prevail. Seas should
+average around 2 feet through the period.
+
+Extended Marine: Winds will gradually increase ahead of an
+approaching cold front on Monday. The front will move through
+the waters Monday evening, then quickly shift offshore Monday
+night. There will be a surge of winds and building seas behind
+the front, leading to Small Craft Advisories for at least the
+inner waters. Gale conditions cannot be ruled out for the outer
+waters Monday night. Conditions will quickly improve late
+Tuesday through the remainder of the week as high pressure
+becomes the dominant synoptic feature.
+
+&&
+
+.CHS WATCHES/WARNINGS/ADVISORIES...
+GA...None.
+SC...None.
+MARINE...None.
+
+&&
+
+$$

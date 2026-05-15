@@ -1,0 +1,116 @@
+# NDBC realtime2 buoys pulled fresh via Chrome at 9:30 PM EDT Thu 5/14/2026
+# Sources:
+#   https://www.ndbc.noaa.gov/data/realtime2/41004.txt (Edisto, mid-departure side)
+#   https://www.ndbc.noaa.gov/data/realtime2/41008.txt (Grays Reef, near arrival)
+#   https://www.ndbc.noaa.gov/data/realtime2/41033.txt (Fripp Island, between Charleston and Savannah)
+#
+# Pulled by: Claude in Chrome
+
+pull:
+  label: "9:30 PM EDT Thu 5/14"
+  utc: "2026-05-15T01:30:00Z"
+
+# Front passage was clearly visible:
+# - Fripp Island 41033: wind shifted 190°→280° between 4 PM and 6 PM EDT Thu;
+#   pressure rose from 1008.3 hPa at 4 PM to 1010.0 by 8 PM (+1.7 in 4 hr).
+# - Grays Reef 41008: established post-frontal NW 8 kt by 8 PM Thu.
+# - Edisto 41004: still SW 5-6 kt at 8:30 PM (front passage imminent overnight).
+# Per CWFCHS forecast, NE 15-20 kt surge arrives "late tonight" then dominates Fri AM.
+
+front_passage:
+  description: |
+    Reinforcing dry cold front passed the area Thu PM. Wind shift visible
+    at Fripp Island 41033 buoy: shifted from 190°/210° to 280°/300° between
+    5-6 PM EDT Thu, with pressure rising +1.7 hPa in the 4 hours after.
+    Grays Reef 41008 already in post-frontal NW 8 kt at 8 PM Thu. Edisto
+    41004 still SW 5-6 kt at 8:30 PM Thu (front passage there imminent
+    overnight). Per AFDCHS: "brief NE wind surge Friday morning following
+    a reinforcing dry cold front... gusts below 25 kt." NE 15-20 kt regime
+    established along the entire route by Fri noon departure; backs to
+    E 10-15 kt in the afternoon as high pressure builds. No SCAs or Gales.
+
+stations:
+  - id: 41033
+    name: "Fripp Nearshore (on-route, closest to rhumb line)"
+    lat: 32.279
+    lon: -80.406
+    reading_time: "8:08 PM EDT Thu 5/14"
+    status: "fresh"
+    wind_dir: "WNW"
+    wind_dir_deg: 300
+    wind_kt: 7.8
+    gust_kt: 9.7
+    wave_ft: null
+    period_s: null
+    swell_dir: null
+    swell_dir_deg: null
+    pressure_hpa: 1010.0
+    pressure_trend: "+1.7 hPa / 4 hr — rising fast"
+    findings: |
+      THIS IS THE PRIMARY ROUTE BUOY — sits essentially on the Charleston→Savannah
+      rhumb line between WP3 and WP4. Front clearly passed here ~6 PM EDT
+      Thursday (wind shift 190°→300°, pressure +1.7 hPa in 4 hr). Now in
+      post-frontal NW flow, will rotate to NE then E with the surge tonight
+      into Friday. Use this buoy as the on-route ground-truth all day Friday.
+  - id: 41004
+    name: "Edisto (offshore reference, 41 NM SE of Charleston Sea Buoy per NDBC)"
+    lat: 32.502
+    lon: -79.099
+    reading_time: "8:30 PM EDT Thu 5/14"
+    status: "fresh"
+    wind_dir: "SW"
+    wind_dir_deg: 230
+    wind_kt: 5.8
+    gust_kt: 7.8
+    wave_ft: 2.3
+    period_s: 7
+    swell_dir: "E"
+    swell_dir_deg: 99
+    pressure_hpa: 1011.1
+    pressure_trend: "+1.7 hPa / 3 hr — rising"
+    findings: |
+      OFFSHORE REFERENCE BUOY — 41 NM SE of Charleston in deep AMZ382 zone,
+      NOT on the SSW Charleston-Savannah rhumb line. Useful for verifying the
+      offshore-zone sea state in AMZ382 (where seas are forecast 4-5 ft NE 6 sec
+      vs 3-4 ft inshore in AMZ362). Pre-NE-surge regime at 8:30 PM Thu: still
+      SW 5-6 kt sea-breeze, pressure recovering after front passed to the north.
+      NE 15-20 surge arrives overnight per CWFCHS forecast.
+  - id: 41008
+    name: "Grays Reef NMS (arrival side, 40 NM SE of Savannah per NDBC)"
+    lat: 31.400
+    lon: -80.866
+    reading_time: "8:30 PM EDT Thu 5/14"
+    status: "fresh"
+    wind_dir: "WNW"
+    wind_dir_deg: 290
+    wind_kt: 7.8
+    gust_kt: 9.7
+    wave_ft: 2.0
+    period_s: 8
+    swell_dir: "E"
+    swell_dir_deg: 85
+    pressure_hpa: 1011.0
+    pressure_trend: "+1.6 hPa / 3 hr — rising"
+    findings: |
+      ARRIVAL-SIDE BUOY — south/southeast of Tybee Roads, useful for verifying
+      Savannah approach conditions in the final 2-3 hr of the passage. Already
+      in post-frontal NW flow at 8 PM Thu. Wind will back to NE overnight as
+      the surge sets in, then to E during Friday afternoon as the high builds.
+      Pressure rising matches a classic high-pressure-building pattern.
+
+pressure_trend:
+  - station: 41033
+    time: "Thu 8:08 PM"
+    pressure: 29.83
+    delta: "+0.050 inHg/3hr (rising fast)"
+    interpretation: "Front passed Fripp Island ~5-6 PM EDT Thu (visible wind shift from 190°/210° to 280°/300°). Pressure recovering fast post-front. Primary on-route ground-truth buoy."
+  - station: 41004
+    time: "Thu 8:30 PM"
+    pressure: 29.86
+    delta: "+0.050 inHg/3hr (rising)"
+    interpretation: "Edisto offshore (41 NM SE of Charleston Sea Buoy) pressure rising as front clears area to the north. NE surge expected overnight per AFDCHS. Useful as AMZ382 offshore reference."
+  - station: 41008
+    time: "Thu 8:30 PM"
+    pressure: 29.86
+    delta: "+0.047 inHg/3hr (rising)"
+    interpretation: "Grays Reef (south of Tybee Roads) in post-frontal NW flow; pressure rising in classic high-builds-behind-front pattern. Arrival-side ground-truth."

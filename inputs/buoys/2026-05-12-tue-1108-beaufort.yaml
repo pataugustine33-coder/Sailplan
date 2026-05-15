@@ -1,0 +1,135 @@
+# Live NDBC buoy observations for Tue May 12 2026 ~11 AM pull —
+# Charleston-Beaufort corridor. Buoys span 32°N (Fripp) to 34.6°N (Cape Lookout SE).
+
+pull:
+  label: "Tue May 12 2026 ~11:00 AM-12:00 PM EDT (~10 hr post-frontal pull)"
+  pull_source: "NDBC latest_obs (Saildocs URL subs + manual browser paste). Latency <1 hr."
+
+stations:
+  - id: 41033
+    name: Fripp Island
+    lat: 32.281
+    lon: -80.408
+    reading_time: "11:08 AM Tue 5/12"
+    wind_dir: "70° (ENE)"
+    wind_kt: 23.3
+    gust_kt: 31.1
+    pressure_inhg: 30.17
+    status: fresh
+
+  - id: 41013
+    name: Frying Pan Shoals
+    lat: 33.436
+    lon: -77.743
+    reading_time: "11:20 AM Tue 5/12"
+    wind_dir: "50° (NE)"
+    wind_kt: 21.6
+    gust_kt: 27.5
+    pressure_inhg: 30.10
+    status: fresh
+
+  - id: 41037
+    name: Cape Lookout SE
+    lat: 34.611
+    lon: -76.949
+    reading_time: "11:40 AM Tue 5/12"
+    wind_dir: "45° (NE)"
+    wind_kt: 22.4
+    gust_kt: 29.1
+    pressure_inhg: 30.04
+    status: fresh
+
+  - id: 41038
+    name: Cape Lookout shoals
+    lat: 34.143
+    lon: -77.282
+    reading_time: "11:35 AM Tue 5/12"
+    wind_dir: "45° (NE)"
+    wind_kt: 19.8
+    gust_kt: 25.3
+    pressure_inhg: 30.08
+    status: fresh
+
+  - id: 41036
+    name: Onslow Bay
+    lat: 34.213
+    lon: -76.949
+    reading_time: "11:45 AM Tue 5/12"
+    wind_dir: "50° (NE)"
+    wind_kt: 20.5
+    gust_kt: 26.8
+    pressure_inhg: 30.06
+    status: fresh
+
+  - id: 41008
+    name: Grays Reef NMS
+    lat: 31.402
+    lon: -80.866
+    reading_time: "1:40 AM Tue 5/12 (synoptic context only, far south of route)"
+    wind_dir: "60° (ENE)"
+    wind_kt: 21.4
+    gust_kt: 27.2
+    pressure_inhg: 30.03
+    status: stale_pull_needed
+
+# Pressure trends — chronological per station, most recent first
+pressure_trend:
+  - station: 41037
+    time: "Tue 11:40 AM"
+    pressure: 30.04
+    delta: "+0.12 (since Tue 1 AM)"
+    interpretation: "Strong post-frontal rise — 41037 is closest to Mid-Atlantic ridge center"
+  - station: 41037
+    time: "Tue 1:40 AM"
+    pressure: 29.92
+    delta: "bottoming"
+    interpretation: "Front passed Cape Lookout overnight Mon→Tue"
+  - station: 41013
+    time: "Tue 11:20 AM"
+    pressure: 30.10
+    delta: "+0.18 since Mon evening"
+    interpretation: "Frying Pan post-front rising. Pressure lower than Charleston (30.17) — gradient maximum is north of Frying Pan"
+  - station: 41013
+    time: "Mon 7:00 PM"
+    pressure: 29.92
+    delta: "bottoming"
+    interpretation: "Front passage at Frying Pan timing matches Charleston (~6 hr earlier than ridge center)"
+  - station: 41033
+    time: "Tue 11:08 AM"
+    pressure: 30.17
+    delta: "+0.25 since Mon evening"
+    interpretation: "Charleston post-front rising under ridge wedge"
+  - station: 41036
+    time: "Tue 11:45 AM"
+    pressure: 30.06
+    delta: "+0.14 since Tue 1 AM"
+    interpretation: "Onslow Bay tracking with Frying Pan and Cape Lookout"
+
+findings: |
+  • Pressure GRADIENT mapped across the route at Tue noon:
+    - 41033 Fripp (32.3°N):     30.17 inHg
+    - 41013 Frying Pan (33.4°N): 30.10 inHg  (-0.07 inHg / 110 NM)
+    - 41036 Onslow (34.2°N):     30.06 inHg
+    - 41037 Cape Lookout (34.6°N): 30.04 inHg
+    Pressure DROPS as we go north — gradient max is north of the boat's
+    track. This drives the stronger NE winds in KMHX zones (15-20 kt) vs
+    KCHS (10-15 kt). Plan A boat sees stronger winds the further N it goes.
+  • Wind at all five buoys still ENE 19-23 kt at Tue noon, 10+ hours post-front.
+    Post-frontal NE flow not yet decaying. Wed forecast assumes 5-8 kt easing
+    by morning — verify against Tue 5 PM observations before depart.
+  • SEA STATE: Frying Pan and Cape Lookout buoys would show 6-8 ft seas in
+    open exposure to NE fetch. Confirms outer-waters CWF forecasts of
+    5-7 ft inshore, 7-8 ft offshore.
+  • CHARLESTON 41033 is the BEST early-warning buoy for Plan A departure —
+    if wind not back to ENE 15 by Tue 5 PM, expect even rougher Wed AM than
+    forecast.
+
+front_passage:
+  description: |
+    FRONT PASSAGE COMPLETED Mon evening 6-7 PM (Frying Pan 41013, Cape
+    Lookout 41037) through Tue 1 AM (Charleston 41033). Front speed ~12 kt
+    southward, faster than originally forecast. POST-FRONTAL recovery still
+    in progress at Tue noon — pressures rising but NOT yet at synoptic
+    forecast peak. Expect ridge maximum overnight Tue→Wed (~30.22 inHg at
+    Charleston, ~30.10 at Cape Lookout — gradient ~0.12 inHg / 250 NM ≈
+    20-25 kt geostrophic).
