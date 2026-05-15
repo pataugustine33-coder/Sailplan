@@ -1,0 +1,411 @@
+# Forecast bundle for Charleston-StAugustine route — Fri 5/15 PM cycle.
+# Multi-office bundle covering both CHS (north half) and JAX (south half).
+# Pulled fresh via Claude in Chrome 5/15 PM EDT.
+#
+# Synopsis: Bermuda high to the east drives persistent SE onshore flow.
+# CHS waters benign (SE 5-10, seas 2-3 ft). JAX waters sportier
+# (SE 10-15, seas 3-4 ft occ 5 — afternoon/evening surge mentioned in
+# AFDJAX). Gulf Stream stays 50-70 NM east of FL coast, well outside route.
+#
+# New moon 5/16 + perigee 5/17 drives elevated tides — Coastal Flood
+# Advisory active for Charleston tonight, may persist Sat/Sun evenings.
+
+cycle:
+  label: "Fri 5/15 PM cycle (CHS 539 PM, JAX 221 PM)"
+  cwfchs:
+    issued: "2026-05-15T17:39:00-04:00"
+    label_short: "Fri 5/15 539 PM"
+    label_full: "539 PM EDT Fri May 15 2026"
+  cwfjax:
+    issued: "2026-05-15T14:21:00-04:00"
+    label_short: "Fri 5/15 221 PM"
+    label_full: "221 PM EDT Fri May 15 2026"
+  afdchs:
+    issued: "2026-05-15T14:19:00-04:00"
+    label_short: "Fri 5/15 219 PM"
+    label_full: "219 PM EDT Fri May 15 2026"
+  afdjax:
+    issued: "2026-05-15T13:59:00-04:00"
+    label_short: "Fri 5/15 159 PM"
+    label_full: "159 PM EDT Fri May 15 2026"
+
+zones:
+  # ============================================================
+  # CHS office zones — north half of passage
+  # ============================================================
+  AMZ362:
+    description: "Coastal waters from Edisto Beach SC to Savannah GA out 20 NM"
+    office: CHS
+    periods:
+      SAT:
+        wind_dir: "SE"
+        wind_dir_deg: 135
+        wind_kt: [5, 10]
+        wind_gust_kt: 14
+        sea_ft: [2, 3]
+        wave_detail:
+          primary: {direction: SE, direction_deg: 135, height_ft: 3, period_s: 7}
+      SAT_NIGHT:
+        wind_dir: "SE"
+        wind_dir_deg: 135
+        wind_kt: [5, 10]
+        wind_gust_kt: 14
+        sea_ft: [2, 3]
+        wave_detail:
+          primary: {direction: SE, direction_deg: 135, height_ft: 3, period_s: 8}
+
+  AMZ364:
+    description: "Savannah GA to Altamaha Sound GA out 20 NM (incl Grays Reef NMS)"
+    office: CHS
+    periods:
+      SAT:
+        wind_dir: "SE"
+        wind_dir_deg: 135
+        wind_kt: [8, 10]
+        wind_gust_kt: 14
+        sea_ft: [2, 3]
+        wave_detail:
+          primary: {direction: E, direction_deg: 90, height_ft: 3, period_s: 7}
+      SAT_NIGHT:
+        wind_dir: "SE"
+        wind_dir_deg: 135
+        wind_kt: [8, 10]
+        wind_gust_kt: 14
+        sea_ft: [2, 3]
+        wave_detail:
+          primary: {direction: SE, direction_deg: 135, height_ft: 3, period_s: 7}
+
+  AMZ384:
+    description: "Savannah GA to Altamaha Sound GA, 20-60 NM"
+    office: CHS
+    periods:
+      SAT:
+        wind_dir: "SE"
+        wind_dir_deg: 135
+        wind_kt: [8, 10]
+        wind_gust_kt: 14
+        sea_ft: [3, 3]
+        wave_detail:
+          primary: {direction: E, direction_deg: 90, height_ft: 3, period_s: 7}
+      SAT_NIGHT:
+        wind_dir: "SE"
+        wind_dir_deg: 135
+        wind_kt: [8, 10]
+        wind_gust_kt: 14
+        sea_ft: [3, 3]
+        wave_detail:
+          primary: {direction: SE, direction_deg: 135, height_ft: 3, period_s: 7}
+
+  # ============================================================
+  # JAX office zones — south half of passage. Sportier!
+  # AMZ450/470 cover Altamaha to Fernandina. AMZ452/472 = DESTINATION zone
+  # ============================================================
+  AMZ450:
+    description: "Altamaha Sound GA to Fernandina Beach FL out 20 NM"
+    office: JAX
+    periods:
+      SAT:
+        wind_dir: "SE"
+        wind_dir_deg: 135
+        wind_kt: [8, 10]
+        wind_gust_kt: 14
+        sea_ft: [3, 3]
+        wave_detail:
+          primary: {direction: E, direction_deg: 90, height_ft: 3, period_s: 7}
+      SAT_NIGHT:
+        wind_dir: "SE"
+        wind_dir_deg: 135
+        wind_kt: [10, 15]
+        wind_gust_kt: 20
+        sea_ft: [3, 4]
+        sea_occasional_ft: 5
+        wave_detail:
+          primary: {direction: SE, direction_deg: 135, height_ft: 3, period_s: 7}
+      SUN:
+        wind_dir: "SE"
+        wind_dir_deg: 135
+        wind_kt: [5, 10]
+        wind_gust_kt: 14
+        sea_ft: [3, 4]
+        sea_occasional_ft: 5
+        wave_detail:
+          primary: {direction: S, direction_deg: 180, height_ft: 3, period_s: 8}
+
+  AMZ452:
+    description: "Fernandina Beach to St. Augustine FL out 20 NM (DESTINATION)"
+    office: JAX
+    periods:
+      SAT:
+        wind_dir: "SE"
+        wind_dir_deg: 135
+        wind_kt: [10, 15]
+        wind_gust_kt: 20
+        sea_ft: [3, 4]
+        sea_occasional_ft: 5
+        wave_detail:
+          primary: {direction: SE, direction_deg: 135, height_ft: 4, period_s: 7}
+      SAT_NIGHT:
+        wind_dir: "SE"
+        wind_dir_deg: 135
+        wind_kt: [10, 15]
+        wind_gust_kt: 20
+        sea_ft: [3, 4]
+        sea_occasional_ft: 5
+        wave_detail:
+          primary: {direction: SE, direction_deg: 135, height_ft: 4, period_s: 6}
+      SUN:
+        wind_dir: "SE"
+        wind_dir_deg: 135
+        wind_kt: [10, 15]
+        wind_gust_kt: 20
+        sea_ft: [3, 4]
+        sea_occasional_ft: 5
+        wave_detail:
+          primary: {direction: SE, direction_deg: 135, height_ft: 4, period_s: 8}
+      MON:
+        wind_dir: "SE"
+        wind_dir_deg: 135
+        wind_kt: [10, 15]
+        wind_gust_kt: 20
+        sea_ft: [3, 4]
+        sea_occasional_ft: 5
+        wave_detail:
+          primary: {direction: E, direction_deg: 90, height_ft: 4, period_s: 8}
+
+  AMZ472:
+    description: "Fernandina Beach to St. Augustine FL, 20-60 NM"
+    office: JAX
+    periods:
+      SAT:
+        wind_dir: "SE"
+        wind_dir_deg: 135
+        wind_kt: [10, 15]
+        wind_gust_kt: 20
+        sea_ft: [3, 4]
+        sea_occasional_ft: 5
+        wave_detail:
+          primary: {direction: SE, direction_deg: 135, height_ft: 4, period_s: 7}
+
+afd_marine:
+  CHS: |
+    Overall, quiet marine conditions will prevail across the local waters
+    through the middle of next week. Subtropical high pressure to the east
+    will drive onshore southeasterly flow each day, with wind speeds mostly
+    topping out in the 10-15 knot range. Each afternoon and evening there
+    could be some local enhancement along the land/sea interface with the
+    diurnal sea breeze. Seas should average 2-3 feet through the period.
+  JAX: |
+    High pressure shifts eastward off the southeastern seaboard, continuing
+    to move well east of the region this weekend. This will result in east
+    to southeast winds persisting into the weekend and early next week.
+    Afternoon and evening wind surges this weekend may bring periods of
+    caution conditions to the near shore waters. Isolated showers and
+    thunderstorms may be possible in this onshore wind flow by late in the
+    weekend and next week.
+
+synopses:
+  CHS:
+    zone: AMZ300
+    text: |
+      High pressure will remain the primary feature across the area through
+      the middle of next week. New moon 5/16 + perigee 5/17 elevates tide
+      levels — Coastal Flood Advisory active for Charleston tonight, may
+      extend Sat/Sun evenings.
+  JAX:
+    zone: AMZ400
+    text: |
+      Strengthened NE to E winds today as high pressure builds north of the
+      waters. High pressure shifts E by this evening and moves well east of
+      the region this weekend, yielding persistent SE flow. Afternoon and
+      evening wind surges this weekend may bring caution conditions near
+      shore. Isolated showers/tstms possible late weekend in onshore flow.
+
+gulf_stream:
+  effective_date: "2026-05-15"
+  positions:
+    - "50 NM east of Flagler Beach"
+    - "58 NM east of Saint Augustine Beach"
+    - "70 NM east-southeast of Jacksonville Beach"
+    - "71 NM east-southeast of St Simons Island"
+  notes: "Stream stays 50-70 NM east of FL coast — well outside our route."
+
+# ============================================================
+# Waypoint forecast assignments per plan
+# Plan A: 10:00 AM EDT Sat 5/16 — overnight passage, arrival Sun afternoon
+# Plan B: 6:00 AM EDT Sun 5/17 — early start sensitivity, arrival Mon
+# ============================================================
+waypoint_assignments:
+  plan_a:
+    WP1:
+      zone: AMZ362
+      period: SAT
+      risk_level: green
+      row_band: green
+      pressure: 30.05
+      pressure_trend: Steady
+      notes_addendum: >
+        Sat afternoon. SE 5-10 kt, seas 2-3 ft. Course 212° → TWA ~77°
+        close-to-beam reach starboard tack. Below motor crossover most
+        of leg — expect motor-sail or motor.
+      weather_risk: >
+        Light SE flow. Comfortable. Motor likely necessary in lulls.
+    WP2:
+      zone: AMZ362
+      period: SAT
+      risk_level: green
+      row_band: green
+      pressure: 30.07
+      pressure_trend: Steady
+      notes_addendum: >
+        Sat early evening. SE 5-10 kt continues. Course 220° → TWA ~85°
+        beam reach. Seas 2-3 ft, comfortable.
+      weather_risk: "Steady benign SE flow. Comfortable beam reach."
+    WP3:
+      zone: AMZ364
+      period: SAT_NIGHT
+      risk_level: green
+      row_band: green
+      pressure: 30.08
+      pressure_trend: Steady
+      notes_addendum: >
+        Sat night, mid-passage near Grays Reef. SE 8-10 kt steady.
+        Course 216° → TWA ~81° beam-reach. Seas 2-3 ft. Watch for any
+        diurnal sea-breeze enhancement after sunset has fully decayed.
+      weather_risk: "Night transit at Grays Reef. Light SE, manageable."
+    WP4:
+      zone: AMZ450
+      period: SUN
+      risk_level: green
+      row_band: green
+      pressure: 30.05
+      pressure_trend: Falling slow
+      notes_addendum: >
+        Sun morning, crossing into JAX waters. SE 5-10 kt easing from
+        sportier overnight conditions. Course 200° → TWA ~65° close
+        reach. Seas 3-4 ft occ 5 — heavier than CHS waters.
+      weather_risk: >
+        Crossing into JAX waters. Seas building to 3-4 ft. Close-reach
+        starboard tack.
+    WP5:
+      zone: AMZ450
+      period: SUN
+      risk_level: green
+      row_band: green
+      pressure: 30.03
+      pressure_trend: Falling slow
+      notes_addendum: >
+        Sun late morning. SE 5-10 kt. Course 197° → TWA ~62° close reach.
+        Cumberland Island offshore. Seas 3-4 ft.
+      weather_risk: "Close reach in lighter wind. Comfortable."
+    WP6:
+      zone: AMZ452
+      period: SUN
+      risk_level: yellow
+      row_band: yellow
+      pressure: 30.02
+      pressure_trend: Falling slow
+      notes_addendum: >
+        Sun midday, passing Mayport offshore. Entering AMZ452 — SE 10-15
+        kt freshens. Course 175° → TWA ~40° close-hauled. Seas 3-4 ft
+        occ 5 ft, SE 4 ft @ 8 sec from forward starboard quarter.
+      weather_risk: >
+        Wind freshens in FL waters. Close-hauled course due south. May
+        be uncomfortable upwind motion in 3-4 ft seas.
+    WP7:
+      zone: AMZ452
+      period: SUN
+      risk_level: yellow
+      row_band: yellow
+      pressure: 30.00
+      pressure_trend: Falling slow
+      notes_addendum: >
+        Arrival St Augustine Sea Buoy. SE 10-15 kt. Seas 3-4 ft occ 5.
+        Verify channel marker lighting and sea state at inlet — St
+        Augustine Inlet is shoaling-prone. Approach in daylight required.
+      weather_risk: >
+        Arrival in fresh SE wind and 3-4 ft seas. St Augustine Inlet
+        approach demands attention.
+
+  plan_b:
+    WP1:
+      zone: AMZ362
+      period: SAT
+      risk_level: green
+      row_band: green
+      pressure: 30.10
+      pressure_trend: Steady
+      notes_addendum: >
+        Sun mid-morning (Plan B). SE 5-10 kt. Course 212° → TWA ~77°
+        close-to-beam reach. Similar to Plan A WP1 conditions.
+      weather_risk: "Light SE, motor-sail likely."
+    WP2:
+      zone: AMZ364
+      period: SAT
+      risk_level: green
+      row_band: green
+      pressure: 30.10
+      pressure_trend: Steady
+      notes_addendum: "Sun afternoon. SE 8-10 kt. Beam reach."
+      weather_risk: "Steady SE flow."
+    WP3:
+      zone: AMZ364
+      period: SAT_NIGHT
+      risk_level: green
+      row_band: green
+      pressure: 30.08
+      pressure_trend: Steady
+      notes_addendum: "Sun night. Near Grays Reef. SE 8-10 kt."
+      weather_risk: "Night transit, light SE."
+    WP4:
+      zone: AMZ450
+      period: SUN
+      risk_level: green
+      row_band: green
+      pressure: 30.05
+      pressure_trend: Steady
+      notes_addendum: "Mon early. SE 5-10 kt. Crossing into JAX waters."
+      weather_risk: "Easing winds, building seas to 3-4 ft."
+    WP5:
+      zone: AMZ450
+      period: SUN
+      risk_level: green
+      row_band: green
+      pressure: 30.05
+      pressure_trend: Steady
+      notes_addendum: "Mon morning. SE 5-10 kt."
+      weather_risk: "Close reach in lighter air."
+    WP6:
+      zone: AMZ452
+      period: MON
+      risk_level: yellow
+      row_band: yellow
+      pressure: 30.02
+      pressure_trend: Steady
+      notes_addendum: >
+        Mon midday. SE 10-15 kt freshens entering FL waters. Course 175°
+        close-hauled.
+      weather_risk: "Wind freshens. Close-hauled upwind in 3-4 ft seas."
+    WP7:
+      zone: AMZ452
+      period: MON
+      risk_level: yellow
+      row_band: yellow
+      pressure: 30.00
+      pressure_trend: Steady
+      notes_addendum: "Mon afternoon arrival. SE 10-15 kt. Seas 3-4 ft."
+      weather_risk: "Daylight arrival in fresh SE."
+
+plan_commentary:
+  plan_a: |
+    Sat 10:00 AM EDT departure. Overnight passage. CHS waters quiet
+    (SE 5-10 kt, seas 2-3 ft) for first ~100 NM. After WP4 enters JAX
+    waters where conditions stiffen to SE 10-15 kt with 3-4 ft seas
+    occ 5 ft — close-reaching south. Expected arrival St Augustine
+    Sea Buoy Sunday afternoon in daylight. Last 30 NM are
+    close-hauled SE 10-15 kt — sportier than the rest. St Augustine
+    Inlet shoals require attention on approach.
+  plan_b: |
+    Sun 6:00 AM EDT alternate. Same route, one day later. Gets the boat
+    in late Monday afternoon with similar conditions but cooler air
+    and lower tides. Daylight arrival assured. Trade-off: one extra
+    day at the dock.

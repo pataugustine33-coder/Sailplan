@@ -1,0 +1,107 @@
+# NDBC realtime2 buoys pulled fresh via Chrome PM Fri 5/15/2026.
+# Stations: 41033, 41008, 41112, SAUF1
+# Pulled by: Claude in Chrome ~5:30 PM EDT Fri 5/15
+
+pull:
+  label: "5:30 PM EDT Fri 5/15"
+  utc: "2026-05-15T21:30:00Z"
+
+front_passage:
+  description: |
+    Quiet onshore SE flow under subtropical high pressure shifting east.
+    Buoy ground truth at 5 PM:
+      - 41033 Fripp (CHS waters): SSE 12 g14, pressure 1017.6 hPa easing
+      - 41008 Grays Reef: E 10 g12, pressure 1018 hPa stable
+      - 41112 Fernandina (waves only): 4.3 ft @ 6 sec from ENE 61° — heavier
+        than CHS due to morning NE wind surge from earlier today
+      - SAUF1 St Aug Pier: E 6 kt, pressure 1017.4 hPa falling -0.7/3hr
+    Pressure trend at SAUF1 confirms AFD synopsis — high pressure shifting
+    east, easterly/SE flow establishing for the weekend.
+
+stations:
+  - id: 41033
+    name: "Fripp Nearshore SC (on-route)"
+    lat: 32.279
+    lon: -80.406
+    reading_time: "5:08 PM EDT Fri 5/15"
+    status: "fresh"
+    wind_dir: "SSE"
+    wind_dir_deg: 160
+    wind_kt: 11.7
+    gust_kt: 13.6
+    wave_ft: null
+    period_s: null
+    swell_dir: null
+    swell_dir_deg: null
+    pressure_hpa: 1017.6
+    pressure_trend: "Easing slowly (1020 → 1018 hPa through afternoon)"
+    findings: |
+      First on-route buoy near WP0/WP1. SSE 12 kt gust 14 — matches the
+      AMZ362 SAT forecast (SE 5-10 kt easing into weekend, gust 14).
+      Pressure declining as high shifts east. SE flow establishing.
+  - id: 41008
+    name: "Grays Reef NMS (on-route near WP3)"
+    lat: 31.402
+    lon: -80.866
+    reading_time: "5:40 PM EDT Fri 5/15"
+    status: "fresh"
+    wind_dir: "E"
+    wind_dir_deg: 90
+    wind_kt: 9.7
+    gust_kt: 11.7
+    wave_ft: null
+    period_s: null
+    swell_dir: null
+    swell_dir_deg: null
+    pressure_hpa: 1017.9
+    pressure_trend: "Stable near 1018 hPa"
+    findings: |
+      Mid-route reference at Grays Reef NMS. E 10 kt gust 12 — confirms
+      AMZ364 SAT 8-10 kt forecast. Steady pressure 1018. Air temp 20.9°C.
+      No waves reported (wave sensor offline or data not yet posted).
+      Quiet ESE flow continues through area.
+  - id: 41112
+    name: "Fernandina Beach Offshore (FL/GA border, near WP5/WP6)"
+    lat: 30.709
+    lon: -81.292
+    reading_time: "5:26 PM EDT Fri 5/15"
+    status: "fresh (wave data only — no wind sensor)"
+    wind_dir: null
+    wind_dir_deg: null
+    wind_kt: null
+    gust_kt: null
+    wave_ft: 4.3
+    period_s: 6
+    swell_dir: "ENE"
+    swell_dir_deg: 61
+    pressure_hpa: null
+    pressure_trend: null
+    findings: |
+      WAVE-ONLY BUOY (no anemometer). 4.3 ft @ 6 sec from ENE 61° —
+      higher than CHS waters and consistent with this morning's NE wind
+      surge in JAX waters. As surge collapses overnight expect height to
+      drop toward 3 ft and direction to shift to SE matching local wind.
+      Period 6 sec is on the short side — wind chop more than swell.
+  - id: SAUF1
+    name: "St Augustine Pier (FL — destination area)"
+    lat: 29.857
+    lon: -81.265
+    reading_time: "5:00 PM EDT Fri 5/15"
+    status: "fresh"
+    wind_dir: "E"
+    wind_dir_deg: 100
+    wind_kt: 6.0
+    gust_kt: 6.0
+    wave_ft: null
+    period_s: null
+    swell_dir: null
+    swell_dir_deg: null
+    pressure_hpa: 1017.4
+    pressure_trend: "Falling -0.7 hPa/3hr (high pressure shifting east)"
+    findings: |
+      DESTINATION AREA reference. Pier station inside the inlet at St
+      Augustine Beach so wind is sheltered. E 6 kt onshore matching
+      AMZ452 lighter end. Pressure FALLING -0.7 hPa/3hr confirms the
+      synopsis: high pressure shifting east. As the weekend progresses
+      expect persistent SE 10-15 kt offshore in AMZ452 — sportier than
+      this pier reading because of fetch and unsheltered exposure.

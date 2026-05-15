@@ -1,0 +1,196 @@
+# Charleston, SC → St Augustine, FL passage definition.
+# This file describes WHAT the passage is — route, vessel, plans, calibration.
+# It does NOT contain forecast data (that lives in inputs/forecasts/).
+
+passage:
+  id: chs-staug
+  name: Charleston-StAugustine
+  origin: Charleston, SC (Charleston Sea Buoy CHB)
+  destination: St Augustine, FL (St Augustine Sea Buoy STA)
+  total_nm: 187.50
+
+vessel:
+  designation: HR 48 Mk II
+  design_number: D1170
+  load_config: half-load
+  displacement_lb: 40785
+  motor_speed_kt: 6.0
+  motor_crossover_tws_kt: 7.0
+  fuel_capacity_gal: 110         # 420 L Volvo D2-75 tank
+  fuel_burn_gph: 1.5             # at 6 kt cruise
+  rmc_kgm: 467
+  rm_30deg_kgm: 11995
+  rm_max_kgm: 17657
+  brewer_cr: 42.9
+  csf: 1.66
+
+# Sea factor lookup. Selector logic:
+#   if TWA < 60 AND period < 6 AND Hs/period >= 0.8: steep_chop_bow
+#   elif TWA < 80: close_reach
+#   elif TWA < 100: beam_reach
+#   elif TWA < 150: broad_reach
+#   else (TWA >= 150, deep running): broad_reach  (no degradation, but motor often)
+calibration:
+  sea_factors:
+    steep_chop_bow: 0.72
+    close_reach: 0.87
+    beam_reach: 0.92
+    broad_reach: 0.92
+    reefed_active_trough: 0.85
+
+# Arrival timing rules at destination (St Augustine, ~29.92°N).
+# Times in 24-hour decimal-hour format. Valid for May 16-17 2026 EDT.
+arrival_timing:
+  destination_label: "St Augustine"
+  civil_dawn: 6.083        # 6:05 AM
+  sunrise: 6.583           # 6:35 AM
+  sunset: 20.133           # 8:08 PM
+  civil_dusk: 20.633       # 8:38 PM
+  day_window: [6.583, 20.133]       # 6:35 AM - 8:08 PM = GREEN
+  twilight_windows:
+    - [5.917, 6.583]                # 5:55-6:35 AM dawn
+    - [20.133, 20.633]              # 8:08-8:38 PM dusk
+  # Everything else is RED (night).
+  preferred_window:
+    start: 7.0
+    end: 9.0
+
+# Waypoints. cum_nm is cumulative distance from departure.
+# Same route as chs-jax through WP6 (Cumberland Island area), then extended
+# ~30 NM south past the JAX Sea Buoy to the St Augustine Sea Buoy.
+waypoints:
+  - id: WP0
+    name: Charleston Sea Buoy CHB
+    lat: 32.6230
+    lon: -79.7170
+    cum_nm: 0.00
+    course_out: 205
+  - id: WP1
+    name: Offshore Edisto
+    lat: 32.2000
+    lon: -79.9500
+    cum_nm: 28.00
+    course_out: 212
+  - id: WP2
+    name: East of Tybee/Savannah Bar
+    lat: 31.8000
+    lon: -80.2500
+    cum_nm: 56.44
+    course_out: 220
+  - id: WP3
+    name: East of Grays Reef NMS
+    lat: 31.3000
+    lon: -80.7500
+    cum_nm: 95.85
+    course_out: 216
+  - id: WP4
+    name: East of St. Simons
+    lat: 30.9500
+    lon: -81.0500
+    cum_nm: 121.90
+    course_out: 200
+  - id: WP5
+    name: East of Cumberland Island
+    lat: 30.6000
+    lon: -81.2000
+    cum_nm: 144.28
+    course_out: 197
+  - id: WP6
+    name: Off Mayport (JAX Sea Buoy transit)
+    lat: 30.3950
+    lon: -81.2750
+    cum_nm: 157.18
+    course_out: 175
+  - id: WP7
+    name: St Augustine Sea Buoy STA
+    lat: 29.9200
+    lon: -81.1800
+    cum_nm: 187.50
+    course_out: null       # arrival, no outbound leg
+
+# Departure scenario definitions. Plan A is the user-requested Sat 10 AM EDT.
+# Plan B offers a Sunday 6 AM early start as a sensitivity comparison — gets
+# the boat in earlier on Sunday afternoon with daylight buffer.
+plans:
+  - id: plan_a
+    tab_label: "Plan A - Sat 10 AM"
+    qualifier: ""
+    depart_day: Sat
+    depart_date: 2026-05-16
+    depart_hour: 10.0
+  - id: plan_b
+    tab_label: "Plan B - Sun 6 AM"
+    qualifier: "(early start sensitivity)"
+    depart_day: Sun
+    depart_date: 2026-05-17
+    depart_hour: 6.0
+
+# Buoys relevant to this route. Used by the Buoys by WP tab.
+route_buoys:
+  - id: 41033
+    name: Fripp Nearshore SC
+    lat: 32.281
+    lon: -80.408
+    relevant_wps:
+      WP0: "~46 NM SSW"
+      WP1: "~9 NM W"
+  - id: 41008
+    name: Grays Reef NMS
+    lat: 31.402
+    lon: -80.866
+    relevant_wps:
+      WP2: "~46 NM SSW"
+      WP3: "~7 NM W"
+      WP4: "~30 NM N"
+  - id: 41112
+    name: Fernandina Beach Offshore
+    lat: 30.709
+    lon: -81.292
+    relevant_wps:
+      WP4: "~17 NM SSE"
+      WP5: "~7 NM SE"
+      WP6: "~19 NM NNE"
+  - id: SAUF1
+    name: St Augustine Pier
+    lat: 29.857
+    lon: -81.265
+    relevant_wps:
+      WP6: "~33 NM SSW"
+      WP7: "~7 NM SW"
+  - id: 41004
+    name: Edisto (OFFLINE)
+    lat: 32.501
+    lon: -79.099
+    status: offline
+    offline_since: 2026-05-01
+    relevant_wps:
+      WP0: "~37 NM ESE"
+      WP1: "~52 NM E"
+
+# Forecast offices spanned by this route. Used by Forecast Sources tab.
+forecast_offices:
+  - office: NWS Charleston SC (KCHS)
+    code: CHS
+    zones:
+      AMZ340: Charleston Harbor
+      AMZ360: South Santee River to Edisto Beach SC, out 20 NM
+      AMZ362: Edisto Beach SC to Savannah GA, out 20 NM
+      AMZ364: Savannah GA to Altamaha Sound GA, out 20 NM (includes Grays Reef NMS)
+      AMZ382: Edisto Beach to Savannah, 20-60 NM
+      AMZ384: Savannah to Altamaha Sound, 20-60 NM
+  - office: NWS Jacksonville FL (KJAX)
+    code: JAX
+    zones:
+      AMZ450: Altamaha Sound GA to Fernandina Beach FL, out 20 NM
+      AMZ452: Fernandina Beach to St. Augustine FL, out 20 NM (DESTINATION ZONE)
+      AMZ470: Altamaha Sound to Fernandina Beach, 20-60 NM
+      AMZ472: Fernandina Beach to St. Augustine, 20-60 NM
+
+# Tide stations for entry/exit conditions.
+tide_stations:
+  - id: 8665530
+    name: Charleston, SC
+    relevance: departure
+  - id: 8720587
+    name: St Augustine Beach, FL
+    relevance: arrival
