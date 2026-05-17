@@ -1,0 +1,117 @@
+# NDBC realtime2 buoys pulled fresh via Claude in Chrome Sun 5/17 ~7-8 AM EDT.
+# Stations: 41033 Fripp, 41008 Grays Reef, 41112 Fernandina (waves only),
+# SAUF1 St Augustine Pier (destination area)
+#
+# Wind conversion: 1 m/s = 1.944 kt (NDBC reports in m/s)
+# Buoy mast wind is at ~3 m above water — adjust upward ~10-15% for free-air
+# wind comparison to forecast 10-m mast.
+
+pull:
+  label: "7:08 AM EDT Sun 5/17"
+  utc: "2026-05-17T11:08:00Z"
+
+front_passage:
+  description: |
+    Buoy ground truth Sun 7-8 AM EDT shows quiet conditions across CHS
+    waters consistent with the 5:03 AM CWFCHS forecast (SE 5-10 kt, seas
+    3 ft). St Augustine pier (SAUF1) reads SSE 13 kt steady — confirms
+    AMZ452 SCEC conditions inshore. Pressure 1019-1020 hPa stable to
+    slightly rising — high pressure firming up as ridge extends west.
+
+    Transit projection: by the time Plan A reaches AMZ452 (Mon 2 PM, ~30
+    hours from these readings), SCEC will have cleared and wind veers
+    SE → E 10-15 kt per forecast — beam reach for our course, not
+    upwind. Seas remain 3-4 ft occ 5.
+
+stations:
+  - id: 41033
+    name: "Fripp Nearshore SC (on-route, closest to rhumb line near WP0/WP1)"
+    lat: 32.279
+    lon: -80.406
+    reading_time: "7:08 AM EDT Sun 5/17"
+    status: "fresh"
+    wind_dir: "SSW"
+    wind_dir_deg: 200
+    wind_kt: 3.9
+    gust_kt: 5.8
+    wave_ft: null
+    period_s: null
+    swell_dir: null
+    swell_dir_deg: null
+    pressure_hpa: 1020.3
+    pressure_trend: "Stable near 1020 hPa, slightly rising overnight (+0.7/3hr)"
+    findings: |
+      Light morning SSW (200°) — pre-sea-breeze land-influenced flow.
+      Will rotate to SE 5-10 kt by afternoon per CWFCHS as the Atlantic
+      sea breeze takes over. Departure at 5 PM should see SE 5-10 kt
+      offshore, consistent with forecast. Air temp 23°C, water temp 22°C.
+      Quiet baseline conditions.
+  - id: 41008
+    name: "Grays Reef NMS (mid-passage, near WP3)"
+    lat: 31.402
+    lon: -80.866
+    reading_time: "7:40 AM EDT Sun 5/17"
+    status: "fresh"
+    wind_dir: "SSE"
+    wind_dir_deg: 160
+    wind_kt: 3.9
+    gust_kt: 5.8
+    wave_ft: null
+    period_s: null
+    swell_dir: null
+    swell_dir_deg: null
+    pressure_hpa: 1020.4
+    pressure_trend: "Rising slowly (+0.4 hPa overnight)"
+    findings: |
+      SSE 4 kt — light morning flow consistent with quiet CHS waters.
+      Sea-breeze afternoon enhancement expected. By the time Plan A
+      reaches WP3 (Mon 6 AM, dawn), wind should be SE→E 5-10 kt per
+      forecast. Pressure rising — high pressure firming.
+  - id: 41112
+    name: "Fernandina Beach Offshore (FL/GA border, wave reference for WP5/WP6)"
+    lat: 30.709
+    lon: -81.292
+    reading_time: "7:26 AM EDT Sun 5/17"
+    status: "fresh (wave-only — no anemometer)"
+    wind_dir: null
+    wind_dir_deg: null
+    wind_kt: null
+    gust_kt: null
+    wave_ft: 3.6
+    period_s: 6
+    swell_dir: "SE"
+    swell_dir_deg: 129
+    pressure_hpa: null
+    pressure_trend: null
+    findings: |
+      WAVE-ONLY BUOY (no wind). 3.6 ft @ 6 sec from SE 129° — matches
+      AMZ450 forecast 3-4 ft SE @ 8s. Short-period 6 sec component is
+      the local wind sea; primary SE swell at 8 sec from CHS forecast
+      not separately resolved in single MWD report. By Plan A arrival
+      WP6/WP7 (Mon 2-6 PM) expect waves easing slightly toward 3-4 ft
+      as wind veers from SE to E.
+  - id: SAUF1
+    name: "St Augustine Pier (FL destination area)"
+    lat: 29.857
+    lon: -81.265
+    reading_time: "7:00 AM EDT Sun 5/17"
+    status: "fresh"
+    wind_dir: "SSE"
+    wind_dir_deg: 150
+    wind_kt: 13.0
+    gust_kt: 13.0
+    wave_ft: null
+    period_s: null
+    swell_dir: null
+    swell_dir_deg: null
+    pressure_hpa: 1020.1
+    pressure_trend: "RISING +1.1 hPa/3hr (high pressure building)"
+    findings: |
+      DESTINATION AREA. Pier is sheltered inside St Augustine Beach so
+      offshore wind is typically stronger. Reading 13 kt SSE matches
+      AMZ452 SCEC (SE 15-20 kt) at the lighter end. By Plan A arrival
+      Mon 6 PM, SCEC has cleared and wind veered E 10-15 kt per
+      forecast — that's a beam reach for our course, not the close-
+      hauled the current SE wind would produce. Pressure RISING +1.1
+      hPa/3hr confirms high pressure firming — consistent and stable
+      pattern locked in.

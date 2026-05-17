@@ -113,16 +113,16 @@ waypoints:
 # the boat in earlier on Sunday afternoon with daylight buffer.
 plans:
   - id: plan_a
-    tab_label: "Plan A - Sat 10 AM"
+    tab_label: "Plan A - Sun 5 PM"
     qualifier: ""
-    depart_day: Sat
-    depart_date: 2026-05-16
-    depart_hour: 10.0
-  - id: plan_b
-    tab_label: "Plan B - Sun 6 AM"
-    qualifier: "(early start sensitivity)"
     depart_day: Sun
     depart_date: 2026-05-17
+    depart_hour: 17.0          # 5:00 PM EDT departure tonight
+  - id: plan_b
+    tab_label: "Plan B - Mon 6 AM"
+    qualifier: "(next-morning sensitivity)"
+    depart_day: Mon
+    depart_date: 2026-05-18
     depart_hour: 6.0
 
 # Buoys relevant to this route. Used by the Buoys by WP tab.
