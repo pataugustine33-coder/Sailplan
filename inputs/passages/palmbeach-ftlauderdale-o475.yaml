@@ -1,0 +1,159 @@
+# Palm Beach (Lake Worth Inlet) → Fort Lauderdale (Port Everglades) passage definition
+# — Oyster 475 (Aquene) variant, shoal-draft HPB keel.
+# Identical route, forecast, and waypoints to palmbeach-ftlauderdale.yaml.
+# Vessel block carries Oyster 475 specs; calibration motor crossover slightly
+# different from HR boats.
+
+passage:
+  id: palmbeach-ftlauderdale-o475
+  name: PalmBeach-FtLauderdale-Aquene
+  origin: Palm Beach, FL (Lake Worth Inlet Sea Buoy LW)
+  destination: Fort Lauderdale, FL (Port Everglades Sea Buoy PE)
+  total_nm: 41.38
+
+vessel:
+  designation: Oyster 475 (Aquene)
+  design_number: O475
+  load_config: half-load
+  displacement_lb: 35273         # 16,000 kg standard-keel empty per Oyster catalog
+  motor_speed_kt: 6.2            # Yanmar 4JH4-TE 75 HP cruising speed (3-blade folding prop)
+  motor_crossover_tws_kt: 7.0    # similar to HR 48 — comparable LWL
+  fuel_capacity_gal: 198         # 750 L Yanmar diesel tank
+  fuel_burn_gph: 1.3             # at 6.2 kt cruise (75 HP burns less than HR's D3-110)
+
+  # STABILITY VALUES BELOW ARE ESTIMATES from public-source data, not from a
+  # measured Holman & Pye stability curve. The estimates are bounded by:
+  #   - CSF 1.76 (sailboatdata, yachtdatabase) — slightly less stiff than HR 48 (1.66)
+  #   - Ballast ratio ~40% (consistent with Oyster catalog claim of "best-in-class
+  #     for righting moment and form stability")
+  #   - Displacement 16,000 kg empty (between HR 48 at 18,500 kg and HR 44)
+  # For rigorous values, request the official Oyster Marine stability data sheet.
+  # The annotation "ESTIMATE" should propagate to the Vessel Particulars tab.
+  rmc_kgm: 590                   # estimate — between HR 48 (467) and HR 54 (656)
+  rm_30deg_kgm: 12500            # ESTIMATE — between HR 48 (11,995) and HR 54 (14,619)
+  rm_max_kgm: 19000              # ESTIMATE — peak ~70° heel
+  brewer_cr: 34.2                # computed from spec dimensions (16t / 14.81m / 4.66m)
+  csf: 1.76                      # from sailboatdata.com / yachtdatabase.com
+
+# Sea factor lookup — same selector logic. The Oyster 475 is a heavier
+# moderate-displacement cruiser (D/L 236, similar to HR 48's 246) so the
+# same sea-factor calibration applies as a starting point. Refine with
+# logged passage data.
+calibration:
+  sea_factors:
+    steep_chop_bow: 0.72
+    close_reach: 0.87
+    beam_reach: 0.92
+    broad_reach: 0.92
+    reefed_active_trough: 0.85
+
+# Arrival timing rules — same daylight envelope.
+arrival_timing:
+  destination_label: "Fort Lauderdale (Port Everglades)"
+  civil_dawn: 6.000
+  sunrise: 6.500
+  sunset: 20.000
+  civil_dusk: 20.417
+  day_window: [6.500, 20.000]
+  twilight_windows:
+    - [6.000, 6.500]
+    - [20.000, 20.417]
+  preferred_window:
+    start: 14.0
+    end: 17.0
+
+# Waypoints — identical to HR 48 / HR 54 builds. Same route.
+# Note: Aquene's 5'9" shoal draft opens up shallower inlet options should
+# we ever route to Hillsboro or smaller cuts. For Port Everglades (35+ ft
+# project depth), draft is not a constraint.
+waypoints:
+  - id: WP0
+    name: Lake Worth Inlet Sea Buoy LW
+    lat: 26.7717
+    lon: -80.0167
+    cum_nm: 0.00
+    course_out: 176
+  - id: WP1
+    name: Offshore Boynton (Stream west edge)
+    lat: 26.5500
+    lon: -80.0000
+    cum_nm: 13.34
+    course_out: 186
+  - id: WP2
+    name: Offshore Boca Raton
+    lat: 26.3500
+    lon: -80.0250
+    cum_nm: 25.42
+    course_out: 202
+  - id: WP3
+    name: Offshore Hillsboro Inlet
+    lat: 26.2570
+    lon: -80.0670
+    cum_nm: 31.45
+    course_out: 182
+  - id: WP4
+    name: Port Everglades Sea Buoy PE
+    lat: 26.0917
+    lon: -80.0750
+    cum_nm: 41.38
+    course_out: null
+
+# Same two-plan structure for direct comparison with HR 48 / HR 54 builds.
+plans:
+  - id: plan_a
+    tab_label: "Plan A - Wed 9 AM"
+    qualifier: ""
+    depart_day: Wed
+    depart_date: 2026-05-20
+    depart_hour: 9.0
+  - id: plan_b
+    tab_label: "Plan B - Wed 6 AM"
+    qualifier: "(dawn departure sensitivity)"
+    depart_day: Wed
+    depart_date: 2026-05-20
+    depart_hour: 6.0
+
+route_buoys:
+  - id: LKWF1
+    name: Lake Worth Pier (departure area)
+    lat: 26.613
+    lon: -80.033
+    relevant_wps:
+      WP0: "~10 NM N (departure-area wind ground truth)"
+      WP1: "~3 NM N"
+  - id: 41122
+    name: Hollywood Beach Nearshore (arrival area)
+    lat: 26.002
+    lon: -80.097
+    relevant_wps:
+      WP3: "~16 NM S"
+      WP4: "~5 NM SSW (arrival-area wave ground truth)"
+  - id: 41113
+    name: Cape Canaveral Nearshore (upstream proxy)
+    lat: 28.400
+    lon: -80.533
+    relevant_wps:
+      WP0: "~120 NM N (upstream wind/wave reference, 1-2 hr lead)"
+  - id: 41009
+    name: Canaveral 20 NM E (upstream proxy)
+    lat: 28.506
+    lon: -80.185
+    relevant_wps:
+      WP0: "~107 NM N (offshore upstream reference)"
+
+forecast_offices:
+  - office: NWS Miami FL (KMFL)
+    code: MFL
+    zones:
+      AMZ650: Coastal waters from Jupiter Inlet to Deerfield Beach FL out 20 NM
+      AMZ651: Coastal waters from Deerfield Beach to Ocean Reef FL out 20 NM
+      AMZ670: Waters from Jupiter Inlet to Deerfield Beach FL from 20 to 60 NM
+      AMZ671: Waters from Deerfield Beach to Ocean Reef FL from 20 to 60 NM
+
+tide_stations:
+  - id: 8722670
+    name: Lake Worth Pier, Atlantic Ocean, FL
+    relevance: departure
+  - id: 8722956
+    name: Port Everglades, FL
+    relevance: arrival

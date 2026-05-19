@@ -1,13 +1,15 @@
 """
-Hallberg-Rassy polar grids (Frers VPP, half-load), with bilinear interpolation,
-sea factor lookup, and apparent wind calculation.
+Boat polar grids with bilinear interpolation, sea factor lookup, and apparent
+wind calculation.
 
 This module is the boat-speed engine. Given (TWS, TWA, sea height, period,
 calibration, design), it produces (polar speed, boat speed, sail mode, AWS, AWA).
 
-Two design polars are wired in:
-  - D1170 = HR 48 Mk II half-load (default for chs-beaufort etc.)
-  - D1206 = HR 54 half-load (used by Vessel Comparison and any HR 54 passage)
+Three design polars are wired in:
+  - D1170 = HR 48 Mk II half-load (Frers VPP, default for most passages)
+  - D1206 = HR 54 half-load (Frers VPP, used by Vessel Comparison and HR 54 passages)
+  - O475  = Oyster 475 Standard Keel + Spi (digitized from Oyster Design polar
+            diagram — see notes on accuracy at the grid definition)
 """
 import math
 import numpy as np
@@ -47,10 +49,43 @@ VS_GRID_D1206 = np.array([
     [2.81, 4.25, 5.54, 6.57, 7.42, 8.05, 8.51, 9.23, 10.01],
 ])
 
+# Oyster 475 (Standard Keel, Standard Rig With Spinnaker).
+# Source: /mnt/project/Oyster_475_Polar_Diagram.pdf (Oyster Design Ltd.).
+#
+# IMPORTANT: This polar was DIGITIZED VISUALLY from a graphical polar diagram
+# (no VPP table is published by Oyster). Reading hand-drawn curves at standard
+# TWS × TWA grid intersections introduces ±0.1-0.3 kt uncertainty per cell —
+# materially less precise than the Frers VPP tables wired in for D1170/D1206.
+#
+# The downwind values (TWA ≥ 120°) assume spinnaker is set, as labeled on the
+# source chart. If sailing white-sails-only off the wind, expect 10-15% slower
+# at TWA 135-150 than this grid shows.
+#
+# At TWS 4 and 25 (outside the chart's 5-35 kt range), values are extrapolated
+# from the nearest charted curves.
+#
+# Recommended use: planning estimates with the understanding that actual SOG
+# may vary ±0.3 kt from these numbers. Refine via logged passage data.
+VS_GRID_O475 = np.array([
+    # TWS:     4     6     8    10    12    14    16    20    25
+    [        3.10, 4.30, 5.20, 5.80, 6.30, 6.65, 6.90, 7.10, 7.20],  # 45°
+    [        3.50, 4.80, 5.70, 6.30, 6.75, 7.10, 7.30, 7.50, 7.60],  # 52°
+    [        3.85, 5.20, 6.15, 6.80, 7.25, 7.55, 7.75, 7.95, 8.05],  # 60°
+    [        4.10, 5.50, 6.55, 7.15, 7.60, 7.90, 8.10, 8.30, 8.40],  # 70°
+    [        4.25, 5.70, 6.75, 7.40, 7.85, 8.15, 8.35, 8.55, 8.65],  # 80°
+    [        4.30, 5.75, 6.85, 7.50, 7.95, 8.25, 8.45, 8.70, 8.85],  # 90°
+    [        4.25, 5.70, 6.85, 7.55, 8.00, 8.30, 8.55, 8.85, 9.05],  # 100°
+    [        4.10, 5.60, 6.80, 7.55, 8.05, 8.40, 8.70, 9.05, 9.30],  # 110°
+    [        3.85, 5.40, 6.65, 7.45, 8.00, 8.40, 8.75, 9.20, 9.55],  # 120°
+    [        3.20, 4.75, 6.05, 6.95, 7.65, 8.15, 8.55, 9.20, 9.75],  # 135° (spi)
+    [        2.55, 3.90, 5.15, 6.10, 6.90, 7.50, 7.95, 8.65, 9.30],  # 150° (spi)
+])
+
 # Design ID → polar grid lookup. Used by polar_speed(design=...).
 POLARS = {
     "D1170": VS_GRID_D1170,
     "D1206": VS_GRID_D1206,
+    "O475": VS_GRID_O475,
 }
 
 
