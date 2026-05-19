@@ -174,17 +174,18 @@ forecast_offices:
   - office: NWS Charleston SC (KCHS)
     code: CHS
     zones:
-      AMZ330: Charleston Harbor
-      AMZ350: South Santee River to Edisto Beach SC, out 20 NM
-      AMZ370: South Santee River to Edisto Beach, 20-60 NM
+      AMZ340: Charleston Harbor
+      AMZ360: South Santee River to Edisto Beach SC, out 20 NM
+      AMZ380: South Santee River to Edisto Beach SC, 20-60 NM
   - office: NWS Wilmington NC (KILM)
     code: ILM
     zones:
-      AMZ250: Little River Inlet to Surf City NC, out 20 NM
-      AMZ252: Little River Inlet to Surf City NC, 20-60 NM
+      AMZ256: Murrells Inlet to South Santee River SC, out 20 NM
+      AMZ252: Cape Fear NC to Little River Inlet SC, out 20 NM
+      AMZ250: Surf City to Cape Fear NC, out 20 NM
+      AMZ280: Surf City NC to Little River Inlet SC, 20-60 NM
   - office: NWS Newport/Morehead City NC (KMHX)
     code: MHX
     zones:
-      AMZ150: Surf City NC to Cape Lookout NC, out 20 NM
-      AMZ152: Surf City NC to Cape Lookout NC, 20-60 NM
-      AMZ154: Cape Lookout to Duck NC, out 20 NM
+      AMZ158: S of Cape Lookout to N of Surf City NC, out 20 NM
+      AMZ188: Cape Lookout to Surf City NC, 20-60 NM

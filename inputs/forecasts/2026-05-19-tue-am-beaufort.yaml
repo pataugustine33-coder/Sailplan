@@ -258,6 +258,22 @@ zones:
         wave_detail:
           primary: {direction: SE, direction_deg: 135, height_ft: 3, period_s: 9}
           secondary: {direction: NE, direction_deg: 45, height_ft: 1, period_s: 4}
+      WED_NIGHT:
+        wind_dir: "S"
+        wind_dir_deg: 180
+        wind_kt: [10, 15]
+        wind_gust_kt: 20
+        sea_ft: [3, 4]
+        wave_detail:
+          primary: {direction: SE, direction_deg: 135, height_ft: 4, period_s: 9}
+      THU:
+        wind_dir: "S"
+        wind_dir_deg: 180
+        wind_kt: [5, 10]
+        wind_gust_kt: 13
+        sea_ft: [3, 4]
+        wave_detail:
+          primary: {direction: SE, direction_deg: 135, height_ft: 4, period_s: 9}
 
   # === KMHX — Newport/Morehead, NC (WP8, WP9) ===
   AMZ158:
@@ -307,7 +323,50 @@ zones:
         wave_detail:
           primary: {direction: SE, direction_deg: 135, height_ft: 4, period_s: 9}
 
-# Per-WP zone/period assignments per plan. Both plans cover the same ~36-39 hr
+  AMZ188:
+    description: "Waters from Cape Lookout to Surf City NC from 20 to 60 NM"
+    office: MHX
+    periods:
+      TUE:
+        wind_dir: "S"
+        wind_dir_deg: 180
+        wind_kt: [5, 10]
+        wind_gust_kt: 13
+        sea_ft: [3, 3]
+        wave_detail:
+          primary: {direction: SE, direction_deg: 135, height_ft: 3, period_s: 9}
+      TUE_NIGHT:
+        wind_dir: "S"
+        wind_dir_deg: 180
+        wind_kt: [10, 15]
+        wind_gust_kt: 18
+        sea_ft: [3, 4]
+        wave_detail:
+          primary: {direction: SE, direction_deg: 135, height_ft: 4, period_s: 9}
+      WED:
+        wind_dir: "SW→S"
+        wind_dir_deg: 200
+        wind_kt: [5, 10]
+        wind_gust_kt: 13
+        sea_ft: [3, 4]
+        wave_detail:
+          primary: {direction: SE, direction_deg: 135, height_ft: 4, period_s: 9}
+      WED_NIGHT:
+        wind_dir: "S"
+        wind_dir_deg: 180
+        wind_kt: [10, 15]
+        wind_gust_kt: 18
+        sea_ft: [3, 4]
+        wave_detail:
+          primary: {direction: SE, direction_deg: 135, height_ft: 4, period_s: 9}
+      THU:
+        wind_dir: "SW→S"
+        wind_dir_deg: 200
+        wind_kt: [5, 15]
+        wind_gust_kt: 18
+        sea_ft: [3, 4]
+        wave_detail:
+          primary: {direction: SE, direction_deg: 135, height_ft: 4, period_s: 9}
 # passage; Plan A departs 3 PM Tue, Plan B departs 9 PM Tue. WP→period
 # different.
 #
@@ -358,7 +417,7 @@ waypoint_assignments:
       weather_risk: >
         Calm overnight, ridge intact, no fronts within 60 hr.
     WP4:
-      zone: AMZ252
+      zone: AMZ280
       period: TUE_NIGHT
       risk_level: green
       pressure: 30.26
@@ -370,7 +429,7 @@ waypoint_assignments:
       weather_risk: >
         Calm at dawn; Frying Pan turn handled in daylight.
     WP5:
-      zone: AMZ252
+      zone: AMZ280
       period: WED
       risk_level: green
       pressure: 30.27
@@ -381,7 +440,7 @@ waypoint_assignments:
       weather_risk: >
         Daytime turn, light favorable wind, no convection.
     WP6:
-      zone: AMZ250
+      zone: AMZ280
       period: WED
       risk_level: green
       pressure: 30.27
@@ -392,7 +451,7 @@ waypoint_assignments:
       weather_risk: >
         Sea breeze build, no convection; near-running point of sail.
     WP7:
-      zone: AMZ250
+      zone: AMZ280
       period: WED
       risk_level: green
       pressure: 30.27
@@ -404,7 +463,7 @@ waypoint_assignments:
       weather_risk: >
         Evening relaxation; no convective signals on extended outlook.
     WP8:
-      zone: AMZ158
+      zone: AMZ188
       period: WED_NIGHT
       risk_level: green
       pressure: 30.26
@@ -469,7 +528,7 @@ waypoint_assignments:
       weather_risk: >
         Dawn light, ridge intact.
     WP4:
-      zone: AMZ252
+      zone: AMZ280
       period: WED
       risk_level: green
       pressure: 30.27
@@ -481,7 +540,7 @@ waypoint_assignments:
       weather_risk: >
         Daylight Frying Pan turn, light favorable wind.
     WP5:
-      zone: AMZ250
+      zone: AMZ280
       period: WED
       risk_level: green
       pressure: 30.26
@@ -493,7 +552,7 @@ waypoint_assignments:
       weather_risk: >
         Code D window opens; daylight transit of turn.
     WP6:
-      zone: AMZ250
+      zone: AMZ280
       period: WED_NIGHT
       risk_level: green
       pressure: 30.26
@@ -504,7 +563,7 @@ waypoint_assignments:
       weather_risk: >
         Smooth post-sundown leg.
     WP7:
-      zone: AMZ250
+      zone: AMZ280
       period: WED_NIGHT
       risk_level: green
       pressure: 30.26
@@ -514,7 +573,7 @@ waypoint_assignments:
       weather_risk: >
         Calm midnight transit.
     WP8:
-      zone: AMZ158
+      zone: AMZ188
       period: THU
       risk_level: yellow
       pressure: 30.25
