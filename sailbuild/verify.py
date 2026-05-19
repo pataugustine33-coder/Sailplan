@@ -53,7 +53,7 @@ def verify_workbook(output_path: str, passage: dict, forecast: dict, buoys: dict
     findings.extend(_check_forecast_freshness(wb, forecast))
     findings.extend(_check_gust_data_populated(wb, passage, forecast))
     findings.extend(_check_wp_zone_geography(passage, forecast))
-    findings.extend(_check_plan_tab_images(wb, passage))
+    findings.extend(_check_plan_tab_images(wb, passage, forecast))
     findings.extend(_check_workbook_cells(wb, forecast))
     findings.extend(_check_methodology_compliance(wb, passage, forecast))
 
@@ -616,7 +616,30 @@ ZONE_REGISTRY = {
         "coast_refs": [(34.62, -76.52), (34.42, -77.55)],
         "description": "Cape Lookout to Surf City NC, 20-60 NM",
     },
-    # Add JAX/MFL/MLB/KEY zones as new routes are built. Unknown zones
+    # KMFL — Miami FL (SE Florida coast)
+    "AMZ650": {
+        "office": "MFL", "band_nm": (0, 20), "lat_band": (26.20, 26.95),
+        "coast_refs": [(26.77, -80.04), (26.55, -80.06), (26.32, -80.08)],
+        "description": "Jupiter Inlet to Deerfield Beach FL, out 20 NM",
+    },
+    "AMZ651": {
+        "office": "MFL", "band_nm": (0, 20), "lat_band": (25.30, 26.35),
+        "coast_refs": [(26.32, -80.08), (26.09, -80.10), (25.77, -80.13),
+                       (25.34, -80.27)],
+        "description": "Deerfield Beach to Ocean Reef FL, out 20 NM",
+    },
+    "AMZ670": {
+        "office": "MFL", "band_nm": (20, 60), "lat_band": (26.20, 26.95),
+        "coast_refs": [(26.77, -80.04), (26.55, -80.06), (26.32, -80.08)],
+        "description": "Jupiter Inlet to Deerfield Beach FL, 20-60 NM",
+    },
+    "AMZ671": {
+        "office": "MFL", "band_nm": (20, 60), "lat_band": (25.30, 26.35),
+        "coast_refs": [(26.32, -80.08), (26.09, -80.10), (25.77, -80.13),
+                       (25.34, -80.27)],
+        "description": "Deerfield Beach to Ocean Reef FL, 20-60 NM",
+    },
+    # Add JAX/MLB/KEY zones as new routes are built. Unknown zones
     # produce a WARN, not an ERROR.
 }
 
@@ -738,12 +761,14 @@ import re as _re
 # → every Wind/Sea Rose became "—" while the cell-scan check happily
 # saw "—" as a non-empty string and moved on.
 
-def _check_plan_tab_images(wb, passage: dict) -> list[Finding]:
+def _check_plan_tab_images(wb, passage: dict, forecast: dict) -> list[Finding]:
     """Verify each plan tab has the expected count of embedded images.
 
     Each plan tab should carry:
-      - One wind/sea rose per non-arrival WP (anchored to column U)
-      - One mini-polar per non-arrival WP (anchored to column V)
+      - One wind/sea rose per non-arrival WP with a forecast assignment
+        (anchored to column U)
+      - One mini-polar per non-arrival WP with a forecast assignment
+        (anchored to column V)
       - One timeline strip below the leg table
 
     Anchor columns are 0-indexed in openpyxl's image API. U=20, V=21.
@@ -754,17 +779,30 @@ def _check_plan_tab_images(wb, passage: dict) -> list[Finding]:
     if not waypoints:
         return findings
 
-    # Number of non-arrival WPs (last WP has course_out=None so no rose/polar)
-    expected_per_col = sum(
-        1 for wp in waypoints if wp.get("course_out") is not None
-    )
+    # Number of WPs that should have rose/polar imagery rendered.
+    # Two conditions must hold:
+    #   1. WP has course_out (i.e., outbound leg exists) — terminal WPs don't.
+    #   2. WP is referenced in this plan's waypoint_assignments —
+    #      unassigned WPs (most commonly WP0 the departure point) render
+    #      as no-leg rows and skip the image embed.
+    # Counting both keeps this check honest across passages that do vs
+    # don't include WP0 in assignments.
     plans = passage.get("plans", [])
+    wp_assignments = forecast.get("waypoint_assignments", {}) or {}
 
     for plan_def in plans:
         tab_name = plan_def.get("tab_label")
         if not tab_name or tab_name not in wb.sheetnames:
             continue
         ws = wb[tab_name]
+
+        # Per-plan expected count: WPs that have BOTH course_out (outbound
+        # leg) AND a forecast assignment in this plan.
+        plan_assignments = wp_assignments.get(plan_def["id"], {}) or {}
+        expected_per_col = sum(
+            1 for wp in waypoints
+            if wp.get("course_out") is not None and wp["id"] in plan_assignments
+        )
 
         rose_count = 0   # col U
         polar_count = 0  # col V

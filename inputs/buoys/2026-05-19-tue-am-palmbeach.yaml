@@ -1,0 +1,128 @@
+# NDBC realtime/latest_obs buoys pulled fresh via Claude in Chrome Tue 5/19 ~10:30-10:40 AM EDT.
+# Stations: LKWF1 Lake Worth Pier (departure area), 41122 Hollywood Beach (arrival area),
+# 41009 Cape Canaveral 20 NM E (upstream proxy), 41113 Cape Canaveral Nearshore.
+#
+# FWYF1 Fowey Rocks and PVGF1 Port Everglades C-MAN both 404 (decommissioned/offline).
+#
+# Wind conversion: 1 m/s = 1.944 kt (NDBC reports in m/s)
+# Buoy mast wind is at ~3 m above water — adjust upward ~10-15% for free-air
+# wind comparison to forecast 10-m mast.
+
+pull:
+  label: "10:30 AM EDT Tue 5/19"
+  utc: "2026-05-19T14:30:00Z"
+
+front_passage:
+  description: |
+    No frontal activity. Buoy ground truth Tue 10:30 AM EDT confirms
+    the persistent E flow forecast by MFL: LKWF1 (departure area)
+    reads E 13.0 kt G 17.1, pressure 30.16 inHg. 41122 (arrival area)
+    reads seas 4.3 ft ESE @ 4.9 sec — matches AMZ650/AMZ651 SCEC
+    conditions for TUE period.
+
+    Transit projection: by Plan A departure window (Wed 9 AM, ~22.5
+    hours from these readings), forecast has SCEC easing and wind
+    moderating to E 10-15 kt with seas 2-3 ft for WED period. Plan
+    A entire passage completes by 3:21 PM Wed within WED period —
+    no nightfall, no period-boundary timing issues.
+
+    Stream confirmation: MFL synopsis confirms west wall 10 NM ESE
+    of Lake Worth and 7 NM E of Port Everglades — exceptionally close
+    to the coast, making the routed waypoints (just east of inshore
+    waters) ride directly along the Stream's west edge. Stream
+    Hazards listed as None — no Gulf Stream Gale.
+
+stations:
+  - id: LKWF1
+    name: "Lake Worth Pier FL (departure-area ground truth, ~10 NM N of WP0)"
+    lat: 26.613
+    lon: -80.033
+    reading_time: "10:30 AM EDT Tue 5/19"
+    status: "fresh"
+    wind_dir: "E"
+    wind_dir_deg: 100
+    wind_kt: 13.0
+    gust_kt: 17.1
+    wave_ft: null
+    period_s: null
+    swell_dir: null
+    swell_dir_deg: null
+    pressure_hpa: 1021.2     # 30.16 inHg × 33.8639 = 1021.2 hPa
+    pressure_trend: "Steady near 30.16 inHg"
+    findings: |
+      Departure-area ground truth. E 13 kt G 17 from 100° matches
+      AMZ650 forecast TUE (E 15 kt G 20). Pressure 30.16 inHg confirms
+      stable high-pressure regime. By Plan A departure 22 hours from
+      now, forecast eases wind to E 10-15 kt G 15 with seas dropping
+      to 2-3 ft — beam reach starboard for southbound course.
+
+  - id: 41122
+    name: "Hollywood Beach Nearshore FL (arrival-area ground truth, ~5 NM SSW of WP4)"
+    lat: 26.002
+    lon: -80.097
+    reading_time: "10:30 AM EDT Tue 5/19"
+    status: "fresh"
+    wind_dir: null
+    wind_dir_deg: null
+    wind_kt: null
+    gust_kt: null
+    wave_ft: 4.3
+    period_s: 5
+    swell_dir: "ESE"
+    swell_dir_deg: 113
+    pressure_hpa: null
+    pressure_trend: null
+    findings: |
+      WAVE-ONLY BUOY (no anemometer). Seas 4.3 ft from ESE 113° at
+      4.9 sec wind-wave period. Trace swell 0.3 ft @ 22.2 sec (long-
+      period background, not operationally relevant). This matches
+      AMZ651 forecast TUE (seas 2-4 occ 5 ft, E @ 5 sec primary). By
+      Plan A arrival window (Wed 3:21 PM) forecast has seas easing
+      to 2-3 ft for WED period — comfortable inlet approach.
+
+  - id: 41113
+    name: "Cape Canaveral Nearshore FL (upstream wave proxy, ~120 NM N of WP0)"
+    lat: 28.400
+    lon: -80.533
+    reading_time: "10:26 AM EDT Tue 5/19"
+    status: "fresh"
+    wind_dir: null
+    wind_dir_deg: null
+    wind_kt: null
+    gust_kt: null
+    wave_ft: 3.3
+    period_s: 6
+    swell_dir: "E"
+    swell_dir_deg: 90
+    pressure_hpa: null
+    pressure_trend: null
+    findings: |
+      Upstream wave reference 120 NM N. Wind wave 3.3 ft E @ 5.9 sec
+      consistent with the same E 10-15 kt regime extending up the FL
+      east coast. Confirms uniform synoptic forcing across the entire
+      Atlantic seaboard — no surprises propagating south.
+
+  - id: 41009
+    name: "Canaveral 20 NM E FL (offshore upstream proxy, ~107 NM N of WP0)"
+    lat: 28.506
+    lon: -80.185
+    reading_time: "10:40 AM EDT Tue 5/19"
+    status: "fresh"
+    wind_dir: "E"
+    wind_dir_deg: 90
+    wind_kt: 13.6
+    gust_kt: 15.5
+    wave_ft: 3.9
+    period_s: 6
+    swell_dir: "E"
+    swell_dir_deg: 90
+    pressure_hpa: 1022.2     # 30.19 inHg
+    pressure_trend: "Steady"
+    findings: |
+      Offshore upstream reference at 28.5°N, 60 NM from coast. E 13.6
+      kt G 15.5, wind wave 3.9 ft E @ 5.9 sec, swell 2.0 ft E @ 7.1
+      sec. Pressure 30.19 inHg slightly higher than LKWF1 30.16 —
+      consistent with ridge axis extending east. Pattern is locked
+      in and uniform along the entire FL east coast. By Wed morning
+      Plan A departure window, expect E 10-15 kt easing slightly from
+      these values per forecast.

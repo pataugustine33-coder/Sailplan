@@ -1,0 +1,166 @@
+# Palm Beach (Lake Worth Inlet) → Fort Lauderdale (Port Everglades) passage definition.
+# Short Gulf Stream-edge hop down the SE Florida coast.
+# This file describes WHAT the passage is — route, vessel, plans, calibration.
+# It does NOT contain forecast data (that lives in inputs/forecasts/).
+
+passage:
+  id: palmbeach-ftlauderdale
+  name: PalmBeach-FtLauderdale
+  origin: Palm Beach, FL (Lake Worth Inlet Sea Buoy LW)
+  destination: Fort Lauderdale, FL (Port Everglades Sea Buoy PE)
+  total_nm: 41.38
+
+vessel:
+  designation: HR 48 Mk II
+  design_number: D1170
+  load_config: half-load
+  displacement_lb: 40785
+  motor_speed_kt: 6.0
+  motor_crossover_tws_kt: 7.0
+  fuel_capacity_gal: 110         # 420 L Volvo D2-75 tank
+  fuel_burn_gph: 1.5             # at 6 kt cruise
+  rmc_kgm: 467
+  rm_30deg_kgm: 11995
+  rm_max_kgm: 17657
+  brewer_cr: 42.9
+  csf: 1.66
+
+# Sea factor lookup. Selector logic:
+#   if TWA < 60 AND period < 6 AND Hs/period >= 0.8: steep_chop_bow
+#   elif TWA < 80: close_reach
+#   elif TWA < 100: beam_reach
+#   elif TWA < 150: broad_reach
+#   else (TWA >= 150, deep running): broad_reach
+calibration:
+  sea_factors:
+    steep_chop_bow: 0.72
+    close_reach: 0.87
+    beam_reach: 0.92
+    broad_reach: 0.92
+    reefed_active_trough: 0.85
+
+# Arrival timing rules at destination (Fort Lauderdale, ~26.09°N).
+# Times in 24-hour decimal-hour format. Valid for May 20 2026 EDT.
+# Sunset 5/20 FL east coast ~8:00 PM EDT; sunrise ~6:30 AM EDT.
+arrival_timing:
+  destination_label: "Fort Lauderdale (Port Everglades)"
+  civil_dawn: 6.000        # ~6:00 AM
+  sunrise: 6.500           # ~6:30 AM
+  sunset: 20.000           # ~8:00 PM
+  civil_dusk: 20.417       # ~8:25 PM
+  day_window: [6.500, 20.000]       # 6:30 AM - 8:00 PM = GREEN
+  twilight_windows:
+    - [6.000, 6.500]                # 6:00-6:30 AM dawn
+    - [20.000, 20.417]              # 8:00-8:25 PM dusk
+  # Everything else is RED (night).
+  preferred_window:
+    start: 14.0
+    end: 17.0
+
+# Waypoints. cum_nm is cumulative distance from departure.
+# Route stays just inside or right at the Gulf Stream west wall to gain
+# moderate southerly Stream assist without exposure to far-offshore conditions.
+# Stream west wall per CWFMFL 19 May 2026: 10 NM ESE of Lake Worth,
+# 7 NM E of Port Everglades.
+waypoints:
+  - id: WP0
+    name: Lake Worth Inlet Sea Buoy LW
+    lat: 26.7717
+    lon: -80.0167
+    cum_nm: 0.00
+    course_out: 176
+  - id: WP1
+    name: Offshore Boynton (Stream west edge)
+    lat: 26.5500
+    lon: -80.0000
+    cum_nm: 13.34
+    course_out: 186
+  - id: WP2
+    name: Offshore Boca Raton
+    lat: 26.3500
+    lon: -80.0250
+    cum_nm: 25.42
+    course_out: 202
+  - id: WP3
+    name: Offshore Hillsboro Inlet
+    lat: 26.2570
+    lon: -80.0670
+    cum_nm: 31.45
+    course_out: 182
+  - id: WP4
+    name: Port Everglades Sea Buoy PE
+    lat: 26.0917
+    lon: -80.0750
+    cum_nm: 41.38
+    course_out: null       # arrival, no outbound leg
+
+# Departure scenario definitions.
+# Plan A: Wed 5/20 9:00 AM EDT (user requested).
+# Plan B: Wed 5/20 6:00 AM EDT dawn departure (sensitivity — earlier arrival,
+#   benefits from quietest morning wind before afternoon thunderstorm risk
+#   develops over interior FL).
+plans:
+  - id: plan_a
+    tab_label: "Plan A - Wed 9 AM"
+    qualifier: ""
+    depart_day: Wed
+    depart_date: 2026-05-20
+    depart_hour: 9.0           # 9:00 AM EDT (user requested)
+  - id: plan_b
+    tab_label: "Plan B - Wed 6 AM"
+    qualifier: "(dawn departure sensitivity)"
+    depart_day: Wed
+    depart_date: 2026-05-20
+    depart_hour: 6.0
+
+# Buoys relevant to this route. Used by the Buoys by WP tab.
+# Note: FWYF1 Fowey Rocks and PVGF1 Port Everglades C-MAN both 404 on NDBC
+# (likely decommissioned). 41122 Hollywood Beach is on-route closest to WP4.
+# LKWF1 Lake Worth Pier is the departure-area station.
+route_buoys:
+  - id: LKWF1
+    name: Lake Worth Pier (departure area)
+    lat: 26.613
+    lon: -80.033
+    relevant_wps:
+      WP0: "~10 NM N (departure-area wind ground truth)"
+      WP1: "~3 NM N"
+  - id: 41122
+    name: Hollywood Beach Nearshore (arrival area)
+    lat: 26.002
+    lon: -80.097
+    relevant_wps:
+      WP3: "~16 NM S"
+      WP4: "~5 NM SSW (arrival-area wave ground truth)"
+  - id: 41113
+    name: Cape Canaveral Nearshore (upstream proxy)
+    lat: 28.400
+    lon: -80.533
+    relevant_wps:
+      WP0: "~120 NM N (upstream wind/wave reference, 1-2 hr lead)"
+  - id: 41009
+    name: Canaveral 20 NM E (upstream proxy)
+    lat: 28.506
+    lon: -80.185
+    relevant_wps:
+      WP0: "~107 NM N (offshore upstream reference)"
+
+# Forecast offices spanned by this route. Used by Forecast Sources tab.
+forecast_offices:
+  - office: NWS Miami FL (KMFL)
+    code: MFL
+    zones:
+      AMZ650: Coastal waters from Jupiter Inlet to Deerfield Beach FL out 20 NM
+      AMZ651: Coastal waters from Deerfield Beach to Ocean Reef FL out 20 NM
+      AMZ670: Waters from Jupiter Inlet to Deerfield Beach FL from 20 to 60 NM
+      AMZ671: Waters from Deerfield Beach to Ocean Reef FL from 20 to 60 NM
+
+# Tide stations for entry/exit conditions (informational only — this hop is
+# tide-insensitive at deep-water inlets Lake Worth and Port Everglades).
+tide_stations:
+  - id: 8722670
+    name: Lake Worth Pier, Atlantic Ocean, FL
+    relevance: departure
+  - id: 8722956
+    name: Port Everglades, FL
+    relevance: arrival

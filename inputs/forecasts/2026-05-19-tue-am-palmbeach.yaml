@@ -1,0 +1,351 @@
+# Forecast bundle for PalmBeach-FtLauderdale — Tue 5/19 AM cycle.
+# MFL office only (entire route within KMFL CWA).
+# Pulled fresh via Claude in Chrome Tue 5/19 around 11:00 AM EDT.
+#
+# Synopsis: Persistent east-southeast onshore flow with Bermuda high
+# anchored east and a cut-off upper low meandering near the Bahamas.
+# Atlantic waters under SCEC (E 15-20 kt, seas 3-4 occ 5 ft) through
+# today and Tuesday night, easing modestly for Wednesday to E 10-15 kt
+# and seas 2-3 ft. By Plan A arrival window (Wed 2-4 PM) AMZ650 and
+# AMZ651 both show E 10-15 kt, seas 2-3 ft — comfortable beam-reach
+# conditions for southbound passage.
+#
+# Wind direction relative to Stream: E wind across south-flowing axis
+# is the FAVORABLE quadrant. We are NOT opposing the Stream with N
+# wind, which would produce dangerous standing seas. Crossing wind
+# raises wind-wave height somewhat over the Stream but does not stack
+# the seas.
+#
+# Hazards: 1) Afternoon thunderstorms favor interior/SW Florida —
+# track is on the east coast, so coastal storms unlikely but possible
+# late afternoon. 2) Stream west wall is just 7-10 NM offshore — easy
+# to ride the edge for ~1-2 kt south-flowing assist. 3) HIGH RIP
+# CURRENT RISK at all SE FL beaches through Wed evening — bears on
+# inlet approach at Port Everglades.
+
+cycle:
+  label: "Tue 5/19 AM cycle (MFL 956 AM)"
+  cwfmfl:
+    issued: "2026-05-19T09:56:00-04:00"
+    label_short: "Tue 5/19 956 AM"
+    label_full: "956 AM EDT Tue May 19 2026"
+  afdmfl:
+    issued: "2026-05-19T07:04:00-04:00"
+    label_short: "Tue 5/19 704 AM"
+    label_full: "704 AM EDT Tue May 19 2026"
+
+zones:
+  # ============================================================
+  # MFL office zones — entire route AMZ650 (Jupiter→Deerfield)
+  # then AMZ651 (Deerfield→Ocean Reef) for last ~10 NM
+  # ============================================================
+  AMZ650:
+    description: "Coastal waters from Jupiter Inlet to Deerfield Beach FL out 20 NM"
+    office: MFL
+    periods:
+      TUE:
+        wind_dir: "E"
+        wind_dir_deg: 90
+        wind_kt: [15, 15]
+        wind_gust_kt: 20
+        sea_ft: [3, 4]
+        sea_occasional_ft: 5
+        sca_status: "SCEC active"
+        wave_detail:
+          primary: {direction: E, direction_deg: 90, height_ft: 4, period_s: 5}
+          secondary: {direction: NW, direction_deg: 315, height_ft: 1, period_s: 6}
+      TUE_NIGHT:
+        wind_dir: "E"
+        wind_dir_deg: 90
+        wind_kt: [10, 15]
+        wind_gust_kt: 20
+        sea_ft: [3, 4]
+        sea_occasional_ft: 5
+        sca_status: "SCEC active"
+        wave_detail:
+          primary: {direction: E, direction_deg: 90, height_ft: 3, period_s: 5}
+          secondary: {direction: NW, direction_deg: 315, height_ft: 1, period_s: 5}
+      WED:
+        wind_dir: "E"
+        wind_dir_deg: 90
+        wind_kt: [10, 15]
+        wind_gust_kt: 15
+        sea_ft: [2, 3]
+        wave_detail:
+          primary: {direction: E, direction_deg: 90, height_ft: 3, period_s: 5}
+          secondary: {direction: NW, direction_deg: 315, height_ft: 1, period_s: 5}
+      WED_NIGHT:
+        wind_dir: "E"
+        wind_dir_deg: 90
+        wind_kt: [10, 15]
+        wind_gust_kt: 15
+        sea_ft: [2, 2]
+        wave_detail:
+          primary: {direction: E, direction_deg: 90, height_ft: 2, period_s: 4}
+          secondary: {direction: NW, direction_deg: 315, height_ft: 1, period_s: 5}
+
+  AMZ651:
+    description: "Coastal waters from Deerfield Beach to Ocean Reef FL out 20 NM"
+    office: MFL
+    periods:
+      TUE:
+        wind_dir: "E"
+        wind_dir_deg: 90
+        wind_kt: [15, 15]
+        wind_gust_kt: 20
+        sea_ft: [2, 4]
+        sea_occasional_ft: 5
+        sca_status: "SCEC active"
+        wave_detail:
+          primary: {direction: E, direction_deg: 90, height_ft: 3, period_s: 5}
+          secondary: {direction: N, direction_deg: 0, height_ft: 1, period_s: 6}
+      TUE_NIGHT:
+        wind_dir: "E"
+        wind_dir_deg: 90
+        wind_kt: [10, 15]
+        wind_gust_kt: 20
+        sea_ft: [2, 3]
+        wave_detail:
+          primary: {direction: E, direction_deg: 90, height_ft: 3, period_s: 4}
+          secondary: {direction: N, direction_deg: 0, height_ft: 1, period_s: 6}
+      WED:
+        wind_dir: "E"
+        wind_dir_deg: 90
+        wind_kt: [10, 15]
+        wind_gust_kt: 15
+        sea_ft: [2, 3]
+        wave_detail:
+          primary: {direction: E, direction_deg: 90, height_ft: 2, period_s: 4}
+          secondary: {direction: N, direction_deg: 0, height_ft: 1, period_s: 5}
+      WED_NIGHT:
+        wind_dir: "E"
+        wind_dir_deg: 90
+        wind_kt: [10, 15]
+        wind_gust_kt: 15
+        sea_ft: [2, 2]
+        wave_detail:
+          primary: {direction: E, direction_deg: 90, height_ft: 2, period_s: 4}
+          secondary: {direction: N, direction_deg: 0, height_ft: 1, period_s: 5}
+
+afd_marine:
+  MFL: |
+    Small Craft Exercise Caution conditions are expected to continue
+    through the rest of today across the Atlantic waters due to
+    persistent easterly winds of 15 to 20 kts. Winds look to weaken
+    slightly for the latter half of the week. Isolated weak showers
+    are possible for the Gulfstream waters through the morning each
+    day this week. During the afternoon, thunderstorms will favor the
+    Gulf coast and Gulf waters, where gusty and erratic winds will be
+    possible with any storm. Atlantic seas will be 2-4 feet through
+    the rest of the week.
+
+synopses:
+  MFL:
+    zone: AMZ600
+    text: |
+      Small Craft Exercise Caution conditions over the Atlantic
+      waters through Tuesday night as a moderate easterly breeze
+      dominates the wind flow pattern. Isolated to scattered showers
+      possible overnight and morning across Atlantic waters as they
+      move from east to west. Afternoon thunderstorms favor Gulf
+      waters under easterly regime. Gulf Stream Hazards: None.
+
+gulf_stream:
+  effective_date: "2026-05-18"
+  positions:
+    - "10 NM east southeast of Lake Worth"
+    - "11 NM east southeast of Jupiter Inlet"
+    - "7 NM east of Port Everglades"
+    - "1 NM north northeast of Fowey Rocks"
+  notes: |
+    Stream west wall is exceptionally close to the SE FL coast —
+    7-10 NM offshore. The entire planned route hugs the inshore
+    edge of the Stream, gaining moderate 1-2 kt south-flowing
+    assist. Stream Hazards listed as None by MFL.
+
+# ============================================================
+# Waypoint forecast assignments per plan
+# Plan A: Wed 5/20 9:00 AM EDT depart — arrives 3:21 PM same day
+# Plan B: Wed 5/20 6:00 AM EDT dawn depart — arrives 12:21 PM same day
+# Note: All Plan A WPs use WED period since entire passage is within
+# 6.5 hours, completing well before WED_NIGHT begins.
+# ============================================================
+waypoint_assignments:
+  plan_a:
+    WP0:
+      zone: AMZ650
+      period: WED
+      risk_level: green
+      row_band: green
+      pressure: 30.16
+      pressure_trend: Steady
+      notes_addendum: >
+        Wed 9:00 AM EDT departure Lake Worth Inlet. Course 176° south
+        toward Stream west edge. E 10-15 kt = TWA ~86° beam reach
+        starboard. Seas 2-3 ft E @ 5 sec. LKWF1 buoy (10 NM N) reads
+        E 13 G 17 at 10:30 AM the day before — consistent with WED
+        forecast easing.
+      weather_risk: >
+        Departure Lake Worth Inlet. Beam reach E 10-15 kt. Watch for
+        coastal traffic and divers exiting the inlet.
+    WP1:
+      zone: AMZ650
+      period: WED
+      risk_level: yellow
+      row_band: yellow
+      pressure: 30.16
+      pressure_trend: Steady
+      notes_addendum: >
+        Wed 11:03 AM (2.1 hr in). Course 186° → TWA ~96° on E 10-15 kt
+        wind = beam reach starboard. Just inside Stream west edge,
+        starting to feel ~0.5-1 kt south assist. Seas 2-3 ft from E
+        @ 5 sec — short-period chop on the beam, not stacking.
+        Secondary NW 1 ft @ 5s minor. Sea Angle 90° (NWS Wave Detail
+        primary).
+      weather_risk: >
+        Beam reach in E 10-15 kt, short-period 5s chop on starboard
+        beam. SCEC has eased to non-advisory for WED period.
+        Comfortable HR48 conditions.
+    WP2:
+      zone: AMZ650
+      period: WED
+      risk_level: yellow
+      row_band: yellow
+      pressure: 30.16
+      pressure_trend: Steady
+      notes_addendum: >
+        Wed 12:54 PM (3.9 hr in). Course 202° → TWA ~112° broad-of-beam
+        reach. Now fully inside Stream edge, ~1.5-2 kt south assist
+        expected here. Seas 2-3 ft from E @ 5 sec on starboard beam-
+        aft quarter. Comfortable broad reach.
+      weather_risk: >
+        Stream assist developing. Broad-of-beam reach starboard.
+        Watch for late-morning isolated showers per AFDMFL but
+        coastal SE FL is east-coast — sea-breeze convection favors
+        interior west.
+    WP3:
+      zone: AMZ651
+      period: WED
+      risk_level: yellow
+      row_band: yellow
+      pressure: 30.16
+      pressure_trend: Steady
+      notes_addendum: >
+        Wed 1:50 PM (4.8 hr in). Crossing zone boundary into AMZ651.
+        Course 182° → TWA ~92° beam reach. Off Hillsboro Inlet — busy
+        coastal traffic zone, watch for divers/fishing boats.
+      weather_risk: >
+        Beam reach across AMZ651 in E 10-15 kt. Approaching
+        arrival traffic zone.
+    WP4:
+      zone: AMZ651
+      period: WED
+      risk_level: green
+      row_band: green
+      pressure: 30.16
+      pressure_trend: Steady
+      notes_addendum: >
+        Wed 3:21 PM (6.4 hr in). Arrival Port Everglades Sea Buoy PE.
+        Sunset Fort Lauderdale ~8:00 PM — 4h39m daylight margin.
+        E 10-15 kt, seas 2-3 ft, comfortable inlet approach.
+        Port Everglades is a deep commercial inlet — clear of tide-
+        related concerns. HIGH RIP CURRENT RISK in area (AFDMFL)
+        but does not affect deepwater commercial inlet approach.
+      weather_risk: >
+        Clean mid-afternoon arrival with 4.5+ hours daylight margin.
+        Deep commercial inlet, no shoal or tide constraint.
+
+  plan_b:
+    WP0:
+      zone: AMZ650
+      period: WED
+      risk_level: green
+      row_band: green
+      pressure: 30.16
+      pressure_trend: Steady
+      notes_addendum: >
+        Wed 6:00 AM EDT dawn departure. Course 176°. Pre-sea-breeze
+        lighter morning easterly, likely 8-12 kt TWS. Possible motor
+        crossover in early-morning lulls below 7 kt TWS.
+      weather_risk: >
+        Dawn departure Lake Worth Inlet. Quiet morning beam reach.
+    WP1:
+      zone: AMZ650
+      period: WED
+      risk_level: green
+      row_band: green
+      pressure: 30.16
+      pressure_trend: Steady
+      notes_addendum: >
+        Wed 8:03 AM (2.1 hr in). Dawn departure means lighter morning
+        easterly. Course 186° → TWA ~96° beam reach. Likely 8-12 kt
+        TWS pre-sea-breeze, possibly motor-sailing in lulls.
+      weather_risk: >
+        Quiet morning beam reach. Sea-breeze not yet built. Possible
+        motor crossover in early morning lulls below 7 kt TWS.
+    WP2:
+      zone: AMZ650
+      period: WED
+      risk_level: green
+      row_band: green
+      pressure: 30.16
+      pressure_trend: Steady
+      notes_addendum: >
+        Wed 9:54 AM (3.9 hr in). Sea breeze filling in. E 10-15 kt
+        building. Broad-of-beam reach starboard with developing
+        Stream assist.
+      weather_risk: "Comfortable broad reach, sea breeze filling."
+    WP3:
+      zone: AMZ651
+      period: WED
+      risk_level: green
+      row_band: green
+      pressure: 30.16
+      pressure_trend: Steady
+      notes_addendum: >
+        Wed 10:50 AM (4.8 hr in). Beam reach AMZ651 in E 10-15 kt.
+      weather_risk: "Mid-morning beam reach, settled conditions."
+    WP4:
+      zone: AMZ651
+      period: WED
+      risk_level: green
+      row_band: green
+      pressure: 30.16
+      pressure_trend: Steady
+      notes_addendum: >
+        Wed 12:21 PM (6.4 hr in). Mid-day arrival Port Everglades.
+        7h39m daylight margin to sunset. Lightest traffic part of
+        day, well before afternoon thunderstorm risk.
+      weather_risk: >
+        Mid-day arrival — preferred timing window. Maximum daylight
+        margin. Before afternoon convective risk.
+
+plan_commentary:
+  plan_a: |
+    Wed 5/20 9:00 AM EDT departure (user requested). Arrival Port
+    Everglades Sea Buoy PE at ~3:21 PM EDT — mid-afternoon, 4h39m
+    daylight margin to 8:00 PM sunset. Route hugs Gulf Stream west
+    wall (7-10 NM offshore per MFL 5/18 position bulletin) for ~1-2
+    kt south-flowing current assist on legs WP1→WP4.
+
+    Wind E 10-15 kt steady (SCEC has eased from Tue values for WED
+    period). Course mostly 180-200° → TWA ~90-110° beam-to-broad reach
+    starboard tack the entire passage. Seas 2-3 ft from E at 5 sec
+    period — short-period wind-driven chop on starboard beam, not
+    stacked seas. Wind is perpendicular-to-crossing the Stream axis,
+    NOT opposing it, so no standing-seas hazard.
+
+    Plan A clears Port Everglades well before afternoon thunderstorm
+    risk per AFDMFL (storms favor interior/SW FL under easterly
+    regime). Yellow bands at WP1-WP3 reflect 5-sec short-period
+    seas typical of trade-wind chop — comfortable for HR48 but
+    bears noting; green at arrival reflects easing seas and
+    daylight margin.
+  plan_b: |
+    Wed 5/20 6:00 AM EDT dawn departure (sensitivity). Arrives Port
+    Everglades 12:21 PM — mid-day, 7h39m daylight margin. Advantage:
+    completes passage entirely in the lightest, calmest part of the
+    daily diurnal cycle, before sea-breeze builds the easterly to its
+    afternoon peak. Disadvantage: morning lulls may require more
+    motor time below 7 kt TWS crossover. Both plans are operationally
+    sound; Plan A is the requested baseline.
