@@ -205,7 +205,7 @@ waypoint_assignments:
       weather_risk: >
         Beam reach in E 10-15 kt, short-period 5s chop on starboard
         beam. SCEC has eased to non-advisory for WED period.
-        Comfortable HR48 conditions.
+        Comfortable cruising conditions.
     WP2:
       zone: AMZ650
       period: WED
@@ -338,9 +338,9 @@ plan_commentary:
     Plan A clears Port Everglades well before afternoon thunderstorm
     risk per AFDMFL (storms favor interior/SW FL under easterly
     regime). Yellow bands at WP1-WP3 reflect 5-sec short-period
-    seas typical of trade-wind chop — comfortable for HR48 but
-    bears noting; green at arrival reflects easing seas and
-    daylight margin.
+    seas typical of trade-wind chop — comfortable for a moderate
+    offshore cruiser on the beam but bears noting; green at arrival
+    reflects easing seas and daylight margin.
   plan_b: |
     Wed 5/20 6:00 AM EDT dawn departure (sensitivity). Arrives Port
     Everglades 12:21 PM — mid-day, 7h39m daylight margin. Advantage:
