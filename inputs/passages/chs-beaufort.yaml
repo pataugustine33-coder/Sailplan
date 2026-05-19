@@ -108,17 +108,17 @@ waypoints:
 
 plans:
   - id: plan_a
-    tab_label: "Plan A - Fri 10 AM"
-    qualifier: "as requested"
-    depart_day: Fri
-    depart_date: 2026-05-15
-    depart_hour: 10.0
+    tab_label: "Plan A - Tue 3 PM Depart"
+    qualifier: "as requested — slow tempo to dawn"
+    depart_day: Tue
+    depart_date: 2026-05-19
+    depart_hour: 15.0
   - id: plan_b
-    tab_label: "Plan B - Fri 7 AM"
-    qualifier: "earlier for arrival margin"
-    depart_day: Fri
-    depart_date: 2026-05-15
-    depart_hour: 7.0
+    tab_label: "Plan B - Tue 9 PM Depart"
+    qualifier: "RECOMMENDED — daylight Frying Pan + post-fog arrival"
+    depart_day: Tue
+    depart_date: 2026-05-19
+    depart_hour: 21.0
 
 route_buoys:
   - id: 41004

@@ -1,0 +1,66 @@
+FZUS52 KCHS 190913
+CWFCHS
+
+Coastal Waters Forecast
+National Weather Service Charleston SC
+513 AM EDT Tue May 19 2026
+
+South Santee River SC to Altamaha Sound GA out 60 NM, including
+Charleston Harbor and Grays Reef National Marine Sanctuary
+
+AMZ300-192315-
+513 AM EDT Tue May 19 2026
+
+.Synopsis for the coastal waters of south coastal South Carolina
+and north coastal Georgia...
+High pressure will extend across the region before a cold front
+approaches the area near the end of the week.
+
+$$
+
+AMZ340-192315-
+Charleston Harbor-
+513 AM EDT Tue May 19 2026
+
+.TODAY...Variable winds less than 5 kt, becoming SE 10 to 15 kt.
+.TONIGHT...SE winds 5 to 10 kt, becoming S after midnight.
+.WED...E winds 5 kt, becoming SE in the afternoon.
+.WED NIGHT...S winds 5 to 10 kt, diminishing to 5 kt after
+midnight.
+.THU...S winds 5 kt, increasing to 5 to 10 kt in the afternoon.
+
+$$
+
+AMZ360-192315-
+Coastal waters from South Santee River to Edisto Beach SC out
+20 NM-
+513 AM EDT Tue May 19 2026
+
+.TODAY...SE winds 5 kt, becoming E this afternoon. Seas 2 to
+3 ft. Wave Detail: SE 3 ft at 8 seconds.
+.TONIGHT...SE winds 5 to 10 kt. Seas 2 to 3 ft. Wave Detail: SE
+3 ft at 8 seconds.
+.WED...E winds 5 kt, becoming SE in the afternoon. Seas 3 ft.
+Wave Detail: SE 3 ft at 8 seconds.
+.WED NIGHT...S winds 5 to 10 kt. Seas 3 ft. Wave Detail: SE 3 ft
+at 8 seconds.
+.THU...SW winds 5 kt, becoming S in the afternoon. Seas 3 ft.
+Wave Detail: SE 3 ft at 9 seconds.
+
+$$
+
+AMZ380-192315-
+Waters from South Santee River SC to Edisto Beach SC extending
+from 20 to 60 NM-
+513 AM EDT Tue May 19 2026
+
+.TODAY...SE winds 5 to 10 kt. Seas 3 ft. Wave Detail: SE 3 ft at
+8 seconds.
+.TONIGHT...SE winds 5 to 10 kt. Seas 3 to 4 ft. Wave Detail: SE
+3 ft at 8 seconds.
+.WED...SE winds 5 kt. Seas 3 to 4 ft. Wave Detail: SE 4 ft at
+8 seconds.
+.WED NIGHT...S winds 5 to 10 kt. Seas 3 to 4 ft. Wave Detail: SE
+4 ft at 9 seconds. A slight chance of showers after midnight.
+
+$$

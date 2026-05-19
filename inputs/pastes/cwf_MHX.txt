@@ -1,0 +1,61 @@
+FZUS52 KMHX 190637
+CWFMHX
+
+Coastal Waters Forecast for North Carolina
+National Weather Service Newport/Morehead City NC
+237 AM EDT Tue May 19 2026
+
+From S of Currituck Beach Light to N of Surf City NC out 60 NM,
+including the Albemarle and Pamlico Sounds and the Monitor
+National Marine Sanctuary
+
+AMZ100-191945-
+237 AM EDT Tue May 19 2026
+
+.Synopsis for Eastern North Carolina coastal waters...
+A summertime pattern will continue through Wednesday, with a
+daily building of winds and seas in the afternoon and evening
+associated with the diurnal thermal gradient. Thursday into the
+weekend, a frontal boundary is forecast to slide south into the
+area bringing showers and thunderstorms and shifting winds.
+
+$$
+
+AMZ158-191945-
+S of Cape Lookout to N of Surf City NC out 20 nm-
+237 AM EDT Tue May 19 2026
+
+.TODAY...S winds 5 to 10 kt. Seas 2 to 3 ft. Wave Detail: SE 3 ft
+at 9 seconds and S 2 ft at 4 seconds. Adjacent sounds and rivers
+light chop.
+.TONIGHT...S winds around 10 kt. Seas 2 to 4 ft. Wave Detail: SE
+4 ft at 9 seconds and S 1 ft at 4 seconds. Adjacent sounds and
+rivers light chop.
+.WED...SW winds 5 to 10 kt, becoming S 10 to 15 kt in the
+afternoon. Seas 2 to 3 ft. Wave Detail: SE 3 ft at 9 seconds and
+S 2 ft at 3 seconds. Adjacent sounds and rivers light chop,
+increasing to a moderate chop in the afternoon.
+.WED NIGHT...SW winds 10 to 15 kt. Seas 3 to 4 ft. Wave Detail:
+SE 4 ft at 9 seconds and S 2 ft at 4 seconds. Adjacent sounds and
+rivers a moderate chop.
+.THU...SW winds 5 to 10 kt. Seas 2 to 4 ft. Wave Detail: SE 4 ft
+at 9 seconds and SW 1 ft at 4 seconds. Adjacent sounds and rivers
+light chop. A slight chance of showers. A slight chance of tstms
+in the afternoon.
+
+$$
+
+AMZ156-191945-
+S of Ocracoke Inlet to Cape Lookout NC out 20 nm-
+237 AM EDT Tue May 19 2026
+
+.TODAY...S winds 5 to 10 kt. Seas 2 to 3 ft. Wave Detail: SE 3 ft
+at 9 seconds and S 1 ft at 4 seconds. Adjacent sounds and rivers
+light chop.
+.TONIGHT...S winds 10 to 15 kt. Seas 2 to 4 ft. Wave Detail: SE
+4 ft at 9 seconds and S 2 ft at 4 seconds. Adjacent sounds and
+rivers a moderate chop.
+.WED...SW winds 5 to 10 kt. Seas 2 to 4 ft. Wave Detail: SE 4 ft
+at 9 seconds and NW 1 ft at 3 seconds.
+
+$$

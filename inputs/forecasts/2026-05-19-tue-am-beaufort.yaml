@@ -1,0 +1,539 @@
+# Forecast bundle for Charleston-Beaufort route, Tue 5/19 AM cycle.
+# Fetched via Claude in Chrome from tgftp.nws.noaa.gov and forecast.weather.gov
+# on Tue 5/19/2026 ~8:45 AM EDT.
+#
+# Synoptic: Bermuda High dominant. TUTT near 29N/73W contributing subsidence.
+# No SCAs, no fronts in our 36-hr window. Front timing has SLOWED to Thu
+# night, stalls Fri (per AFDILM and AFDMHX). Light SE-S 5-10 kt corridor-wide.
+# Pressure 30.22-30.28 inHg uniform.
+#
+# Character for a Tue 3 PM north-bound departure: 219 NM into very light SE-S
+# wind, mostly BELOW HR48 motor crossover (7 kt). Predominantly motoring.
+# Modeled passage 36-39 hr → arrival window negotiation required (see plans).
+# MHX AFD KEY MSG 1: dense fog risk early AM at Beaufort.
+
+cycle:
+  label: "Tue 5/19 AM cycle (CHS 513 AM / ILM 643 AM / MHX 237 AM)"
+  cwfchs:
+    issued: "2026-05-19T05:13:00-04:00"
+    label_short: "Tue 5/19 5:13 AM"
+    label_full: "513 AM EDT Tue May 19 2026"
+  cwfilm:
+    issued: "2026-05-19T06:43:00-04:00"
+    label_short: "Tue 5/19 6:43 AM"
+    label_full: "643 AM EDT Tue May 19 2026"
+  cwfmhx:
+    issued: "2026-05-19T02:37:00-04:00"
+    label_short: "Tue 5/19 2:37 AM"
+    label_full: "237 AM EDT Tue May 19 2026"
+  afdchs:
+    issued: "2026-05-19T08:47:00-04:00"
+    label_short: "Tue 5/19 8:47 AM"
+    label_full: "847 AM EDT Tue May 19 2026"
+  afdilm:
+    issued: "2026-05-19T06:43:00-04:00"
+    label_short: "Tue 5/19 6:43 AM"
+    label_full: "643 AM EDT Tue May 19 2026"
+  afdmhx:
+    issued: "2026-05-19T06:50:00-04:00"
+    label_short: "Tue 5/19 6:50 AM"
+    label_full: "650 AM EDT Tue May 19 2026"
+
+zones:
+  # === KCHS — Charleston, SC (WP1, WP2) ===
+  AMZ360:
+    description: "Coastal waters from South Santee River to Edisto Beach SC out 20 NM"
+    office: CHS
+    periods:
+      TUE:
+        wind_dir: "SE→E"
+        wind_dir_deg: 135
+        wind_kt: [5, 5]
+        wind_gust_kt: 8
+        sea_ft: [2, 3]
+        wave_detail:
+          primary: {direction: SE, direction_deg: 135, height_ft: 3, period_s: 8}
+      TUE_NIGHT:
+        wind_dir: "SE"
+        wind_dir_deg: 135
+        wind_kt: [5, 10]
+        wind_gust_kt: 13
+        sea_ft: [2, 3]
+        wave_detail:
+          primary: {direction: SE, direction_deg: 135, height_ft: 3, period_s: 8}
+      WED:
+        wind_dir: "E→SE"
+        wind_dir_deg: 90
+        wind_kt: [5, 5]
+        wind_gust_kt: 8
+        sea_ft: [3, 3]
+        wave_detail:
+          primary: {direction: SE, direction_deg: 135, height_ft: 3, period_s: 8}
+      WED_NIGHT:
+        wind_dir: "S"
+        wind_dir_deg: 180
+        wind_kt: [5, 10]
+        wind_gust_kt: 13
+        sea_ft: [3, 3]
+        wave_detail:
+          primary: {direction: SE, direction_deg: 135, height_ft: 3, period_s: 8}
+      THU:
+        wind_dir: "SW→S"
+        wind_dir_deg: 225
+        wind_kt: [5, 5]
+        wind_gust_kt: 8
+        sea_ft: [3, 3]
+        wave_detail:
+          primary: {direction: SE, direction_deg: 135, height_ft: 3, period_s: 9}
+
+  AMZ380:
+    description: "Waters from South Santee River SC to Edisto Beach SC extending from 20 to 60 NM"
+    office: CHS
+    periods:
+      TUE:
+        wind_dir: "SE"
+        wind_dir_deg: 135
+        wind_kt: [5, 10]
+        wind_gust_kt: 13
+        sea_ft: [3, 3]
+        wave_detail:
+          primary: {direction: SE, direction_deg: 135, height_ft: 3, period_s: 8}
+      TUE_NIGHT:
+        wind_dir: "SE"
+        wind_dir_deg: 135
+        wind_kt: [5, 10]
+        wind_gust_kt: 13
+        sea_ft: [3, 4]
+        wave_detail:
+          primary: {direction: SE, direction_deg: 135, height_ft: 3, period_s: 8}
+      WED:
+        wind_dir: "SE"
+        wind_dir_deg: 135
+        wind_kt: [5, 5]
+        wind_gust_kt: 8
+        sea_ft: [3, 4]
+        wave_detail:
+          primary: {direction: SE, direction_deg: 135, height_ft: 4, period_s: 8}
+
+  # === KILM — Wilmington, NC (WP3 - WP7) ===
+  AMZ256:
+    description: "Coastal waters from Murrells Inlet to South Santee River SC out 20 NM"
+    office: ILM
+    periods:
+      TUE:
+        wind_dir: "SE"
+        wind_dir_deg: 135
+        wind_kt: [5, 10]
+        wind_gust_kt: 13
+        sea_ft: [2, 3]
+        wave_detail:
+          primary: {direction: SE, direction_deg: 135, height_ft: 3, period_s: 8}
+          secondary: {direction: S, direction_deg: 180, height_ft: 1, period_s: 5}
+      TUE_NIGHT:
+        wind_dir: "S"
+        wind_dir_deg: 180
+        wind_kt: [5, 10]
+        wind_gust_kt: 13
+        sea_ft: [2, 3]
+        wave_detail:
+          primary: {direction: SE, direction_deg: 135, height_ft: 3, period_s: 9}
+          secondary: {direction: S, direction_deg: 180, height_ft: 1, period_s: 6}
+      WED:
+        wind_dir: "SE→S"
+        wind_dir_deg: 135
+        wind_kt: [5, 10]
+        wind_gust_kt: 13
+        sea_ft: [2, 3]
+        wave_detail:
+          primary: {direction: SE, direction_deg: 135, height_ft: 3, period_s: 9}
+
+  AMZ252:
+    description: "Coastal waters from Cape Fear NC to Little River Inlet SC out 20 NM"
+    office: ILM
+    periods:
+      TUE:
+        wind_dir: "S"
+        wind_dir_deg: 180
+        wind_kt: [5, 10]
+        wind_gust_kt: 13
+        sea_ft: [2, 3]
+        wave_detail:
+          primary: {direction: SE, direction_deg: 135, height_ft: 3, period_s: 8}
+      TUE_NIGHT:
+        wind_dir: "S"
+        wind_dir_deg: 180
+        wind_kt: [5, 10]
+        wind_gust_kt: 13
+        sea_ft: [2, 3]
+        wave_detail:
+          primary: {direction: SE, direction_deg: 135, height_ft: 3, period_s: 9}
+      WED:
+        wind_dir: "SW→S"
+        wind_dir_deg: 200
+        wind_kt: [5, 10]
+        wind_gust_kt: 13
+        sea_ft: [2, 3]
+        wave_detail:
+          primary: {direction: SE, direction_deg: 135, height_ft: 3, period_s: 9}
+      WED_NIGHT:
+        wind_dir: "S"
+        wind_dir_deg: 180
+        wind_kt: [5, 10]
+        wind_gust_kt: 13
+        sea_ft: [2, 3]
+        wave_detail:
+          primary: {direction: SE, direction_deg: 135, height_ft: 3, period_s: 8}
+
+  AMZ250:
+    description: "Coastal waters from Surf City to Cape Fear NC out 20 nm"
+    office: ILM
+    periods:
+      TUE:
+        wind_dir: "S→SE"
+        wind_dir_deg: 160
+        wind_kt: [5, 5]
+        wind_gust_kt: 8
+        sea_ft: [2, 3]
+        wave_detail:
+          primary: {direction: SE, direction_deg: 135, height_ft: 3, period_s: 9}
+      TUE_NIGHT:
+        wind_dir: "S"
+        wind_dir_deg: 180
+        wind_kt: [5, 10]
+        wind_gust_kt: 13
+        sea_ft: [2, 3]
+        wave_detail:
+          primary: {direction: SE, direction_deg: 135, height_ft: 3, period_s: 9}
+      WED:
+        wind_dir: "SW→S"
+        wind_dir_deg: 200
+        wind_kt: [5, 5]
+        wind_gust_kt: 8
+        sea_ft: [2, 3]
+        wave_detail:
+          primary: {direction: SE, direction_deg: 135, height_ft: 3, period_s: 9}
+      WED_NIGHT:
+        wind_dir: "S"
+        wind_dir_deg: 180
+        wind_kt: [5, 10]
+        wind_gust_kt: 13
+        sea_ft: [2, 3]
+        wave_detail:
+          primary: {direction: SE, direction_deg: 135, height_ft: 3, period_s: 9}
+      THU:
+        wind_dir: "S"
+        wind_dir_deg: 180
+        wind_kt: [5, 10]
+        wind_gust_kt: 13
+        sea_ft: [3, 3]
+        wave_detail:
+          primary: {direction: SE, direction_deg: 135, height_ft: 3, period_s: 9}
+
+  AMZ280:
+    description: "Waters from Surf City NC to Little River Inlet SC from 20 to 60 NM"
+    office: ILM
+    periods:
+      TUE:
+        wind_dir: "S"
+        wind_dir_deg: 180
+        wind_kt: [5, 10]
+        wind_gust_kt: 13
+        sea_ft: [3, 3]
+        wave_detail:
+          primary: {direction: SE, direction_deg: 135, height_ft: 3, period_s: 9}
+      TUE_NIGHT:
+        wind_dir: "S"
+        wind_dir_deg: 180
+        wind_kt: [5, 10]
+        wind_gust_kt: 13
+        sea_ft: [3, 3]
+        wave_detail:
+          primary: {direction: SE, direction_deg: 135, height_ft: 3, period_s: 9}
+      WED:
+        wind_dir: "S"
+        wind_dir_deg: 180
+        wind_kt: [5, 10]
+        wind_gust_kt: 13
+        sea_ft: [3, 3]
+        wave_detail:
+          primary: {direction: SE, direction_deg: 135, height_ft: 3, period_s: 9}
+          secondary: {direction: NE, direction_deg: 45, height_ft: 1, period_s: 4}
+
+  # === KMHX — Newport/Morehead, NC (WP8, WP9) ===
+  AMZ158:
+    description: "S of Cape Lookout to N of Surf City NC out 20 nm"
+    office: MHX
+    periods:
+      TUE:
+        wind_dir: "S"
+        wind_dir_deg: 180
+        wind_kt: [5, 10]
+        wind_gust_kt: 13
+        sea_ft: [2, 3]
+        wave_detail:
+          primary: {direction: SE, direction_deg: 135, height_ft: 3, period_s: 9}
+          secondary: {direction: S, direction_deg: 180, height_ft: 2, period_s: 4}
+      TUE_NIGHT:
+        wind_dir: "S"
+        wind_dir_deg: 180
+        wind_kt: [10, 10]
+        wind_gust_kt: 13
+        sea_ft: [2, 4]
+        wave_detail:
+          primary: {direction: SE, direction_deg: 135, height_ft: 4, period_s: 9}
+          secondary: {direction: S, direction_deg: 180, height_ft: 1, period_s: 4}
+      WED:
+        wind_dir: "SW→S"
+        wind_dir_deg: 200
+        wind_kt: [5, 10]
+        wind_gust_kt: 13
+        sea_ft: [2, 3]
+        wave_detail:
+          primary: {direction: SE, direction_deg: 135, height_ft: 3, period_s: 9}
+      WED_NIGHT:
+        wind_dir: "SW"
+        wind_dir_deg: 225
+        wind_kt: [10, 15]
+        wind_gust_kt: 20
+        sea_ft: [3, 4]
+        wave_detail:
+          primary: {direction: SE, direction_deg: 135, height_ft: 4, period_s: 9}
+      THU:
+        wind_dir: "SW"
+        wind_dir_deg: 225
+        wind_kt: [5, 10]
+        wind_gust_kt: 13
+        sea_ft: [2, 4]
+        wave_detail:
+          primary: {direction: SE, direction_deg: 135, height_ft: 4, period_s: 9}
+
+# Per-WP zone/period assignments per plan. Both plans cover the same ~36-39 hr
+# passage; Plan A departs 3 PM Tue, Plan B departs 9 PM Tue. WP→period
+# different.
+#
+# Plan A (Tue 3 PM): WP1-2 TUE → WP3-4 TUE_NIGHT → WP5-7 WED → WP8 WED_NIGHT → WP9 THU
+# Plan B (Tue 9 PM): WP1-2 TUE_NIGHT → WP3-4 WED → WP5-7 WED → WP8 WED_NIGHT → WP9 THU
+
+waypoint_assignments:
+  # ============================================================
+  # PLAN A: Tue 3 PM departure (as requested) — slow tempo to time
+  # arrival to Thu 6:30 AM dawn at Beaufort.
+  # ============================================================
+  plan_a:
+    WP1:
+      zone: AMZ360
+      period: TUE
+      risk_level: green
+      pressure: 30.28
+      pressure_trend: Steady
+      notes_addendum: >
+        Tue 3 PM departure from Charleston Sea Buoy. Charleston tide LW 4:47 PM
+        — STRONG EBB at jetties, ~+1.0 kt push out for first 2 hr.
+        CHTS1 live 8:30 AM: NE 2 kt G3, P=30.28. Bermuda High signature.
+      weather_risk: >
+        Strong high pressure, ebb push, benign exit. No SCAs, no convection,
+        front timing >48 hr away.
+    WP2:
+      zone: AMZ360
+      period: TUE
+      risk_level: green
+      pressure: 30.27
+      pressure_trend: Steady
+      notes_addendum: >
+        Tue ~6:30 PM at 25 NM offshore. Sea breeze enhancement per AFDCHS
+        ("local enhancement along land/sea interface with the diurnal sea
+        breeze"). SE 10 sea breeze on port quarter. Course bends to 042° NE.
+      weather_risk: >
+        Sea breeze enhancement; clear, dry, no convection. SE 3 ft @ 8s long
+        swell.
+    WP3:
+      zone: AMZ256
+      period: TUE_NIGHT
+      risk_level: green
+      pressure: 30.26
+      pressure_trend: Steady
+      notes_addendum: >
+        Wed ~0:18 AM (slow tempo from here to time dawn arrival). Overnight
+        decoupling per CHS/ILM AFDs — winds 5 kt or less.
+      weather_risk: >
+        Calm overnight, ridge intact, no fronts within 60 hr.
+    WP4:
+      zone: AMZ252
+      period: TUE_NIGHT
+      risk_level: green
+      pressure: 30.26
+      pressure_trend: Steady
+      notes_addendum: >
+        Wed ~8:14 AM at Frying Pan approach. Light S overnight to dawn.
+        Live buoy 41013 (8:40 AM Tue): S 4 kt, swell 2.3 ft @ 9.1s ESE
+        — verifies forecast SE 3 ft @ 9s.
+      weather_risk: >
+        Calm at dawn; Frying Pan turn handled in daylight.
+    WP5:
+      zone: AMZ252
+      period: WED
+      risk_level: green
+      pressure: 30.27
+      pressure_trend: Steady
+      notes_addendum: >
+        Wed ~1:36 PM at Frying Pan offshore turn (5 NM E of light tower).
+        Mid-day passage in daylight. Sea breeze beginning, S 6-9 kt.
+      weather_risk: >
+        Daytime turn, light favorable wind, no convection.
+    WP6:
+      zone: AMZ250
+      period: WED
+      risk_level: green
+      pressure: 30.27
+      pressure_trend: Steady
+      notes_addendum: >
+        Wed ~5:29 PM past Frying Pan. Course turns N (007°). Sea breeze peak.
+        Wind dead astern, wing-on-wing or motor-sail.
+      weather_risk: >
+        Sea breeze build, no convection; near-running point of sail.
+    WP7:
+      zone: AMZ250
+      period: WED
+      risk_level: green
+      pressure: 30.27
+      pressure_trend: Steady
+      notes_addendum: >
+        Wed ~8:27 PM at Wilmington offshore. Evening, sea breeze relaxing.
+        Live buoy 41037 (8:08 AM Tue): W 2 kt — overnight calm pattern
+        expected to return.
+      weather_risk: >
+        Evening relaxation; no convective signals on extended outlook.
+    WP8:
+      zone: AMZ158
+      period: WED_NIGHT
+      risk_level: green
+      pressure: 30.26
+      pressure_trend: Steady
+      notes_addendum: >
+        Thu ~1:00 AM at Onslow Bay. MHX AFD KEY MSG 3: front begins to drop
+        south Thu — slower than earlier forecasts; not yet impacting.
+      weather_risk: >
+        Front timing slipped to Thu PM/night — well clear of our arrival.
+    WP9:
+      zone: AMZ158
+      period: THU
+      risk_level: yellow
+      row_band: yellow
+      pressure: 30.25
+      pressure_trend: Falling slow
+      notes_addendum: >
+        ARRIVAL Thu ~6:30 AM EDT — civil twilight 5:42, sunrise 6:08.
+        Beaufort tide HW 12:30 PM Thu — entering on rising tide.
+        CRITICAL: MHX AFD KEY MSG 1 warns dense fog risk early AM with
+        light winds. Have radar + AIS up, slow approach, monitor 16.
+      weather_risk: >
+        Dawn arrival window MET but fog risk per MHX AFD — slow approach,
+        radar/AIS active.
+
+  # ============================================================
+  # PLAN B: Tue 9 PM departure (RECOMMENDED) — straight motor at 6 kt,
+  # arrival Thu 9:42 AM EDT. Daylight Frying Pan turn, post-fog arrival,
+  # flood-tide-assisted Beaufort Inlet entry.
+  # ============================================================
+  plan_b:
+    WP1:
+      zone: AMZ360
+      period: TUE_NIGHT
+      risk_level: green
+      pressure: 30.27
+      pressure_trend: Steady
+      notes_addendum: >
+        Tue 9 PM departure from Charleston Sea Buoy. Tide near slack at jetties
+        (LW 4:47 PM, HW 11:17 PM). Calm evening exit.
+      weather_risk: >
+        Calm evening departure, no current fight, ridge solid.
+    WP2:
+      zone: AMZ360
+      period: TUE_NIGHT
+      risk_level: green
+      pressure: 30.27
+      pressure_trend: Steady
+      notes_addendum: >
+        Wed ~1:10 AM at 25 NM offshore. Overnight motoring. Wind below crossover.
+      weather_risk: >
+        Calm overnight, ridge solid.
+    WP3:
+      zone: AMZ256
+      period: WED
+      risk_level: green
+      pressure: 30.27
+      pressure_trend: Steady
+      notes_addendum: >
+        Wed ~6:20 AM at Long Bay mid. Dawn at this latitude (civil twilight
+        5:35, sunrise 6:00). Good visibility for offshore navigation.
+      weather_risk: >
+        Dawn light, ridge intact.
+    WP4:
+      zone: AMZ252
+      period: WED
+      risk_level: green
+      pressure: 30.27
+      pressure_trend: Steady
+      notes_addendum: >
+        Wed ~1:30 PM Frying Pan approach — MID-DAY, DAYLIGHT. Best timing for
+        this tactical waypoint. Sea breeze building, S 8-11 kt. Live buoy
+        41013 (8:40 AM Tue): S 4 kt, swell 2.3 ft @ 9.1s ESE.
+      weather_risk: >
+        Daylight Frying Pan turn, light favorable wind.
+    WP5:
+      zone: AMZ250
+      period: WED
+      risk_level: green
+      pressure: 30.26
+      pressure_trend: Steady
+      notes_addendum: >
+        Wed ~6:20 PM Frying Pan offshore turn. Late afternoon — sea breeze
+        still active. Wind ~108° apparent — Code D PRIME WINDOW (6-18 kt,
+        90-150° TWA). Try Code D set here.
+      weather_risk: >
+        Code D window opens; daylight transit of turn.
+    WP6:
+      zone: AMZ250
+      period: WED_NIGHT
+      risk_level: green
+      pressure: 30.26
+      pressure_trend: Steady
+      notes_addendum: >
+        Wed ~9:50 PM past Frying Pan. Sundown ~8:18 PM — furl Code D at
+        sundown per offshore practice. Course turns N. Wind dead astern.
+      weather_risk: >
+        Smooth post-sundown leg.
+    WP7:
+      zone: AMZ250
+      period: WED_NIGHT
+      risk_level: green
+      pressure: 30.26
+      pressure_trend: Steady
+      notes_addendum: >
+        Thu ~0:22 AM at Wilmington offshore. Midnight, light following winds.
+      weather_risk: >
+        Calm midnight transit.
+    WP8:
+      zone: AMZ158
+      period: THU
+      risk_level: yellow
+      pressure: 30.25
+      pressure_trend: Falling slow
+      notes_addendum: >
+        Thu ~4:32 AM pre-dawn Onslow Bay. MHX AFD KEY MSG 1: fog risk early
+        AM, light winds favorable for dense fog. Have radar/AIS up.
+      weather_risk: >
+        Pre-dawn fog risk per MHX AFD.
+    WP9:
+      zone: AMZ158
+      period: THU
+      risk_level: green
+      pressure: 30.25
+      pressure_trend: Falling slow
+      notes_addendum: >
+        ARRIVAL Thu ~9:42 AM EDT — full daylight (sunrise 6:08), morning fog
+        burned off ("Conditions should rapidly improve by 9 AM" per AFDMHX),
+        sea breeze building, tide nearing HW (Beaufort HW 12:30 PM Thu).
+        Flood-tide assist into inlet. IDEAL ARRIVAL WINDOW.
+      weather_risk: >
+        Daylight, post-fog, flood-tide assisted entry — IDEAL.

@@ -1,0 +1,85 @@
+FZUS52 KILM 191043
+CWFILM
+
+Coastal Waters Forecast
+National Weather Service Wilmington NC
+643 AM EDT Tue May 19 2026
+
+Surf City NC to South Santee River SC out 60 NM
+
+AMZ200-192315-
+643 AM EDT Tue May 19 2026
+
+.Synopsis for coastal waters from Surf City North Carolina to
+South Santee River South Carolina out to 60 nautical miles...
+Bermuda High pressure will maintain light southerly winds and dry
+weather through Thursday. Shower and thunderstorm chances increase
+late in the week as a front moves into the area.
+
+$$
+
+AMZ250-192315-
+Coastal waters from Surf City to Cape Fear NC out 20 nm-
+643 AM EDT Tue May 19 2026
+
+.TODAY...S winds 5 kt, becoming SE this afternoon. Seas 2 to
+3 ft. Wave Detail: SE 3 ft at 9 seconds and S 1 ft at 5 seconds.
+.TONIGHT...S winds 5 to 10 kt. Seas 2 to 3 ft. Wave Detail: SE
+3 ft at 9 seconds and S 1 ft at 5 seconds.
+.WED...SW winds 5 kt, becoming S in the afternoon. Seas 2 to
+3 ft. Wave Detail: SE 3 ft at 9 seconds.
+.WED NIGHT...S winds 5 to 10 kt. Seas 2 to 3 ft. Wave Detail: SE
+3 ft at 9 seconds.
+.THU...S winds 5 to 10 kt. Seas 3 ft. Wave Detail: SE 3 ft at
+9 seconds.
+
+$$
+
+AMZ252-192315-
+Coastal waters from Cape Fear NC to Little River Inlet SC out
+20 NM-
+643 AM EDT Tue May 19 2026
+
+.TODAY...S winds 5 kt, increasing to 5 to 10 kt late. Seas 2 to
+3 ft. Wave Detail: SE 3 ft at 8 seconds and S 1 ft at 5 seconds.
+.TONIGHT...S winds 5 to 10 kt. Seas 2 to 3 ft. Wave Detail: SE
+3 ft at 9 seconds and S 1 ft at 5 seconds.
+.WED...SW winds 5 kt, becoming S in the afternoon. Seas 2 to
+3 ft. Wave Detail: SE 3 ft at 9 seconds.
+.WED NIGHT...S winds 5 to 10 kt. Seas 2 to 3 ft. Wave Detail: SE
+3 ft at 8 seconds and S 1 ft at 4 seconds.
+
+$$
+
+AMZ256-192315-
+Coastal waters from Murrells Inlet to South Santee River SC out
+20 NM-
+643 AM EDT Tue May 19 2026
+
+.TODAY...SE winds 5 kt, increasing to 5 to 10 kt this afternoon.
+Seas 2 to 3 ft. Wave Detail: SE 3 ft at 8 seconds and S 1 ft at
+5 seconds.
+.TONIGHT...S winds 5 to 10 kt. Seas 2 to 3 ft. Wave Detail: SE
+3 ft at 9 seconds and S 1 ft at 6 seconds.
+.WED...SE winds 5 kt, increasing to 5 to 10 kt in the afternoon.
+Seas 2 to 3 ft. Wave Detail: SE 3 ft at 9 seconds.
+.WED NIGHT...S winds 5 to 10 kt. Seas 2 to 3 ft. Wave Detail: SE
+3 ft at 9 seconds.
+
+$$
+
+AMZ280-192315-
+Waters from Surf City NC to Little River Inlet SC from 20 to
+60 NM-
+643 AM EDT Tue May 19 2026
+
+.TODAY...S winds 5 to 10 kt. Seas 3 ft. Wave Detail: SE 3 ft at
+9 seconds and S 1 ft at 5 seconds.
+.TONIGHT...S winds 5 to 10 kt. Seas 3 ft. Wave Detail: SE 3 ft at
+9 seconds.
+.WED...S winds 5 to 10 kt. Seas 3 ft. Wave Detail: SE 3 ft at
+9 seconds and NE 1 ft at 4 seconds.
+.WED NIGHT...S winds 10 to 15 kt with gusts up to 20 kt. Seas
+3 to 4 ft. Wave Detail: SE 4 ft at 9 seconds.
+
+$$

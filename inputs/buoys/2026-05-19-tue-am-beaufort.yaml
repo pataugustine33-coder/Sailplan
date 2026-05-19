@@ -1,0 +1,128 @@
+# Live NDBC buoy observations for Tue May 19 2026 ~8:30 AM EDT pull —
+# Charleston-Beaufort corridor. Pulled via Claude in Chrome from
+# www.ndbc.noaa.gov/data/latest_obs/<station>.txt.
+#
+# Verification context: forecast cycle is Tue 5/19 5:13 AM CHS / 6:43 AM ILM /
+# 2:37 AM MHX. Buoys read 8:08-8:40 AM EDT. Most recent obs ~5-37 min old.
+
+pull:
+  label: "Tue May 19 2026 ~8:30 AM EDT (3-6 hr post-cycle pull, ground-truth)"
+  pull_source: "NDBC latest_obs text feeds via Claude in Chrome. Latency <30 min."
+
+stations:
+  - id: CHTS1
+    name: Charleston Harbor (departure)
+    lat: 32.782
+    lon: -79.923
+    reading_time: "8:30 AM EDT Tue 5/19"
+    wind_dir: "50° (NE)"
+    wind_kt: 1.9
+    gust_kt: 2.9
+    pressure_inhg: 30.28
+    air_temp_f: 74.7
+    water_temp_f: 75.0
+    status: fresh
+    verification: >
+      AMZ340 CWFCHS TODAY says "Variable winds less than 5 kt, becoming SE 10-15
+      kt." Currently variable at 2 kt — verified. Pressure 30.28 strong ridge
+      signature. Sea breeze not yet established at 8:30 AM as expected.
+
+  - id: 41033
+    name: Fripp Island (SC coast)
+    lat: 32.279
+    lon: -80.407
+    reading_time: "8:08 AM EDT Tue 5/19"
+    wind_dir: "60° (ENE)"
+    wind_kt: 5.8
+    gust_kt: 9.7
+    pressure_inhg: 30.22
+    air_temp_f: 74.5
+    water_temp_f: 73.8
+    status: fresh
+    verification: >
+      AMZ360 TODAY "SE 5 kt becoming E this afternoon" — observed ENE 6 kt
+      = consistent. P=30.22 in tight range with rest of corridor.
+
+  - id: 41008
+    name: Grays Reef NMS
+    lat: 31.402
+    lon: -80.866
+    reading_time: "8:40 AM EDT Tue 5/19 (wave data 5 days old)"
+    wind_dir: "60° (ENE)"
+    wind_kt: 3.9
+    gust_kt: 5.8
+    pressure_inhg: 30.22
+    air_temp_f: 76.1
+    dew_point_f: 73.2
+    status: fresh_partial
+    verification: >
+      Wind/pressure live. Wave summary stuck since 5/14 — last reported
+      swell 1.6 ft @ 7.7s E. Use AMZ360 Wave Detail SE 3 ft @ 8 sec.
+
+  - id: 41013
+    name: Frying Pan Shoals (CRITICAL — at WP4/WP5 corner)
+    lat: 33.485
+    lon: -77.586
+    reading_time: "8:40 AM EDT Tue 5/19"
+    wind_dir: "170° (S)"
+    wind_kt: 3.9
+    gust_kt: 5.8
+    pressure_inhg: 30.28
+    air_temp_f: 75.4
+    water_temp_f: 75.2
+    wave_height_ft: 2.3
+    wave_period_s: 9.1
+    mwd_deg: 110
+    secondary_wave_ft: 1.0
+    secondary_period_s: 4.0
+    secondary_mwd_deg: 158
+    status: fresh
+    verification: >
+      AMZ252 TODAY "S 5 kt increasing 5-10 late, SE 3 ft @ 8s + S 1 ft @ 5s"
+      — observed S 4 kt, swell 2.3 ft @ 9.1s ESE + 1.0 ft @ 4s SSE. EXACT
+      MATCH on direction and frequency content; height slightly under
+      forecast (2.3 vs 3 ft) which is conservative.
+
+  - id: 41037
+    name: Wrightsville Beach (mid-route NC)
+    lat: 33.988
+    lon: -77.361
+    reading_time: "8:08 AM EDT Tue 5/19"
+    wind_dir: "270° (W)"
+    wind_kt: 1.9
+    gust_kt: 3.9
+    pressure_inhg: 30.28
+    air_temp_f: 77.0
+    dew_point_f: 72.3
+    status: fresh
+    verification: >
+      AMZ250 TODAY "S 5 kt becoming SE PM" — currently W 2 kt, near calm,
+      consistent with pre-sea-breeze morning. Dew point 72°F → fog risk
+      flagged by MHX AFD validated by this dew point.
+
+  - id: CLKN7
+    name: Cape Lookout C-MAN (arrival side)
+    lat: 34.622
+    lon: -76.525
+    reading_time: "8:40 AM EDT Tue 5/19"
+    wind_dir: "260° (W)"
+    wind_kt: 4.0
+    gust_kt: 6.0
+    pressure_inhg: 30.27
+    air_temp_f: 75.2
+    dew_point_f: 70.5
+    status: fresh
+    verification: >
+      AMZ158 TODAY "S 5-10 kt, SE 3 ft @ 9s" — currently land breeze 4 kt
+      from W, expected to shift S as sea breeze develops. Dew point 70.5°F
+      validates MHX AFD KEY MSG 1 fog risk.
+
+# Pressure trace summary
+pressure_trace:
+  description: "Live pressure trace across corridor — Tue 5/19 ~8:30 AM EDT"
+  reading: "30.22 - 30.28 inHg uniform across all stations"
+  trend: "Steady to Rising slow"
+  interpretation: >
+    Strong, undisturbed Bermuda High signature. No frontal pressure gradient
+    anywhere along the corridor. Spread 0.06 inHg across 219 NM = ridge axis
+    directly over our route or just offshore.
