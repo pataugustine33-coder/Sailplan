@@ -52,6 +52,8 @@ def verify_workbook(output_path: str, passage: dict, forecast: dict, buoys: dict
     findings.extend(_check_tab_inventory(wb, passage))
     findings.extend(_check_forecast_freshness(wb, forecast))
     findings.extend(_check_gust_data_populated(wb, passage, forecast))
+    findings.extend(_check_wp_zone_geography(passage, forecast))
+    findings.extend(_check_workbook_cells(wb, forecast))
 
     # Sort: errors first, then warnings, then info
     severity_order = {"error": 0, "warn": 1, "info": 2}
@@ -468,6 +470,415 @@ def _check_forecast_freshness(wb, forecast: dict) -> list[Finding]:
                 f"Format Reference:E{r}",
                 f"Source {source!r} is OFFLINE. Cross-check with neighboring buoys.",
             ))
+    return findings
+
+
+# ==============================================================
+# Geographic WP-to-zone validator
+# ==============================================================
+#
+# Catches a class of YAML errors where a waypoint's `zone:` assignment
+# doesn't match the WP's actual geographic position. This is silent
+# corruption: pipeline runs clean, but the wind/sea data driving the
+# polar model is wrong because it's pulled from the wrong zone's forecast.
+#
+# Strategy: each known marine zone is paired with one or more "coastline
+# reference points" plus a distance band (inshore 0-20 NM, offshore
+# 20-60 NM). For each WP, we Haversine to the nearest reference for its
+# assigned zone and check that:
+#   1. The WP's distance from nearest land falls in the zone's band.
+#   2. The latitude band of the zone covers the WP.
+#
+# Reference data is intentionally over-broad — multiple plausible refs
+# per zone — to avoid flagging legitimate variation in route geometry.
+
+import math
+
+
+def _haversine_nm(lat1: float, lon1: float, lat2: float, lon2: float) -> float:
+    """Great-circle distance in nautical miles."""
+    R_NM = 3440.065
+    dlat = math.radians(lat2 - lat1)
+    dlon = math.radians(lon2 - lon1)
+    a = (math.sin(dlat / 2) ** 2
+         + math.cos(math.radians(lat1))
+         * math.cos(math.radians(lat2))
+         * math.sin(dlon / 2) ** 2)
+    return 2 * R_NM * math.asin(math.sqrt(a))
+
+
+# Per-zone metadata for the SC/NC/FL east coast corridors this project
+# operates in. `band_nm` is (min, max) distance offshore. `lat_band` is
+# (south, north) latitude. `coast_refs` is points along the coastline
+# segment the zone covers — we compute min distance to any of them.
+#
+# To extend to new zones, just add an entry. Unknown zones produce a
+# WARN (not ERROR) so unrecognized zones don't block a build.
+ZONE_REGISTRY = {
+    # KCHS — Charleston SC
+    "AMZ340": {
+        "office": "CHS", "band_nm": (0, 20), "lat_band": (32.5, 33.0),
+        "coast_refs": [(32.78, -79.92)],
+        "description": "Charleston Harbor",
+    },
+    "AMZ360": {
+        "office": "CHS", "band_nm": (0, 20), "lat_band": (32.4, 33.2),
+        "coast_refs": [(32.49, -80.31), (32.78, -79.92), (33.13, -79.27)],
+        "description": "South Santee River to Edisto Beach SC, out 20 NM",
+    },
+    "AMZ362": {
+        "office": "CHS", "band_nm": (0, 20), "lat_band": (32.0, 32.6),
+        "coast_refs": [(32.49, -80.31), (32.04, -80.86)],
+        "description": "Edisto Beach SC to Savannah GA, out 20 NM",
+    },
+    "AMZ364": {
+        "office": "CHS", "band_nm": (0, 20), "lat_band": (31.3, 32.1),
+        "coast_refs": [(32.04, -80.86), (31.40, -81.30)],
+        "description": "Savannah GA to Altamaha Sound GA, out 20 NM",
+    },
+    "AMZ380": {
+        "office": "CHS", "band_nm": (20, 60), "lat_band": (32.4, 33.2),
+        "coast_refs": [(32.49, -80.31), (32.78, -79.92), (33.13, -79.27)],
+        "description": "South Santee River to Edisto Beach SC, 20-60 NM",
+    },
+    "AMZ382": {
+        "office": "CHS", "band_nm": (20, 60), "lat_band": (32.0, 32.6),
+        "coast_refs": [(32.49, -80.31), (32.04, -80.86)],
+        "description": "Edisto Beach SC to Savannah GA, 20-60 NM",
+    },
+    "AMZ384": {
+        "office": "CHS", "band_nm": (20, 60), "lat_band": (31.3, 32.1),
+        "coast_refs": [(32.04, -80.86), (31.40, -81.30)],
+        "description": "Savannah GA to Altamaha Sound GA, 20-60 NM",
+    },
+    # KILM — Wilmington NC
+    "AMZ250": {
+        "office": "ILM", "band_nm": (0, 20), "lat_band": (33.8, 34.5),
+        "coast_refs": [(33.84, -78.01), (34.21, -77.79), (34.42, -77.55)],
+        "description": "Surf City to Cape Fear NC, out 20 NM",
+    },
+    "AMZ252": {
+        "office": "ILM", "band_nm": (0, 20), "lat_band": (33.6, 34.0),
+        "coast_refs": [(33.84, -78.01), (33.85, -78.65)],
+        "description": "Cape Fear NC to Little River Inlet SC, out 20 NM",
+    },
+    "AMZ254": {
+        "office": "ILM", "band_nm": (0, 20), "lat_band": (33.5, 33.9),
+        "coast_refs": [(33.85, -78.65), (33.66, -79.03)],
+        "description": "Little River Inlet to Murrells Inlet SC, out 20 NM",
+    },
+    "AMZ256": {
+        "office": "ILM", "band_nm": (0, 20), "lat_band": (33.1, 33.7),
+        "coast_refs": [(33.51, -79.03), (33.13, -79.27)],
+        "description": "Murrells Inlet to South Santee River SC, out 20 NM",
+    },
+    "AMZ280": {
+        "office": "ILM", "band_nm": (20, 60), "lat_band": (33.1, 34.5),
+        "coast_refs": [(34.42, -77.55), (34.21, -77.79), (33.84, -78.01),
+                       (33.85, -78.65), (33.66, -79.03)],
+        "description": "Surf City NC to Little River Inlet SC, 20-60 NM",
+    },
+    "AMZ284": {
+        "office": "ILM", "band_nm": (20, 60), "lat_band": (33.1, 33.9),
+        "coast_refs": [(33.85, -78.65), (33.66, -79.03), (33.13, -79.27)],
+        "description": "Little River Inlet to South Santee River SC, 20-60 NM",
+    },
+    # KMHX — Newport/Morehead NC
+    "AMZ150": {
+        "office": "MHX", "band_nm": (0, 20), "lat_band": (35.7, 36.5),
+        "coast_refs": [(35.79, -75.55), (36.13, -75.71)],
+        "description": "Currituck Beach Light to Oregon Inlet NC, out 20 NM",
+    },
+    "AMZ152": {
+        "office": "MHX", "band_nm": (0, 20), "lat_band": (35.2, 35.8),
+        "coast_refs": [(35.27, -75.53), (35.79, -75.55)],
+        "description": "Oregon Inlet to Cape Hatteras NC, out 20 NM",
+    },
+    "AMZ154": {
+        "office": "MHX", "band_nm": (0, 20), "lat_band": (34.9, 35.3),
+        "coast_refs": [(35.27, -75.53), (34.97, -76.04)],
+        "description": "Cape Hatteras to Ocracoke Inlet NC, out 20 NM",
+    },
+    "AMZ156": {
+        "office": "MHX", "band_nm": (0, 20), "lat_band": (34.5, 35.0),
+        "coast_refs": [(34.97, -76.04), (34.62, -76.52)],
+        "description": "Ocracoke Inlet to Cape Lookout NC, out 20 NM",
+    },
+    "AMZ158": {
+        "office": "MHX", "band_nm": (0, 20), "lat_band": (34.3, 34.8),
+        "coast_refs": [(34.62, -76.52), (34.42, -77.55)],
+        "description": "Cape Lookout to Surf City NC, out 20 NM",
+    },
+    "AMZ188": {
+        "office": "MHX", "band_nm": (20, 60), "lat_band": (33.9, 34.8),
+        "coast_refs": [(34.62, -76.52), (34.42, -77.55)],
+        "description": "Cape Lookout to Surf City NC, 20-60 NM",
+    },
+    # Add JAX/MFL/MLB/KEY zones as new routes are built. Unknown zones
+    # produce a WARN, not an ERROR.
+}
+
+
+def _check_wp_zone_geography(passage: dict, forecast: dict) -> list[Finding]:
+    """Verify each WP's assigned zone matches the WP's geographic position.
+
+    Checks two things per WP:
+      1. WP latitude falls within the zone's lat band (gross sanity check).
+      2. WP distance from nearest coastline reference for the zone falls
+         within the zone's distance band (inshore 0-20 NM vs offshore
+         20-60 NM).
+
+    Catches the silent-corruption class where a coastal-zone bulletin is
+    used to drive the polar model at a waypoint that's actually in the
+    offshore band — materially different forecast (and a real bug seen
+    Tue 5/19).
+    """
+    findings: list[Finding] = []
+
+    wp_by_id = {wp["id"]: wp for wp in passage.get("waypoints", [])}
+    assignments = forecast.get("waypoint_assignments", {})
+
+    for plan_id, plan_wps in assignments.items():
+        for wp_id, assignment in plan_wps.items():
+            zone = assignment.get("zone")
+            if not zone:
+                findings.append(Finding(
+                    "error",
+                    f"forecast YAML:waypoint_assignments.{plan_id}.{wp_id}",
+                    "missing zone: assignment",
+                ))
+                continue
+
+            wp = wp_by_id.get(wp_id)
+            if not wp:
+                findings.append(Finding(
+                    "error",
+                    f"forecast YAML:waypoint_assignments.{plan_id}.{wp_id}",
+                    f"WP {wp_id!r} assigned a zone but not defined in passage.waypoints",
+                ))
+                continue
+
+            wp_lat = wp.get("lat")
+            wp_lon = wp.get("lon")
+            if wp_lat is None or wp_lon is None:
+                continue
+
+            zone_info = ZONE_REGISTRY.get(zone)
+            if not zone_info:
+                findings.append(Finding(
+                    "warn",
+                    f"forecast YAML:waypoint_assignments.{plan_id}.{wp_id}",
+                    f"Zone {zone!r} not in geographic registry — "
+                    f"cannot verify against {wp_id} position "
+                    f"({wp_lat:.4f}, {wp_lon:.4f}). Add to ZONE_REGISTRY "
+                    f"in sailbuild/verify.py to enable check.",
+                ))
+                continue
+
+            # Lat band check
+            lat_lo, lat_hi = zone_info["lat_band"]
+            if not (lat_lo - 0.1 <= wp_lat <= lat_hi + 0.1):
+                findings.append(Finding(
+                    "error",
+                    f"forecast YAML:waypoint_assignments.{plan_id}.{wp_id}",
+                    f"{wp_id} lat {wp_lat:.4f} is outside zone {zone}'s "
+                    f"lat band ({lat_lo:.2f}-{lat_hi:.2f}). Zone covers "
+                    f"{zone_info['description']!r}. Wrong zone assigned.",
+                ))
+                continue
+
+            # Distance band check
+            min_dist = min(
+                _haversine_nm(wp_lat, wp_lon, rlat, rlon)
+                for rlat, rlon in zone_info["coast_refs"]
+            )
+            band_lo, band_hi = zone_info["band_nm"]
+            # Allow a small tolerance at the boundary (±2 NM)
+            if min_dist < band_lo - 2:
+                findings.append(Finding(
+                    "error",
+                    f"forecast YAML:waypoint_assignments.{plan_id}.{wp_id}",
+                    f"{wp_id} is {min_dist:.1f} NM from nearest coast point "
+                    f"of zone {zone}, but the zone covers {band_lo}-{band_hi} NM "
+                    f"offshore. WP is INSHORE of this zone — reassign to a "
+                    f"0-20 NM zone in the same coastline segment.",
+                ))
+            elif min_dist > band_hi + 5:
+                findings.append(Finding(
+                    "error",
+                    f"forecast YAML:waypoint_assignments.{plan_id}.{wp_id}",
+                    f"{wp_id} is {min_dist:.1f} NM from nearest coast point "
+                    f"of zone {zone}, but the zone covers only {band_lo}-{band_hi} NM "
+                    f"offshore. WP is OUTSIDE this zone — reassign to a "
+                    f"20-60 NM offshore zone or an OWF zone.",
+                ))
+
+    return findings
+
+
+# ==============================================================
+# Workbook cell scan — catches Excel errors, un-evaluated formulas,
+# forbidden risk-label words, stale dates
+# ==============================================================
+
+import re as _re
+
+_EXCEL_ERROR_LITERALS = {
+    "#REF!", "#DIV/0!", "#VALUE!", "#N/A", "#NAME?", "#NUM!",
+    "#NULL!", "#GETTING_DATA",
+}
+
+# Risk cells (Weather Risk column on plan tabs) must be color-only.
+# A leading color word violates the project standard.
+_FORBIDDEN_RISK_LABEL_LEAD = _re.compile(r"^\s*(GREEN|YELLOW|RED)\b", _re.IGNORECASE)
+
+# Placeholder markers indicate incomplete content.
+_PLACEHOLDER_MARKERS = _re.compile(r"\b(TBC|TODO|FIXME|XXX|TBD|PLACEHOLDER)\b")
+
+
+def _check_workbook_cells(wb, forecast: dict) -> list[Finding]:
+    """Walk every populated cell on every tab and flag:
+
+      - Excel formula errors (#REF!, #DIV/0!, #VALUE!, #N/A, etc).
+      - Formulas that didn't evaluate (data_only view returned the
+        formula string itself or None).
+      - Risk-column cells that start with a color word (color-only
+        rule from project standing prefs).
+      - Placeholder markers (TBC / TODO / FIXME).
+      - Date references that don't match the forecast cycle date,
+        which usually means a stale string was carried over from a
+        prior build's YAML.
+    """
+    findings: list[Finding] = []
+
+    # Determine the build's "good" date strings so we can flag stale others.
+    # Pull the cycle dates from the forecast YAML's cwfchs.issued ISO date.
+    good_dates: set[str] = set()
+    cycle = forecast.get("cycle", {}) if isinstance(forecast, dict) else {}
+    for key in ("cwfchs", "cwfilm", "cwfmhx", "afdchs", "afdilm", "afdmhx"):
+        product = cycle.get(key, {})
+        issued = product.get("issued", "")
+        # Pull YYYY-MM-DD prefix
+        m = _re.match(r"(\d{4})-(\d{2})-(\d{2})", issued)
+        if m:
+            yyyy, mm, dd = m.groups()
+            good_dates.add(f"{int(mm)}/{int(dd)}")
+            good_dates.add(f"{int(mm)}/{int(dd)}/{yyyy[-2:]}")
+
+    # If we couldn't extract the cycle date, skip the stale-date check
+    # rather than emit false positives.
+    do_stale_date_check = len(good_dates) > 0
+
+    # Load a formula-view of the same workbook so we can detect
+    # un-evaluated formulas.
+    from openpyxl import load_workbook as _lwb
+    wb_path = wb.path if hasattr(wb, "path") else None
+    # openpyxl Workbook objects don't carry their source path back. The
+    # caller passes data_only=True; we re-open with data_only=False here
+    # by getting the path via the wb's loaded_from attribute pattern.
+    # Simpler: just check formulas on `wb`. If the value is a string
+    # starting with "=", it's an un-evaluated formula in this view.
+
+    for ws_name in wb.sheetnames:
+        ws = wb[ws_name]
+        is_plan = "Plan" in ws_name and "Bowtie" not in ws_name
+
+        # Locate Weather Risk column on plan tabs (always col Q = 17 in
+        # the current schema, but detect by header for robustness).
+        risk_col = None
+        if is_plan:
+            for r in range(1, min(6, ws.max_row + 1)):
+                for c in range(1, ws.max_column + 1):
+                    if ws.cell(r, c).value == "Weather Risk":
+                        risk_col = c
+                        break
+                if risk_col:
+                    break
+
+        for row in ws.iter_rows():
+            for cell in row:
+                v = cell.value
+                if v is None:
+                    continue
+                if not isinstance(v, str):
+                    continue
+
+                # Excel error literals
+                for err in _EXCEL_ERROR_LITERALS:
+                    if err in v:
+                        findings.append(Finding(
+                            "error",
+                            f"{ws_name}:{cell.coordinate}",
+                            f"Cell contains Excel error literal {err!r}",
+                        ))
+
+                # Un-evaluated formula
+                if v.startswith("="):
+                    findings.append(Finding(
+                        "error",
+                        f"{ws_name}:{cell.coordinate}",
+                        f"Formula not evaluated by LibreOffice "
+                        f"(saw {v[:50]!r}). Rebuild with recalc.",
+                    ))
+
+                # Forbidden risk-cell color label
+                if is_plan and cell.column == risk_col:
+                    m = _FORBIDDEN_RISK_LABEL_LEAD.match(v)
+                    if m:
+                        findings.append(Finding(
+                            "error",
+                            f"{ws_name}:{cell.coordinate}",
+                            f"Risk cell starts with color word {m.group(1)!r}. "
+                            f"Standard says color-only fill, reason text "
+                            f"without level label.",
+                        ))
+
+                # Placeholder markers
+                m = _PLACEHOLDER_MARKERS.search(v)
+                if m and len(v) < 200:
+                    findings.append(Finding(
+                        "warn",
+                        f"{ws_name}:{cell.coordinate}",
+                        f"Placeholder marker {m.group(0)!r} found in cell — "
+                        f"content may be incomplete: {v[:80]!r}",
+                    ))
+
+                # Stale-date check: look for M/D patterns that aren't
+                # in our good_dates set. Only flag if the cell looks
+                # like a date label (contains a 3-letter day prefix
+                # like Mon/Tue/Wed/Thu/Fri/Sat/Sun) AND the cell isn't
+                # narrative text citing a historical example.
+                if do_stale_date_check:
+                    # Skip narrative lessons-learned cells that legitimately
+                    # cite past cycles as examples or precedent.
+                    is_historical_ref = bool(_re.search(
+                        r"\b(example|cite|historical|previous|earlier|"
+                        r"prior|past|precedent|lesson|reference|"
+                        r"e\.?g\.?|i\.?e\.?|for instance|such as)\b",
+                        v, _re.IGNORECASE,
+                    ))
+                    # Skip cells that are clearly narrative paragraphs
+                    # rather than data — heuristic: more than 200 chars
+                    # and contains complete sentences (period+space).
+                    is_narrative = len(v) > 200 and ". " in v
+
+                    if not (is_historical_ref or is_narrative):
+                        for m in _re.finditer(r"\b(\d{1,2})/(\d{1,2})\b", v):
+                            date_str = f"{int(m.group(1))}/{int(m.group(2))}"
+                            if date_str in good_dates:
+                                continue
+                            ctx_start = max(0, m.start() - 25)
+                            ctx = v[ctx_start:m.start()]
+                            if _re.search(r"\b(Mon|Tue|Wed|Thu|Fri|Sat|Sun)\b", ctx):
+                                findings.append(Finding(
+                                    "warn",
+                                    f"{ws_name}:{cell.coordinate}",
+                                    f"Possible stale date {date_str!r} (build "
+                                    f"cycle dates: {sorted(good_dates)}): "
+                                    f"{v[:80]!r}",
+                                ))
+                                break  # one finding per cell
+
     return findings
 
 

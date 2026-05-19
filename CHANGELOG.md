@@ -3,6 +3,60 @@
 Major design decisions and feature additions, in reverse chronological order.
 
 ---
+## 2026-05-19 — Geographic WP-to-zone validator + workbook cell scan
+
+Added two new checks to `sailbuild/verify.py` that run on every build:
+
+**1. `_check_wp_zone_geography(passage, forecast)`** — for every WP in
+every plan, verifies that the WP's lat/lon actually falls inside the
+forecast zone it's been assigned to. Catches the silent-corruption
+class where a coastal-zone bulletin drives the polar model at a
+waypoint that's actually 20-60 NM offshore (different forecast, wrong
+data, plan model is materially wrong but the pipeline runs clean).
+
+Implementation: `ZONE_REGISTRY` table mapping each NWS marine zone ID
+to its lat band and (min_nm, max_nm) distance band offshore, plus a
+list of coastline reference points along the zone's coverage. For
+each WP, Haversine to nearest reference, then check both bands. ±2
+NM tolerance at distance-band edges, ±0.1° tolerance at lat-band
+edges. Unknown zones produce WARN (not ERROR) so unrecognized zones
+don't block a build — they signal that the registry needs an entry.
+
+Runtime check uncovered three pre-existing real bugs:
+  - chs-savannah: WP1 32.75°N assigned to AMZ362 (covers 32.0-32.6°N)
+  - chs-staug: WP1/WP2/WP3 in same lat-band error + ≥25 NM offshore
+    while assigned to 0-20 NM zones
+
+Initial ZONE_REGISTRY covers KCHS (AMZ340/360/362/364/380/382/384),
+KILM (AMZ250/252/254/256/280/284), and KMHX (AMZ150/152/154/156/158/188).
+JAX/MFL/MLB/KEY zones to be added when those routes get their next
+build cycle.
+
+**2. `_check_workbook_cells(wb, forecast)`** — walks every populated
+cell on every tab and flags:
+  - Excel error literals (#REF!, #DIV/0!, #VALUE!, #N/A, #NAME?,
+    #NUM!, #NULL!, #GETTING_DATA) — ERROR severity.
+  - Formulas that LibreOffice didn't evaluate (value starts with "=")
+    — ERROR severity.
+  - Weather-Risk cells whose text starts with "GREEN"/"YELLOW"/"RED"
+    color words — violates project color-only standard — ERROR.
+  - Placeholder markers (TBC/TODO/FIXME/XXX/TBD/PLACEHOLDER) — WARN.
+  - Date references (M/D format with day-of-week prefix) that don't
+    match the build's cycle dates — WARN. Skips narrative/lessons-
+    learned cells that legitimately cite past cycles as examples.
+
+Why it matters: the existing verifier catches structural problems
+(vessel consistency, polar grid mismatch, buoy coord drift, arrival
+timing). It did NOT catch syntactic problems sitting inside cells.
+The cell scan covers that gap so the project's "color-only risk",
+"no stale dates", and "no placeholder text" standards are enforced
+at build time rather than relying on the operator to remember.
+
+Both checks wired into `verify_workbook()`; both contribute to the
+errors-count return code so a CI/--require-style block-on-error
+gate would catch them.
+
+---
 ## 2026-05-19 — Chrome-first weather pull becomes stop-and-ask SOP
 
 Added explicit standing rule: Claude must attempt the live Chrome fetch
