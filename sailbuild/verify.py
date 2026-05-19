@@ -53,6 +53,7 @@ def verify_workbook(output_path: str, passage: dict, forecast: dict, buoys: dict
     findings.extend(_check_forecast_freshness(wb, forecast))
     findings.extend(_check_gust_data_populated(wb, passage, forecast))
     findings.extend(_check_wp_zone_geography(passage, forecast))
+    findings.extend(_check_plan_tab_images(wb, passage))
     findings.extend(_check_workbook_cells(wb, forecast))
 
     # Sort: errors first, then warnings, then info
@@ -722,6 +723,92 @@ def _check_wp_zone_geography(passage: dict, forecast: dict) -> list[Finding]:
 # ==============================================================
 
 import re as _re
+
+
+# ==============================================================
+# Image-presence check — catches missing wind/sea roses, polars,
+# and timeline strips on plan tabs
+# ==============================================================
+#
+# This catches a class of failure where build.py runs clean and the
+# workbook looks valid (cells contain "—" placeholder) but a critical
+# rendering library was missing in the build environment and the chart
+# silently fell back to a dash. Real example: cairosvg not installed
+# → every Wind/Sea Rose became "—" while the cell-scan check happily
+# saw "—" as a non-empty string and moved on.
+
+def _check_plan_tab_images(wb, passage: dict) -> list[Finding]:
+    """Verify each plan tab has the expected count of embedded images.
+
+    Each plan tab should carry:
+      - One wind/sea rose per non-arrival WP (anchored to column U)
+      - One mini-polar per non-arrival WP (anchored to column V)
+      - One timeline strip below the leg table
+
+    Anchor columns are 0-indexed in openpyxl's image API. U=20, V=21.
+    """
+    findings: list[Finding] = []
+
+    waypoints = passage.get("waypoints", [])
+    if not waypoints:
+        return findings
+
+    # Number of non-arrival WPs (last WP has course_out=None so no rose/polar)
+    expected_per_col = sum(
+        1 for wp in waypoints if wp.get("course_out") is not None
+    )
+    plans = passage.get("plans", [])
+
+    for plan_def in plans:
+        tab_name = plan_def.get("tab_label")
+        if not tab_name or tab_name not in wb.sheetnames:
+            continue
+        ws = wb[tab_name]
+
+        rose_count = 0   # col U
+        polar_count = 0  # col V
+        other_count = 0
+        for img in ws._images:
+            anchor = img.anchor
+            if not hasattr(anchor, "_from"):
+                other_count += 1
+                continue
+            col = anchor._from.col
+            if col == 20:    # U (Wind/Sea Rose)
+                rose_count += 1
+            elif col == 21:  # V (Polar @ TWS)
+                polar_count += 1
+            else:
+                other_count += 1
+
+        if rose_count < expected_per_col:
+            findings.append(Finding(
+                "error",
+                f"{tab_name}:U (Wind/Sea Rose column)",
+                f"Only {rose_count}/{expected_per_col} wind/sea rose images "
+                f"embedded. Likely cause: cairosvg not installed in the "
+                f"build environment (rose renderer falls back to '—' "
+                f"placeholder when HAVE_CAIROSVG is False). "
+                f"Run: pip install cairosvg",
+            ))
+        if polar_count < expected_per_col:
+            findings.append(Finding(
+                "error",
+                f"{tab_name}:V (Polar @ TWS column)",
+                f"Only {polar_count}/{expected_per_col} mini-polar images "
+                f"embedded. Check matplotlib/PIL availability in build "
+                f"environment and inspect sailbuild/charts.py renderer.",
+            ))
+        if other_count == 0:
+            findings.append(Finding(
+                "warn",
+                f"{tab_name}",
+                "No timeline-strip image found below leg table. Check "
+                "render_timeline_strip in sailbuild/tabs/plan.py.",
+            ))
+
+    return findings
+
 
 _EXCEL_ERROR_LITERALS = {
     "#REF!", "#DIV/0!", "#VALUE!", "#N/A", "#NAME?", "#NUM!",

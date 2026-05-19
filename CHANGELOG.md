@@ -3,6 +3,35 @@
 Major design decisions and feature additions, in reverse chronological order.
 
 ---
+## 2026-05-19 — Plan-tab image-presence verifier
+
+Added `_check_plan_tab_images()` to `sailbuild/verify.py`. For each
+plan tab, counts embedded images by anchor column and verifies:
+  - Wind/Sea Rose images at column U: must equal number of WPs with
+    non-null course_out (i.e., every non-arrival waypoint)
+  - Polar @ TWS images at column V: same expected count
+  - At least one timeline-strip image anchored elsewhere
+
+Catches the silent-failure class where a critical rendering library
+(cairosvg for the rose, matplotlib for the polar) is missing in the
+build environment and the renderer falls back to writing "—" into
+the cell value. The cell-scan verifier sees "—" as a non-empty
+string and moves on; only an image-collection-aware check catches
+the gap.
+
+Real example: cairosvg was not installed in the environment used for
+the Tue 5/19 Charleston-Beaufort build cycle. 0/8 wind/sea roses
+rendered on each plan tab. Cell-scan verifier missed it. Skipper
+caught it visually. Now the verifier emits:
+
+  ❌ [ERROR] Plan A - Tue 3 PM Depart:U (Wind/Sea Rose column):
+  Only 0/8 wind/sea rose images embedded. Likely cause: cairosvg
+  not installed... Run: pip install cairosvg
+
+The error message names the most-likely cause and the fix, so a
+future build that hits this in CI gets the right next step inline.
+
+---
 ## 2026-05-19 — Geographic WP-to-zone validator + workbook cell scan
 
 Added two new checks to `sailbuild/verify.py` that run on every build:
