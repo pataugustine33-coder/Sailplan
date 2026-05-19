@@ -230,11 +230,25 @@ def render_vessel_particulars(ws, passage):
     ws.merge_cells("A1:K1")
     ws.row_dimensions[1].height = 26
 
+    # Subtitle pulls designer + source attribution from the vessel YAML so it
+    # accurately describes whichever boat is being rendered. Fall back to
+    # generic text if the vessel block doesn't specify (older YAMLs).
+    designer = v.get("designer", "")
+    builder = v.get("builder", "")
+    polar_source = v.get("polar_source", "manufacturer VPP")
+    data_sheet_source = v.get("data_sheet_source", "manufacturer data sheet")
+    if designer and builder:
+        provenance = f"{designer}-designed {builder} {v['load_config']}."
+    elif designer:
+        provenance = f"{designer}-designed {v['load_config']}."
+    elif builder:
+        provenance = f"{builder} {v['load_config']}."
+    else:
+        provenance = f"{v['load_config']}."
     style_page_subtitle(
         ws.cell(2, 1),
-        f"Frers-designed Hallberg-Rassy {v['load_config']}. "
-        f"Polar from Frers VPP. All metrics from manufacturer data sheets and "
-        f"stability documents.",
+        f"{provenance} Polar from {polar_source}. "
+        f"All metrics from {data_sheet_source} and stability documents.",
     )
     ws.merge_cells("A2:K2")
     ws.row_dimensions[2].height = 28
@@ -246,7 +260,7 @@ def render_vessel_particulars(ws, passage):
 
     style_section_header(
         ws.cell(4, 1),
-        f"Polar — Boat speed (kt) at TWA × TWS — {design_number} {v['load_config']} (Frers VPP)",
+        f"Polar — Boat speed (kt) at TWA × TWS — {design_number} {v['load_config']} ({polar_source})",
     )
     ws.merge_cells("A4:J4")
     ws.row_dimensions[4].height = 22
@@ -275,23 +289,33 @@ def render_vessel_particulars(ws, passage):
         style_table_header(ws.cell(table_row + 1, i, value=h))
     ws.row_dimensions[table_row + 1].height = 28
 
-    rows = [
-        ("Designer",                          "Germán Frers", ""),
-        ("CE category",                       "A", "Ocean — unlimited offshore"),
+    # Build the particulars row list from the vessel YAML. Designer, builder,
+    # and CE category are optional — only render if present in the YAML.
+    rows = []
+    if designer:
+        rows.append(("Designer", designer, ""))
+    if builder:
+        rows.append(("Builder", builder, ""))
+    if "ce_category" in v:
+        rows.append(("CE category", v["ce_category"],
+                     v.get("ce_category_note", "")))
+    rows.extend([
         ("Designation",                       v["designation"], ""),
         ("Design number",                     v["design_number"], ""),
         ("Load configuration",                v["load_config"], ""),
-        ("Empty displacement",                f"{v['displacement_lb']:,} lb", "From Hallberg-Rassy data sheet"),
+        ("Empty displacement",                f"{v['displacement_lb']:,} lb",
+                                              f"From {data_sheet_source}"),
         ("Motor speed (cruise)",              f"{v['motor_speed_kt']} kt", "Diesel at moderate RPM"),
         ("Motor crossover TWS",               f"{v['motor_crossover_tws_kt']} kt", "Below this, motor faster than sailing"),
         ("Fuel capacity",                     f"{v['fuel_capacity_gal']} gal", ""),
         ("Fuel burn",                         f"{v['fuel_burn_gph']} gph", "At cruise"),
         ("Motor range",                       f"~{int(v['fuel_capacity_gal']/v['fuel_burn_gph']*v['motor_speed_kt'])} NM",
                                               "Tank ÷ burn × motor speed"),
-        ("RMC (righting moment coeff.)",      f"{v['rmc_kgm']} kg·m", ""),
+        ("RMC (righting moment coeff.)",      f"{v['rmc_kgm']} kg·m",
+                                              v.get("stability_source", "")),
         ("RM @ 30°",                          f"{v['rm_30deg_kgm']:,} kg·m", "Righting moment at 30° heel"),
         ("RM max",                            f"{v['rm_max_kgm']:,} kg·m", "Peak righting moment"),
-    ]
+    ])
     if "brewer_cr" in v:
         rows.append(("Brewer Comfort Ratio", f"{v['brewer_cr']:.1f}",
                     ">50 = heavy cruiser, 40-50 = moderate"))

@@ -71,20 +71,34 @@ def _check_vessel_consistency(wb, passage: dict) -> list[Finding]:
     """The vessel designation in passage YAML should appear in tab titles
     that reference the vessel, and the opposite designation should NOT.
 
-    Catches: HR 48 references that leak into HR 54 workbooks (and vice versa).
+    Catches: HR 48 references that leak into HR 54 workbooks (and vice versa),
+    and brand/designer terms (Frers, Hallberg-Rassy) that leak into non-HR
+    vessel workbooks (e.g. an Oyster 475 build that still says "Frers VPP" on
+    its polar grid header — a real bug seen 5/19).
     """
     findings = []
-    vessel_label = passage.get("vessel", {}).get("designation", "")
+    vessel = passage.get("vessel", {})
+    vessel_label = vessel.get("designation", "")
     if not vessel_label:
         return findings
 
-    # Determine the "other" common designation that should NOT appear in this
+    # Determine the "other" common designations that should NOT appear in this
     # workbook unless the Vessel Comparison tab is intentionally included.
     other_designations = []
     if "48" in vessel_label:
         other_designations = ["HR 54", "HR54"]
     elif "54" in vessel_label:
         other_designations = ["HR 48", "HR48"]
+
+    # Brand-leak terms: if the vessel YAML specifies a non-HR builder, then
+    # "Hallberg-Rassy" and "Frers" should NOT appear anywhere in the workbook
+    # outside the Vessel Comparison tab. Conversely, an HR build is allowed
+    # to mention Hallberg-Rassy and Frers.
+    builder = (vessel.get("builder") or "").lower()
+    designer = (vessel.get("designer") or "").lower()
+    is_hr_vessel = "hallberg" in builder or "rassy" in builder or vessel_label.upper().startswith("HR")
+    if not is_hr_vessel:
+        other_designations.extend(["Hallberg-Rassy", "Hallberg Rassy", "Frers", "Germán Frers", "German Frers"])
 
     # Skip the Vessel Comparison tab — it's allowed to mention both.
     skip_tabs = {"Vessel Comparison"}

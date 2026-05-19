@@ -25,6 +25,13 @@ vessel:
   rm_max_kgm: 23654              # Frers Full Load source, peak ~70° heel
   brewer_cr: 52.1
   csf: 1.55
+  designer: Germán Frers
+  builder: Hallberg-Rassy
+  ce_category: A
+  ce_category_note: Ocean — unlimited offshore
+  polar_source: Frers VPP
+  data_sheet_source: Hallberg-Rassy data sheet
+  stability_source: Frers GZ curve (Full Load)
 
 # Sea factor lookup — same selector logic. HR 54 is hull-form similar to HR 48
 # (same Frers design lineage, identical SA/D ratio 19.0 vs 18.9), so the same

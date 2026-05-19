@@ -24,6 +24,13 @@ vessel:
   rm_max_kgm: 17657
   brewer_cr: 42.9
   csf: 1.66
+  designer: Germán Frers
+  builder: Hallberg-Rassy
+  ce_category: A
+  ce_category_note: Ocean — unlimited offshore
+  polar_source: Frers VPP
+  data_sheet_source: Hallberg-Rassy data sheet
+  stability_source: Frers GZ curve (Light Ship)
 
 # Sea factor lookup. Selector logic:
 #   if TWA < 60 AND period < 6 AND Hs/period >= 0.8: steep_chop_bow

@@ -20,15 +20,21 @@ vessel:
   motor_crossover_tws_kt: 7.0    # similar to HR 48 — comparable LWL
   fuel_capacity_gal: 198         # 750 L Yanmar diesel tank
   fuel_burn_gph: 1.3             # at 6.2 kt cruise (75 HP burns less than HR's D3-110)
+  designer: Holman & Pye / Humphreys Yacht Design
+  builder: Oyster Marine
+  ce_category: A
+  ce_category_note: Ocean — unlimited offshore
+  polar_source: Oyster Design Ltd. polar diagram (digitized)
+  data_sheet_source: Oyster Marine catalog
+  stability_source: ESTIMATE — bounded from public CSF/ballast/displacement, not measured GZ curve
 
   # STABILITY VALUES BELOW ARE ESTIMATES from public-source data, not from a
-  # measured Holman & Pye stability curve. The estimates are bounded by:
+  # measured Holman & Pye / Humphreys stability curve. The estimates are bounded by:
   #   - CSF 1.76 (sailboatdata, yachtdatabase) — slightly less stiff than HR 48 (1.66)
   #   - Ballast ratio ~40% (consistent with Oyster catalog claim of "best-in-class
   #     for righting moment and form stability")
   #   - Displacement 16,000 kg empty (between HR 48 at 18,500 kg and HR 44)
   # For rigorous values, request the official Oyster Marine stability data sheet.
-  # The annotation "ESTIMATE" should propagate to the Vessel Particulars tab.
   rmc_kgm: 590                   # estimate — between HR 48 (467) and HR 54 (656)
   rm_30deg_kgm: 12500            # ESTIMATE — between HR 48 (11,995) and HR 54 (14,619)
   rm_max_kgm: 19000              # ESTIMATE — peak ~70° heel
