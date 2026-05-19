@@ -3,6 +3,63 @@
 Major design decisions and feature additions, in reverse chronological order.
 
 ---
+## 2026-05-19 — Methodology compliance verifier
+
+Added `_check_methodology_compliance()` to `sailbuild/verify.py`. This is
+the catch-all "does the workbook deliver what the project methodology
+says it should?" check.
+
+The other verify functions cover specific failure modes (vessel
+consistency, polar grid match, buoy coord drift, image presence, cell
+text scan, geographic zone validation). This one covers the structural
+contract:
+
+  A. Mandatory tabs present (12 fixed + 2 per plan + optional Vessel
+     Comparison). Each missing tab produces an error naming the tab
+     and its purpose, e.g.:
+       ❌ Missing mandatory tab 'Verification Scorecard'. Purpose:
+       Pre/under/post scorecard for verification methodology.
+
+  B. Plan tabs carry all 17 mandatory columns (A-Q) plus the Sea
+     Source standing-instruction column. Accepts a list of header
+     alternatives for graceful evolution (e.g. "ETA (EDT)" or "ETA").
+     Each missing column produces an error citing the column letter,
+     accepted header labels, and the methodology requirement.
+
+  C. Plan tabs have one row per WP defined in the passage YAML.
+     Catches truncated builds.
+
+  D. Pressure Trend values use the controlled vocabulary from the
+     system prompt: Rising fast / Rising / Rising slow / Steady /
+     Falling slow / Falling / Falling fast / Bottoming.
+
+  E. ETAs match the project format: 12-hour clock with day prefix,
+     e.g. "Tue 3:00 PM". Catches "2026-05-19 15:00" and "3:00 PM"
+     (missing day prefix).
+
+Rule set is declarative — represented as the `_PLAN_TAB_REQUIRED_COLUMNS`
+constant and the `_required_tabs(passage)` helper. When the standing
+instructions evolve, you add a rule entry rather than write a new
+function.
+
+Why this check matters: the project's failure modes that hurt the most
+are structural (wrong tabs, wrong columns, wrong format conventions),
+not arithmetic. A hand-rolled workbook that bypasses build.py can be
+syntactically valid (no Excel errors, no empty cells, formulas all
+evaluated) and still violate the methodology because it has 10 tabs
+instead of 16, or 17 plan columns instead of 28. Without a structural
+check the existing verify functions all pass, build.py exits 0, and
+the operator delivers a non-conforming workbook.
+
+Test results on first run:
+  - Tue 5/19 Charleston-Beaufort build: clean (the pipeline produces
+    a methodology-compliant workbook by construction).
+  - Synthetic broken workbook (2 tabs, 3 plan columns): 27 methodology
+    errors emitted, each naming exactly what's missing and where.
+  - Existing chs-savannah build: no methodology errors (only the
+    pre-existing zone/arrival errors).
+
+---
 ## 2026-05-19 — Plan-tab image-presence verifier
 
 Added `_check_plan_tab_images()` to `sailbuild/verify.py`. For each

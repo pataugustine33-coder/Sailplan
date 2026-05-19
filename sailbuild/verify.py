@@ -55,6 +55,7 @@ def verify_workbook(output_path: str, passage: dict, forecast: dict, buoys: dict
     findings.extend(_check_wp_zone_geography(passage, forecast))
     findings.extend(_check_plan_tab_images(wb, passage))
     findings.extend(_check_workbook_cells(wb, forecast))
+    findings.extend(_check_methodology_compliance(wb, passage, forecast))
 
     # Sort: errors first, then warnings, then info
     severity_order = {"error": 0, "warn": 1, "info": 2}
@@ -967,6 +968,263 @@ def _check_workbook_cells(wb, forecast: dict) -> list[Finding]:
                                 break  # one finding per cell
 
     return findings
+
+
+# ==============================================================
+# Methodology compliance check
+# ==============================================================
+#
+# This is the catch-all "does the workbook deliver what the project
+# methodology says it should?" check. The other verify functions cover
+# specific failure modes (vessel consistency, polar grid match, buoy
+# coord drift, image presence, etc). THIS function covers the structural
+# contract: does every mandatory tab exist? Do plan tabs have every
+# mandatory column? Do format conventions hold across the workbook?
+#
+# The rule set is declarative — represented as a METHODOLOGY constant —
+# so when the standing instructions evolve (new column, new tab, new
+# convention), you add a rule entry rather than write a new function.
+#
+# A rule that fails produces an `error` finding so the build's exit
+# code reflects the violation and a downstream CI gate can block the
+# delivery.
+#
+# Background: this check was added after a Tue 5/19 build incident
+# where the assistant produced a hand-rolled workbook that bypassed
+# build.py entirely. The hand-rolled output had 10 tabs and 17 plan
+# columns; the project methodology says 16 tabs and 28 plan columns
+# (17 mandatory A-Q + Sea Source + image columns + cum-time columns).
+# A check that runs against the produced file and refuses to pass
+# when the structural contract is broken makes this failure mode
+# detectable at build time regardless of how the file was produced.
+
+
+# Mandatory plan-tab columns per the project methodology.
+# Order: required position. Type indicates how to verify content.
+# 'mandatory' columns must be present with the exact header label.
+# 'mandatory_with_alt' accepts the listed alternatives (older builds).
+_PLAN_TAB_REQUIRED_COLUMNS = [
+    # Spec'd in system prompt §"Plan tabs use 17 standard columns (A through Q)"
+    ("WP",              "A",  ["WP"]),
+    ("Description",     "B",  ["Description"]),
+    ("Cum NM",          "C",  ["Cum NM"]),
+    ("ETA (EDT)",       "D",  ["ETA (EDT)", "ETA"]),
+    ("Pressure (inHg)", "E",  ["Pressure (inHg)", "Pressure"]),
+    ("Pressure Trend",  "F",  ["Pressure Trend"]),
+    ("Wind Dir",        "G",  ["Wind Dir"]),
+    ("Wind kt",         "H",  ["Wind kt"]),
+    ("Gust kt",         "I",  ["Gust kt"]),
+    ("Sea Ht (ft)",     "J",  ["Sea Ht (ft)", "Sea Ht"]),
+    ("Period (sec)",    "K",  ["Period (sec)", "Period"]),
+    ("Course (°T)",     "L",  ["Course (°T)", "Course"]),
+    ("TWA (°)",         "M",  ["TWA (°)", "TWA"]),
+    # System prompt names "Sea Angle (°)"; current schema splits this
+    # into "Sea From (°)" + "Sea Angle / Pos". Accept either form.
+    ("Sea Angle (°)",   "N",  ["Sea Angle (°)", "Sea From (°)", "Sea Angle / Pos"]),
+    ("Sail Mode",       "O",  ["Sail Mode"]),
+    ("Notes",           "P",  ["Notes"]),
+    ("Weather Risk",    "Q",  ["Weather Risk"]),
+    # Standing instruction: Sea Source as column R. Position may have
+    # shifted right in the current schema due to chart columns U/V; we
+    # check presence-by-name, not strict position.
+    ("Sea Source",      "R*", ["Sea Source"]),
+]
+
+
+# Mandatory workbook tabs per the project methodology.
+# Each entry: (tab_name_or_predicate, severity_if_missing, why)
+def _required_tabs(passage: dict) -> list[tuple]:
+    """Build the list of required tab names for this passage.
+
+    Plan and Bowtie tabs are dynamic (one per plan). Vessel Comparison
+    is opt-in. Everything else is fixed.
+    """
+    base = [
+        ("Pre-Departure Briefing", "error", "Top-level briefing with both plans side-by-side"),
+        ("Format Reference",       "error", "Column spec, calibration, freshness panel, reverse calc"),
+        ("Waypoints",              "error", "WP1+ with Lat/Lon/Cum NM/Leg NM/Course/Notes + map block"),
+        ("Vessel Particulars",     "error", "Polar grid + stability + calibration for the modeled vessel"),
+        ("Live Buoy Data",         "error", "NDBC obs aligned to forecast cycle for verification"),
+        ("Forecast Sources by WP", "error", "Attribution trail: which zone covers which WP"),
+        ("Buoys by WP",            "error", "Per-WP nearest buoy with distance + relevance"),
+        ("Refresh Cadence",        "error", "Underway verification trigger schedule"),
+        ("Forecast Products",      "error", "Catalog of CWF/AFD/OSO products with issuance times"),
+        ("URL Quick Reference",    "error", "Live URLs used by this build for chrome-paste refresh"),
+        ("Glossary",               "error", "Definitions: TWA, Sea Angle, Pressure Trend vocab, etc"),
+        ("Verification Scorecard", "error", "Pre/under/post scorecard for verification methodology"),
+    ]
+    # Plan and Bowtie tabs, one per plan
+    for plan in passage.get("plans", []):
+        label = plan.get("tab_label")
+        if label:
+            base.append((label, "error", f"Plan tab for {plan.get('id', '?')}"))
+            base.append((f"{label} Bowtie", "error",
+                         f"Risk bowtie for {plan.get('id', '?')}"))
+    if passage.get("include_vessel_comparison", False):
+        base.append(("Vessel Comparison", "error", "HR48 vs HR54 side-by-side comparison"))
+    return base
+
+
+def _check_methodology_compliance(wb, passage: dict, forecast: dict) -> list[Finding]:
+    """Verify the workbook delivers what the project methodology says it should.
+
+    Runs five sub-checks:
+      A. Mandatory tabs present
+      B. Plan tabs have all mandatory columns (with header label match)
+      C. Plan tabs have one row per WP (matching passage.waypoints)
+      D. Pressure Trend values use the controlled vocabulary
+      E. ETAs use the 12-hour day-prefix format ("Tue 3:00 PM")
+    """
+    findings: list[Finding] = []
+
+    # --- A. Mandatory tabs ---
+    required = _required_tabs(passage)
+    present = set(wb.sheetnames)
+    for tab_name, severity, why in required:
+        if tab_name not in present:
+            findings.append(Finding(
+                severity,
+                f"workbook:tabs",
+                f"Missing mandatory tab {tab_name!r}. Purpose: {why}. "
+                f"Project methodology requires this tab on every passage build.",
+            ))
+
+    # --- B. Plan-tab columns ---
+    plan_tabs = [p.get("tab_label") for p in passage.get("plans", [])
+                 if p.get("tab_label") in present]
+    for tab in plan_tabs:
+        ws = wb[tab]
+        # Find header row (first row containing 'WP' in column 1)
+        header_row = None
+        for r in range(1, min(8, ws.max_row + 1)):
+            if ws.cell(r, 1).value == "WP":
+                header_row = r
+                break
+        if header_row is None:
+            findings.append(Finding(
+                "error",
+                f"{tab}:A1",
+                "No header row with 'WP' in column A found in first 7 rows. "
+                "Plan tab structure is not recognizable.",
+            ))
+            continue
+
+        headers = [ws.cell(header_row, c).value
+                   for c in range(1, ws.max_column + 1)]
+
+        for col_label, col_pos, alternatives in _PLAN_TAB_REQUIRED_COLUMNS:
+            found = any(h in alternatives for h in headers if h is not None)
+            if not found:
+                findings.append(Finding(
+                    "error",
+                    f"{tab}:{col_pos}{header_row}",
+                    f"Mandatory column {col_label!r} missing. "
+                    f"Accepted header labels: {alternatives}. "
+                    f"Project methodology specifies plan tabs must have this "
+                    f"column at position {col_pos}.",
+                ))
+
+        # --- C. One row per WP, matching the passage waypoints ---
+        expected_wps = [wp["id"] for wp in passage.get("waypoints", [])]
+        wp_rows = {}
+        for r in range(header_row + 1, ws.max_row + 1):
+            v = ws.cell(r, 1).value
+            if isinstance(v, str) and v.startswith("WP"):
+                wp_rows[v] = r
+        for wp_id in expected_wps:
+            if wp_id not in wp_rows:
+                findings.append(Finding(
+                    "error",
+                    f"{tab}:A (WP column)",
+                    f"Plan tab missing row for {wp_id}. Passage defines "
+                    f"{len(expected_wps)} waypoints; plan tab has "
+                    f"{len(wp_rows)} WP rows.",
+                ))
+
+    # --- D. Pressure Trend vocabulary ---
+    # Per system prompt: Rising fast / Rising / Rising slow / Steady /
+    # Falling slow / Falling / Falling fast / Bottoming
+    pressure_trend_vocab = {
+        "Rising fast", "Rising", "Rising slow", "Steady",
+        "Falling slow", "Falling", "Falling fast", "Bottoming",
+    }
+    for tab in plan_tabs:
+        ws = wb[tab]
+        header_row = None
+        for r in range(1, 8):
+            if ws.cell(r, 1).value == "WP":
+                header_row = r
+                break
+        if header_row is None:
+            continue
+        headers = [ws.cell(header_row, c).value
+                   for c in range(1, ws.max_column + 1)]
+        if "Pressure Trend" not in headers:
+            continue
+        pt_col = headers.index("Pressure Trend") + 1
+        for r in range(header_row + 1, ws.max_row + 1):
+            wp = ws.cell(r, 1).value
+            if not (isinstance(wp, str) and wp.startswith("WP")):
+                continue
+            pt = ws.cell(r, pt_col).value
+            if pt is None or pt == "" or pt == "—":
+                continue
+            if isinstance(pt, str) and pt.strip() not in pressure_trend_vocab:
+                findings.append(Finding(
+                    "error",
+                    f"{tab}:{_col_letter(pt_col)}{r}",
+                    f"Pressure Trend {pt!r} is not in the project vocabulary. "
+                    f"Allowed: {sorted(pressure_trend_vocab)}",
+                ))
+
+    # --- E. ETA format check ---
+    # Per system prompt: 12-hour clock with day prefix, e.g. "Mon 1:50 PM"
+    import re as _r
+    eta_pattern = _r.compile(
+        r"^(Mon|Tue|Wed|Thu|Fri|Sat|Sun) \d{1,2}:\d{2} (AM|PM)$"
+    )
+    for tab in plan_tabs:
+        ws = wb[tab]
+        header_row = None
+        for r in range(1, 8):
+            if ws.cell(r, 1).value == "WP":
+                header_row = r
+                break
+        if header_row is None:
+            continue
+        headers = [ws.cell(header_row, c).value
+                   for c in range(1, ws.max_column + 1)]
+        eta_col = None
+        for h in ("ETA (EDT)", "ETA"):
+            if h in headers:
+                eta_col = headers.index(h) + 1
+                break
+        if eta_col is None:
+            continue
+        for r in range(header_row + 1, ws.max_row + 1):
+            wp = ws.cell(r, 1).value
+            if not (isinstance(wp, str) and wp.startswith("WP")):
+                continue
+            eta = ws.cell(r, eta_col).value
+            if eta is None or eta == "":
+                continue
+            if isinstance(eta, str) and not eta_pattern.match(eta.strip()):
+                findings.append(Finding(
+                    "error",
+                    f"{tab}:{_col_letter(eta_col)}{r}",
+                    f"ETA {eta!r} does not match project format "
+                    f"'<Day> <H:MM> <AM/PM>' (e.g., 'Tue 3:00 PM'). "
+                    f"System prompt: 'Times in 12-hour clock format with "
+                    f"day prefix (e.g., \"Mon 1:50 PM\")'.",
+                ))
+
+    return findings
+
+
+def _col_letter(col_idx_1based: int) -> str:
+    """Convert 1-based column index to Excel letter ('A', 'B', ..., 'AA')."""
+    from openpyxl.utils import get_column_letter
+    return get_column_letter(col_idx_1based)
 
 
 # ==============================================================
