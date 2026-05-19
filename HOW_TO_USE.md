@@ -32,6 +32,15 @@ Claude will fetch:
 - **AFDCHS** (Area Forecast Discussion)
 - **NDBC buoys** along your route (typically 3-5 stations)
 
+**Chrome-first is mandatory; stop-and-ask if it fails.** Claude must
+attempt the live Chrome fetch FIRST for every source. If Chrome is not
+available, or any individual source fails to fetch, Claude STOPS and
+asks permission before substituting older / search-snippet / cached
+data. Silent fallback to stale data is not permitted. The point of the
+standard is that the workbook header always names the actual issuance
+of the actual bulletin used, so you (and the verifier) can see at a
+glance whether the plan rests on fresh data or analyst estimate.
+
 ### 4. Claude updates the YAML files
 
 The repository has three input file types:
@@ -160,3 +169,6 @@ These apply on every passage automatically:
    recommendation
 6. Single-vessel format is default; Vessel Comparison is opt-in
 7. When multiple Chrome browsers connected, pick any and proceed
+8. Chrome-first weather fetch is mandatory; if Chrome is unavailable
+   or any source fails, STOP and ask permission before using older /
+   search-snippet / cached data

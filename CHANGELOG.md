@@ -3,6 +3,28 @@
 Major design decisions and feature additions, in reverse chronological order.
 
 ---
+## 2026-05-19 — Chrome-first weather pull becomes stop-and-ask SOP
+
+Added explicit standing rule: Claude must attempt the live Chrome fetch
+FIRST for every weather source on every passage build. If Chrome is
+unavailable, or any source fails to fetch live, Claude STOPS and asks
+permission before substituting older / search-snippet / cached data.
+Silent fallback to stale data is no longer permitted.
+
+Rationale: the project's whole verifier discipline (issuance times in
+the data-freshness panel, "is this forecast or modeled by you" audits,
+verification scorecard) only works if the analyst can trust at a glance
+that bulletins named in the workbook header reflect the bulletins
+actually used to drive the plan. A silent fallback to a Thursday
+bulletin pulled via search snippet — when the build runs Tuesday and
+ought to use Tuesday's 5 AM cycle — corrupts that trust. Better to
+pause and let the skipper decide whether to (a) paste fresh text, (b)
+fix Chrome, or (c) explicitly authorize an older-data build.
+
+Documented in HOW_TO_USE.md §3 (Day-of-passage workflow) and added to
+the standing rules list as rule #8.
+
+---
 ## 2026-05-15 — Mini polar charts per WP
 
 Per-waypoint boat polar curves now embedded in a new Plan tab column V
