@@ -1,0 +1,147 @@
+# PLACEHOLDER YAML — Leg 4 of FL→Nantucket trip.
+# Block Island RI → Nantucket MA, ~70 NM.
+#
+# THIS IS A SKELETON ONLY. Forecast will be pulled fresh at the
+# Block Island layover. The departure date is a placeholder.
+#
+# Route notes:
+#   - Block Island → Buzzards Bay or south of Martha's Vineyard
+#     → Nantucket Sound or south of Nantucket directly
+#   - Day sail, no night transit needed
+#   - Key hazards: Nantucket Shoals (must clear if going south of
+#     Nantucket), traffic in Vineyard Sound, fog risk (high in
+#     June in this area)
+#   - DAYLIGHT ARRIVAL REQUIRED at Nantucket per skipper preference
+#     ("no night arrival")
+
+passage:
+  id: blockisland-nantucket
+  name: BlockIsland-Nantucket
+  origin: Block Island, RI (Great Salt Pond)
+  destination: Nantucket, MA (Brant Point or Madaket entrance)
+  total_nm: 70.0  # placeholder
+
+vessel:
+  designation: HR 54
+  design_number: D1206
+  load_config: half-load
+  displacement_lb: 57982
+  motor_speed_kt: 6.5
+  motor_crossover_tws_kt: 7.5
+  fuel_capacity_gal: 238
+  fuel_burn_gph: 2.0
+  rmc_kgm: 656
+  rm_30deg_kgm: 14619
+  rm_max_kgm: 23654
+  brewer_cr: 52.1
+  csf: 1.55
+  designer: Germán Frers
+  builder: Hallberg-Rassy
+  ce_category: A
+  ce_category_note: Ocean — unlimited offshore
+  polar_source: Frers VPP
+  data_sheet_source: Hallberg-Rassy data sheet
+  stability_source: Frers GZ curve (Full Load)
+
+calibration:
+  sea_factors:
+    steep_chop_bow: 0.72
+    close_reach: 0.87
+    beam_reach: 0.92
+    broad_reach: 0.92
+    reefed_active_trough: 0.85
+
+arrival_timing:
+  destination_label: "Nantucket, MA"
+  civil_dawn: 4.683
+  sunrise: 5.167
+  sunset: 20.300
+  civil_dusk: 20.783
+  day_window: [5.167, 20.300]
+  twilight_windows:
+    - [4.683, 5.167]
+    - [20.300, 20.783]
+  # Skipper preference: NO night arrival at Nantucket
+  preferred_window:
+    start: 10.0
+    end: 17.0
+  notes: >
+    DAYLIGHT REQUIRED per skipper. Brant Point entrance has shoals
+    to the W; Madaket Harbor entrance from the SW is shoal-marked
+    and tidal. Mid-day arrival window strongly preferred.
+
+# Placeholder waypoints
+waypoints:
+  - id: WP0
+    name: Block Island Great Salt Pond exit
+    lat: 41.1900
+    lon: -71.5800
+    cum_nm: 0.00
+    course_out: 90
+  - id: WP1
+    name: South of Martha's Vineyard
+    lat: 41.2500
+    lon: -70.6000
+    cum_nm: 44.0
+    course_out: 80
+  - id: WP2
+    name: Approach Nantucket West
+    lat: 41.2200
+    lon: -70.2000
+    cum_nm: 62.0
+    course_out: 60
+  - id: WP3
+    name: Nantucket Brant Point
+    lat: 41.2900
+    lon: -70.0900
+    cum_nm: 70.0
+    course_out: null
+
+plans:
+  - id: plan_a
+    tab_label: "Plan A - PLACEHOLDER"
+    qualifier: "(refresh forecast at Block Island layover before commit)"
+    depart_day: Mon
+    depart_date: 2026-06-08  # placeholder
+    depart_hour: 8.0
+
+route_buoys:
+  - id: 44097
+    name: Block Island (departure area)
+    lat: 40.967
+    lon: -71.127
+    relevant_wps:
+      WP0: "~20 NM SE"
+  - id: 44085
+    name: Buzzards Bay entrance
+    lat: 41.402
+    lon: -71.030
+    relevant_wps:
+      WP1: "~15 NM N"
+  - id: 44008
+    name: Nantucket SE 54 NM
+    lat: 40.500
+    lon: -69.247
+    relevant_wps:
+      WP2: "~70 NM SE (arrival-area offshore reference)"
+      WP3: "~75 NM SE"
+
+forecast_offices:
+  - office: NWS Boston/Norton MA (KBOX)
+    code: BOX
+    zones:
+      ANZ232: Block Island Sound
+      ANZ234: Buzzards Bay
+      ANZ250: Vineyard Sound
+      ANZ251: Nantucket Sound
+      ANZ254: Coastal waters Nantucket
+  - office: NWS New York NY (KOKX)
+    code: OKX
+
+tide_stations:
+  - id: 8454000
+    name: Newport, RI (proxy for Block Island)
+    relevance: departure
+  - id: 8449130
+    name: Nantucket Island, MA
+    relevance: arrival

@@ -1,0 +1,170 @@
+# PLACEHOLDER YAML — Leg 2 of FL→Nantucket trip.
+# Beaufort NC → Norfolk/Hampton VA, ~190 NM.
+#
+# THIS IS A SKELETON ONLY. Forecast will be pulled fresh at the
+# Beaufort layover (expected Fri 6/5 AM after Leg 1 arrival). The
+# departure date in this file is a placeholder estimate; refresh
+# the cycle YAML and rebuild before commit.
+#
+# Route notes:
+#   - Beaufort Inlet → past Cape Lookout offshore → past Cape Hatteras
+#     CLEARING DIAMOND SHOALS by 25+ NM offshore → Chesapeake Bay
+#     entrance buoy CB → Hampton Roads
+#   - Cape Hatteras is THE major hazard zone on US East Coast.
+#     Forecast horizon at time of Leg 2 build will cover this transit
+#     fully if departure is within 4 days.
+#   - Typical timing 27-30 hours at 7 kt average SOG
+#   - Gulf Stream exits NE just past Hatteras — Stream-edge ride to
+#     Hatteras is the fast option but exposes to Stream-current-against-
+#     wind risk if any NE shift develops during transit.
+
+passage:
+  id: beaufort-norfolk
+  name: Beaufort-Norfolk
+  origin: Beaufort, NC (Beaufort Inlet Sea Buoy)
+  destination: Hampton, VA (Chesapeake Bay Entrance)
+  total_nm: 190.0  # placeholder — refine after WP build
+
+vessel:
+  designation: HR 54
+  design_number: D1206
+  load_config: half-load
+  displacement_lb: 57982
+  motor_speed_kt: 6.5
+  motor_crossover_tws_kt: 7.5
+  fuel_capacity_gal: 238
+  fuel_burn_gph: 2.0
+  rmc_kgm: 656
+  rm_30deg_kgm: 14619
+  rm_max_kgm: 23654
+  brewer_cr: 52.1
+  csf: 1.55
+  designer: Germán Frers
+  builder: Hallberg-Rassy
+  ce_category: A
+  ce_category_note: Ocean — unlimited offshore
+  polar_source: Frers VPP
+  data_sheet_source: Hallberg-Rassy data sheet
+  stability_source: Frers GZ curve (Full Load)
+
+calibration:
+  sea_factors:
+    steep_chop_bow: 0.72
+    close_reach: 0.87
+    beam_reach: 0.92
+    broad_reach: 0.92
+    reefed_active_trough: 0.85
+
+arrival_timing:
+  destination_label: "Hampton, VA (Chesapeake Bay Entrance)"
+  civil_dawn: 5.300
+  sunrise: 5.767
+  sunset: 20.500
+  civil_dusk: 20.950
+  day_window: [5.767, 20.500]
+  twilight_windows:
+    - [5.300, 5.767]
+    - [20.500, 20.950]
+  preferred_window:
+    start: 8.0
+    end: 18.0
+  notes: >
+    Chesapeake Bay entrance approach via CB sea buoy. Bay Bridge-
+    Tunnel transit follows arrival. Daylight strongly preferred for
+    Bay entry due to commercial traffic density and shipping
+    channel discipline.
+
+# Placeholder waypoints — refine at refresh build with current
+# forecast and any Cape Hatteras hazard updates.
+waypoints:
+  - id: WP0
+    name: Beaufort Inlet Sea Buoy (depart)
+    lat: 34.6717
+    lon: -76.6817
+    cum_nm: 0.00
+    course_out: 50
+  - id: WP1
+    name: Cape Lookout offshore 15 NM
+    lat: 34.3500
+    lon: -76.3000
+    cum_nm: 24.0
+    course_out: 32
+  - id: WP2
+    name: Frying Pan Tower to Hatteras transit midpoint
+    lat: 34.9000
+    lon: -75.6000
+    cum_nm: 65.0
+    course_out: 28
+  - id: WP3
+    name: Diamond Shoals offshore 30 NM (CRITICAL)
+    lat: 35.4000
+    lon: -74.8000
+    cum_nm: 105.0
+    course_out: 17
+  - id: WP4
+    name: Post-Hatteras transition
+    lat: 36.2000
+    lon: -74.8000
+    cum_nm: 153.0
+    course_out: 320
+  - id: WP5
+    name: Chesapeake Bay sea buoy CB
+    lat: 36.9583
+    lon: -75.7117
+    cum_nm: 190.0
+    course_out: null
+
+plans:
+  - id: plan_a
+    tab_label: "Plan A - PLACEHOLDER"
+    qualifier: "(refresh forecast at Beaufort layover before commit)"
+    depart_day: Fri
+    depart_date: 2026-06-05  # placeholder — assumes Leg 1 arrives Fri AM
+    depart_hour: 6.0
+
+route_buoys:
+  - id: 41025
+    name: Diamond Shoals (Cape Hatteras)
+    lat: 35.025
+    lon: -75.380
+    relevant_wps:
+      WP2: "~30 NM SW (Hatteras approach ground truth)"
+      WP3: "~30 NM W (critical Diamond Shoals proximity)"
+  - id: 41001
+    name: NE of Cape Hatteras (offshore reference)
+    lat: 34.792
+    lon: -72.420
+    relevant_wps:
+      WP3: "~140 NM E (offshore Hatteras synoptic)"
+  - id: 44014
+    name: Virginia Beach (Chesapeake entrance area)
+    lat: 36.611
+    lon: -74.842
+    relevant_wps:
+      WP4: "~45 NM SE"
+      WP5: "~50 NM SE (arrival-area ground truth)"
+
+forecast_offices:
+  - office: NWS Newport/Morehead City NC (KMHX)
+    code: MHX
+    zones:
+      AMZ150: Coastal waters from N of Surf City to Cape Lookout NC out 20 NM
+      AMZ152: Coastal waters from Cape Lookout to Ocracoke Inlet NC out 20 NM
+      AMZ154: Coastal waters from Ocracoke Inlet to N Currituck Beach NC out 20 NM
+      AMZ156: Coastal waters S of Ocracoke Inlet to Cape Lookout NC out 20 NM
+      AMZ186: Waters Ocracoke Inlet to Cape Lookout NC 20-60 NM
+      AMZ188: Waters Cape Lookout to Surf City NC 20-60 NM
+  - office: NWS Wakefield VA (KAKQ)
+    code: AKQ
+    zones:
+      ANZ650: Coastal waters Currituck Beach Light NC to Virginia/NC border out 20 NM
+      ANZ652: Coastal waters Currituck Beach Light NC to Cape Charles Light VA out 20 NM
+      ANZ656: Chesapeake Bay from New Point Comfort to Little Creek VA
+
+tide_stations:
+  - id: 8656483
+    name: Beaufort, Duke Marine Lab, NC
+    relevance: departure
+  - id: 8638863
+    name: Chesapeake Bay Bridge Tunnel, VA
+    relevance: arrival

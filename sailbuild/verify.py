@@ -294,13 +294,32 @@ def _check_arrival_timing(wb, passage: dict) -> list[Finding]:
         except AttributeError:
             fill_color = ""
         eta_text = ws.cell(last_eta_row, 4).value
+
+        # Honor the skipper's explicit acceptance of a night arrival.
+        # When the passage YAML's arrival_timing block has
+        # night_arrival_accepted: true, a night-window ETA is reported
+        # as INFO (documented intentional choice), not ERROR. The night
+        # color still renders on the cell; only the verifier finding
+        # severity changes.
+        arrival_timing = passage.get("arrival_timing", {})
+        night_ok = bool(arrival_timing.get("night_arrival_accepted"))
+
         if "FFC7CE" in str(fill_color).upper():
-            findings.append(Finding(
-                "error",
-                f"{tab_name}:D{last_eta_row}",
-                f"Arrival ETA {eta_text!r} is in NIGHT window (red). "
-                f"Consider departure shift using reverse calculator on Format Reference tab.",
-            ))
+            if night_ok:
+                findings.append(Finding(
+                    "info",
+                    f"{tab_name}:D{last_eta_row}",
+                    f"Arrival ETA {eta_text!r} is in NIGHT window (red). "
+                    f"night_arrival_accepted: true in passage YAML — "
+                    f"intentional skipper choice, documented in workbook.",
+                ))
+            else:
+                findings.append(Finding(
+                    "error",
+                    f"{tab_name}:D{last_eta_row}",
+                    f"Arrival ETA {eta_text!r} is in NIGHT window (red). "
+                    f"Consider departure shift using reverse calculator on Format Reference tab.",
+                ))
         elif "FFEB9C" in str(fill_color).upper():
             findings.append(Finding(
                 "warn",
@@ -629,6 +648,59 @@ ZONE_REGISTRY = {
         "office": "MHX", "band_nm": (20, 60), "lat_band": (33.9, 34.8),
         "coast_refs": [(34.62, -76.52), (34.42, -77.55)],
         "description": "Cape Lookout to Surf City NC, 20-60 NM",
+    },
+    "AMZ186": {
+        "office": "MHX", "band_nm": (20, 60), "lat_band": (34.6, 35.2),
+        "coast_refs": [(35.22, -75.55), (34.85, -76.10), (34.62, -76.52)],
+        "description": "Ocracoke Inlet to Cape Lookout NC, 20-60 NM",
+    },
+    # KJAX — Jacksonville FL (NE FL + SE GA coast)
+    "AMZ450": {
+        "office": "JAX", "band_nm": (0, 20), "lat_band": (30.7, 31.4),
+        "coast_refs": [(31.36, -81.27), (31.02, -81.43), (30.71, -81.46)],
+        "description": "Altamaha Sound GA to Fernandina Beach FL, out 20 NM",
+    },
+    "AMZ452": {
+        "office": "JAX", "band_nm": (0, 20), "lat_band": (29.85, 30.75),
+        "coast_refs": [(30.71, -81.46), (30.32, -81.39), (29.90, -81.31)],
+        "description": "Fernandina Beach to St Augustine FL, out 20 NM",
+    },
+    "AMZ454": {
+        "office": "JAX", "band_nm": (0, 20), "lat_band": (29.35, 29.95),
+        "coast_refs": [(29.90, -81.31), (29.65, -81.21), (29.48, -81.13)],
+        "description": "St Augustine to Flagler Beach FL, out 20 NM",
+    },
+    "AMZ470": {
+        "office": "JAX", "band_nm": (20, 60), "lat_band": (30.7, 31.4),
+        "coast_refs": [(31.36, -81.27), (31.02, -81.43), (30.71, -81.46)],
+        "description": "Altamaha Sound GA to Fernandina Beach FL, 20-60 NM",
+    },
+    "AMZ472": {
+        "office": "JAX", "band_nm": (20, 60), "lat_band": (29.85, 30.75),
+        "coast_refs": [(30.71, -81.46), (30.32, -81.39), (29.90, -81.31)],
+        "description": "Fernandina Beach to St Augustine FL, 20-60 NM",
+    },
+    "AMZ474": {
+        "office": "JAX", "band_nm": (20, 60), "lat_band": (29.35, 29.95),
+        "coast_refs": [(29.90, -81.31), (29.65, -81.21), (29.48, -81.13)],
+        "description": "St Augustine to Flagler Beach FL, 20-60 NM",
+    },
+    # KMLB — Melbourne FL (central FL east coast). PROXY entries —
+    # when CWFMLB pull fails, JAX office values are used as the actual
+    # data source per documented proxy convention; the registry entries
+    # below exist so geographic WP-to-zone validation passes for WPs
+    # at 27-29.5°N. Lat bands match the actual MLB zone definitions
+    # from NWS, but the data behind them in the forecast YAML is JAX-
+    # sourced when MLB is unavailable.
+    "AMZ555": {
+        "office": "MLB", "band_nm": (0, 20), "lat_band": (28.45, 29.10),
+        "coast_refs": [(29.07, -80.92), (28.78, -80.74), (28.46, -80.60)],
+        "description": "Flagler Beach to Volusia/Brevard County Line FL, out 20 NM",
+    },
+    "AMZ575": {
+        "office": "MLB", "band_nm": (20, 60), "lat_band": (28.45, 29.10),
+        "coast_refs": [(29.07, -80.92), (28.78, -80.74), (28.46, -80.60)],
+        "description": "Flagler Beach to Volusia/Brevard County Line FL, 20-60 NM",
     },
     # KMFL — Miami FL (SE Florida coast)
     "AMZ650": {

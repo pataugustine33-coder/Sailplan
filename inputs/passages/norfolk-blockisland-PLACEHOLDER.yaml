@@ -1,0 +1,151 @@
+# PLACEHOLDER YAML — Leg 3 of FL→Nantucket trip.
+# Norfolk/Hampton VA → Block Island RI, ~340 NM.
+#
+# THIS IS A SKELETON ONLY. Forecast will be pulled fresh at the
+# Norfolk layover. The departure date is a placeholder estimate;
+# refresh the cycle YAML and rebuild before commit.
+#
+# Route notes:
+#   - Chesapeake Bay exit via CB sea buoy → offshore NJ → past
+#     Delaware Bay → past NY Bight → past Long Island sound entrance
+#     → Block Island
+#   - Typical timing 48-54 hours at 7 kt average SOG
+#   - Key hazards: Hudson Canyon traffic separation, Nantucket Shoals
+#     fringe at far north end of route (if cutting close to Block)
+#   - Office coverage: AKQ → PHI → OKX → BOX
+
+passage:
+  id: norfolk-blockisland
+  name: Norfolk-BlockIsland
+  origin: Hampton, VA (Chesapeake Bay Entrance)
+  destination: Block Island, RI (Great Salt Pond entrance buoy)
+  total_nm: 340.0  # placeholder
+
+vessel:
+  designation: HR 54
+  design_number: D1206
+  load_config: half-load
+  displacement_lb: 57982
+  motor_speed_kt: 6.5
+  motor_crossover_tws_kt: 7.5
+  fuel_capacity_gal: 238
+  fuel_burn_gph: 2.0
+  rmc_kgm: 656
+  rm_30deg_kgm: 14619
+  rm_max_kgm: 23654
+  brewer_cr: 52.1
+  csf: 1.55
+  designer: Germán Frers
+  builder: Hallberg-Rassy
+  ce_category: A
+  ce_category_note: Ocean — unlimited offshore
+  polar_source: Frers VPP
+  data_sheet_source: Hallberg-Rassy data sheet
+  stability_source: Frers GZ curve (Full Load)
+
+calibration:
+  sea_factors:
+    steep_chop_bow: 0.72
+    close_reach: 0.87
+    beam_reach: 0.92
+    broad_reach: 0.92
+    reefed_active_trough: 0.85
+
+arrival_timing:
+  destination_label: "Block Island, RI"
+  civil_dawn: 4.700
+  sunrise: 5.183
+  sunset: 20.367
+  civil_dusk: 20.850
+  day_window: [5.183, 20.367]
+  twilight_windows:
+    - [4.700, 5.183]
+    - [20.367, 20.850]
+  preferred_window:
+    start: 8.0
+    end: 17.0
+  notes: >
+    Great Salt Pond entrance at Block Island. Tide-sensitive at the
+    narrow entry — flood preferred. Daylight required for entry to
+    Great Salt Pond. Arrival timing will be the critical constraint
+    for this leg.
+
+# Placeholder waypoints — refine at refresh build.
+waypoints:
+  - id: WP0
+    name: Chesapeake Bay sea buoy CB (depart)
+    lat: 36.9583
+    lon: -75.7117
+    cum_nm: 0.00
+    course_out: 65
+  - id: WP1
+    name: Offshore NJ (40N, 73W approx)
+    lat: 39.0000
+    lon: -74.0000
+    cum_nm: 150.0
+    course_out: 70
+  - id: WP2
+    name: South of Long Island (40.5N, 72W)
+    lat: 40.3000
+    lon: -72.2000
+    cum_nm: 245.0
+    course_out: 60
+  - id: WP3
+    name: Approach Block Island SE
+    lat: 41.0000
+    lon: -71.4000
+    cum_nm: 310.0
+    course_out: 320
+  - id: WP4
+    name: Block Island Great Salt Pond entrance
+    lat: 41.1900
+    lon: -71.5800
+    cum_nm: 340.0
+    course_out: null
+
+plans:
+  - id: plan_a
+    tab_label: "Plan A - PLACEHOLDER"
+    qualifier: "(refresh forecast at Norfolk layover before commit)"
+    depart_day: Sun
+    depart_date: 2026-06-07  # placeholder — refine based on Leg 2 timing
+    depart_hour: 6.0
+
+route_buoys:
+  - id: 44009
+    name: Delaware Bay (38.5°N, 74.7°W)
+    lat: 38.460
+    lon: -74.703
+    relevant_wps:
+      WP1: "~30 NM W (mid-route ground truth)"
+  - id: 44025
+    name: Long Island offshore (40.3°N, 73°W)
+    lat: 40.250
+    lon: -73.166
+    relevant_wps:
+      WP2: "~50 NM E (Long Island offshore reference)"
+  - id: 44097
+    name: Block Island (offshore)
+    lat: 40.967
+    lon: -71.127
+    relevant_wps:
+      WP3: "~20 NM SE"
+      WP4: "~30 NM SE (arrival-area ground truth)"
+
+forecast_offices:
+  - office: NWS Wakefield VA (KAKQ)
+    code: AKQ
+  - office: NWS Mt Holly NJ (KPHI)
+    code: PHI
+  - office: NWS New York NY (KOKX)
+    code: OKX
+  - office: NWS Boston/Norton MA (KBOX)
+    code: BOX
+
+tide_stations:
+  - id: 8638863
+    name: Chesapeake Bay Bridge Tunnel, VA
+    relevance: departure
+  - id: 8454000
+    name: Newport, RI (proxy for Block Island)
+    relevance: arrival

@@ -1,0 +1,246 @@
+# NDBC realtime/latest_obs buoys pulled fresh via Claude in Chrome
+# Fri 5/29 ~14:10 EDT (most stations), LKWF1 at 13:54 EDT.
+#
+# These are PRE-DEPARTURE baselines. Departure is Mon 6/1 — about
+# 63 hours after these readings. The forecast cycle (above) projects
+# the conditions at each WP under the published forecast; these
+# buoys are the ground-truth starting point.
+#
+# Pre-frontal pattern visible in the readings:
+#   - LKWF1 (FL departure): E 6 G 7, light pre-frontal
+#   - 41009 (Canaveral): NE 4 G 6, 2 ft swell @ 9s
+#   - 41008 (Grays Reef GA): ENE 12 G 14 — moderate easterly
+#   - 41004 (Edisto SC): ESE 16 G 18, 4 ft wind wave — front passage signal
+#   - 41013 (Frying Pan NC): ENE 10 G 12, 3 ft swell @ 5.6s
+#   - 41025 (Diamond Shoals): N 10 G 12 — post-frontal
+#   - 41001 (E of Hatteras): NNW 6 G 8, 3.3 ft NE swell @ 5.6s
+#   - 41002 (offshore SE of Hatteras): E 6 G 8, 3.3 ft ESE swell @ 8.3s
+#   - 41010 (offshore E of Canaveral): WSW 6 G 8 — back-edge of front
+
+pull:
+  label: "2:10 PM EDT Fri 5/29 (LKWF1 1:54 PM)"
+  utc: "2026-05-29T18:10:00Z"
+
+front_passage:
+  description: |
+    The Sat-Sun front passage is the dominant feature in this cycle.
+    Current readings show the front in progress across the SC/NC
+    coast — 41004 (Edisto SC) reads ESE 16 G 18 with 4 ft E wind
+    wave @ 5s, classic front approach. 41001 already shows post-
+    frontal NNW flow (front passed Hatteras N side).
+
+    Stream-edge baseline reads from 41009 (off Canaveral) at NE 4
+    G 6 with 2 ft E swell @ 9s — light, calm Stream-edge state.
+
+    For Mon 6/1 departure window: 63 hours from these readings,
+    after another full front passage cycle (the Sat-Sun reinforcing
+    front detailed in CWFMHX synopsis). Buoys at that point should
+    read light westerlies / abating seas per MFL/ILM/MHX outlooks.
+
+stations:
+  - id: LKWF1
+    name: "Lake Worth Pier (departure area, ~30 NM N of WP0)"
+    lat: 26.613
+    lon: -80.033
+    reading_time: "1:54 PM EDT Fri 5/29"
+    status: "fresh"
+    wind_dir: "E"
+    wind_dir_deg: 90
+    wind_kt: 6.0
+    gust_kt: 7.0
+    wave_ft: null
+    period_s: null
+    swell_dir: null
+    swell_dir_deg: null
+    pressure_hpa: 1014.5
+    pressure_trend: "Steady near 29.96 inHg"
+    findings: |
+      Departure-area baseline. Light E 6 kt indicates pre-frontal
+      lull. By Mon 6/1 06:00 EDT departure window, ~63 hours after
+      this read, MFL outlook expects W 10-15 kt post-frontal —
+      i.e. wind will fill in opposite direction by then. Pressure
+      will rise as the post-frontal high builds in.
+
+  - id: 41009
+    name: "Canaveral 20 NM E (mid-FL, ~85 NM N of WP1)"
+    lat: 28.506
+    lon: -80.185
+    reading_time: "2:10 PM EDT Fri 5/29"
+    status: "fresh"
+    wind_dir: "NE"
+    wind_dir_deg: 40
+    wind_kt: 3.9
+    gust_kt: 5.8
+    wave_ft: 0.3
+    period_s: 3.8
+    swell_dir: "ENE"
+    swell_dir_deg: 60
+    pressure_hpa: 1013.8
+    pressure_trend: "Steady 29.94 inHg"
+    findings: |
+      Stream-edge calm. NE 4 kt at the latitude of WP2. Pre-frontal
+      Friday baseline. By Mon arrival at this latitude (Tue 02:54
+      AM EDT per timing), conditions per JAX MON forecast should be
+      NW 5-10 with 3-5 ft swell from prior front. Stream still
+      providing N-flowing assist.
+
+  - id: 41010
+    name: "Canaveral E 120 NM (offshore reference, ~85 NM E of WP2)"
+    lat: 28.860
+    lon: -78.480
+    reading_time: "2:10 PM EDT Fri 5/29"
+    status: "fresh"
+    wind_dir: "WSW"
+    wind_dir_deg: 250
+    wind_kt: 5.8
+    gust_kt: 7.8
+    wave_ft: 1.3
+    period_s: 3.4
+    swell_dir: "ESE"
+    swell_dir_deg: 113
+    pressure_hpa: 1013.8
+    pressure_trend: "Steady 29.95 inHg"
+    findings: |
+      Offshore Florida reference. WSW 6 kt indicates we're already
+      seeing the back side of the current ridge — westerly flow
+      establishing offshore. Confirms MFL outlook of westerly Mon.
+
+  - id: 41008
+    name: "Grays Reef NMS (off Sapelo GA, on-track for WP5/WP6)"
+    lat: 31.400
+    lon: -80.867
+    reading_time: "2:10 PM EDT Fri 5/29"
+    status: "fresh"
+    wind_dir: "ENE"
+    wind_dir_deg: 60
+    wind_kt: 11.7
+    gust_kt: 13.6
+    wave_ft: 1.6
+    period_s: 2.7
+    swell_dir: "SE"
+    swell_dir_deg: 135
+    pressure_hpa: 1013.9
+    pressure_trend: "Steady 29.95 inHg"
+    findings: |
+      GA coast ground truth. ENE 12 G 14 is the current pre-front
+      pattern. Wave detail shows short-period (2.7s) wind wave NE
+      with 2.3 ft SE swell @ 9s (residual from earlier system).
+      By Wed transit (WP5/WP6 reached Wed 02:36-06:20 AM EDT),
+      expect NE 10-15 kt per CHS TUE_NIGHT forecast.
+
+  - id: 41004
+    name: "Edisto SC (32.5°N, 79.1°W — on-track for WP7)"
+    lat: 32.502
+    lon: -79.099
+    reading_time: "2:10 PM EDT Fri 5/29"
+    status: "fresh"
+    wind_dir: "ESE"
+    wind_dir_deg: 110
+    wind_kt: 15.5
+    gust_kt: 17.5
+    wave_ft: 3.9
+    period_s: 5.0
+    swell_dir: "SE"
+    swell_dir_deg: 135
+    pressure_hpa: 1015.5
+    pressure_trend: "Steady 29.99 inHg"
+    findings: |
+      Charleston offshore ground truth showing front passage in
+      progress. ESE 16 G 18 with 4 ft E wind wave @ 5s = classic
+      pre-front approach. By Wed PM transit (WP7 at Wed 06:03 PM
+      EDT, ~96 hours after this read), front has passed twice
+      (Sat-Sun reinforcing + Mon second front) and pattern should
+      be post-frontal NE 10-15 kt. This is the LAST WP within
+      bulletin horizon; later WPs are synoptic estimate.
+
+  - id: 41013
+    name: "Frying Pan Shoals NC (33.4°N, 77.8°W — on-track for WP8)"
+    lat: 33.442
+    lon: -77.764
+    reading_time: "2:10 PM EDT Fri 5/29"
+    status: "fresh"
+    wind_dir: "ENE"
+    wind_dir_deg: 60
+    wind_kt: 9.7
+    gust_kt: 11.7
+    wave_ft: 2.0
+    period_s: 4.2
+    swell_dir: "ESE"
+    swell_dir_deg: 113
+    pressure_hpa: 1016.4
+    pressure_trend: "Steady 30.03 inHg"
+    findings: |
+      Cape Fear approach ground truth (~12 NM from WP8). ENE 10
+      G 12 currently. By Thu AM transit (WP8 at Thu 09:50 AM EDT,
+      ~115 hours after this read), well beyond bulletin horizon.
+      AFD synoptic estimate: NE 10-15 kt G 15-20, seas 4-6 ft.
+
+  - id: 41025
+    name: "Diamond Shoals Cape Hatteras (35.0°N, 75.4°W)"
+    lat: 35.025
+    lon: -75.380
+    reading_time: "2:10 PM EDT Fri 5/29"
+    status: "fresh"
+    wind_dir: "N"
+    wind_dir_deg: 10
+    wind_kt: 9.7
+    gust_kt: 11.7
+    wave_ft: null
+    period_s: null
+    swell_dir: null
+    swell_dir_deg: null
+    pressure_hpa: 1017.1
+    pressure_trend: "Steady 30.04 inHg"
+    findings: |
+      Hatteras hazard zone — well N of our turn at WP9 toward
+      Beaufort. N 10 G 12 currently post-front. Useful as a wind-
+      direction-shift indicator for the second front's progress
+      down the NC coast Mon-Tue. If 41025 shifts back to E/SE by
+      Mon evening, that indicates the second front is forming;
+      if it stays N/NW the second front is delayed.
+
+  - id: 41001
+    name: "E of Hatteras (offshore 210 NM E of WP9)"
+    lat: 34.792
+    lon: -72.420
+    reading_time: "2:10 PM EDT Fri 5/29"
+    status: "fresh"
+    wind_dir: "NNW"
+    wind_dir_deg: 340
+    wind_kt: 5.8
+    gust_kt: 7.8
+    wave_ft: 1.3
+    period_s: 4.0
+    swell_dir: "NNE"
+    swell_dir_deg: 22
+    pressure_hpa: 1015.5
+    pressure_trend: "Steady 29.99 inHg"
+    findings: |
+      Far offshore reference, post-frontal. NNW 6 kt with 3.3 ft
+      NNE swell @ 5.6s. Wave period is the key data point — short-
+      period (5.6s) swell indicates locally-generated wind wave,
+      not long-distance traveling swell. Useful for tracking how
+      the second-front wind wave develops offshore.
+
+  - id: 41002
+    name: "Cape Hatteras 250 NM E (offshore synoptic reference)"
+    lat: 31.743
+    lon: -74.955
+    reading_time: "2:10 PM EDT Fri 5/29"
+    status: "fresh"
+    wind_dir: "E"
+    wind_dir_deg: 80
+    wind_kt: 5.8
+    gust_kt: 7.8
+    wave_ft: 1.3
+    period_s: 4.0
+    swell_dir: "ESE"
+    swell_dir_deg: 113
+    pressure_hpa: 1016.0
+    pressure_trend: "Steady 30.01 inHg"
+    findings: |
+      Far offshore reference 250 NM east of Hatteras. E 6 G 8 with
+      3.3 ft ESE swell @ 8.3s. Longer-period (8.3s) swell here vs
+      shorter period at 41001 indicates older swell field from
+      previous systems. Useful as synoptic-scale pressure marker
+      (30.01 inHg) for tracking when the post-Mon high builds.
