@@ -1,0 +1,210 @@
+# NDBC realtime/latest_obs buoys pulled fresh via Claude in Chrome
+# Sun 6/21 between 3:08 PM and 4:10 PM EDT.
+#
+# These are PRE-DEPARTURE baselines. Departure Sun 6/21 5:00 PM EDT —
+# about 1 hour after these readings. Conditions at the route start
+# should match these within sea-breeze diurnal variation.
+#
+# Stations pulled:
+#   LKWF1 — Lake Worth Pier (departure area)
+#   41009 — Canaveral 20 NM E (on-track at WP3)
+#   41010 — Canaveral E 120 NM (offshore reference)
+#   41008 — Grays Reef NMS (on-track at WP8)
+#   41033 — Fripp Island Nearshore SC (Hilton Head area, on-track at WP9)
+#   41004 — Edisto SC offshore (Charleston approach)
+#   41013 — Frying Pan NC (NOT on-track, used as broader regional reference)
+#
+# Pre-front pattern visible:
+#   - LKWF1: SSE 13 G 14 — afternoon sea breeze
+#   - 41009: E 2 G 4 — calm at Canaveral
+#   - 41010 (offshore): WSW 6 G 8, pressure FALLING — system development
+#   - 41008: no anemo data, 1.0 ft ESE swell @ 7s — calm GA waters
+#   - 41033 (SC nearshore): SSW 14 G 18 — SC offshore already showing
+#     building SW pattern AHEAD of front arrival Mon night
+#   - 41004 (SC offshore): S 8 G 12, 1.3 ft SE @ 7s — moderate
+#
+# The 41033 reading is the key signal. Sun afternoon already at 14 G 18
+# in the Hilton Head/Beaufort SC nearshore is consistent with CHS
+# forecast Mon night SW 15-20 G 25 — front signal arriving early.
+
+pull:
+  label: "3:08-4:10 PM EDT Sun 6/21"
+  utc: "2026-06-21T20:10:00Z"
+
+front_passage:
+  description: |
+    Front approaches from N Mon night per JAX/CHS forecasts. Front
+    development signal already present in offshore pressure FALLING
+    at 41010 (Canaveral E 120 NM, 30.00 inHg falling). SC nearshore
+    buoy 41033 reading SSW 14 G 18 at Sun afternoon is AHEAD of the
+    forecast schedule — consistent with frontal influence reaching
+    SC offshore earlier than Mon night.
+
+    Departure Sun 6/21 5:00 PM EDT places vessel in benign FL waters
+    for first ~21 hours. Front exposure begins Mon evening at WP5
+    (off St Augustine) when MLB forecast shifts to S 10-15 kt building.
+    Most active conditions Tue afternoon/evening at WP9-WP10
+    (Hilton Head through Charleston Sea Buoy) where SW 15-20 G 25 is
+    forecast.
+
+stations:
+  - id: LKWF1
+    name: "Lake Worth Pier (departure-area, ~10 NM N of WP0)"
+    lat: 26.613
+    lon: -80.033
+    reading_time: "3:54 PM EDT Sun 6/21"
+    status: "fresh"
+    wind_dir: "SSE"
+    wind_dir_deg: 160
+    wind_kt: 13.0
+    gust_kt: 14.0
+    wave_ft: null
+    period_s: null
+    swell_dir: null
+    swell_dir_deg: null
+    pressure_hpa: 1016.0
+    pressure_trend: "Steady 30.01 inHg"
+    findings: |
+      Departure-area ground truth. SSE 13 G 14 is solid afternoon
+      sea breeze, somewhat stronger than forecast S 5-10 kt for
+      Tonight period. Expected to back to S and then SE by midnight
+      per CWFMFL. Departure conditions: broad reach starboard
+      easily managed.
+
+  - id: 41009
+    name: "Canaveral 20 NM E (mid-FL, ON-TRACK at WP3 28.5N)"
+    lat: 28.506
+    lon: -80.185
+    reading_time: "4:10 PM EDT Sun 6/21"
+    status: "fresh"
+    wind_dir: "E"
+    wind_dir_deg: 100
+    wind_kt: 1.9
+    gust_kt: 3.9
+    wave_ft: 0.7
+    period_s: 3.1
+    swell_dir: "NNE"
+    swell_dir_deg: 23
+    pressure_hpa: 1015.6
+    pressure_trend: "Steady 30.00 inHg"
+    findings: |
+      Calm at Canaveral. E 2 G 4, light wind wave SSE 0.7 ft @ 3s,
+      light NNE swell 1.0 ft @ 5s. WP3 transit Mon 8:09 AM —
+      expect light S 5-10 kt and broad reach by then.
+
+  - id: 41010
+    name: "Canaveral E 120 NM (offshore reference)"
+    lat: 28.860
+    lon: -78.480
+    reading_time: "4:00 PM EDT Sun 6/21"
+    status: "fresh"
+    wind_dir: "WSW"
+    wind_dir_deg: 250
+    wind_kt: 5.8
+    gust_kt: 7.8
+    wave_ft: 1.0
+    period_s: 3.8
+    swell_dir: "ESE"
+    swell_dir_deg: 113
+    pressure_hpa: 1015.6
+    pressure_trend: "FALLING 30.00 inHg"
+    findings: |
+      Offshore reference, PRESSURE FALLING — front-development
+      signal. WSW 6 kt with swell 2.3 ft ESE @ 7s indicates
+      established sea state with new wind wave only 1.0 ft @ 4s.
+      The falling pressure here at 28.9N is consistent with the
+      forecast trough approaching SC/GA Mon night.
+
+  - id: 41008
+    name: "Grays Reef NMS (off Sapelo GA, ON-TRACK at WP8)"
+    lat: 31.400
+    lon: -80.867
+    reading_time: "4:10 PM EDT Sun 6/21"
+    status: "fresh"
+    wind_dir: null
+    wind_dir_deg: null
+    wind_kt: null
+    gust_kt: null
+    wave_ft: 0.3
+    period_s: 4.5
+    swell_dir: "ESE"
+    swell_dir_deg: 113
+    pressure_hpa: 1014.0
+    pressure_trend: "Steady 29.95 inHg"
+    findings: |
+      WAVE-ONLY station (no anemometer reported in latest_obs).
+      Swell 1.0 ft ESE @ 7s + wind wave 0.3 ft ENE @ 4.5s = very
+      calm conditions. WP8 transit Tue 11:27 AM — by then CHS
+      forecast SW 10-15 G 20 kt, seas 2-3 ft. This buoy will be
+      primary mid-passage refresh-cycle ground truth.
+
+  - id: 41033
+    name: "Fripp Island Nearshore SC (Hilton Head area, ~10 NM W of WP9)"
+    lat: 32.283
+    lon: -80.407
+    reading_time: "3:08 PM EDT Sun 6/21"
+    status: "fresh"
+    wind_dir: "SSW"
+    wind_dir_deg: 200
+    wind_kt: 13.6
+    gust_kt: 17.5
+    wave_ft: null
+    period_s: null
+    swell_dir: null
+    swell_dir_deg: null
+    pressure_hpa: 1013.5
+    pressure_trend: "Falling 29.94 inHg"
+    findings: |
+      KEY EARLY-FRONT SIGNAL. SSW 14 G 18 at Sun 3 PM is already
+      strong — CHS forecast says SW 15-20 G 25 doesn't kick in
+      until Mon night/Tue. The frontal influence appears to be
+      reaching SC offshore EARLIER than forecast. By Tue afternoon
+      transit (WP9) this station will be in actively building
+      pattern. Recommend refresh-pull this station every 12 hr to
+      track front speed.
+
+  - id: 41004
+    name: "Edisto SC offshore (~35 NM SE of Charleston Sea Buoy)"
+    lat: 32.502
+    lon: -79.099
+    reading_time: "4:10 PM EDT Sun 6/21"
+    status: "fresh"
+    wind_dir: "S"
+    wind_dir_deg: 190
+    wind_kt: 7.8
+    gust_kt: 11.7
+    wave_ft: 1.0
+    period_s: 3.6
+    swell_dir: "SE"
+    swell_dir_deg: 135
+    pressure_hpa: 1014.5
+    pressure_trend: "Steady 29.97 inHg"
+    findings: |
+      Charleston-offshore baseline. S 8 G 12 currently, lighter
+      than 41033 (closer to coast) — onshore-flow-dominated coastal
+      pattern. By Tue night arrival (WP10), forecast SW 15-20 G 20
+      with seas 3-4 ft. Pressure drop from 29.97 → 29.93 forecast
+      between now and arrival.
+
+  - id: 41013
+    name: "Frying Pan NC (broader regional reference, not on-track)"
+    lat: 33.442
+    lon: -77.764
+    reading_time: "4:10 PM EDT Sun 6/21"
+    status: "fresh"
+    wind_dir: "S"
+    wind_dir_deg: 190
+    wind_kt: 7.8
+    gust_kt: 9.7
+    wave_ft: 0.7
+    period_s: 2.7
+    swell_dir: "WNW"
+    swell_dir_deg: 295
+    pressure_hpa: 1014.5
+    pressure_trend: "Steady 29.97 inHg"
+    findings: |
+      NC offshore reference well N of route — useful as upstream
+      signal for front passage. S 8 G 10 currently. Watch for
+      shift to W/NW indicating front passed Hatteras (we're
+      Charleston-bound so the front passes Hatteras BEFORE our
+      arrival latitude, ~6-12 hours earlier).

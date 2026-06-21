@@ -685,22 +685,40 @@ ZONE_REGISTRY = {
         "coast_refs": [(29.90, -81.31), (29.65, -81.21), (29.48, -81.13)],
         "description": "St Augustine to Flagler Beach FL, 20-60 NM",
     },
-    # KMLB — Melbourne FL (central FL east coast). PROXY entries —
-    # when CWFMLB pull fails, JAX office values are used as the actual
-    # data source per documented proxy convention; the registry entries
-    # below exist so geographic WP-to-zone validation passes for WPs
-    # at 27-29.5°N. Lat bands match the actual MLB zone definitions
-    # from NWS, but the data behind them in the forecast YAML is JAX-
-    # sourced when MLB is unavailable.
-    "AMZ555": {
-        "office": "MLB", "band_nm": (0, 20), "lat_band": (28.45, 29.10),
-        "coast_refs": [(29.07, -80.92), (28.78, -80.74), (28.46, -80.60)],
+    # KMLB — Melbourne FL (central FL east coast). NWS coastal zones:
+    #   AMZ550: Flagler Beach to Volusia/Brevard County Line (~28.45-29.55°N)
+    #   AMZ552: Volusia/Brevard Line to Sebastian Inlet (~27.86-28.45°N)
+    #   AMZ555: Sebastian Inlet to Jupiter Inlet (~26.95-27.86°N)
+    # The 20-60 NM offshore band has matching AMZ570/572/575.
+    "AMZ550": {
+        "office": "MLB", "band_nm": (0, 20), "lat_band": (28.45, 29.55),
+        "coast_refs": [(29.50, -81.13), (29.07, -80.92), (28.78, -80.74), (28.46, -80.60)],
         "description": "Flagler Beach to Volusia/Brevard County Line FL, out 20 NM",
     },
-    "AMZ575": {
-        "office": "MLB", "band_nm": (20, 60), "lat_band": (28.45, 29.10),
-        "coast_refs": [(29.07, -80.92), (28.78, -80.74), (28.46, -80.60)],
+    "AMZ552": {
+        "office": "MLB", "band_nm": (0, 20), "lat_band": (27.80, 28.50),
+        "coast_refs": [(28.46, -80.60), (28.07, -80.58), (27.86, -80.45)],
+        "description": "Volusia/Brevard County Line to Sebastian Inlet FL, out 20 NM",
+    },
+    "AMZ555": {
+        "office": "MLB", "band_nm": (0, 20), "lat_band": (26.90, 27.90),
+        "coast_refs": [(27.86, -80.45), (27.47, -80.30), (26.95, -80.07)],
+        "description": "Sebastian Inlet to Jupiter Inlet FL, out 20 NM",
+    },
+    "AMZ570": {
+        "office": "MLB", "band_nm": (20, 60), "lat_band": (28.45, 29.55),
+        "coast_refs": [(29.50, -81.13), (29.07, -80.92), (28.78, -80.74), (28.46, -80.60)],
         "description": "Flagler Beach to Volusia/Brevard County Line FL, 20-60 NM",
+    },
+    "AMZ572": {
+        "office": "MLB", "band_nm": (20, 60), "lat_band": (27.80, 28.50),
+        "coast_refs": [(28.46, -80.60), (28.07, -80.58), (27.86, -80.45)],
+        "description": "Volusia/Brevard County Line to Sebastian Inlet FL, 20-60 NM",
+    },
+    "AMZ575": {
+        "office": "MLB", "band_nm": (20, 60), "lat_band": (26.90, 27.90),
+        "coast_refs": [(27.86, -80.45), (27.47, -80.30), (26.95, -80.07)],
+        "description": "Sebastian Inlet to Jupiter Inlet FL, 20-60 NM",
     },
     # KMFL — Miami FL (SE Florida coast)
     "AMZ650": {

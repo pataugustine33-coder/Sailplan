@@ -1,0 +1,274 @@
+# Palm Beach (Lake Worth Inlet) → Charleston SC passage definition.
+# HR 54 (D1206), Stream-edge ride.
+# Sun 6/21 5:00 PM EDT departure ("ASAP" per skipper request 6/21 PM).
+#
+# Key trip context:
+# - 383 NM total, ~55 hours at expected 7 kt SOG → arrival Tue 6/23 11:43 PM EDT
+# - 12 waypoints, route stays just inside Stream west wall for favorable
+#   N-flowing current (1-2 kt boost most of the route)
+# - Night arrival Charleston Harbor accepted per skipper preference
+#   (Charleston Harbor entrance is deep commercial, well-marked, JAR/jetty
+#   lighted approach suitable for competent night entry)
+#
+# Hazard assessment from forecast cycle (Sun 6/21 PM):
+#
+#   1. ARRIVAL WIND CONCERN: CHS forecast SW 15-20 G 25 kt Tue afternoon
+#      through Tue evening across AMZ360/AMZ362 with seas 3-4 ft. Wind
+#      from SW with northbound course = TWA close-hauled to close reach
+#      port tack. Borderline SCA conditions per AFD CHS: "looks fairly
+#      marginal for Small Craft Advisories." Final approach happens in
+#      this regime.
+#
+#   2. TIMING SENSITIVITY: At 7 kt avg arrives Tue 11:43 PM (during front
+#      window). At 6.5 kt arrives Wed 4 AM (BETTER — front beginning to
+#      clear). At 7.5 kt Stream-assist arrives Tue 9 PM (worse — full
+#      front exposure). A slower passage is actually safer here.
+#
+#   3. CONVECTIVE ACTIVITY: Daily afternoon thunderstorms expected per
+#      all four offices. JAX warns of 45-55 mph gust potential in storms
+#      Sun evening. Plan to avoid afternoon convection cells via radar
+#      monitoring; the wide offshore track helps.
+#
+#   4. NO GULF STREAM HAZARDS (per MFL synopsis 6/21 4:11 PM)
+#
+#   5. NO ACTIVE WATCHES/WARNINGS at any office along route as of pull
+
+passage:
+  id: palmbeach-charleston
+  name: PalmBeach-Charleston
+  origin: Palm Beach, FL (Lake Worth Inlet Sea Buoy LW)
+  destination: Charleston, SC (Charleston Harbor Entrance)
+  total_nm: 383.09
+
+vessel:
+  designation: HR 54
+  design_number: D1206
+  load_config: half-load
+  displacement_lb: 57982
+  motor_speed_kt: 6.5
+  motor_crossover_tws_kt: 7.5
+  fuel_capacity_gal: 238
+  fuel_burn_gph: 2.0
+  rmc_kgm: 656
+  rm_30deg_kgm: 14619
+  rm_max_kgm: 23654
+  brewer_cr: 52.1
+  csf: 1.55
+  designer: Germán Frers
+  builder: Hallberg-Rassy
+  ce_category: A
+  ce_category_note: Ocean — unlimited offshore
+  polar_source: Frers VPP
+  data_sheet_source: Hallberg-Rassy data sheet
+  stability_source: Frers GZ curve (Full Load)
+
+calibration:
+  sea_factors:
+    steep_chop_bow: 0.72
+    close_reach: 0.87
+    beam_reach: 0.92
+    broad_reach: 0.92
+    reefed_active_trough: 0.85
+
+# Arrival at Charleston (~32.76°N). Summer solstice timing:
+# Sunrise Tue 6/23 ~6:18 AM EDT, sunset ~8:30 PM EDT.
+# Night arrival explicitly accepted by skipper. Charleston Harbor is
+# a deep commercial inlet (channel project depth 42 ft), well-marked
+# with jetty lights and channel ranges suitable for night entry.
+arrival_timing:
+  destination_label: "Charleston, SC (Charleston Harbor Entrance)"
+  civil_dawn: 5.800
+  sunrise: 6.300
+  sunset: 20.500
+  civil_dusk: 21.000
+  day_window: [6.300, 20.500]
+  twilight_windows:
+    - [5.800, 6.300]
+    - [20.500, 21.000]
+  night_arrival_accepted: true
+  preferred_window:
+    start: 7.0
+    end: 19.0
+
+# Waypoints. Stream-edge corridor — west wall positions per MFL/MLB/JAX
+# synopses 6/21:
+#   - 22 NM ESE Lake Worth
+#   - 24-30 NM E Sebastian/Canaveral
+#   - 42 NM E Ponce Inlet
+#   - 50 NM E Flagler Beach
+#   - 53 NM E St Augustine
+#   - 64 NM ESE Jacksonville
+#   - 76 NM ESE St Simons
+# Route stays just inside the wall (favorable N-flowing assist) for the
+# entire FL/GA coast, then closes to coast at Hilton Head for Charleston
+# approach.
+waypoints:
+  - id: WP0
+    name: Lake Worth Inlet Sea Buoy LW
+    lat: 26.7717
+    lon: -80.0167
+    cum_nm: 0.00
+    course_out: 20
+  - id: WP1
+    name: Off Hobe Sound (Stream entry)
+    lat: 27.0500
+    lon: -79.9000
+    cum_nm: 17.84
+    course_out: 356
+  - id: WP2
+    name: Off Vero Beach
+    lat: 27.6500
+    lon: -79.9500
+    cum_nm: 53.96
+    course_out: 348
+  - id: WP3
+    name: Off Cape Canaveral 28.5N
+    lat: 28.5000
+    lon: -80.1500
+    cum_nm: 106.08
+    course_out: 343
+  - id: WP4
+    name: Off Daytona Beach
+    lat: 29.2000
+    lon: -80.4000
+    cum_nm: 150.12
+    course_out: 352
+  - id: WP5
+    name: Off St Augustine (Stream centerline)
+    lat: 29.8500
+    lon: -80.5000
+    cum_nm: 189.50
+    course_out: 345
+  - id: WP6
+    name: Off Jacksonville Beach
+    lat: 30.5000
+    lon: -80.7000
+    cum_nm: 229.88
+    course_out: 14
+  - id: WP7
+    name: Off Brunswick GA
+    lat: 31.2000
+    lon: -80.5000
+    cum_nm: 273.15
+    course_out: 0
+  - id: WP8
+    name: Off Savannah / Grays Reef NMS
+    lat: 31.6000
+    lon: -80.5000
+    cum_nm: 297.17
+    course_out: 17
+  - id: WP9
+    name: Off Hilton Head SC
+    lat: 32.1500
+    lon: -80.3000
+    cum_nm: 331.73
+    course_out: 42
+  - id: WP10
+    name: Charleston Sea Buoy 2CL
+    lat: 32.6717
+    lon: -79.7383
+    cum_nm: 374.06
+    course_out: 306
+  - id: WP11
+    name: Charleston Harbor Entrance
+    lat: 32.7595
+    lon: -79.8835
+    cum_nm: 383.09
+    course_out: null
+
+# Single plan — Sun 6/21 5:00 PM EDT depart.
+plans:
+  - id: plan_a
+    tab_label: "Plan A - Sun 5 PM"
+    qualifier: ""
+    depart_day: Sun
+    depart_date: 2026-06-21
+    depart_hour: 17.0
+
+# Buoys pulled live Sun 6/21 ~4 PM EDT.
+route_buoys:
+  - id: LKWF1
+    name: Lake Worth Pier (departure area)
+    lat: 26.613
+    lon: -80.033
+    relevant_wps:
+      WP0: "~10 NM N (departure-area wind ground truth)"
+      WP1: "~26 NM S of WP1"
+  - id: 41009
+    name: Canaveral 20 NM E
+    lat: 28.506
+    lon: -80.185
+    relevant_wps:
+      WP3: "ON-TRACK (closest to WP3 at 28.5N)"
+      WP2: "~50 NM N"
+  - id: 41010
+    name: Canaveral E 120 NM (offshore reference)
+    lat: 28.860
+    lon: -78.480
+    relevant_wps:
+      WP3: "~85 NM E (offshore-edge reference)"
+      WP4: "~120 NM SE"
+  - id: 41008
+    name: Grays Reef NMS (off Sapelo Sound GA)
+    lat: 31.400
+    lon: -80.867
+    relevant_wps:
+      WP7: "~25 NM W"
+      WP8: "ON-TRACK (closest to WP8)"
+  - id: 41033
+    name: Fripp Island Nearshore SC
+    lat: 32.283
+    lon: -80.407
+    relevant_wps:
+      WP9: "~10 NM SW (Hilton Head area ground truth)"
+  - id: 41004
+    name: Edisto SC offshore
+    lat: 32.502
+    lon: -79.099
+    relevant_wps:
+      WP10: "~35 NM SE of Charleston Sea Buoy"
+      WP9: "~75 NM ENE"
+
+forecast_offices:
+  - office: NWS Miami FL (KMFL)
+    code: MFL
+    zones:
+      AMZ651: Coastal waters Deerfield Beach to Ocean Reef FL out 20 NM
+      AMZ650: Coastal waters Jupiter Inlet to Deerfield Beach FL out 20 NM
+      AMZ670: Waters Jupiter Inlet to Deerfield Beach 20-60 NM
+  - office: NWS Melbourne FL (KMLB)
+    code: MLB
+    zones:
+      AMZ555: Sebastian Inlet to Jupiter Inlet 0-20 NM
+      AMZ552: Volusia-Brevard Line to Sebastian Inlet 0-20 NM
+      AMZ550: Flagler Beach to Volusia-Brevard Line 0-20 NM
+      AMZ575: Sebastian Inlet to Jupiter Inlet 20-60 NM
+      AMZ572: Volusia-Brevard Line to Sebastian Inlet 20-60 NM
+      AMZ570: Flagler Beach to Volusia-Brevard Line 20-60 NM
+  - office: NWS Jacksonville FL (KJAX)
+    code: JAX
+    zones:
+      AMZ450: Coastal waters Altamaha Sound GA to Fernandina Beach FL out 20 NM
+      AMZ452: Coastal waters Fernandina Beach to St Augustine FL out 20 NM
+      AMZ454: Coastal waters St Augustine to Flagler Beach FL out 20 NM
+      AMZ470: Waters Altamaha Sound GA to Fernandina Beach FL 20-60 NM
+      AMZ472: Waters Fernandina Beach to St Augustine FL 20-60 NM
+      AMZ474: Waters St Augustine to Flagler Beach FL 20-60 NM
+  - office: NWS Charleston SC (KCHS)
+    code: CHS
+    zones:
+      AMZ340: Charleston Harbor
+      AMZ360: Coastal waters South Santee River to Edisto Beach SC out 20 NM
+      AMZ362: Coastal waters Edisto Beach SC to Savannah GA out 20 NM
+      AMZ364: Coastal waters Savannah GA to Altamaha Sound GA out 20 NM
+      AMZ380: Waters South Santee River to Edisto Beach SC 20-60 NM
+      AMZ382: Waters Edisto Beach SC to Savannah GA 20-60 NM
+      AMZ384: Waters Savannah GA to Altamaha Sound GA 20-60 NM
+
+tide_stations:
+  - id: 8722670
+    name: Lake Worth Pier, Atlantic Ocean, FL
+    relevance: departure
+  - id: 8665530
+    name: Charleston, Cooper River Entrance, SC
+    relevance: arrival

@@ -1,0 +1,664 @@
+# Forecast bundle for PalmBeach-Charleston — Sun 6/21 PM cycle.
+# All four offices (MFL, MLB, JAX, CHS) pulled fresh via Claude in Chrome
+# Sun 6/21 around 4:10 PM EDT.
+#
+# OVERALL PICTURE:
+#
+# General pattern: High pressure ridge dominant through Sun-Mon. Frontal
+# boundary approaches SC/GA Mon night → stalls across SE SC/SE GA Tue
+# through Friday. South Florida stays under stationary high ridge axis
+# with light SE/S winds.
+#
+# Three weather phases for this passage:
+#
+# Phase 1 — Sun PM through Mon AM (WP0-WP3, ~15 hr): BENIGN. Light S/SW
+# 5-10 kt in MFL/MLB zones, seas <2 ft, Stream-edge assist. Watch for
+# Sun evening convective activity per JAX AFD (45-55 mph gust potential
+# in storms, dying after midnight per CHS AFD: "focus for convection
+# shifting offshore" midnight Sun).
+#
+# Phase 2 — Mon PM through Tue PM (WP4-WP9, ~26 hr): BUILDING. Frontal
+# approach increases winds. JAX 20-60 NM: SW 15 kt Mon night. CHS
+# AMZ360/AMZ380: SW 15-20 G 25 kt Mon night through Tue, seas 3-4 ft.
+# AFD CHS: "looks fairly marginal for Small Craft Advisories."
+#
+# Phase 3 — Tue PM into Tue night arrival (WP10-WP11, ~7 hr): FRONT
+# WINDOW. Arrival 11:43 PM EDT in active SW 15-20 G 25 forecast period.
+# Close-hauled to close reach port tack — 1-2 kt SOG penalty. Slowing
+# the passage (arriving Wed AM) would be better but skipper accepted
+# night arrival with this front condition implicit.
+
+cycle:
+  label: "Sun 6/21 PM cycle (offices issued 2:24-4:11 PM EDT)"
+  cwfmfl:
+    issued: "2026-06-21T16:11:00-04:00"
+    label_short: "Sun 6/21 411 PM"
+    label_full: "411 PM EDT Sun Jun 21 2026"
+  cwfmlb:
+    issued: "2026-06-21T14:41:00-04:00"
+    label_short: "Sun 6/21 241 PM"
+    label_full: "241 PM EDT Sun Jun 21 2026"
+  cwfjax:
+    issued: "2026-06-21T14:24:00-04:00"
+    label_short: "Sun 6/21 224 PM"
+    label_full: "224 PM EDT Sun Jun 21 2026"
+  cwfchs:
+    issued: "2026-06-21T14:44:00-04:00"
+    label_short: "Sun 6/21 244 PM"
+    label_full: "244 PM EDT Sun Jun 21 2026"
+  afdchs:
+    issued: "2026-06-21T14:45:00-04:00"
+    label_short: "Sun 6/21 245 PM"
+    label_full: "245 PM EDT Sun Jun 21 2026"
+  afdjax:
+    issued: "2026-06-21T14:42:00-04:00"
+    label_short: "Sun 6/21 242 PM"
+    label_full: "242 PM EDT Sun Jun 21 2026"
+
+zones:
+  # ==================================================================
+  # MFL — FL Atlantic (WP0-WP1)
+  # ==================================================================
+  AMZ651:
+    description: "Coastal waters Deerfield Beach to Ocean Reef FL out 20 NM"
+    office: MFL
+    periods:
+      TONIGHT:
+        wind_dir: "SE"
+        wind_dir_deg: 135
+        wind_kt: [5, 5]
+        wind_gust_kt: 10
+        sea_ft: [1, 2]
+        wave_detail:
+          primary: {direction: SE, direction_deg: 135, height_ft: 1, period_s: 2}
+      MON:
+        wind_dir: "SE"
+        wind_dir_deg: 135
+        wind_kt: [5, 10]
+        wind_gust_kt: 10
+        sea_ft: [1, 2]
+        wave_detail:
+          primary: {direction: SE, direction_deg: 135, height_ft: 1, period_s: 3}
+  AMZ650:
+    description: "Coastal waters Jupiter Inlet to Deerfield Beach FL out 20 NM"
+    office: MFL
+    periods:
+      TONIGHT:
+        wind_dir: "S"
+        wind_dir_deg: 180
+        wind_kt: [5, 10]
+        wind_gust_kt: 10
+        sea_ft: [1, 2]
+        wave_detail:
+          primary: {direction: S, direction_deg: 180, height_ft: 1, period_s: 4}
+      MON:
+        wind_dir: "S"
+        wind_dir_deg: 180
+        wind_kt: [5, 10]
+        wind_gust_kt: 10
+        sea_ft: [1, 2]
+        wave_detail:
+          primary: {direction: S, direction_deg: 180, height_ft: 1, period_s: 3}
+          secondary: {direction: N, direction_deg: 0, height_ft: 1, period_s: 5}
+
+  # ==================================================================
+  # MLB — Central FL east coast (WP2-WP4)
+  # ==================================================================
+  AMZ575:
+    description: "Sebastian Inlet to Jupiter Inlet 20-60 NM"
+    office: MLB
+    periods:
+      TONIGHT:
+        wind_dir: "SW"
+        wind_dir_deg: 225
+        wind_kt: [5, 10]
+        wind_gust_kt: 10
+        sea_ft: [1, 2]
+        wave_detail:
+          primary: {direction: S, direction_deg: 180, height_ft: 1, period_s: 3}
+          secondary: {direction: N, direction_deg: 0, height_ft: 1, period_s: 4}
+      MON:
+        wind_dir: "S"
+        wind_dir_deg: 180
+        wind_kt: [5, 10]
+        wind_gust_kt: 10
+        sea_ft: [1, 2]
+        wave_detail:
+          primary: {direction: S, direction_deg: 180, height_ft: 1, period_s: 3}
+          secondary: {direction: NE, direction_deg: 45, height_ft: 1, period_s: 6}
+  AMZ572:
+    description: "Volusia-Brevard Line to Sebastian Inlet 20-60 NM"
+    office: MLB
+    periods:
+      MON:
+        wind_dir: "S"
+        wind_dir_deg: 180
+        wind_kt: [5, 10]
+        wind_gust_kt: 10
+        sea_ft: [1, 2]
+        wave_detail:
+          primary: {direction: S, direction_deg: 180, height_ft: 1, period_s: 3}
+          secondary: {direction: N, direction_deg: 0, height_ft: 1, period_s: 3}
+      MON_NIGHT:
+        wind_dir: "S"
+        wind_dir_deg: 180
+        wind_kt: [10, 15]
+        wind_gust_kt: 15
+        sea_ft: [1, 2]
+        wave_detail:
+          primary: {direction: S, direction_deg: 180, height_ft: 1, period_s: 3}
+  AMZ570:
+    description: "Flagler Beach to Volusia-Brevard Line 20-60 NM"
+    office: MLB
+    periods:
+      MON:
+        wind_dir: "SW"
+        wind_dir_deg: 225
+        wind_kt: [5, 10]
+        wind_gust_kt: 10
+        sea_ft: [1, 2]
+        wave_detail:
+          primary: {direction: S, direction_deg: 180, height_ft: 1, period_s: 2}
+          secondary: {direction: NW, direction_deg: 315, height_ft: 1, period_s: 2}
+      MON_NIGHT:
+        wind_dir: "S"
+        wind_dir_deg: 180
+        wind_kt: [10, 15]
+        wind_gust_kt: 15
+        sea_ft: [2, 2]
+        wave_detail:
+          primary: {direction: S, direction_deg: 180, height_ft: 2, period_s: 3}
+          secondary: {direction: E, direction_deg: 90, height_ft: 1, period_s: 8}
+
+  # ==================================================================
+  # JAX — NE FL/SE GA (WP5-WP7)
+  # ==================================================================
+  AMZ474:
+    description: "Waters St Augustine to Flagler Beach FL 20-60 NM"
+    office: JAX
+    periods:
+      MON:
+        wind_dir: "W"
+        wind_dir_deg: 270
+        wind_kt: [10, 15]
+        wind_gust_kt: 15
+        sea_ft: [2, 3]
+        wave_detail:
+          primary: {direction: SW, direction_deg: 225, height_ft: 2, period_s: 3}
+      MON_NIGHT:
+        wind_dir: "SW"
+        wind_dir_deg: 225
+        wind_kt: [15, 15]
+        wind_gust_kt: 20
+        sea_ft: [2, 3]
+        wave_detail:
+          primary: {direction: S, direction_deg: 180, height_ft: 3, period_s: 4}
+          secondary: {direction: SE, direction_deg: 135, height_ft: 2, period_s: 7}
+  AMZ472:
+    description: "Waters Fernandina Beach to St Augustine FL 20-60 NM"
+    office: JAX
+    periods:
+      MON_NIGHT:
+        wind_dir: "SW"
+        wind_dir_deg: 225
+        wind_kt: [15, 15]
+        wind_gust_kt: 20
+        sea_ft: [2, 3]
+        wave_detail:
+          primary: {direction: S, direction_deg: 180, height_ft: 3, period_s: 4}
+          secondary: {direction: SE, direction_deg: 135, height_ft: 2, period_s: 7}
+      TUE:
+        wind_dir: "W"
+        wind_dir_deg: 270
+        wind_kt: [10, 15]
+        wind_gust_kt: 15
+        sea_ft: [2, 3]
+        wave_detail:
+          primary: {direction: W, direction_deg: 270, height_ft: 3, period_s: 4}
+          secondary: {direction: SE, direction_deg: 135, height_ft: 2, period_s: 7}
+    description: "Waters Fernandina Beach to St Augustine FL 20-60 NM"
+    office: JAX
+    periods:
+      MON_NIGHT:
+        wind_dir: "SW"
+        wind_dir_deg: 225
+        wind_kt: [15, 15]
+        wind_gust_kt: 20
+        sea_ft: [2, 3]
+        wave_detail:
+          primary: {direction: S, direction_deg: 180, height_ft: 3, period_s: 4}
+          secondary: {direction: SE, direction_deg: 135, height_ft: 2, period_s: 7}
+      TUE:
+        wind_dir: "W"
+        wind_dir_deg: 270
+        wind_kt: [10, 15]
+        wind_gust_kt: 15
+        sea_ft: [2, 3]
+        wave_detail:
+          primary: {direction: W, direction_deg: 270, height_ft: 3, period_s: 4}
+          secondary: {direction: SE, direction_deg: 135, height_ft: 2, period_s: 7}
+  AMZ470:
+    description: "Waters Altamaha Sound GA to Fernandina Beach FL 20-60 NM"
+    office: JAX
+    periods:
+      TUE:
+        wind_dir: "W"
+        wind_dir_deg: 270
+        wind_kt: [10, 15]
+        wind_gust_kt: 15
+        sea_ft: [2, 3]
+        wave_detail:
+          primary: {direction: W, direction_deg: 270, height_ft: 3, period_s: 4}
+          secondary: {direction: SE, direction_deg: 135, height_ft: 2, period_s: 7}
+
+  # ==================================================================
+  # CHS — GA/SC coast (WP8-WP11)
+  # ==================================================================
+  AMZ384:
+    description: "Waters Savannah GA to Altamaha Sound GA 20-60 NM"
+    office: CHS
+    periods:
+      TUE:
+        wind_dir: "SW"
+        wind_dir_deg: 225
+        wind_kt: [10, 15]
+        wind_gust_kt: 20
+        sea_ft: [2, 3]
+        wave_detail:
+          primary: {direction: W, direction_deg: 270, height_ft: 3, period_s: 4}
+          secondary: {direction: SE, direction_deg: 135, height_ft: 1, period_s: 7}
+  AMZ382:
+    description: "Waters Edisto Beach SC to Savannah GA 20-60 NM"
+    office: CHS
+    periods:
+      TUE:
+        wind_dir: "SW"
+        wind_dir_deg: 225
+        wind_kt: [15, 20]
+        wind_gust_kt: 25
+        sea_ft: [3, 4]
+        wave_detail:
+          primary: {direction: SW, direction_deg: 225, height_ft: 4, period_s: 5}
+          secondary: {direction: SE, direction_deg: 135, height_ft: 1, period_s: 7}
+  AMZ360:
+    description: "Coastal waters South Santee River to Edisto Beach SC out 20 NM"
+    office: CHS
+    periods:
+      TUE:
+        wind_dir: "SW"
+        wind_dir_deg: 225
+        wind_kt: [15, 20]
+        wind_gust_kt: 25
+        sea_ft: [3, 4]
+        wave_detail:
+          primary: {direction: SW, direction_deg: 225, height_ft: 4, period_s: 5}
+          secondary: {direction: SE, direction_deg: 135, height_ft: 1, period_s: 8}
+      TUE_NIGHT:
+        wind_dir: "SW"
+        wind_dir_deg: 225
+        wind_kt: [15, 20]
+        wind_gust_kt: 20
+        sea_ft: [3, 4]
+        wave_detail:
+          primary: {direction: SW, direction_deg: 225, height_ft: 4, period_s: 5}
+          secondary: {direction: SE, direction_deg: 135, height_ft: 1, period_s: 8}
+  AMZ340:
+    description: "Charleston Harbor"
+    office: CHS
+    periods:
+      TUE_NIGHT:
+        wind_dir: "SW"
+        wind_dir_deg: 225
+        wind_kt: [10, 15]
+        wind_gust_kt: 20
+        sea_ft: [1, 1]
+        wave_detail:
+          primary: {direction: SW, direction_deg: 225, height_ft: 1, period_s: 3}
+
+afd_marine:
+  CHS: |
+    Through Tonight: A southerly flow regime near 10 kt with seas 1-2
+    ft will prevail through tonight with the waters positioned along
+    the western flanks of Atlantic high pressure.
+
+    Monday through Friday: The coastal waters will become positioned
+    between high pressure centered well offshore and an approaching
+    cold front Monday night, leading to increasing winds and building
+    seas. Gusts could approach 25 knots at times Monday evening into
+    Tuesday evening, but looks fairly marginal for Small Craft
+    Advisories. Conditions should stay below advisory levels through
+    Friday.
+  JAX: |
+    A frontal boundary will shift north of the waters Today. Showers
+    and storms will push over the waters this afternoon and into the
+    evening hours Tonight. Weak high pressure ridge will slowly build
+    in over the area waters on Monday and into Tuesday, with isolated
+    to scattered thunderstorms returning by midweek as another front
+    moves in from the north. Stronger offshore winds with exercise
+    caution level winds looks possible for offshore waters Monday
+    into Tuesday.
+  MFL: |
+    Light southeasterly winds continue across the Atlantic waters
+    today with southwesterly winds over the Gulf transitioning to
+    westerly through the afternoon. Tonight, winds could veer from
+    the north/northeast across all local waters before settling back
+    from the south on Monday morning. Isolated to scattered showers
+    and thunderstorms are possible across the local waters each day
+    with locally hazardous winds and seas possible with any storms.
+    Seas are expected at 1-2 feet or less outside of any thunderstorm
+    activity.
+
+synopses:
+  MFL:
+    zone: AMZ600
+    text: |
+      Light SE winds across Atlantic waters today, light SW Gulf
+      transitioning to W through afternoon. Tonight winds may veer
+      N/NE before settling back from S Monday morning. Isolated to
+      scattered storms each day with locally hazardous winds/seas
+      possible. Seas 1-2 ft outside storms. Gulf Stream Hazards: None.
+  MLB:
+    zone: AMZ500
+    text: |
+      Generally favorable boating conditions outside offshore-moving
+      lightning storms, as high pressure over subtropical Atlantic
+      extending to Florida remains in control. Ridge axis stationary
+      over South FL to Straits of FL, continuing offshore (WSW-SW)
+      flow, shifting SSE-E from afternoons into early overnight
+      behind sea breeze. Winds generally 5-10 kt, occasionally 15 kt
+      in overnight periods. Seas 1-2 ft. Gulf Stream Hazards: None.
+  JAX:
+    zone: AMZ400
+    text: |
+      Frontal boundary shifts north of the waters Today. Showers and
+      storms push over waters this afternoon and into evening hours
+      Tonight. Weak high pressure ridge slowly builds in over waters
+      on Monday and into Tuesday, with isolated to scattered
+      thunderstorms returning by midweek as another front moves in
+      from the north. Stronger offshore winds with exercise caution
+      level winds looks possible for offshore waters Monday into
+      Tuesday.
+  CHS:
+    zone: AMZ300
+    text: |
+      Broad high pressure will reside over the area through Monday. A
+      cold front will approach the area Monday night into Tuesday and
+      stall across southeast South Carolina and southeast Georgia
+      through the end of the week.
+
+gulf_stream:
+  effective_date: "2026-06-21"
+  positions:
+    - "22 NM ESE of Lake Worth (closest to departure)"
+    - "17 NM E of Jupiter Inlet"
+    - "9 NM E of Saint Lucie Inlet"
+    - "16 NM E of Fort Pierce Inlet"
+    - "24 NM E of Sebastian Inlet"
+    - "30 NM E of Port Canaveral"
+    - "42 NM E of Ponce Inlet"
+    - "50 NM E of Flagler Beach"
+    - "53 NM E of Saint Augustine Beach"
+    - "64 NM ESE of Jacksonville Beach"
+    - "76 NM ESE of St Simons Island"
+  notes: |
+    For SE FL coast the Stream west wall is 17-22 NM offshore at
+    departure latitude — WP1 at 18 NM offshore is just inside the
+    favorable N-flowing band. Wall bends offshore moving north (24 NM
+    @ Sebastian, 50 NM @ Flagler, 64-76 NM @ Jacksonville/St Simons).
+    Route stays inshore of the wall for entire FL/GA portion, gaining
+    consistent 1-2 kt N-flowing assist. Stream Hazards listed as None
+    by all four offices.
+
+# ==================================================================
+# Per-WP forecast assignments. Plan A only.
+# All WPs within 5-day bulletin horizon — no synoptic-estimate
+# caveats needed for this passage.
+# ==================================================================
+waypoint_assignments:
+  plan_a:
+    WP0:
+      zone: AMZ650
+      period: TONIGHT
+      risk_level: green
+      row_band: green
+      pressure: 30.01
+      pressure_trend_auto: true
+      notes_addendum: >
+        Sun 6/21 5:00 PM EDT depart Lake Worth Inlet. LKWF1 buoy
+        reads SSE 13 G 14 (afternoon sea breeze). Stream west wall
+        22 NM ESE. Course 020° → TWA ~135° broad reach starboard
+        on prevailing SSE breeze. Comfortable departure conditions.
+        Watch for early-evening convective cells per JAX/CHS AFDs
+        — "focus for convection shifting offshore" midnight Sun.
+      weather_risk: >
+        Late-afternoon departure. Light SE wind, broad reach. Watch
+        radar for offshore-moving convection through dusk; cells
+        dying by midnight per CHS AFD.
+
+    WP1:
+      zone: AMZ650
+      period: TONIGHT
+      risk_level: green
+      row_band: green
+      pressure: 30.01
+      pressure_trend_auto: true
+      notes_addendum: >
+        Sun 7:32 PM EDT (2.5 hr in). Off Hobe Sound, Stream entry.
+        S 5-10 kt evening transition. Course 356° → TWA ~176°
+        downwind run. Stream assist beginning (1-2 kt N-flowing).
+      weather_risk: >
+        Downwind in light S breeze. Stream assist establishing.
+        Last of evening convective activity possible.
+
+    WP2:
+      zone: AMZ575
+      period: TONIGHT
+      risk_level: green
+      row_band: green
+      pressure: 30.00
+      pressure_trend_auto: true
+      notes_addendum: >
+        Mon 12:42 AM EDT (7.7 hr in). Off Vero Beach. SW 5-10 kt
+        overnight. Course 348° → TWA ~123° broad reach starboard.
+        Stream giving solid 1.5-2 kt N-flowing assist.
+      weather_risk: >
+        Overnight transit calm middle FL coast. Light SW broad
+        reach, Stream-assisted. Quiet conditions.
+
+    WP3:
+      zone: AMZ572
+      period: MON
+      risk_level: green
+      row_band: green
+      pressure: 30.00
+      pressure_trend_auto: true
+      notes_addendum: >
+        Mon 8:09 AM EDT (15.2 hr in). Off Cape Canaveral 28.5N.
+        Buoy 41009 ON-TRACK reads E 2 G 4 (Sun PM baseline, calm).
+        Mon AM forecast: S 5-10 kt, seas 1-2 ft. Course 343° →
+        TWA ~118° broad reach. Dawn check-in opportunity.
+      weather_risk: >
+        Morning transit, light S broad reach. Stream solid 2 kt
+        assist. Coffee and dawn watch handover.
+
+    WP4:
+      zone: AMZ570
+      period: MON
+      risk_level: green
+      row_band: green
+      pressure: 30.00
+      pressure_trend_auto: true
+      notes_addendum: >
+        Mon 2:26 PM EDT (21.4 hr in). Off Daytona Beach. SW 5-10
+        kt afternoon. Course 352° → TWA ~127° broad reach. MLB
+        AFD: storm chances "afternoons into early overnight behind
+        the sea breeze." Watch radar for inland-developing cells
+        drifting offshore.
+      weather_risk: >
+        Mid-afternoon FL coast transit. Watch for offshore-moving
+        convective cells. Light wind comfortable cruising.
+
+    WP5:
+      zone: AMZ474
+      period: MON_NIGHT
+      risk_level: yellow
+      row_band: yellow
+      pressure: 30.00
+      pressure_trend_auto: true
+      notes_addendum: >
+        Mon 8:04 PM EDT (27.1 hr in). Off St Augustine. Wind
+        BUILDING — MLB forecast S 10-15 kt Mon night, seas building
+        2 ft. Course 345° → TWA ~120° broad reach starboard. Front
+        approaching from N. Watch for shift to SW overnight.
+      weather_risk: >
+        Front approach signal. S building to 10-15 kt, seas
+        increasing. Comfortable broad reach but tighten reefs.
+
+    WP6:
+      zone: AMZ472
+      period: MON_NIGHT
+      risk_level: yellow
+      row_band: yellow
+      pressure: 29.97
+      pressure_trend_auto: true
+      notes_addendum: >
+        Tue 1:50 AM EDT (32.8 hr in). Off Jacksonville Beach.
+        Crossing MLB → JAX office boundary. JAX MON_NIGHT: SW 15
+        kt G 20, seas 2-3 ft. Course 014° broad-to-beam reach
+        starboard. Pressure beginning to fall ahead of front.
+      weather_risk: >
+        Front-approach period. SW 15 G 20, seas building 2-3 ft.
+        Beam reach starboard — still comfortable but wind is up
+        and pressure is dropping. Reef early if gusts approach
+        20 kt sustained.
+
+    WP7:
+      zone: AMZ470
+      period: TUE
+      risk_level: yellow
+      row_band: yellow
+      pressure: 29.96
+      pressure_trend_auto: true
+      notes_addendum: >
+        Tue 8:01 AM EDT (39.0 hr in). Off Brunswick GA. Crossing
+        JAX→CHS office boundary at ~31°N. Course 000° straight N.
+        JAX TUE: W 10-15 kt, seas 2-3 ft. Now closer to coast
+        (~28 NM offshore here vs ~40 NM at WP5) for Stream tail
+        run. Wind W = TWA 90° beam reach port tack.
+      weather_risk: >
+        Dawn transit GA waters. W 10-15 kt beam reach. Front
+        passing — wind shifted from SW to W indicating ahead of
+        front. Conditions actively improving with daylight.
+
+    WP8:
+      zone: AMZ384
+      period: TUE
+      risk_level: yellow
+      row_band: yellow
+      pressure: 29.96
+      pressure_trend_auto: true
+      notes_addendum: >
+        Tue 11:27 AM EDT (42.5 hr in). Off Grays Reef NMS. Buoy
+        41008 ON-TRACK (~5 NM W) — pull live ground truth here.
+        CHS AMZ384 TUE: SW 10-15 G 20, seas 2-3 ft. Course 017°
+        → TWA ~118° broad reach back to starboard tack as wind
+        clocks back SW.
+      weather_risk: >
+        Mid-day GA transit. SW 10-15 G 20, broad reach. Buoy 41008
+        ground truth on-track — verify forecast against observed.
+
+    WP9:
+      zone: AMZ382
+      period: TUE
+      risk_level: yellow
+      row_band: yellow
+      pressure: 29.94
+      pressure_trend_auto: true
+      notes_addendum: >
+        Tue 4:23 PM EDT (47.4 hr in). Off Hilton Head SC. Buoy
+        41033 nearby (~10 NM SW) — Sun PM baseline showed SSW 14
+        G 18 (regional sea breeze already building before front).
+        CHS AMZ382 TUE: SW 15-20 G 25, seas 3-4 ft. Course 042°
+        → TWA ~93° beam reach starboard. AFD notes "fairly marginal
+        for Small Craft Advisories" here.
+      weather_risk: >
+        Borderline-SCA conditions per CHS AFD. SW 15-20 G 25,
+        seas 3-4 ft. Beam reach starboard — manageable but reef
+        appropriately. Final SC approach phase begins.
+
+    WP10:
+      zone: AMZ360
+      period: TUE_NIGHT
+      risk_level: yellow
+      row_band: yellow
+      pressure: 29.93
+      pressure_trend_auto: true
+      notes_addendum: >
+        Tue 10:26 PM EDT (53.4 hr in). Charleston Sea Buoy 2CL.
+        Night transit. CHS AMZ360 TUE_NIGHT: SW 15-20 G 20, seas
+        3-4 ft. Course 306° (turning NW into Charleston). TWA
+        falls to ~55° close reach port tack — slow going in
+        the final 8 NM. Watch for fishing boat traffic clearing
+        the harbor.
+      weather_risk: >
+        Night harbor approach in SW 15-20 G 20, seas 3-4 ft. Close
+        reach port tack the final 8 NM — close-hauled effect from
+        SW wind. Reefed for steady headway. Channel range lights
+        + jetty lights visual.
+
+    WP11:
+      zone: AMZ340
+      period: TUE_NIGHT
+      risk_level: green
+      row_band: green
+      pressure: 29.93
+      pressure_trend_auto: true
+      notes_addendum: >
+        Tue 11:43 PM EDT (54.7 hr in). ARRIVAL Charleston Harbor
+        Entrance. Inside the jetties. Charleston Harbor is deep
+        commercial (channel project depth 42 ft), well-marked,
+        suitable for competent night entry. Layover here.
+      weather_risk: >
+        Inside the jetties. Sheltered harbor waters. Sea-breeze
+        backing to S overnight per CHS forecast.
+
+plan_commentary:
+  plan_a: |
+    Palm Beach (Lake Worth Inlet) → Charleston, 383 NM in ~55 hours
+    at expected 7 kt SOG. Departure Sun 6/21 5:00 PM EDT, arrival
+    Tue 6/23 11:43 PM EDT. HR 54 with Stream-edge ride for ~50 hours
+    of favorable N-flowing current assist.
+
+    THREE WEATHER PHASES:
+
+    Phase 1 (Sun PM → Mon AM, WP0-WP3, ~15 hr): BENIGN. Light S/SW
+    5-10 kt, seas 1-2 ft, broad reach starboard with Stream assist.
+    Watch for Sun evening convective cells through dusk; activity
+    dies by midnight.
+
+    Phase 2 (Mon PM → Tue PM, WP4-WP9, ~32 hr): BUILDING. Front
+    approaches from N, wind backs from SW to W to SW again as we
+    transit through frontal axis. Mon night sees JAX/CHS wind
+    increase to SW 15-20 kt G 20-25 kt offshore zones. Seas build
+    from 2 to 3-4 ft. Pressure drops from 30.00 to 29.94 inHg.
+
+    Phase 3 (Tue PM-evening arrival, WP10-WP11, ~7 hr): ACTIVE
+    FRONT. SW 15-20 G 25 kt across CHS waters per AMZ360/AMZ362.
+    CHS AFD describes this as "fairly marginal for Small Craft
+    Advisories" — borderline but no SCA issued. Final 50 NM is
+    beam-to-close reach starboard, then close reach port tack for
+    the last 8 NM into Charleston Harbor as course turns to 306°.
+
+    TIMING SENSITIVITY: A slower passage (~6.5 kt avg → Wed 4 AM
+    arrival) would put the final approach AFTER the front begins
+    clearing Tue night, in lighter wind. A faster passage (~7.5 kt
+    Stream-assisted) makes only 1 hour difference and stays in
+    the front. Conservative pacing is preferred over speed.
+
+    REFRESH POINTS REQUIRED:
+    - Mon AM (~15 hr in): pull CWFMLB + CWFJAX to firm up Mon
+      night/Tue conditions on the GA/SC approach
+    - Mon PM (~24 hr in): pull CWFJAX + CWFCHS to verify SCA
+      threshold trend
+    - Tue dawn (~36 hr in): pull CWFCHS + AFD CHS to confirm front
+      timing and arrival-window winds
