@@ -1,0 +1,263 @@
+# Palm Beach → Charleston SC passage — OUTREMER 55 variant.
+# Identical route, forecast, and waypoints to palmbeach-charleston.yaml.
+# Only the vessel block, calibration motor crossover, and stability fields
+# differ. The forecast and buoy YAMLs are vessel-agnostic and reused.
+
+passage:
+  id: palmbeach-charleston-o55
+  name: PalmBeach-Charleston-Outremer55
+  origin: Palm Beach, FL (Lake Worth Inlet Sea Buoy LW)
+  destination: Charleston, SC (Charleston Harbor Entrance)
+  total_nm: 383.09
+
+vessel:
+  designation: Outremer 55
+  design_number: O55
+  load_config: cruising-loaded
+  # Displacement: Outremer 55 = 9.0 t light / 11.5 t cruising-loaded.
+  # 11.5 t = 25,353 lb. Modest displacement for a 55' cat.
+  displacement_lb: 25353
+  # Twin Yanmar 4JH80 (80 HP each, 160 HP total). Cruising single-engine
+  # 7.5 kt; both engines 8.5-9 kt. Use single-engine cruise as baseline.
+  motor_speed_kt: 7.5
+  # Motor crossover TWS is HIGHER than HR boats because the cat's motor
+  # speed (7.5 kt) is also higher. At beam reach, polar exceeds 7.5 kt
+  # around TWS=9 kt (vs HR 54 at TWS=7.5 kt). Cats need more wind to
+  # beat their faster motoring speed.
+  motor_crossover_tws_kt: 9.0
+  # Twin diesels, 460 L each tank = ~243 gal total fuel.
+  fuel_capacity_gal: 243
+  # Single-engine cruise burn ~1.7 gph at 7.5 kt; both engines ~3.5 gph
+  # at 8.5 kt. Use single-engine cruise as the baseline burn rate.
+  fuel_burn_gph: 1.7
+
+  designer: VPLP (Van Peteghem - Lauriot Prévost)
+  builder: Outremer Yachting
+  ce_category: A
+  ce_category_note: Ocean — unlimited offshore
+  polar_source: Outremer base polar table (PW_O55_Base_Polar.xlsx)
+  data_sheet_source: Outremer Yachting catalog
+  stability_source: >
+    ESTIMATE — monohull RM/RMC framework does not directly apply to
+    multihulls. Catamaran stability is dominated by form (beam) not
+    ballast. Outremer 55 is CE Category A with ~7.8 m beam giving
+    high initial stability. Diagonal stability (the cat-relevant
+    failure mode — pitchpoling) and capsize threshold are not
+    captured by the monohull RM curve. Values below are rough
+    proxies set so the build does not fail; treat as not-applicable.
+
+  # The RM fields below are PROXY values set to non-zero so the build
+  # framework's stability section renders. They are NOT comparable to
+  # monohull RM values — catamaran stability operates on different
+  # physics. Do not use these for trip risk decisions; refer to the
+  # qualitative stability_source note above.
+  rmc_kgm: 0
+  rm_30deg_kgm: 0
+  rm_max_kgm: 0
+  # Brewer Comfort Ratio and CSF are monohull formulas. Computed below
+  # purely for completeness but they don't carry their usual meaning
+  # for a cat.
+  brewer_cr: 22.5     # very low CR — cat is "uncomfortable" by monohull standards (rides like a different boat)
+  csf: 2.55           # CSF >> 2 = cat would be capsize-prone if it WERE a monohull; for a cat this is irrelevant
+
+calibration:
+  # Outremer 55 is a different beast for sea-factor calibration. The
+  # catamaran sees less wave-induced penalty on the beam (broader
+  # platform doesn't pitch like a monohull) but a HIGHER penalty when
+  # head-to-chop (the bridge deck slams). For this passage with
+  # primarily 90-135° TWAs in 2-4 ft seas, the HR-derived sea factors
+  # are a reasonable starting point — refine with logged passage data.
+  sea_factors:
+    steep_chop_bow: 0.65    # cats slam harder upwind — penalty larger than HR
+    close_reach: 0.85
+    beam_reach: 0.94        # cats less affected by beam seas — penalty smaller
+    broad_reach: 0.95
+    reefed_active_trough: 0.85
+
+# Arrival timing IDENTICAL to HR 54 build — same destination, same
+# daylight envelope. Night arrival Charleston Harbor accepted.
+arrival_timing:
+  destination_label: "Charleston, SC (Charleston Harbor Entrance)"
+  civil_dawn: 5.800
+  sunrise: 6.300
+  sunset: 20.500
+  civil_dusk: 21.000
+  day_window: [6.300, 20.500]
+  twilight_windows:
+    - [5.800, 6.300]
+    - [20.500, 21.000]
+  night_arrival_accepted: true
+  preferred_window:
+    start: 7.0
+    end: 19.0
+
+# Waypoints IDENTICAL to HR 54 build. Same Stream-edge corridor.
+waypoints:
+  - id: WP0
+    name: Lake Worth Inlet Sea Buoy LW
+    lat: 26.7717
+    lon: -80.0167
+    cum_nm: 0.00
+    course_out: 20
+  - id: WP1
+    name: Off Hobe Sound (Stream entry)
+    lat: 27.0500
+    lon: -79.9000
+    cum_nm: 17.84
+    course_out: 356
+  - id: WP2
+    name: Off Vero Beach
+    lat: 27.6500
+    lon: -79.9500
+    cum_nm: 53.96
+    course_out: 348
+  - id: WP3
+    name: Off Cape Canaveral 28.5N
+    lat: 28.5000
+    lon: -80.1500
+    cum_nm: 106.08
+    course_out: 343
+  - id: WP4
+    name: Off Daytona Beach
+    lat: 29.2000
+    lon: -80.4000
+    cum_nm: 150.12
+    course_out: 352
+  - id: WP5
+    name: Off St Augustine (Stream centerline)
+    lat: 29.8500
+    lon: -80.5000
+    cum_nm: 189.50
+    course_out: 345
+  - id: WP6
+    name: Off Jacksonville Beach
+    lat: 30.5000
+    lon: -80.7000
+    cum_nm: 229.88
+    course_out: 14
+  - id: WP7
+    name: Off Brunswick GA
+    lat: 31.2000
+    lon: -80.5000
+    cum_nm: 273.15
+    course_out: 0
+  - id: WP8
+    name: Off Savannah / Grays Reef NMS
+    lat: 31.6000
+    lon: -80.5000
+    cum_nm: 297.17
+    course_out: 17
+  - id: WP9
+    name: Off Hilton Head SC
+    lat: 32.1500
+    lon: -80.3000
+    cum_nm: 331.73
+    course_out: 42
+  - id: WP10
+    name: Charleston Sea Buoy 2CL
+    lat: 32.6717
+    lon: -79.7383
+    cum_nm: 374.06
+    course_out: 306
+  - id: WP11
+    name: Charleston Harbor Entrance
+    lat: 32.7595
+    lon: -79.8835
+    cum_nm: 383.09
+    course_out: null
+
+# Same plan and timing as HR 54 build for direct comparison.
+plans:
+  - id: plan_a
+    tab_label: "Plan A - Sun 5 PM"
+    qualifier: ""
+    depart_day: Sun
+    depart_date: 2026-06-21
+    depart_hour: 17.0
+
+route_buoys:
+  - id: LKWF1
+    name: Lake Worth Pier (departure area)
+    lat: 26.613
+    lon: -80.033
+    relevant_wps:
+      WP0: "~10 NM N (departure-area wind ground truth)"
+      WP1: "~26 NM S of WP1"
+  - id: 41009
+    name: Canaveral 20 NM E
+    lat: 28.506
+    lon: -80.185
+    relevant_wps:
+      WP3: "ON-TRACK (closest to WP3 at 28.5N)"
+      WP2: "~50 NM N"
+  - id: 41010
+    name: Canaveral E 120 NM (offshore reference)
+    lat: 28.860
+    lon: -78.480
+    relevant_wps:
+      WP3: "~85 NM E (offshore-edge reference)"
+      WP4: "~120 NM SE"
+  - id: 41008
+    name: Grays Reef NMS (off Sapelo Sound GA)
+    lat: 31.400
+    lon: -80.867
+    relevant_wps:
+      WP7: "~25 NM W"
+      WP8: "ON-TRACK (closest to WP8)"
+  - id: 41033
+    name: Fripp Island Nearshore SC
+    lat: 32.283
+    lon: -80.407
+    relevant_wps:
+      WP9: "~10 NM SW (Hilton Head area ground truth)"
+  - id: 41004
+    name: Edisto SC offshore
+    lat: 32.502
+    lon: -79.099
+    relevant_wps:
+      WP10: "~35 NM SE of Charleston Sea Buoy"
+      WP9: "~75 NM ENE"
+
+forecast_offices:
+  - office: NWS Miami FL (KMFL)
+    code: MFL
+    zones:
+      AMZ651: Coastal waters Deerfield Beach to Ocean Reef FL out 20 NM
+      AMZ650: Coastal waters Jupiter Inlet to Deerfield Beach FL out 20 NM
+      AMZ670: Waters Jupiter Inlet to Deerfield Beach 20-60 NM
+  - office: NWS Melbourne FL (KMLB)
+    code: MLB
+    zones:
+      AMZ555: Sebastian Inlet to Jupiter Inlet 0-20 NM
+      AMZ552: Volusia-Brevard Line to Sebastian Inlet 0-20 NM
+      AMZ550: Flagler Beach to Volusia-Brevard Line 0-20 NM
+      AMZ575: Sebastian Inlet to Jupiter Inlet 20-60 NM
+      AMZ572: Volusia-Brevard Line to Sebastian Inlet 20-60 NM
+      AMZ570: Flagler Beach to Volusia-Brevard Line 20-60 NM
+  - office: NWS Jacksonville FL (KJAX)
+    code: JAX
+    zones:
+      AMZ450: Coastal waters Altamaha Sound GA to Fernandina Beach FL out 20 NM
+      AMZ452: Coastal waters Fernandina Beach to St Augustine FL out 20 NM
+      AMZ454: Coastal waters St Augustine to Flagler Beach FL out 20 NM
+      AMZ470: Waters Altamaha Sound GA to Fernandina Beach FL 20-60 NM
+      AMZ472: Waters Fernandina Beach to St Augustine FL 20-60 NM
+      AMZ474: Waters St Augustine to Flagler Beach FL 20-60 NM
+  - office: NWS Charleston SC (KCHS)
+    code: CHS
+    zones:
+      AMZ340: Charleston Harbor
+      AMZ360: Coastal waters South Santee River to Edisto Beach SC out 20 NM
+      AMZ362: Coastal waters Edisto Beach SC to Savannah GA out 20 NM
+      AMZ364: Coastal waters Savannah GA to Altamaha Sound GA out 20 NM
+      AMZ380: Waters South Santee River to Edisto Beach SC 20-60 NM
+      AMZ382: Waters Edisto Beach SC to Savannah GA 20-60 NM
+      AMZ384: Waters Savannah GA to Altamaha Sound GA 20-60 NM
+
+tide_stations:
+  - id: 8722670
+    name: Lake Worth Pier, Atlantic Ocean, FL
+    relevance: departure
+  - id: 8665530
+    name: Charleston, Cooper River Entrance, SC
+    relevance: arrival

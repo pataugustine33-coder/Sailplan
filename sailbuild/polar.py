@@ -5,11 +5,14 @@ wind calculation.
 This module is the boat-speed engine. Given (TWS, TWA, sea height, period,
 calibration, design), it produces (polar speed, boat speed, sail mode, AWS, AWA).
 
-Three design polars are wired in:
+Four design polars are wired in:
   - D1170 = HR 48 Mk II half-load (Frers VPP, default for most passages)
   - D1206 = HR 54 half-load (Frers VPP, used by Vessel Comparison and HR 54 passages)
   - O475  = Oyster 475 Standard Keel + Spi (digitized from Oyster Design polar
             diagram — see notes on accuracy at the grid definition)
+  - O55   = Outremer 55 (VPLP-designed performance cruising catamaran).
+            Source polar table provided by skipper from Outremer; resampled
+            onto standard sailbuild grid.
 """
 import math
 import numpy as np
@@ -81,11 +84,46 @@ VS_GRID_O475 = np.array([
     [        2.55, 3.90, 5.15, 6.10, 6.90, 7.50, 7.95, 8.65, 9.30],  # 150° (spi)
 ])
 
+# Outremer 55 — VPLP design. Performance cruising catamaran.
+# Source: /mnt/project/PW_O55_Base_Polar.xlsx (Outremer base polar table).
+#
+# Source polar grid is much denser than the standard sailbuild grid —
+# TWS [6,8,10,12,15,20,24,28,32,40] × TWA [0,45,50,55,60,70,80,90,100,
+# 110,120,130,140,150,160,170,180]. Resampled via bilinear interpolation
+# onto the standard sailbuild grid TWS [4,6,8,10,12,14,16,20,25] ×
+# TWA [45,52,60,70,80,90,100,110,120,135,150].
+#
+# Outremer 55 performance shape vs HR monohulls:
+#   - Upwind in light air: SLOWER than HR boats (cats need more wind)
+#   - Beam reach moderate (12 kt TWS): roughly equal to HR 54
+#   - Broad/deep reach 14+ kt: significantly faster (+8-15%)
+#   - Peak speed ~14.85 kt at TWS=32, TWA=150° (off the chart for HR)
+#
+# TWS=4 row is extrapolated linearly down from TWS=6 (source minimum) —
+# at 4 kt TWS the Outremer is essentially in motor regime and the polar
+# values are reference only; the build's motor_crossover_tws will kick
+# in at 9 kt TWS for this vessel (vs 7.5 for HR 54) because the cat's
+# motor speed is higher.
+VS_GRID_O55 = np.array([
+    [ 1.20,  1.80,  2.70,  3.60,  4.50,  4.50,  4.50,  4.50,  4.28],  # TWA 45°
+    [ 2.93,  4.39,  6.70,  7.63,  7.85,  7.91,  7.98,  8.15,  8.08],  # TWA 52°
+    [ 3.00,  4.50,  6.84,  7.83,  8.28,  8.40,  8.50,  8.64,  8.62],  # TWA 60°
+    [ 3.06,  4.59,  6.93,  7.92,  8.55,  8.67,  8.82,  9.18,  9.16],  # TWA 70°
+    [ 3.24,  4.86,  6.93,  8.01,  8.82,  9.12,  9.34,  9.63, 10.04],  # TWA 80°
+    [ 3.60,  5.40,  7.02,  8.10,  9.00,  9.48,  9.86, 10.44, 10.94],  # TWA 90°
+    [ 3.66,  5.49,  7.20,  8.28,  9.18,  9.66, 10.08, 10.80, 11.45],  # TWA 100°
+    [ 3.66,  5.49,  7.20,  8.37,  9.36,  9.84, 10.26, 10.98, 11.70],  # TWA 110°
+    [ 3.54,  5.31,  7.02,  8.37,  9.36,  9.90, 10.37, 11.16, 11.92],  # TWA 120°
+    [ 3.24,  4.86,  6.52,  7.96,  8.68,  9.59, 10.27, 11.20, 12.28],  # TWA 135°
+    [ 2.82,  4.23,  5.40,  7.38,  8.10,  8.82,  9.32,  9.90, 11.61],  # TWA 150°
+])
+
 # Design ID → polar grid lookup. Used by polar_speed(design=...).
 POLARS = {
     "D1170": VS_GRID_D1170,
     "D1206": VS_GRID_D1206,
     "O475": VS_GRID_O475,
+    "O55": VS_GRID_O55,
 }
 
 
