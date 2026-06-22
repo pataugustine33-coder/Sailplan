@@ -865,36 +865,6 @@ def twelve_hour_strip_png_bytes(segments, output_w_px=1400, output_h_px=440):
     ax_sea.set_axisbelow(True)
     plt.setp(ax_sea.get_xticklabels(), visible=False)
 
-    # Sea direction arrows — small arrows above each bar showing where the
-    # primary sea is coming FROM. Same convention as the per-card compass
-    # rose (and the Plan tab roses): arrow TAIL sits at the FROM bearing
-    # in the course-up frame, HEAD points INWARD toward the (implied) boat.
-    # Reading the arrow: "sea comes from this direction, to the boat."
-    arrow_y = sea_ymax * 0.85
-    arrow_len = sea_ymax * 0.12
-    for c, sf_deg, crs in zip(centers, sea_from_degs, courses):
-        if sf_deg is None or sf_deg <= 0:
-            continue
-        rel_rad = math.radians((sf_deg - crs) % 360)
-        # Tail at FROM bearing in course-up frame
-        tail_x = c + math.sin(rel_rad) * arrow_len
-        tail_y = arrow_y + math.cos(rel_rad) * arrow_len * 0.5  # less vertical
-        # Head inward, toward the center point (above each bar)
-        head_x = c + math.sin(rel_rad) * arrow_len * 0.2
-        head_y = arrow_y + math.cos(rel_rad) * arrow_len * 0.10
-        ax_sea.annotate("", xy=(head_x, head_y), xytext=(tail_x, tail_y),
-                        arrowprops=dict(arrowstyle="-|>", color="#1B5E20",
-                                        lw=1.5, mutation_scale=10,
-                                        linestyle="--"),
-                        annotation_clip=False)
-
-    # Tiny legend strip in the sea panel telling the skipper what the
-    # marks mean — only on first segment to avoid clutter
-    if segments and seas:
-        ax_sea.text(0.05, sea_ymax * 0.92,
-                    "↘ sea direction (course-up)",
-                    fontsize=7, color="#1B5E20", style="italic")
-
     # ====== BOTTOM PANEL: Boat speed — polar vs calibrated ======
     bs_offset = bar_w * 0.22
     ax_bs.bar([c - bs_offset for c in centers], bs_polar, width=bar_w * 0.4,
