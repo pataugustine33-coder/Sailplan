@@ -118,12 +118,14 @@ waypoints:
     course_out: 42
   - id: WP8
     name: Charleston Sea Buoy 2CL
+    chart_label: "Chas Sea Buoy"
     lat: 32.6717
     lon: -79.7383
     cum_nm: 330.22
     course_out: 306
   - id: WP9
     name: Charleston Harbor Entrance
+    chart_label: "Chas Harbor"
     lat: 32.7595
     lon: -79.8835
     cum_nm: 339.25

@@ -201,7 +201,85 @@ def radar_overlay_png_bytes(plans_data, title="Plan Comparison", output_px=580):
 # ======================================================================
 # Wind/sea timeline strip — sparkline across the passage
 # ======================================================================
-def timeline_strip_png_bytes(legs, output_w_px=1200, output_h_px=420):
+def _short_location_from_wp_name(wp_name: str, max_len: int = 14) -> str:
+    """Derive a short city/location label from a verbose WP name, for use
+    as a second-line x-axis tick label on the timeline strip.
+
+    Strategy:
+      1. "Current position (in Stream E of <loc>)" → "<loc>"
+      2. "Off <name>" → strip "Off "
+      3. Drop parenthetical content
+      4. Drop trailing zone-boundary tags ("AMZ650/AMZ450 zone boundary 30.7N")
+      5. Drop trailing latitude markers ("28.5N")
+      6. Drop "abeam (...)" descriptors
+      7. "<a> / <b>" → "<a>"
+      8. Drop common trailing nautical suffixes aggressively:
+            Inlet Sea Buoy <id>, Sea Buoy <id>, Harbor Entrance, NMS, Tower
+      9. If still over max_len, try dropping trailing "Beach" / "Inlet"
+     10. If still over max_len, truncate with ".."
+
+    Examples (max_len=14):
+      "Current position (in Stream E of Vero Beach)" → "Vero Beach"
+      "Off Cape Canaveral 28.5N"                    → "Cape Canaveral"
+      "Off Jacksonville Beach"                      → "Jacksonville"
+      "Off Savannah / Grays Reef NMS"               → "Savannah"
+      "Charleston Sea Buoy 2CL"                     → "Charleston"
+      "Charleston Harbor Entrance"                  → "Charleston"
+      "Lake Worth Inlet Sea Buoy LW"                → "Lake Worth"
+
+    Note: this heuristic may produce identical labels for WPs that share
+    a city name (e.g., both Charleston WPs above collapse to "Charleston").
+    Use the YAML waypoint `chart_label` field to override per-WP for
+    disambiguation.
+    """
+    import re
+    if not wp_name:
+        return ""
+    s = wp_name.strip()
+
+    if s.lower().startswith("current position"):
+        m = re.search(r'\(([^)]+)\)', s)
+        if m:
+            inner = m.group(1)
+            of_match = re.search(r'\bof\s+(.+)$', inner, re.IGNORECASE)
+            if of_match:
+                return of_match.group(1).strip()
+            return inner.strip()
+        return "Current pos."
+
+    if s.lower().startswith("off "):
+        s = s[4:].strip()
+
+    s = re.sub(r'\s*\([^)]*\)', '', s).strip()
+    s = re.sub(r'\s*AMZ\d+/AMZ\d+\s+zone\s+boundary.*$', '', s, flags=re.IGNORECASE).strip()
+    s = re.sub(r'\s+\d+\.?\d*\s*[NS]\s*$', '', s).strip()
+    s = re.sub(r'\s+abeam(\s+.*)?$', '', s, flags=re.IGNORECASE).strip()
+
+    if '/' in s:
+        s = s.split('/')[0].strip()
+
+    s = re.sub(r'\s+Inlet\s+Sea\s+Buoy(\s+\w+)?\s*$', '', s, flags=re.IGNORECASE).strip()
+    s = re.sub(r'\s+Sea\s+Buoy(\s+\w+)?\s*$', '', s, flags=re.IGNORECASE).strip()
+    s = re.sub(r'\s+Harbor\s+Entrance\s*$', '', s, flags=re.IGNORECASE).strip()
+    s = re.sub(r'\s+NMS\s*$', '', s, flags=re.IGNORECASE).strip()
+    s = re.sub(r'\s+Tower\s*$', '', s, flags=re.IGNORECASE).strip()
+
+    if len(s) > max_len:
+        s_alt = re.sub(r'\s+Beach\s*$', '', s, flags=re.IGNORECASE).strip()
+        if s_alt and len(s_alt) < len(s):
+            s = s_alt
+    if len(s) > max_len:
+        s_alt = re.sub(r'\s+Inlet\s*$', '', s, flags=re.IGNORECASE).strip()
+        if s_alt and len(s_alt) < len(s):
+            s = s_alt
+
+    if len(s) > max_len:
+        s = s[:max_len-2].rstrip() + '..'
+
+    return s
+
+
+def timeline_strip_png_bytes(legs, output_w_px=1200, output_h_px=460):
     """Horizontal timeline showing wind speed (top panel) and sea height
     (bottom panel) across the passage, with shared x-axis.
 
@@ -229,6 +307,20 @@ def timeline_strip_png_bytes(legs, output_w_px=1200, output_h_px=420):
     gusts = [l.gust_kt if l.gust_kt else 0 for l in legs]
     seas = [l.sea_ft_high if l.sea_ft_high else 0 for l in legs]
     wp_labels = [l.wp_id for l in legs]
+
+    # Two-line tick labels: WP id on top, short city/location label below.
+    # Prefer the explicit chart_label from YAML if present; otherwise derive
+    # from wp_name via the heuristic. Falls back to just WP id if neither
+    # produces a non-empty string.
+    tick_labels = []
+    for leg in legs:
+        loc = (getattr(leg, "chart_label", "") or "").strip()
+        if not loc:
+            loc = _short_location_from_wp_name(getattr(leg, "wp_name", "") or "")
+        if loc:
+            tick_labels.append(f"{leg.wp_id}\n{loc}")
+        else:
+            tick_labels.append(leg.wp_id)
 
     # Two stacked panels sharing x-axis. Top is taller because wind has
     # more vertical content (bars + gust caps + two threshold lines + labels).
@@ -331,10 +423,15 @@ def timeline_strip_png_bytes(legs, output_w_px=1200, output_h_px=420):
 
     # ======================================================================
     # Shared x-axis — WP labels only on the bottom panel
+    # Labels rotated 30° to prevent overlap of multi-word city names
+    # (e.g. "Cape Canaveral" next to "Daytona Beach" doesn't fit horizontally
+    # at 10 WPs in a 1200 px chart)
     # ======================================================================
     ax_sea.set_xticks(x)
-    ax_sea.set_xticklabels(wp_labels, fontsize=12, color=COLOR_TITLE, fontweight="bold")
-    ax_sea.tick_params(axis="x", labelsize=12)
+    ax_sea.set_xticklabels(tick_labels, fontsize=10, color=COLOR_TITLE,
+                           fontweight="bold", rotation=30, ha="right",
+                           rotation_mode="anchor")
+    ax_sea.tick_params(axis="x", labelsize=10)
     # Top panel hides its own x tick labels (sharex handles the axis values,
     # but we still want to suppress the tick label text on the top panel)
     plt.setp(ax_wind.get_xticklabels(), visible=False)

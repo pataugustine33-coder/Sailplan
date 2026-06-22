@@ -64,6 +64,7 @@ class Leg:
     sea_position: str = ""      # HD/PB/PQ/ST/SQ/SB — which side the boat feels the sea
     leg_distance_nm: float = 0.0
     leg_hours: float = 0.0
+    chart_label: str = ""       # Short city/location label for chart x-axis (e.g. "Vero Beach"); fallback to heuristic on wp_name if not set
 
 
 MIN_SAILING_TWA = 45  # below this, boat must tack (VMG ~5 kt < motor 6 kt) → motor
@@ -389,6 +390,7 @@ def build_legs_for_plan(passage: dict, forecast: dict, plan_id: str) -> list[Leg
                 row_band=row_band,
                 pressure_inhg=pressure_inhg,
                 pressure_trend=pressure_trend,
+                chart_label=wp.get("chart_label", ""),
             ))
             continue
 
@@ -481,6 +483,7 @@ def build_legs_for_plan(passage: dict, forecast: dict, plan_id: str) -> list[Leg
             risk_color=risk_color, row_band=row_band,
             pressure_inhg=pressure_inhg, pressure_trend=pressure_trend,
             sea_position=sea_pos,
+            chart_label=wp.get("chart_label", ""),
         ))
 
         # Advance cumulative for next leg
