@@ -135,15 +135,10 @@ def build(passage_path, forecast_path, buoys_path, output_path, lessons_path=Non
             passage=passage,
         )
 
-        bowtie_name = f"{plan['tab_label']} Bowtie"
-        if len(bowtie_name) > 31:
-            bowtie_name = bowtie_name[:31]
-        ws = wb.create_sheet(bowtie_name)
-        render_risk_bowtie(ws, passage, plan, legs_by_plan[plan["id"]])
-
         # === Watch Brief tab — 12-hour tactical dashboard ===
-        # Added 6/22/26 per skipper request; mirrors the Plan tab but at
-        # watch-handover resolution (4 × 3-hour segments from depart_hour).
+        # Added 6/22/26 per skipper request; placed right after the Plan tab
+        # (third tab overall, after Briefing and Plan) so the skipper goes
+        # briefing → plan → watch in one continuous read.
         watch_name = f"Watch - {plan['tab_label']}"
         if len(watch_name) > 31:
             watch_name = watch_name[:31]
@@ -157,6 +152,12 @@ def build(passage_path, forecast_path, buoys_path, output_path, lessons_path=Non
             total_nm=passage["passage"]["total_nm"],
             forecast_cycle_label=cycle_label,
         )
+
+        bowtie_name = f"{plan['tab_label']} Bowtie"
+        if len(bowtie_name) > 31:
+            bowtie_name = bowtie_name[:31]
+        ws = wb.create_sheet(bowtie_name)
+        render_risk_bowtie(ws, passage, plan, legs_by_plan[plan["id"]])
 
     # === GROUP 3: THE WEATHER ===
     # Live buoy obs come first (current ground truth), then forecast attribution

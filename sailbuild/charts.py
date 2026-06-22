@@ -540,36 +540,53 @@ RISK_BORDER = {
 def _draw_segment_compass(ax, wind_deg, sea_deg, course):
     """Draw a small wind+sea compass rose on the given Axes (course-up frame).
 
-    Same visual language as the per-WP plan-tab roses but simplified for the
-    smaller card real estate. Course is shown as the up-direction label;
-    wind arrow comes FROM wind_deg; sea arrow comes FROM sea_deg.
+    Course-up means the boat's heading is at the top of the rose. A bold
+    bow-arrow indicates "this way the boat is going" so the orientation is
+    unambiguous to the skipper. The N/E/S/W cardinal letters rotate around
+    the rose to their TRUE compass positions relative to the heading.
+
+    Wind arrow points the direction the wind is GOING (FROM wind_deg).
+    Sea arrow same convention. Both are rendered in the course-up frame.
+
+    Course-up math (matches sailbuild/rose.py SVG behavior):
+      rel_angle = (true_bearing - course) % 360
+      x = sin(rel_angle) * r    # +x = right (course-relative starboard)
+      y = cos(rel_angle) * r    # +y = up (course-relative bow)
+    Cardinal N at rel=18° for course=342° → upper-right ✓
     """
     # Background circle
-    theta = np.linspace(0, 2 * np.pi, 100)
-    ax.plot(np.cos(theta), np.sin(theta), color=COLOR_GRID, linewidth=1.0)
-    ax.fill(np.cos(theta), np.sin(theta), color="#FAFAFA", zorder=0)
+    theta_circle = np.linspace(0, 2 * np.pi, 100)
+    ax.plot(np.cos(theta_circle), np.sin(theta_circle),
+            color=COLOR_GRID, linewidth=1.0)
+    ax.fill(np.cos(theta_circle), np.sin(theta_circle),
+            color="#FAFAFA", zorder=0)
 
-    # Cardinal ticks (course-up rotation: 0 at top of rose = course direction)
-    for cardinal, deg_offset in [("N", 0), ("E", 90), ("S", 180), ("W", 270)]:
-        # In course-up frame, the cardinal letter goes where N/E/S/W is
-        # relative to course
-        angle = math.radians((deg_offset - course) % 360 - 90)
-        ax.text(1.15 * math.cos(angle), 1.15 * math.sin(angle),
-                cardinal, ha="center", va="center", fontsize=7, color="#777777")
+    # Cardinal letters in course-up frame.
+    # Using SVG-style sin/cos mapping so N (compass=0°) at course=342° lands
+    # at rel=18° = (sin(18°), cos(18°)) = (0.31, 0.95) = upper-right. ✓
+    for cardinal, compass_deg in [("N", 0), ("E", 90), ("S", 180), ("W", 270)]:
+        rel_rad = math.radians((compass_deg - course) % 360)
+        x = math.sin(rel_rad) * 1.15
+        y = math.cos(rel_rad) * 1.15
+        ax.text(x, y, cardinal, ha="center", va="center",
+                fontsize=7, color="#777777")
 
-    # Course-up indicator (small triangle at top center, course bearing label)
-    ax.plot([0, 0], [0, 0.92], color="#444444", linewidth=1.5, alpha=0.6)
-    ax.text(0, 1.15, f"{course}°T", ha="center", va="bottom",
-            fontsize=8, fontweight="bold", color=COLOR_TITLE)
+    # === Course-up boat-bow indicator at top ===
+    bow = plt.Polygon([(-0.10, 0.78), (0.10, 0.78), (0, 0.98)],
+                      facecolor="#1F3864", edgecolor="#0E2138",
+                      linewidth=1.2, zorder=6)
+    ax.add_patch(bow)
+    ax.plot([0, 0], [0, 0.78], color="#1F3864", linewidth=1.3, alpha=0.55, zorder=5)
+    ax.text(0, 1.20, f"COG {course}°T", ha="center", va="bottom",
+            fontsize=8, fontweight="bold", color="#1F3864")
 
-    # Wind arrow — wind comes FROM wind_deg, arrow points the direction wind GOES.
-    # In course-up frame, wind_deg relative to course = wind_deg - course
+    # Helper: convert a true bearing (compass deg) to (from_xy, to_xy) in
+    # the course-up frame, using the same sin/cos mapping as the cardinals.
+    # Wind/sea comes FROM the bearing, GOES toward the opposite point.
     def to_xy(deg_true, length):
-        # True bearing rotated so course = up (0° rose-relative = course true)
-        angle = math.radians((deg_true - course) % 360 - 90)
-        # The arrow points FROM the angle TO 180° opposite (wind GOES that way)
-        from_x = math.cos(angle) * length
-        from_y = math.sin(angle) * length
+        rel_rad = math.radians((deg_true - course) % 360)
+        from_x = math.sin(rel_rad) * length
+        from_y = math.cos(rel_rad) * length
         to_x = -from_x
         to_y = -from_y
         return from_x, from_y, to_x, to_y
@@ -587,8 +604,8 @@ def _draw_segment_compass(ax, wind_deg, sea_deg, course):
                                     lw=1.6, mutation_scale=12,
                                     linestyle="--"))
 
-    ax.set_xlim(-1.35, 1.35)
-    ax.set_ylim(-1.35, 1.35)
+    ax.set_xlim(-1.40, 1.40)
+    ax.set_ylim(-1.40, 1.45)
     ax.set_aspect("equal")
     ax.axis("off")
 
@@ -706,7 +723,7 @@ def watch_cards_png_bytes(segments, output_w_px=1600, output_h_px=540):
     return buf
 
 
-def twelve_hour_strip_png_bytes(segments, output_w_px=1400, output_h_px=380):
+def twelve_hour_strip_png_bytes(segments, output_w_px=1400, output_h_px=440):
     """12-hour wind+sea+boat-speed strip with segment boundaries and day/night shading.
 
     Time axis from 0 to 12 hours (segment-relative). Top panel: wind sustained
@@ -722,7 +739,7 @@ def twelve_hour_strip_png_bytes(segments, output_w_px=1400, output_h_px=380):
     total_hours = n * seg_hours
 
     fig = plt.figure(figsize=(output_w_px / 100, output_h_px / 100), dpi=100)
-    gs = fig.add_gridspec(3, 1, height_ratios=[2.2, 1.0, 1.5], hspace=0.18,
+    gs = fig.add_gridspec(3, 1, height_ratios=[2.2, 1.6, 1.5], hspace=0.22,
                           left=0.06, right=0.97, top=0.93, bottom=0.10)
     ax_wind = fig.add_subplot(gs[0])
     ax_sea  = fig.add_subplot(gs[1], sharex=ax_wind)
@@ -799,20 +816,70 @@ def twelve_hour_strip_png_bytes(segments, output_w_px=1400, output_h_px=380):
                       fontsize=11, color=COLOR_TITLE, fontweight="bold",
                       loc="left", pad=6)
 
-    # ====== MIDDLE PANEL: Sea height ======
-    ax_sea.plot(centers, seas, color=COLOR_SEA_LINE, linewidth=2.5, marker="o",
-                markersize=8, markeredgecolor="white", markeredgewidth=1.3, zorder=4)
+    # ====== MIDDLE PANEL: Sea height + direction + period ======
+    # Bars for sea height (filled, like the wind panel) — gives sea conditions
+    # visual weight on par with wind, not just a thin line. Each bar is
+    # annotated with sea period in seconds AND has a small direction arrow
+    # above it showing where the primary swell is coming FROM (rotated to
+    # course-up just like the rose: arrow angle = sea_from - course).
+    sea_periods = [s.sea_period for s in segments]
+    sea_from_degs = [s.sea_from_deg for s in segments]
+    courses = [s.course for s in segments]
+
+    ax_sea.bar(centers, seas, width=bar_w, color="#BDD7EE",
+               edgecolor=COLOR_SEA_LINE, linewidth=1.2, zorder=3,
+               label="Sea height (ft)")
+    # Height label inside each bar
     for c, s in zip(centers, seas):
         if s > 0:
-            ax_sea.annotate(f"{s:.0f} ft", xy=(c, s), xytext=(0, 7),
-                            textcoords="offset points", ha="center",
-                            fontsize=9, color=COLOR_SEA_LINE, fontweight="bold")
+            ax_sea.annotate(f"{s:g} ft", xy=(c, s / 2), ha="center", va="center",
+                            fontsize=10, color=COLOR_SEA_LINE, fontweight="bold",
+                            zorder=4)
+    # Period label below each bar (small, above the x-axis line)
+    for c, p in zip(centers, sea_periods):
+        if p and p > 0:
+            ax_sea.annotate(f"@ {int(round(p))}s",
+                            xy=(c, 0), xytext=(0, -2),
+                            textcoords="offset points", ha="center", va="top",
+                            fontsize=8, color="#1F3864", fontweight="bold")
+
     ax_sea.set_ylabel("Sea (ft)", fontsize=10, color=COLOR_SEA_LINE, fontweight="bold")
-    ax_sea.set_ylim(0, max(7, max(seas) * 1.5))
+    sea_ymax = max(7, max(seas) * 1.55) if seas else 7
+    ax_sea.set_ylim(0, sea_ymax)
     ax_sea.tick_params(axis="y", labelcolor=COLOR_SEA_LINE, labelsize=9)
     ax_sea.grid(axis="y", color=COLOR_GRID, linewidth=0.5, alpha=0.5, zorder=1)
     ax_sea.set_axisbelow(True)
     plt.setp(ax_sea.get_xticklabels(), visible=False)
+
+    # Sea direction arrows — small arrows above each bar showing where the
+    # primary sea is coming FROM, rotated into the segment's course-up frame.
+    # Same SVG-style sin/cos course-up mapping as the compass rose.
+    arrow_y = sea_ymax * 0.85
+    arrow_len = sea_ymax * 0.10
+    for c, sf_deg, crs in zip(centers, sea_from_degs, courses):
+        if sf_deg is None or sf_deg <= 0:
+            continue
+        rel_rad = math.radians((sf_deg - crs) % 360)
+        # FROM at the bearing, GOES toward the opposite (sin/cos mapping
+        # matches the compass rose: +x=starboard, +y=bow when course-up)
+        from_dx = math.sin(rel_rad) * arrow_len * 0.7
+        from_dy = math.cos(rel_rad) * arrow_len * 0.7
+        ax_orig_x = c + from_dx
+        ax_orig_y = arrow_y + from_dy
+        ax_tip_x  = c - from_dx
+        ax_tip_y  = arrow_y - from_dy
+        ax_sea.annotate("", xy=(ax_tip_x, ax_tip_y), xytext=(ax_orig_x, ax_orig_y),
+                        arrowprops=dict(arrowstyle="-|>", color="#1B5E20",
+                                        lw=1.5, mutation_scale=10,
+                                        linestyle="--"),
+                        annotation_clip=False)
+
+    # Tiny legend strip in the sea panel telling the skipper what the
+    # marks mean — only on first segment to avoid clutter
+    if segments and seas:
+        ax_sea.text(0.05, sea_ymax * 0.92,
+                    "↘ sea direction (course-up)",
+                    fontsize=7, color="#1B5E20", style="italic")
 
     # ====== BOTTOM PANEL: Boat speed — polar vs calibrated ======
     bs_offset = bar_w * 0.22

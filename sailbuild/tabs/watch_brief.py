@@ -116,19 +116,19 @@ def render_watch_brief_tab(ws, passage, plan_meta, legs, total_nm, forecast_cycl
     # ====================================================================
     # SECTION 3 — 12-HOUR STRIP (single PNG image)
     # ====================================================================
-    strip_buf = twelve_hour_strip_png_bytes(segments, output_w_px=1400, output_h_px=380)
+    strip_buf = twelve_hour_strip_png_bytes(segments, output_w_px=1400, output_h_px=440)
     strip_anchor_row = 28
     if strip_buf:
         img = XLImage(strip_buf)
         img.width = 1200
-        img.height = 326
+        img.height = 378
         img.anchor = f"B{strip_anchor_row}"
         ws.add_image(img)
 
     # ====================================================================
     # SECTION 4 — TACTICAL ACTIONS TABLE
     # ====================================================================
-    action_header_row = strip_anchor_row + 19
+    action_header_row = strip_anchor_row + 22  # strip image is 378 px ≈ 20 rows
     ws.cell(row=action_header_row, column=2,
             value="TACTICAL ACTIONS — next 12 hours"
             ).font = HEADER_FONT
