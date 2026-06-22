@@ -141,7 +141,7 @@ def render_plan_tab(ws, plan_meta: dict, commentary: str, legs: list,
     _embed_timeline_strip(ws, timeline_anchor_row, legs)
 
     # === Legend block ===
-    legend_anchor = timeline_anchor_row + 19  # leave room for the taller chart (340 px ≈ 17 rows)
+    legend_anchor = timeline_anchor_row + 23  # leave room for the taller chart (420 px stacked ≈ 21 rows)
     last_legend_row = _write_legend_block(ws, legend_anchor)
 
     # === Footer note (vessel polar reference) ===

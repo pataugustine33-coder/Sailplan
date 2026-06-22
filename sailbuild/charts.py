@@ -201,9 +201,15 @@ def radar_overlay_png_bytes(plans_data, title="Plan Comparison", output_px=580):
 # ======================================================================
 # Wind/sea timeline strip — sparkline across the passage
 # ======================================================================
-def timeline_strip_png_bytes(legs, output_w_px=1200, output_h_px=340):
-    """Horizontal timeline showing wind speed (bars) and sea height (line)
-    across the passage.
+def timeline_strip_png_bytes(legs, output_w_px=1200, output_h_px=420):
+    """Horizontal timeline showing wind speed (top panel) and sea height
+    (bottom panel) across the passage, with shared x-axis.
+
+    Refactored 6/21/26 from single-axes / twinx layout to stacked subplots.
+    The two-scales-on-one-chart pattern was crowding the data; stacking lets
+    each series have its own y-scale and breathing room while keeping WPs
+    aligned vertically so the skipper can read wind and sea at each
+    waypoint by just running their eye down the page.
 
     Color story (intuitive):
       - Sea = blue (water)
@@ -224,96 +230,114 @@ def timeline_strip_png_bytes(legs, output_w_px=1200, output_h_px=340):
     seas = [l.sea_ft_high if l.sea_ft_high else 0 for l in legs]
     wp_labels = [l.wp_id for l in legs]
 
-    fig, ax1 = plt.subplots(figsize=(output_w_px / 100, output_h_px / 100), dpi=100)
-    fig.subplots_adjust(left=0.06, right=0.94, top=0.85, bottom=0.16)
+    # Two stacked panels sharing x-axis. Top is taller because wind has
+    # more vertical content (bars + gust caps + two threshold lines + labels).
+    fig, (ax_wind, ax_sea) = plt.subplots(
+        2, 1, figsize=(output_w_px / 100, output_h_px / 100), dpi=100,
+        sharex=True, gridspec_kw={"height_ratios": [2.0, 1.0], "hspace": 0.08},
+    )
+    fig.subplots_adjust(left=0.06, right=0.96, top=0.90, bottom=0.10)
 
     bar_width = 0.55
     x = np.arange(len(wp_labels))
 
-    # === Wind sustained bars — warm peach with darker orange edge ===
-    ax1.bar(x, wind, width=bar_width, color=COLOR_WIND_BAR,
-            edgecolor=COLOR_WIND_EDGE, linewidth=1.4,
-            label="Wind sustained (kt)", zorder=3)
+    # ======================================================================
+    # TOP PANEL — Wind sustained bars + gust caps + threshold reference lines
+    # ======================================================================
+    ax_wind.bar(x, wind, width=bar_width, color=COLOR_WIND_BAR,
+                edgecolor=COLOR_WIND_EDGE, linewidth=1.4,
+                label="Wind sustained (kt)", zorder=3)
     # Wind speed labels INSIDE the bars (clearer than below)
     for xi, wi in zip(x, wind):
         if wi > 0:
-            ax1.annotate(f"{wi:g}", xy=(xi, wi / 2), ha="center", va="center",
-                         fontsize=11, color=COLOR_WIND_EDGE, fontweight="bold",
-                         zorder=4)
+            ax_wind.annotate(f"{wi:g}", xy=(xi, wi / 2), ha="center", va="center",
+                             fontsize=11, color=COLOR_WIND_EDGE, fontweight="bold",
+                             zorder=4)
 
-    # === Gust marks — dark rust horizontal line above the bar + label ===
+    # Gust marks — dark rust horizontal line above the bar + label
     has_gusts = any(gu and gu > wi for wi, gu in zip(wind, gusts))
     for i, (wi, gu) in enumerate(zip(wind, gusts)):
         if gu and gu > wi:
-            # Horizontal cap mark at gust height
-            ax1.plot([x[i] - bar_width/2 - 0.06, x[i] + bar_width/2 + 0.06],
-                     [gu, gu], color=COLOR_WIND_GUST, linewidth=2.6, zorder=5)
-            # Connecting tick lines from bar top to gust mark
-            ax1.plot([x[i], x[i]], [wi, gu], color=COLOR_WIND_GUST,
-                     linewidth=1.2, linestyle=":", alpha=0.7, zorder=4)
-            ax1.annotate(f"gust {gu:g}", xy=(x[i], gu), xytext=(0, 6),
-                         textcoords="offset points", ha="center",
-                         fontsize=10, color=COLOR_WIND_GUST, fontweight="bold")
+            ax_wind.plot([x[i] - bar_width/2 - 0.06, x[i] + bar_width/2 + 0.06],
+                         [gu, gu], color=COLOR_WIND_GUST, linewidth=2.6, zorder=5)
+            ax_wind.plot([x[i], x[i]], [wi, gu], color=COLOR_WIND_GUST,
+                         linewidth=1.2, linestyle=":", alpha=0.7, zorder=4)
+            ax_wind.annotate(f"gust {gu:g}", xy=(x[i], gu), xytext=(0, 6),
+                             textcoords="offset points", ha="center",
+                             fontsize=10, color=COLOR_WIND_GUST, fontweight="bold")
 
-    # Synthetic legend handle for the gust marks (matplotlib doesn't auto-pick up the plot() calls)
+    # Synthetic legend handle for the gust marks
+    gust_handle = None
     if has_gusts:
         from matplotlib.lines import Line2D
         gust_handle = Line2D([0], [0], color=COLOR_WIND_GUST, linewidth=2.6,
                              label="Wind gust (kt)")
-    else:
-        gust_handle = None
 
-    # === Threshold reference lines — SCA at 18, reef at 25 ===
-    ax1.axhline(y=18, color=COLOR_SCA_THRESHOLD, linewidth=1.4, linestyle="--",
-                alpha=0.8, zorder=2)
-    ax1.text(len(x) - 0.4, 18.6, "SCA threshold 18 kt", fontsize=9,
-             color="#9C5700", ha="right", va="bottom", fontweight="bold")
-    ax1.axhline(y=25, color=COLOR_REEF_THRESHOLD, linewidth=1.4, linestyle="--",
-                alpha=0.7, zorder=2)
-    ax1.text(len(x) - 0.4, 25.6, "Reef trigger 25 kt", fontsize=9,
-             color=COLOR_REEF_THRESHOLD, ha="right", va="bottom", fontweight="bold")
+    # Threshold reference lines — SCA at 18, reef at 25
+    ax_wind.axhline(y=18, color=COLOR_SCA_THRESHOLD, linewidth=1.4, linestyle="--",
+                    alpha=0.8, zorder=2)
+    ax_wind.text(len(x) - 0.4, 18.6, "SCA threshold 18 kt", fontsize=9,
+                 color="#9C5700", ha="right", va="bottom", fontweight="bold")
+    ax_wind.axhline(y=25, color=COLOR_REEF_THRESHOLD, linewidth=1.4, linestyle="--",
+                    alpha=0.7, zorder=2)
+    ax_wind.text(len(x) - 0.4, 25.6, "Reef trigger 25 kt", fontsize=9,
+                 color=COLOR_REEF_THRESHOLD, ha="right", va="bottom", fontweight="bold")
 
-    # === Wind axis styling ===
-    ax1.set_xticks(x)
-    ax1.set_xticklabels(wp_labels, fontsize=12, color=COLOR_TITLE, fontweight="bold")
-    ax1.set_ylabel("Wind speed (kt)", fontsize=11, color=COLOR_WIND_EDGE,
-                   fontweight="bold")
-    ax1.set_ylim(0, max(32, (max(wind + gusts + [0]) * 1.25)))
-    ax1.tick_params(axis="y", labelcolor=COLOR_WIND_EDGE, labelsize=10)
-    ax1.tick_params(axis="x", labelsize=12)
-    ax1.grid(axis="y", color=COLOR_GRID, linewidth=0.5, alpha=0.5, zorder=1)
-    ax1.set_axisbelow(True)
+    # Wind axis styling
+    ax_wind.set_ylabel("Wind speed (kt)", fontsize=11, color=COLOR_WIND_EDGE,
+                      fontweight="bold")
+    ax_wind.set_ylim(0, max(32, (max(wind + gusts + [0]) * 1.25)))
+    ax_wind.tick_params(axis="y", labelcolor=COLOR_WIND_EDGE, labelsize=10)
+    ax_wind.grid(axis="y", color=COLOR_GRID, linewidth=0.5, alpha=0.5, zorder=1)
+    ax_wind.set_axisbelow(True)
 
-    # === Sea height — water blue line on secondary axis ===
-    ax2 = ax1.twinx()
-    ax2.plot(x, seas, color=COLOR_SEA_LINE, linewidth=3, marker="o",
-             markersize=10, markeredgecolor="white", markeredgewidth=1.5,
-             label="Sea height (ft)", zorder=6)
-    # Sea-height labels — placed below the marker so they don't collide
-    # with gust callouts (which sit above the bars)
+    # Wind-panel legend (just wind series + gust handle if present)
+    wind_handles, wind_labels = ax_wind.get_legend_handles_labels()
+    if gust_handle is not None:
+        wind_handles.append(gust_handle)
+        wind_labels.append("Wind gust (kt)")
+    ax_wind.legend(wind_handles, wind_labels, loc="upper left", fontsize=10,
+                   frameon=True, edgecolor=COLOR_GRID, framealpha=0.95,
+                   ncol=len(wind_labels))
+
+    # Title on the top panel
+    ax_wind.set_title("Wind & Sea across passage", fontsize=12,
+                      color=COLOR_TITLE, fontweight="bold", loc="left", pad=8)
+
+    # ======================================================================
+    # BOTTOM PANEL — Sea height line
+    # ======================================================================
+    ax_sea.plot(x, seas, color=COLOR_SEA_LINE, linewidth=3, marker="o",
+                markersize=10, markeredgecolor="white", markeredgewidth=1.5,
+                label="Sea height (ft)", zorder=6)
+    # Sea-height labels — placed above the marker (no longer competing with
+    # gust callouts since they're in a different panel now)
     for xi, si in zip(x, seas):
         if si > 0:
-            ax2.annotate(f"{si:g} ft", xy=(xi, si), xytext=(0, -16),
-                         textcoords="offset points", ha="center",
-                         fontsize=10, color=COLOR_SEA_LINE, fontweight="bold")
+            ax_sea.annotate(f"{si:g} ft", xy=(xi, si), xytext=(0, 8),
+                            textcoords="offset points", ha="center",
+                            fontsize=10, color=COLOR_SEA_LINE, fontweight="bold")
 
-    ax2.set_ylabel("Sea height (ft)", fontsize=11, color=COLOR_SEA_LINE,
-                   fontweight="bold")
-    ax2.set_ylim(0, max(9, (max(seas + [0]) * 1.6)))
-    ax2.tick_params(axis="y", labelcolor=COLOR_SEA_LINE, labelsize=10)
+    ax_sea.set_ylabel("Sea height (ft)", fontsize=11, color=COLOR_SEA_LINE,
+                     fontweight="bold")
+    ax_sea.set_ylim(0, max(7, (max(seas + [0]) * 1.5)))
+    ax_sea.tick_params(axis="y", labelcolor=COLOR_SEA_LINE, labelsize=10)
+    ax_sea.grid(axis="y", color=COLOR_GRID, linewidth=0.5, alpha=0.5, zorder=1)
+    ax_sea.set_axisbelow(True)
 
-    # === Combined legend ===
-    h1, l1 = ax1.get_legend_handles_labels()
-    h2, l2 = ax2.get_legend_handles_labels()
-    all_handles = h1 + ([gust_handle] if gust_handle else []) + h2
-    all_labels = l1 + (["Wind gust (kt)"] if gust_handle else []) + l2
-    ax1.legend(all_handles, all_labels, loc="upper left", fontsize=10,
-               frameon=True, edgecolor=COLOR_GRID, framealpha=0.95,
-               ncol=len(all_labels))
+    # Sea-panel legend (just sea height)
+    ax_sea.legend(loc="upper left", fontsize=10, frameon=True,
+                  edgecolor=COLOR_GRID, framealpha=0.95)
 
-    # === Title ===
-    ax1.set_title("Wind & Sea across passage", fontsize=12,
-                  color=COLOR_TITLE, fontweight="bold", loc="left", pad=8)
+    # ======================================================================
+    # Shared x-axis — WP labels only on the bottom panel
+    # ======================================================================
+    ax_sea.set_xticks(x)
+    ax_sea.set_xticklabels(wp_labels, fontsize=12, color=COLOR_TITLE, fontweight="bold")
+    ax_sea.tick_params(axis="x", labelsize=12)
+    # Top panel hides its own x tick labels (sharex handles the axis values,
+    # but we still want to suppress the tick label text on the top panel)
+    plt.setp(ax_wind.get_xticklabels(), visible=False)
 
     buf = io.BytesIO()
     plt.savefig(buf, format="png", dpi=100, bbox_inches="tight",
