@@ -1,0 +1,200 @@
+# Outremer 55 — Mon 6/22 AM underway refresh.
+# Vessel currently at 29° 13.576' N, 80° 00.214' W (Mon ~6:30 AM EDT).
+# 234 NM remaining to Charleston Harbor Entrance.
+#
+# Previous underway plan (palmbeach-charleston-o55-underway.yaml, Sun 9:30 PM
+# from 27.48°N) had cat at polar-natural 8.0 kt avg → Tue 3:55 PM arrival.
+# Vessel covered ~105 NM in ~9 hrs overnight = ~11.6 kt avg with night
+# Stream assist + S breeze — banked significant time.
+#
+# KEY CHANGES FROM SUN 9 PM CYCLE:
+#
+#   1. SMALL CRAFT ADVISORY ACTIVE — AMZ360 (Charleston coastal) from
+#      Mon 4 PM EDT through Tue 6 AM EDT. CHS AFD: "HREF probabilities
+#      for frequent gusts >25 kt peak 70-100% a few hours prior to
+#      daybreak Tuesday."
+#
+#   2. Gust upgrade across SC offshore zones — Mon night now SW 15-20
+#      G 30 kt (was G 25 in Sun cycle). AMZ380 offshore now seas 4-5 ft.
+#
+#   3. 41033 normalized — Sun 8 PM spike (WSW 23 G 31) was confirmed
+#      convective; Mon 5:08 AM reads WSW 14 G 19, coherent with neighbors.
+#      Synoptic front signal IS now present (steady WSW pattern across all
+#      stations) but not anomalous.
+#
+#   4. Front clearing Tue night confirmed — NW 10-15 after midnight Tue,
+#      N 5-10 Wed. SCA explicitly expires 6 AM Tue.
+#
+# OPTIMAL ARRIVAL WINDOW: Tue 6 AM-noon EDT — POST-SCA expiration, daylight,
+# no advisory in effect, calmer post-front conditions. Cat polar-natural
+# pace (~9 kt avg over remaining route) lands ~Tue 8:30 AM EDT in this
+# window. This is the preferred pacing strategy.
+
+passage:
+  id: palmbeach-charleston-o55-mon-am
+  name: PalmBeach-Charleston-O55-MonAM
+  origin: "Underway position 29°13.576'N 80°00.214'W (in Stream, Mon ~6:30 AM EDT)"
+  destination: Charleston, SC (Charleston Harbor Entrance)
+  total_nm: 233.70
+
+vessel:
+  designation: Outremer 55
+  design_number: O55
+  load_config: cruising-loaded
+  displacement_lb: 25353
+  motor_speed_kt: 7.5
+  motor_crossover_tws_kt: 9.0
+  fuel_capacity_gal: 243
+  fuel_burn_gph: 1.7
+  designer: VPLP (Van Peteghem - Lauriot Prévost)
+  builder: Outremer Yachting
+  ce_category: A
+  ce_category_note: Ocean — unlimited offshore
+  polar_source: Outremer base polar table (PW_O55_Base_Polar.xlsx)
+  data_sheet_source: Outremer Yachting catalog
+  stability_source: >
+    ESTIMATE — monohull RM/RMC framework does not directly apply to
+    multihulls. Catamaran stability is dominated by form (beam) not
+    ballast. Outremer 55 is CE Category A.
+  rmc_kgm: 0
+  rm_30deg_kgm: 0
+  rm_max_kgm: 0
+  brewer_cr: 22.5
+  csf: 2.55
+
+calibration:
+  sea_factors:
+    steep_chop_bow: 0.65
+    close_reach: 0.85
+    beam_reach: 0.94
+    broad_reach: 0.95
+    reefed_active_trough: 0.85
+
+arrival_timing:
+  destination_label: "Charleston, SC (Charleston Harbor Entrance)"
+  civil_dawn: 5.800
+  sunrise: 6.300
+  sunset: 20.500
+  civil_dusk: 21.000
+  day_window: [6.300, 20.500]
+  twilight_windows:
+    - [5.800, 6.300]
+    - [20.500, 21.000]
+  night_arrival_accepted: true
+  preferred_window:
+    start: 6.5
+    end: 14.0  # SWEET SPOT: Tue 6 AM - 2 PM, post-SCA expiration, pre-Tue PM brief SCA risk
+
+waypoints:
+  - id: WP0
+    name: "Current position (Mon AM, in Stream)"
+    chart_label: "Stream 29.2N"
+    lat: 29.2263
+    lon: -80.0036
+    cum_nm: 0.00
+    course_out: 338
+  - id: WP1
+    name: Off St Augustine (Stream centerline)
+    chart_label: "St Augustine"
+    lat: 29.8500
+    lon: -80.3000
+    cum_nm: 40.52
+    course_out: 342
+  - id: WP2
+    name: Off Jacksonville Beach
+    chart_label: "Jacksonville"
+    lat: 30.5000
+    lon: -80.5500
+    cum_nm: 81.65
+    course_out: 3
+  - id: WP3
+    name: Off Brunswick GA
+    chart_label: "Brunswick GA"
+    lat: 31.2000
+    lon: -80.5000
+    cum_nm: 123.76
+    course_out: 0
+  - id: WP4
+    name: Off Savannah / Grays Reef NMS
+    chart_label: "Grays Reef"
+    lat: 31.6000
+    lon: -80.5000
+    cum_nm: 147.77
+    course_out: 17
+  - id: WP5
+    name: Off Hilton Head SC
+    chart_label: "Hilton Head"
+    lat: 32.1500
+    lon: -80.3000
+    cum_nm: 182.34
+    course_out: 42
+  - id: WP6
+    name: Charleston Sea Buoy 2CL
+    chart_label: "Chas Sea Buoy"
+    lat: 32.6717
+    lon: -79.7383
+    cum_nm: 224.66
+    course_out: 306
+  - id: WP7
+    name: Charleston Harbor Entrance
+    chart_label: "Chas Harbor"
+    lat: 32.7595
+    lon: -79.8835
+    cum_nm: 233.70
+    course_out: null
+
+plans:
+  - id: plan_a
+    tab_label: "Plan A - Mon AM Refresh"
+    qualifier: "(refresh from 29 13.6N 80 00.2W, Mon 6/22 ~6:30 AM EDT)"
+    depart_day: Mon
+    depart_date: 2026-06-22
+    depart_hour: 6.5  # 6:30 AM EDT
+
+route_buoys:
+  - id: 41008
+    name: Grays Reef NMS (off Sapelo Sound GA)
+    lat: 31.400
+    lon: -80.867
+    relevant_wps:
+      WP3: "~24 NM W"
+      WP4: "ON-TRACK (closest to WP4)"
+  - id: 41033
+    name: Fripp Island Nearshore SC
+    lat: 32.283
+    lon: -80.407
+    relevant_wps:
+      WP5: "~10 NM SW (Hilton Head ground truth)"
+  - id: 41004
+    name: Edisto SC offshore
+    lat: 32.502
+    lon: -79.099
+    relevant_wps:
+      WP6: "~35 NM SE of Charleston Sea Buoy"
+      WP5: "~75 NM ENE"
+
+forecast_offices:
+  - office: NWS Jacksonville FL (KJAX)
+    code: JAX
+    zones:
+      AMZ454: Coastal waters St Augustine to Flagler Beach FL out 20 NM
+      AMZ452: Coastal waters Fernandina to St Augustine FL out 20 NM
+      AMZ450: Coastal waters Altamaha Sound GA to Fernandina Beach FL out 20 NM
+      AMZ474: Waters St Augustine to Flagler Beach FL 20-60 NM
+      AMZ472: Waters Fernandina Beach to St Augustine FL 20-60 NM
+      AMZ470: Waters Altamaha Sound GA to Fernandina Beach FL 20-60 NM
+  - office: NWS Charleston SC (KCHS)
+    code: CHS
+    zones:
+      AMZ340: Charleston Harbor
+      AMZ360: Coastal waters South Santee River to Edisto Beach SC out 20 NM
+      AMZ362: Coastal waters Edisto Beach SC to Savannah GA out 20 NM
+      AMZ364: Coastal waters Savannah GA to Altamaha Sound GA out 20 NM
+      AMZ380: Waters South Santee River to Edisto Beach SC 20-60 NM
+      AMZ382: Waters Edisto Beach SC to Savannah GA 20-60 NM
+      AMZ384: Waters Savannah GA to Altamaha Sound GA 20-60 NM
+
+tide_stations:
+  - id: 8665530
+    name: Charleston, Cooper River Entrance, SC
+    relevance: arrival

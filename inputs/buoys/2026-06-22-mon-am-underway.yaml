@@ -1,0 +1,92 @@
+# NDBC realtime/latest_obs buoys pulled fresh Mon 6/22 5:08-6:10 AM EDT
+# while vessel at 29.23°N, 80.00°W (in Stream).
+#
+# KEY FINDING: 41033 (Fripp Island SC) NORMALIZED. Sun 8 PM was anomalous
+# spike (WSW 23 G 31) confirmed as localized convective. Mon 5:08 AM reads
+# WSW 14 G 19, coherent with neighbors 41008 (WSW 14 G 17) and 41004
+# (WSW 12 G 14). The SYNOPTIC front signal is now present (steady WSW
+# across all stations) — not anomalous.
+
+pull:
+  label: "5:08-6:10 AM EDT Mon 6/22"
+  utc: "2026-06-22T10:10:00Z"
+
+front_passage:
+  description: |
+    The front is now ACTIVELY developing per CHS AFD: peak gusts
+    25-30 kt expected "a few hours prior to daybreak Tuesday"
+    (~3-4 AM Tue). SCA in effect AMZ360 from Mon 4 PM through
+    Tue 6 AM.
+
+    Buoy pressures coherent (within 0.05 inHg across the SC/GA
+    region): 41033 29.97, 41008 30.02, 41004 30.01. No rapid
+    frontal pressure drop yet — pre-frontal warm sector.
+
+stations:
+  - id: 41033
+    name: "Fripp Island Nearshore SC (~10 NM SW of WP5)"
+    lat: 32.283
+    lon: -80.407
+    reading_time: "5:08 AM EDT Mon 6/22"
+    status: "fresh"
+    wind_dir: "WSW"
+    wind_dir_deg: 240
+    wind_kt: 13.6
+    gust_kt: 19.4
+    wave_ft: null
+    period_s: null
+    swell_dir: null
+    swell_dir_deg: null
+    pressure_hpa: 1014.9
+    pressure_trend: "Steady 29.97 inHg"
+    findings: |
+      NORMALIZED. Sun 8 PM spike (23 G 31) confirmed convective.
+      Mon AM reading 14 G 19 is coherent with regional pattern.
+      Will be primary ground truth at Tue ~2 AM transit (WP5).
+      Front-timing forecast says peak surge in this area is
+      ~3-4 AM Tue per CHS AFD HREF — watch for that escalation.
+
+  - id: 41008
+    name: "Grays Reef NMS (ON-TRACK at WP4)"
+    lat: 31.400
+    lon: -80.867
+    reading_time: "6:10 AM EDT Mon 6/22"
+    status: "fresh"
+    wind_dir: "WSW"
+    wind_dir_deg: 250
+    wind_kt: 13.6
+    gust_kt: 17.5
+    wave_ft: 2.3
+    period_s: 4.3
+    swell_dir: "SSW"
+    swell_dir_deg: 200
+    pressure_hpa: 1015.5
+    pressure_trend: "Steady 30.02 inHg"
+    findings: |
+      GA on-track ground truth. WSW 14 G 17 with 2.3 ft SSW wind
+      wave @ 4.3s + 0.7 ft SE swell @ 6.7s. Building from yesterday
+      evening's reading. Vessel transit WP4 Mon late evening ~10 PM
+      — expect conditions per CHS AMZ384 TONIGHT: SW 15-20 kt,
+      seas 2-3 ft. Pull 41008 again at WP4 approach for ground truth.
+
+  - id: 41004
+    name: "Edisto SC offshore (~35 NM SE of Charleston Sea Buoy)"
+    lat: 32.502
+    lon: -79.099
+    reading_time: "6:10 AM EDT Mon 6/22"
+    status: "fresh"
+    wind_dir: "WSW"
+    wind_dir_deg: 240
+    wind_kt: 11.7
+    gust_kt: 13.6
+    wave_ft: 3.0
+    period_s: 5.9
+    swell_dir: "SW"
+    swell_dir_deg: 225
+    pressure_hpa: 1015.6
+    pressure_trend: "Steady 30.01 inHg"
+    findings: |
+      Charleston offshore ground truth. WSW 12 G 14 with 3.0 ft
+      SW wind wave @ 5.9s + 1.6 ft SE swell @ 7.7s. Seas already
+      building toward CHS AMZ360 TUE forecast (3-4 ft). Will be
+      primary ground truth Tue ~7 AM at WP6 Charleston Sea Buoy.
