@@ -1,0 +1,369 @@
+# Forecast bundle for PalmBeach-Charleston-O55-MonPM — fresh Mon 6/22 PM
+# cycle pulled at vessel underway position 31.13°N, 79.78°W.
+#
+# CYCLE DATA:
+#   - CWFCHS 2:09 PM EDT Mon 6/22 — FRESH (~35 min old at pull time 4:44 PM)
+#   - AFDCHS 4:33 PM EDT Mon 6/22 — FRESH (~10 min old)
+#   - Buoys pulled 3:08-4:30 PM EDT Mon 6/22
+#
+# KEY CHANGES FROM MON AM CYCLE:
+#
+#   1. SCA CONFIRMED — AMZ360 still active "until 6 AM EDT Tuesday".
+#      Per AFDCHS: "Small Craft Advisory has been issued for the
+#      Charleston nearshore waters. At this time, Small Craft Advisories
+#      are NOT being currently issued for the offshore waters."
+#      → AMZ380 (offshore Charleston) does NOT have SCA.
+#
+#   2. GUST DOWNGRADE — Mon night now SW G 25 across SC zones (was G 30
+#      in Mon AM cycle). Slightly softer than morning forecast.
+#      AFD: "risk of reaching frequent gusts 25-30 kt" (broader range
+#      than Mon AM's "25-30 with HREF 70-100% probability frequent >25")
+#
+#   3. Buoy confirmation:
+#      41033 (Fripp SC nearshore): SSW 12 G 16 — STILL SOFT, hasn't
+#        accelerated yet despite being 1.5 hrs into SCA window
+#      41008 (Grays Reef): 12 G 14, seas 1.3 ft — calm offshore
+#      41004 (Edisto offshore SC): SSW 18 G 19, seas 3.3 ft —
+#        ALREADY at upper end of Mon PM forecast for AMZ380
+#
+#   4. Vessel zone progression:
+#      WP0 (current, 31.13°N -79.78°W): ~100 NM offshore of GA coast.
+#        Technically east of AMZ384's 60 NM line but using AMZ384 as
+#        closest available coastal-zone proxy.
+#      WP1-2: AMZ384 → AMZ382 transition
+#      WP3: AMZ380 (no SCA per AFD)
+#      WP4: AMZ360 (SCA zone) — arrival at Charleston Sea Buoy
+#      WP5: AMZ340 (harbor)
+#
+# OPTIMAL ARRIVAL: Tue 6 AM - noon EDT, post-SCA expiration, daylight.
+# Requires REEFING to slow from observed 11+ kt SOG down to 6.5-7.5 kt.
+
+cycle:
+  label: "Mon 6/22 PM cycle (CHS 209 PM, AFDCHS 433 PM)"
+  cwfchs:
+    issued: "2026-06-22T14:09:00-04:00"
+    label_short: "Mon 6/22 209 PM"
+    label_full: "209 PM EDT Mon Jun 22 2026"
+  afdchs:
+    issued: "2026-06-22T16:33:00-04:00"
+    label_short: "Mon 6/22 433 PM"
+    label_full: "433 PM EDT Mon Jun 22 2026"
+
+zones:
+  # AMZ470 — Altamaha-Fernandina 20-60 NM (JAX office). Proxy from CHS
+  # AMZ384 data since CWFJAX wasn't pulled this cycle. Same synoptic
+  # SW flow per CHS AFD; vessel is ~100 NM offshore so well east of
+  # the zone's nominal 60 NM coverage anyway.
+  AMZ470:
+    description: "Waters Altamaha Sound GA to Fernandina Beach FL 20-60 NM (JAX office; proxy data)"
+    office: JAX
+    proxy_note: "CWFJAX not pulled this cycle. Using CHS AMZ384 MON data as proxy. Same broad SW synoptic flow per CHS AFD."
+    periods:
+      MON:
+        wind_dir: "SW"
+        wind_dir_deg: 225
+        wind_kt: [10, 15]
+        wind_gust_kt: 15
+        sea_ft: [2, 3]
+        wave_detail:
+          primary: {direction: SW, direction_deg: 225, height_ft: 3, period_s: 4}
+          secondary: {direction: SE, direction_deg: 135, height_ft: 1, period_s: 7}
+
+  # AMZ384 — Savannah-Altamaha 20-60 NM (proxy for vessel's deep offshore
+  # start position; vessel is technically east of 60 NM but no Atlantic
+  # offshore zone in standard CWF coverage at this latitude)
+  AMZ384:
+    description: "Waters Savannah GA to Altamaha Sound GA 20-60 NM (proxy for vessel deep-offshore start)"
+    office: CHS
+    proxy_note: "Vessel at 31.13°N -79.78°W is ~100 NM offshore, technically east of AMZ384's 60 NM boundary. Same synoptic SW flow applies."
+    periods:
+      MON:
+        wind_dir: "SW"
+        wind_dir_deg: 225
+        wind_kt: [10, 15]
+        wind_gust_kt: 15
+        sea_ft: [2, 3]
+        wave_detail:
+          primary: {direction: SW, direction_deg: 225, height_ft: 3, period_s: 4}
+          secondary: {direction: SE, direction_deg: 135, height_ft: 1, period_s: 7}
+      TONIGHT:
+        wind_dir: "SW"
+        wind_dir_deg: 225
+        wind_kt: [15, 20]
+        wind_gust_kt: 20
+        sea_ft: [2, 3]
+        wave_detail:
+          primary: {direction: SW, direction_deg: 225, height_ft: 3, period_s: 4}
+          secondary: {direction: SE, direction_deg: 135, height_ft: 1, period_s: 7}
+
+  # AMZ382 — Edisto-Savannah 20-60 NM (mid-passage offshore)
+  AMZ382:
+    description: "Waters Edisto Beach SC to Savannah GA 20-60 NM"
+    office: CHS
+    periods:
+      TONIGHT:
+        wind_dir: "SW"
+        wind_dir_deg: 225
+        wind_kt: [15, 20]
+        wind_gust_kt: 25
+        sea_ft: [3, 4]
+        wave_detail:
+          primary: {direction: SW, direction_deg: 225, height_ft: 4, period_s: 4}
+          secondary: {direction: SE, direction_deg: 135, height_ft: 1, period_s: 7}
+
+  # AMZ380 — Santee-Edisto 20-60 NM (Charleston offshore approach; NO SCA)
+  AMZ380:
+    description: "Waters S Santee River to Edisto Beach SC 20-60 NM (offshore Charleston approach; NOT in SCA per AFDCHS)"
+    office: CHS
+    periods:
+      TONIGHT:
+        wind_dir: "SW"
+        wind_dir_deg: 225
+        wind_kt: [15, 20]
+        wind_gust_kt: 25
+        sea_ft: [4, 5]
+        wave_detail:
+          primary: {direction: SW, direction_deg: 225, height_ft: 4, period_s: 5}
+          secondary: {direction: SE, direction_deg: 135, height_ft: 1, period_s: 8}
+
+  # AMZ360 — Santee-Edisto nearshore (SCA ACTIVE through Tue 6 AM)
+  AMZ360:
+    description: "Coastal waters S Santee River to Edisto Beach SC out 20 NM (SCA ACTIVE through Tue 6 AM EDT)"
+    office: CHS
+    sca_active: true
+    sca_window: "Mon 4 PM EDT through Tue 6 AM EDT"
+    periods:
+      TONIGHT:
+        wind_dir: "SW"
+        wind_dir_deg: 225
+        wind_kt: [15, 20]
+        wind_gust_kt: 25
+        sea_ft: [3, 4]
+        wave_detail:
+          primary: {direction: S, direction_deg: 180, height_ft: 4, period_s: 6}
+      TUE:
+        wind_dir: "SW"
+        wind_dir_deg: 225
+        wind_kt: [15, 20]
+        wind_gust_kt: 25
+        sea_ft: [3, 4]
+        wave_detail:
+          primary: {direction: SW, direction_deg: 225, height_ft: 4, period_s: 5}
+          secondary: {direction: SE, direction_deg: 135, height_ft: 1, period_s: 8}
+
+  # AMZ340 — Charleston Harbor
+  AMZ340:
+    description: "Charleston Harbor"
+    office: CHS
+    periods:
+      TUE:
+        wind_dir: "SW"
+        wind_dir_deg: 225
+        wind_kt: [10, 15]
+        wind_gust_kt: 20
+        sea_ft: [1, 1]
+        wave_detail:
+          primary: {direction: SW, direction_deg: 225, height_ft: 1, period_s: 3}
+
+afd_marine:
+  CHS: |
+    AFDCHS 433 PM EDT Mon 6/22 — Marine section:
+
+    Through tonight: Broad south-southwesterly flow will persist across
+    the waters as high pressure holds well offshore. Expect winds to range
+    from 10 to 15 kt, then increasing to 15 to 25 kt across the nearshore
+    Charleston waters late this afternoon. The afternoon seabreeze will
+    likely remain pinned to/near the coastline as the westerly flow aloft
+    delays the onset. As a cold front approaches overnight, expect the
+    highest winds to center across the nearshore Charleston AND offshore
+    Charleston waters with the risk of reaching frequent gusts 25-30 kt.
+    Thus, a Small Craft Advisory has been issued for the Charleston
+    nearshore waters. AT THIS TIME, SMALL CRAFT ADVISORIES ARE NOT BEING
+    CURRENTLY ISSUED FOR THE OFFSHORE WATERS. Expect seas to range from
+    2 to 4 ft, then increasing to 4 to 5 ft across the offshore
+    Charleston waters briefly after midnight.
+
+    Tuesday through Saturday: Weak cold front should approach the
+    Carolina coastline Tuesday morning, and then stall nearby through
+    end of week. Pressure gradient becomes pinched between offshore
+    high and Mid-Atlantic low. This will result in gusts reaching 25-27
+    kt at times Tuesday afternoon, especially across Charleston
+    nearshore waters. A brief Small Craft Advisory could be needed,
+    mainly between afternoon and evening hours. Thereafter, gradient
+    relaxes as high rebuilds. No additional marine concerns.
+
+synopses:
+  CHS:
+    zone: AMZ300
+    text: |
+      Broad high pressure offshore. Cold front approaches tonight into
+      Tuesday and stalls across SE SC/SE GA through end of week. SCA
+      issued AMZ360 (Charleston nearshore) Mon 4 PM through Tue 6 AM.
+
+gulf_stream:
+  effective_date: "2026-06-21"
+  positions:
+    - "Vessel at 31.13°N, 79.78°W — still in Stream centerline"
+    - "Stream wall at this latitude is approximately -80.30°W"
+    - "Vessel will exit Stream centerline as it moves N/NW toward WP3-WP4"
+  notes: |
+    Stream assist has helped sustain 11+ kt SOG since Mon AM refresh.
+    Assist will fade as vessel moves NW toward AMZ380. By WP3 (32.45°N
+    -79.80°W) vessel is at Stream edge; by WP4 (Charleston Sea Buoy)
+    fully out of Stream.
+
+waypoint_assignments:
+  plan_a:
+    WP0:
+      zone: AMZ470
+      period: MON
+      risk_level: green
+      row_band: green
+      pressure: 30.02
+      pressure_trend_auto: true
+      notes_addendum: >
+        Mon 4:44 PM EDT — vessel position 31°07.963'N 79°46.848'W, in
+        Stream centerline ~100 NM offshore of Sapelo Sound GA. Zone
+        AMZ470 (JAX Altamaha-Fernandina 20-60 NM) — DATA PROXY from
+        CHS AMZ384 (same synoptic SW flow per AFD). Local buoys: 41004
+        (Edisto offshore) SSW 18 G 19, seas 3.3 ft; 41008 (Grays Reef)
+        12 G 14, seas 1.3 ft; 41033 (Fripp) SSW 12 G 16. Course 358°
+        → TWA ~133° broad reach starboard. Stream still assisting; cat
+        has been screaming at 11+ kt since Mon dawn.
+      weather_risk: >
+        Comfortable late-afternoon offshore conditions. SW 10-15 kt
+        broad reach with Stream assist. Watch radar for late-afternoon
+        convection (slight chance per CHS marine).
+
+    WP1:
+      zone: AMZ384
+      period: TONIGHT
+      risk_level: yellow
+      row_band: yellow
+      pressure: 30.01
+      pressure_trend_auto: true
+      notes_addendum: >
+        Mon ~7 PM EDT (estimated at polar pace). Entering deep-offshore
+        position at the 60 NM line for the AMZ384/AMZ380 boundary. SW
+        winds increasing to 15-20 kt. Sunset 8:30 PM EDT — prepare
+        nav-light watch handover before this WP. **DECISION POINT:
+        commit to slowing if Tue dawn arrival is the target.**
+      weather_risk: >
+        Wind building into evening. SW 15-20 kt broad reach. Reef
+        before sunset for safe night watch.
+
+    WP2:
+      zone: AMZ382
+      period: TONIGHT
+      risk_level: yellow
+      row_band: yellow
+      pressure: 29.99
+      pressure_trend_auto: true
+      notes_addendum: >
+        Mon ~10 PM EDT (polar pace). Off Hilton Head SC. CHS AMZ382
+        TONIGHT: SW 15-20 G 25, seas 3-4 ft with SW 4 ft @ 4s + SE 1 ft
+        @ 7s wave detail. Buoy 41033 ~38 NM WSW for ground truth.
+        Course 6° → TWA ~141° broad reach starboard. Pressure
+        dropping ahead of front.
+      weather_risk: >
+        Night transit, SW 15-20 G 25, 3-4 ft seas. Single-reefed cat,
+        watch radar for embedded convection. Pull 41033 obs at WP2
+        approach to validate forecast pace.
+
+    WP3:
+      zone: AMZ380
+      period: TONIGHT
+      risk_level: yellow
+      row_band: yellow
+      pressure: 29.97
+      pressure_trend_auto: true
+      notes_addendum: >
+        Tue ~12:30 AM EDT (polar pace). Mid Charleston offshore
+        approach. CHS AMZ380 TONIGHT: SW 15-20 G 25, seas 4-5 ft —
+        WORST SEAS OF THE PASSAGE per Mon PM forecast. Note: AMZ380 is
+        NOT in SCA per AFDCHS, but conditions comparable to AMZ360.
+        Buoy 41004 currently reading 18 G 19, 3.3 ft seas — already at
+        upper bound of forecast. Course 13° → TWA ~148° broad reach.
+      weather_risk: >
+        Peak surge window per AFD HREF probabilities. SW G 25, 4-5 ft
+        seas. Reefed beam-to-broad reach. Monitor 41004 for any
+        escalation beyond G 25.
+
+    WP4:
+      zone: AMZ360
+      period: TUE
+      risk_level: yellow
+      row_band: yellow
+      pressure: 29.97
+      pressure_trend_auto: true
+      notes_addendum: >
+        Tue ~2:30 AM EDT (polar pace) — DEEP in SCA window (SCA active
+        until 6 AM). Charleston Sea Buoy 2CL. CHS AMZ360 TUE: SW 15-20
+        G 25, seas 3-4 ft. Wave Detail: SW 4 ft @ 5s + SE 1 ft @ 8s.
+        Course 306° (turning NW into Charleston) → TWA ~81° beam reach.
+        **AT REEFED 7 kt PACE, this becomes Tue ~6 AM arrival — at SCA
+        EXPIRATION and dawn — much better timing.**
+      weather_risk: >
+        Inside the SCA zone. G 25 kt forecast, 3-4 ft seas. If polar
+        pace lands here in middle of night, slow down EARLIER (WP2 or
+        WP3). Reefed beam-reach approach. Watch for convective cells
+        per AFD slight-chance pm storms.
+
+    WP5:
+      zone: AMZ340
+      period: TUE
+      risk_level: green
+      row_band: green
+      pressure: 29.97
+      pressure_trend_auto: true
+      notes_addendum: >
+        Arrival — Charleston Harbor entrance (inside jetties). AMZ340
+        TUE: SW 10-15 G 20, harbor seas 1 ft. Sheltered. Channel
+        project depth 42 ft. If actual arrival is post-SCA expiration
+        (Tue 6 AM+), conditions are calmest of the passage.
+      weather_risk: >
+        Inside the jetties. Sheltered. Target Tue 7-9 AM dawn-to-mid-
+        morning arrival for daylight, post-SCA, calmest landing.
+
+plan_commentary:
+  plan_a: |
+    MON 6/22 PM UNDERWAY REFRESH — Vessel position 31°07.963'N
+    79°46.848'W (in Stream offshore, ~100 NM east of GA coast).
+    102 NM remaining to Charleston Harbor.
+
+    PACING PROBLEM:
+      Vessel has averaged 11.2 kt SOG since Mon dawn (115 NM in
+      10h 14m). If this pace continues:
+        Continued 10-11 kt SOG → arrive Tue ~2-3 AM EDT (in SCA, dark)
+        Polar-natural 9 kt avg → arrive Tue ~4 AM (in SCA, dark)
+        Reefed 7-7.5 kt → arrive Tue ~6:20 AM (SCA expiration, dawn) ✓
+        Reefed 6 kt → arrive Tue ~9:30 AM (post-SCA, daylight)
+
+    The polar-driven build in this workbook lands the vessel at the
+    UNCONSTRAINED polar pace (~3-4 AM). That's the "no action taken"
+    scenario. To land in the optimal Tue dawn-to-mid-morning window,
+    the skipper must ACTIVELY SLOW DOWN by:
+      - Single-reefed main + small jib (cat from 9 → 7 kt)
+      - Or double-reefed + staysail (cat from 9 → 6 kt)
+
+    KEY CHANGES FROM MON AM CYCLE:
+      - SCA confirmed for AMZ360 only (nearshore Charleston) through
+        Tue 6 AM. AMZ380 (offshore approach) NOT in SCA per AFD.
+      - Gust downgrade: Mon night now G 25 (was G 30 Mon AM).
+      - 41033 still soft at SSW 12 G 16 — surge hasn't peaked yet.
+      - 41004 already at G 19 with 3.3 ft seas.
+
+    DECISION POINTS:
+      WP1 (~7 PM Mon): commit to reef-down pacing if Tue dawn arrival
+        is the target. Sunset at 8:30 PM — natural watch handover.
+      WP2 (~10 PM Mon): if still pushing hard, this is last call to
+        slow before AMZ380 peak conditions.
+      WP3 (~12 AM Tue): IN the peak surge window per AFD HREF. Wind
+        and seas at their worst. No more time to slow down — you're
+        committed to whatever pace you have at this point.
+
+    REFRESH RECOMMENDATIONS:
+      Mon 10 PM EDT — pull 41033/41008/41004 to verify SCA conditions
+        are or are not materializing as forecast.
+      Tue 2 AM EDT — final approach check; verify wind has not
+        escalated beyond G 25 forecast.

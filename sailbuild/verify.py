@@ -822,6 +822,15 @@ def _check_wp_zone_geography(passage: dict, forecast: dict) -> list[Finding]:
                 for rlat, rlon in zone_info["coast_refs"]
             )
             band_lo, band_hi = zone_info["band_nm"]
+            # A zone YAML entry with a `proxy_note` field is an explicit
+            # skipper acknowledgment that this zone is being used outside
+            # its native coverage (e.g. deep-offshore Atlantic positions
+            # where no CWF zone exists). In that case, log INFO instead
+            # of ERROR — the documented proxy is the legitimate workaround.
+            zone_entry = forecast.get("zones", {}).get(zone, {})
+            is_documented_proxy = bool(
+                zone_entry.get("proxy_note") or zone_entry.get("proxy_source")
+            )
             # Allow a small tolerance at the boundary (±2 NM)
             if min_dist < band_lo - 2:
                 findings.append(Finding(
@@ -833,14 +842,23 @@ def _check_wp_zone_geography(passage: dict, forecast: dict) -> list[Finding]:
                     f"0-20 NM zone in the same coastline segment.",
                 ))
             elif min_dist > band_hi + 5:
-                findings.append(Finding(
-                    "error",
-                    f"forecast YAML:waypoint_assignments.{plan_id}.{wp_id}",
-                    f"{wp_id} is {min_dist:.1f} NM from nearest coast point "
-                    f"of zone {zone}, but the zone covers only {band_lo}-{band_hi} NM "
-                    f"offshore. WP is OUTSIDE this zone — reassign to a "
-                    f"20-60 NM offshore zone or an OWF zone.",
-                ))
+                if is_documented_proxy:
+                    findings.append(Finding(
+                        "info",
+                        f"forecast YAML:waypoint_assignments.{plan_id}.{wp_id}",
+                        f"{wp_id} is {min_dist:.1f} NM from nearest coast point "
+                        f"of zone {zone} (band {band_lo}-{band_hi} NM). "
+                        f"Documented proxy per zone proxy_note — accepted.",
+                    ))
+                else:
+                    findings.append(Finding(
+                        "error",
+                        f"forecast YAML:waypoint_assignments.{plan_id}.{wp_id}",
+                        f"{wp_id} is {min_dist:.1f} NM from nearest coast point "
+                        f"of zone {zone}, but the zone covers only {band_lo}-{band_hi} NM "
+                        f"offshore. WP is OUTSIDE this zone — reassign to a "
+                        f"20-60 NM offshore zone or an OWF zone.",
+                    ))
 
     return findings
 
