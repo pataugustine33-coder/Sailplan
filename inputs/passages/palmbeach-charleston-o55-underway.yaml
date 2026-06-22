@@ -1,0 +1,200 @@
+# Outremer 55 — UNDERWAY UPDATE from current position to Charleston SC.
+# Refresh cycle pulled Sun 6/21 ~9:25 PM EDT mid-passage.
+#
+# Pre-departure plan (palmbeach-charleston-o55.yaml) had Sun 6/21 5:00 PM
+# departure from Lake Worth Inlet with 47.3 hr to Charleston. Vessel
+# departed and is now ~44 NM into the passage at ~10 kt SOG (1.5+ kt
+# above plan, sailing well in evening SSE breeze + Stream assist).
+#
+# This file rebuilds the plan from the CURRENT POSITION forward, using:
+#   - Fresh CHS bulletin (539 PM EDT Sun 6/21, 3 hours newer than pre-departure)
+#   - Fresh buoy readings (8:08-8:50 PM EDT Sun 6/21)
+#   - Same Outremer 55 polar (O55 design) and calibration
+#   - 9 remaining WPs from current position to Charleston Harbor entrance
+
+passage:
+  id: palmbeach-charleston-o55-underway
+  name: PalmBeach-Charleston-O55-Underway
+  origin: "Underway position 27.48°N, 79.94°W (12 NM ESE Vero Beach, in Stream)"
+  destination: Charleston, SC (Charleston Harbor Entrance)
+  total_nm: 339.25
+
+vessel:
+  designation: Outremer 55
+  design_number: O55
+  load_config: cruising-loaded
+  displacement_lb: 25353
+  motor_speed_kt: 7.5
+  motor_crossover_tws_kt: 9.0
+  fuel_capacity_gal: 243
+  fuel_burn_gph: 1.7
+  designer: VPLP (Van Peteghem - Lauriot Prévost)
+  builder: Outremer Yachting
+  ce_category: A
+  ce_category_note: Ocean — unlimited offshore
+  polar_source: Outremer base polar table (PW_O55_Base_Polar.xlsx)
+  data_sheet_source: Outremer Yachting catalog
+  stability_source: >
+    ESTIMATE — monohull RM/RMC framework does not directly apply to
+    multihulls. Catamaran stability is dominated by form (beam) not
+    ballast. Outremer 55 is CE Category A.
+  rmc_kgm: 0
+  rm_30deg_kgm: 0
+  rm_max_kgm: 0
+  brewer_cr: 22.5
+  csf: 2.55
+
+calibration:
+  sea_factors:
+    steep_chop_bow: 0.65
+    close_reach: 0.85
+    beam_reach: 0.94
+    broad_reach: 0.95
+    reefed_active_trough: 0.85
+
+arrival_timing:
+  destination_label: "Charleston, SC (Charleston Harbor Entrance)"
+  civil_dawn: 5.800
+  sunrise: 6.300
+  sunset: 20.500
+  civil_dusk: 21.000
+  day_window: [6.300, 20.500]
+  twilight_windows:
+    - [5.800, 6.300]
+    - [20.500, 21.000]
+  night_arrival_accepted: true
+  preferred_window:
+    start: 7.0
+    end: 19.0
+
+waypoints:
+  - id: WP0
+    name: "Current position (in Stream E of Vero Beach)"
+    lat: 27.4800
+    lon: -79.9400
+    cum_nm: 0.00
+    course_out: 350
+  - id: WP1
+    name: Off Cape Canaveral 28.5N
+    lat: 28.5000
+    lon: -80.1500
+    cum_nm: 62.25
+    course_out: 343
+  - id: WP2
+    name: Off Daytona Beach
+    lat: 29.2000
+    lon: -80.4000
+    cum_nm: 106.28
+    course_out: 352
+  - id: WP3
+    name: Off St Augustine (Stream centerline)
+    lat: 29.8500
+    lon: -80.5000
+    cum_nm: 145.66
+    course_out: 345
+  - id: WP4
+    name: Off Jacksonville Beach
+    lat: 30.5000
+    lon: -80.7000
+    cum_nm: 186.04
+    course_out: 14
+  - id: WP5
+    name: Off Brunswick GA
+    lat: 31.2000
+    lon: -80.5000
+    cum_nm: 229.31
+    course_out: 0
+  - id: WP6
+    name: Off Savannah / Grays Reef NMS
+    lat: 31.6000
+    lon: -80.5000
+    cum_nm: 253.33
+    course_out: 17
+  - id: WP7
+    name: Off Hilton Head SC
+    lat: 32.1500
+    lon: -80.3000
+    cum_nm: 287.89
+    course_out: 42
+  - id: WP8
+    name: Charleston Sea Buoy 2CL
+    lat: 32.6717
+    lon: -79.7383
+    cum_nm: 330.22
+    course_out: 306
+  - id: WP9
+    name: Charleston Harbor Entrance
+    lat: 32.7595
+    lon: -79.8835
+    cum_nm: 339.25
+    course_out: null
+
+plans:
+  - id: plan_a
+    tab_label: "Plan A - Underway 930 PM"
+    qualifier: "(refresh from current position, Sun 6/21 21:30 EDT)"
+    depart_day: Sun
+    depart_date: 2026-06-21
+    depart_hour: 21.5  # 9:30 PM EDT
+
+route_buoys:
+  - id: 41009
+    name: Canaveral 20 NM E (just N of current position)
+    lat: 28.506
+    lon: -80.185
+    relevant_wps:
+      WP0: "~62 NM N (departure-area ground truth)"
+      WP1: "ON-TRACK (closest to WP1 at 28.5N)"
+  - id: 41010
+    name: Canaveral E 120 NM (offshore reference)
+    lat: 28.860
+    lon: -78.480
+    relevant_wps:
+      WP1: "~85 NM E (offshore reference)"
+  - id: 41008
+    name: Grays Reef NMS (off Sapelo Sound GA)
+    lat: 31.400
+    lon: -80.867
+    relevant_wps:
+      WP5: "~25 NM W"
+      WP6: "ON-TRACK (closest to WP6)"
+  - id: 41033
+    name: Fripp Island Nearshore SC
+    lat: 32.283
+    lon: -80.407
+    relevant_wps:
+      WP7: "~10 NM SW (Hilton Head ground truth — convective spike observed Sun 8 PM)"
+  - id: 41004
+    name: Edisto SC offshore
+    lat: 32.502
+    lon: -79.099
+    relevant_wps:
+      WP8: "~35 NM SE of Charleston Sea Buoy"
+      WP7: "~75 NM ENE"
+
+forecast_offices:
+  - office: NWS Melbourne FL (KMLB)
+    code: MLB
+    zones:
+      AMZ575: Sebastian Inlet to Jupiter Inlet 20-60 NM
+      AMZ572: Volusia-Brevard Line to Sebastian Inlet 20-60 NM
+      AMZ570: Flagler Beach to Volusia-Brevard Line 20-60 NM
+  - office: NWS Jacksonville FL (KJAX)
+    code: JAX
+    zones:
+      AMZ470: Waters Altamaha Sound GA to Fernandina Beach FL 20-60 NM
+      AMZ472: Waters Fernandina Beach to St Augustine FL 20-60 NM
+      AMZ474: Waters St Augustine to Flagler Beach FL 20-60 NM
+  - office: NWS Charleston SC (KCHS)
+    code: CHS
+    zones:
+      AMZ340: Charleston Harbor
+      AMZ360: Coastal waters South Santee River to Edisto Beach SC out 20 NM
+      AMZ380: Waters South Santee River to Edisto Beach SC 20-60 NM
+      AMZ382: Waters Edisto Beach SC to Savannah GA 20-60 NM
+      AMZ384: Waters Savannah GA to Altamaha Sound GA 20-60 NM
+
+tide_stations:
+  - id: 8665530
+    name: Charleston, Cooper River Entrance, SC
+    relevance: arrival

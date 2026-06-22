@@ -1,0 +1,173 @@
+# NDBC realtime/latest_obs buoys pulled fresh underway Sun 6/21 ~8:50 PM EDT.
+# Vessel is at 27.48°N, 79.94°W (in Stream 12 NM ESE Vero Beach).
+#
+# KEY FINDING: 41033 (Fripp Island Nearshore SC) reading WSW 23.3 G 31.1 kt
+# at 8:08 PM EDT — a 5-hour escalation from 14 G 18 at 3:08 PM. Neighbor
+# stations 41004 (32.5°N) at 14 G 18 and 41008 (31.4°N) at 14 G 18 show
+# MODERATE conditions, suggesting 41033 spike is LOCALIZED CONVECTIVE
+# activity (consistent with CHS chance-of-evening-thunderstorms forecast),
+# not yet synoptic front. Confirms active convection in SC nearshore zone.
+
+pull:
+  label: "8:08-8:50 PM EDT Sun 6/21 (underway pull)"
+  utc: "2026-06-22T00:50:00Z"
+
+front_passage:
+  description: |
+    Front timing: CHS AMZ360/AMZ382 forecast Tue SW 15-20 G 25, seas
+    3-4 ft. Vessel will reach WP7 (Hilton Head area, on-track to
+    41033) Tue mid-morning. Conditions there at that time will be
+    the key tactical question.
+
+    41033 Sun 8 PM reading 23 G 31 is anomalous vs neighbors —
+    interpreted as convective spike, not sustained front signal yet.
+    But it confirms front is REAL and convective activity is
+    ALREADY ACTIVE in the SC nearshore zone.
+
+    Pressure stability check: 41009 at 30.03 inHg, 41004 at 30.00,
+    41033 at 29.96, 41008 at 29.98 — gentle gradient consistent
+    with weak high pressure ridging FL→Bahamas with weak frontal
+    boundary lingering just N of CHS. No rapid pressure fall yet.
+
+stations:
+  - id: 41009
+    name: "Canaveral 20 NM E (60 NM N of vessel, on-track for WP1)"
+    lat: 28.506
+    lon: -80.185
+    reading_time: "8:50 PM EDT Sun 6/21"
+    status: "fresh"
+    wind_dir: "SW"
+    wind_dir_deg: 220
+    wind_kt: 3.9
+    gust_kt: 7.8
+    wave_ft: 1.0
+    period_s: 8.3
+    swell_dir: "E"
+    swell_dir_deg: 90
+    pressure_hpa: 1017.0
+    pressure_trend: "Steady 30.03 inHg"
+    findings: |
+      Calm. SW 4 G 8 with light easterly swell 1 ft @ 8.3s + 0.7 ft
+      W wind wave @ 2.9s. Local conditions vessel will encounter at
+      WP1 (~7 hr from now) should be similar — light SW, calm seas.
+
+  - id: 41010
+    name: "Canaveral E 120 NM (offshore reference)"
+    lat: 28.860
+    lon: -78.480
+    reading_time: "8:40 PM EDT Sun 6/21"
+    status: "fresh"
+    wind_dir: null
+    wind_dir_deg: null
+    wind_kt: null
+    gust_kt: null
+    wave_ft: 2.0
+    period_s: 7.1
+    swell_dir: "ESE"
+    swell_dir_deg: 113
+    pressure_hpa: null
+    pressure_trend: null
+    findings: |
+      Offshore reference. Seas 2 ft total — 1.6 ft ESE swell @ 7.1s
+      + 1.0 ft W wind wave @ 3.6s. Anemometer not reporting in
+      latest_obs. Useful as offshore-edge sea state reference.
+
+  - id: 41008
+    name: "Grays Reef NMS (ON-TRACK for WP6)"
+    lat: 31.400
+    lon: -80.867
+    reading_time: "8:50 PM EDT Sun 6/21"
+    status: "fresh"
+    wind_dir: "SW"
+    wind_dir_deg: 230
+    wind_kt: 13.6
+    gust_kt: 17.5
+    wave_ft: 3.3
+    period_s: 4.5
+    swell_dir: "SW"
+    swell_dir_deg: 225
+    pressure_hpa: 1015.6
+    pressure_trend: "Steady 29.98 inHg"
+    findings: |
+      GA ground truth. SW 14 G 18 with 3.3 ft SW wind wave @ 4.5s.
+      Notably STRONGER than AMZ364 forecast (Tonight SW 10 kt seas
+      2 ft). This indicates the front influence is reaching GA
+      waters earlier than CHS forecasts — consistent pattern with
+      Sun PM observations. Vessel reaches WP6 Tue dawn — expect
+      conditions similar to current 41008 read (SW ~14-15 kt, 3 ft
+      seas) trending to CHS AMZ384 Tue forecast SW 10-15 G 20.
+
+  - id: 41033
+    name: "Fripp Island Nearshore SC (~10 NM SW of WP7)"
+    lat: 32.283
+    lon: -80.407
+    reading_time: "8:08 PM EDT Sun 6/21"
+    status: "fresh"
+    wind_dir: "WSW"
+    wind_dir_deg: 240
+    wind_kt: 23.3
+    gust_kt: 31.1
+    wave_ft: null
+    period_s: null
+    swell_dir: null
+    swell_dir_deg: null
+    pressure_hpa: 1014.5
+    pressure_trend: "Steady-falling 29.96 inHg"
+    findings: |
+      ANOMALOUSLY HIGH READING. WSW 23 G 31 vs neighbors at 14 G 18.
+      Interpretation: LOCALIZED CONVECTIVE CELL at station, not
+      sustained synoptic front signal. Pressure (29.96) is only
+      slightly below 41004 (30.00) and 41008 (29.98) — consistent
+      with localized convection rather than coordinated front.
+
+      Action: This is a TRIGGER EVENT for tactical monitoring.
+      Pull 41033 fresh at Mon AM refresh (after 4 AM CHS cycle).
+      If 41033 has returned to 14-18 kt range matching neighbors,
+      the spike was confirmed convective and CHS Tue forecast
+      stands. If 41033 stays at 20+ kt sustained, front timing
+      has accelerated and Tue arrival window faces stronger
+      conditions than CHS forecast — pacing strategy reconsidered.
+
+  - id: 41004
+    name: "Edisto SC offshore (35 NM SE of Charleston Sea Buoy)"
+    lat: 32.502
+    lon: -79.099
+    reading_time: "8:50 PM EDT Sun 6/21"
+    status: "fresh"
+    wind_dir: "SSW"
+    wind_dir_deg: 210
+    wind_kt: 13.6
+    gust_kt: 17.5
+    wave_ft: 2.3
+    period_s: 3.1
+    swell_dir: "ESE"
+    swell_dir_deg: 113
+    pressure_hpa: 1015.9
+    pressure_trend: "Steady 30.00 inHg"
+    findings: |
+      Charleston offshore ground truth. SSW 14 G 18 with 2.0 ft SW
+      wind wave @ 3.1s + 1.0 ft ESE swell @ 7.7s. Conditions consistent
+      with CHS AMZ360 TONIGHT forecast (SW 5-10 kt). Building toward
+      AMZ360 TUE forecast (SW 15-20 G 25). Will be primary ground
+      truth Tue afternoon as vessel transits WP8.
+
+  - id: 41013
+    name: "Frying Pan NC (broader regional reference, N of route)"
+    lat: 33.442
+    lon: -77.764
+    reading_time: "8:50 PM EDT Sun 6/21"
+    status: "fresh"
+    wind_dir: "S"
+    wind_dir_deg: 190
+    wind_kt: 9.7
+    gust_kt: 11.7
+    wave_ft: 2.0
+    period_s: 6.2
+    swell_dir: "ESE"
+    swell_dir_deg: 113
+    pressure_hpa: 1015.9
+    pressure_trend: "Steady 30.00 inHg"
+    findings: |
+      NC offshore upstream reference. S 10 G 12 — lighter than SC
+      stations, indicating the front feature is still S of NC waters.
+      Confirms front orientation with axis along NC/SC border.

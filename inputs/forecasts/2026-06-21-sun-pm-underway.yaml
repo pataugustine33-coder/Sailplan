@@ -1,0 +1,465 @@
+# Forecast bundle for PalmBeach-Charleston-O55-Underway — Sun 6/21 evening cycle.
+# Refresh pulled mid-passage Sun 6/21 ~21:25 EDT.
+#
+# CYCLE DATA:
+#   - CWFMLB 241 PM EDT Sun 6/21 (same as pre-departure — no afternoon reissue)
+#   - CWFJAX 224 PM EDT Sun 6/21 (same as pre-departure)
+#   - CWFCHS 539 PM EDT Sun 6/21 (FRESH — 3 hrs newer than pre-departure 244 PM)
+#   - Buoys pulled 8:08-8:50 PM EDT Sun 6/21
+#
+# KEY UPDATE FROM PRE-DEPARTURE BRIEFING:
+#
+# 41033 (Fripp Island Nearshore SC) at 8:08 PM EDT read WSW 23.3 G 31.1 kt —
+# a 5-hour escalation from SSW 14 G 18 at 3:08 PM. Neighboring stations
+# 41004 (32.5°N) at 14 G 18 and 41008 (31.4°N) at 14 G 18 show MODERATE
+# conditions, indicating the 41033 spike is LIKELY LOCALIZED CONVECTIVE
+# activity at that station (consistent with CHS AFD chance-of-evening-storms),
+# not yet the synoptic front. Still material: confirms active convection
+# in the SC nearshore zone the Outremer transits Tue morning.
+#
+# Tue arrival window (CHS 5:39 PM bulletin AMZ360):
+#   TUE: SW 15-20 G 25 kt, seas 3-4 ft (SW 4 ft @ 5 sec primary)
+#   TUE NIGHT: SW 15-20 → W 10-15 kt after midnight, seas subsiding 2-3 ft
+# This is essentially unchanged from pre-departure forecast, but newer
+# cycle confirms timing.
+#
+# THREE PHASES (timing at expected 8.5 kt SOG from current position):
+#
+# Phase 1 (Sun 21:30 → Mon ~14:00, WP0-WP2 / 106 NM / 13 hr):
+#   Light SW/S 5-10 kt in MLB zones, seas 1-2 ft, Stream assist active.
+#   Cat largely motor-sailing below 9 kt TWS crossover. Some convective
+#   activity possible Sun evening per MLB AFD.
+#
+# Phase 2 (Mon ~14:00 → Tue ~06:00, WP3-WP6 / 147 NM / 17 hr):
+#   Building wind as front approaches. JAX MON: SW 10-15 kt. JAX MON
+#   NIGHT: SW 15 kt, seas 3 ft S @ 4 sec. CHS MON NIGHT (AMZ384):
+#   SW 15 G 20, seas 2-3 ft. Cat sailing well on broad reach.
+#
+# Phase 3 (Tue ~06:00 → arrival, WP7-WP9 / 86 NM / ~9 hr):
+#   FRONT WINDOW. CHS TUE: SW 15-20 G 25, seas 3-4 ft AMZ360/AMZ382.
+#   Cat close-reach to beam-reach port tack approaching Charleston.
+
+cycle:
+  label: "Sun 6/21 evening cycle (CHS 539 PM, MLB/JAX 241/224 PM, buoys 8 PM)"
+  cwfmlb:
+    issued: "2026-06-21T14:41:00-04:00"
+    label_short: "Sun 6/21 241 PM"
+    label_full: "241 PM EDT Sun Jun 21 2026"
+  cwfjax:
+    issued: "2026-06-21T14:24:00-04:00"
+    label_short: "Sun 6/21 224 PM"
+    label_full: "224 PM EDT Sun Jun 21 2026"
+  cwfchs:
+    issued: "2026-06-21T17:39:00-04:00"
+    label_short: "Sun 6/21 539 PM"
+    label_full: "539 PM EDT Sun Jun 21 2026"
+
+zones:
+  # MLB zones for WP0-WP2 (FL east coast 27-29.5°N)
+  AMZ575:
+    description: "Sebastian Inlet to Jupiter Inlet 20-60 NM"
+    office: MLB
+    periods:
+      TONIGHT:
+        wind_dir: "SW"
+        wind_dir_deg: 225
+        wind_kt: [5, 10]
+        wind_gust_kt: 10
+        sea_ft: [1, 2]
+        wave_detail:
+          primary: {direction: S, direction_deg: 180, height_ft: 1, period_s: 3}
+          secondary: {direction: N, direction_deg: 0, height_ft: 1, period_s: 4}
+  AMZ572:
+    description: "Volusia-Brevard Line to Sebastian Inlet 20-60 NM"
+    office: MLB
+    periods:
+      MON:
+        wind_dir: "S"
+        wind_dir_deg: 180
+        wind_kt: [5, 10]
+        wind_gust_kt: 10
+        sea_ft: [1, 2]
+        wave_detail:
+          primary: {direction: S, direction_deg: 180, height_ft: 1, period_s: 3}
+          secondary: {direction: N, direction_deg: 0, height_ft: 1, period_s: 3}
+  AMZ570:
+    description: "Flagler Beach to Volusia-Brevard Line 20-60 NM"
+    office: MLB
+    periods:
+      MON:
+        wind_dir: "S"
+        wind_dir_deg: 180
+        wind_kt: [5, 10]
+        wind_gust_kt: 10
+        sea_ft: [1, 2]
+        wave_detail:
+          primary: {direction: S, direction_deg: 180, height_ft: 1, period_s: 2}
+          secondary: {direction: NW, direction_deg: 315, height_ft: 1, period_s: 2}
+
+  # JAX zones for WP3-WP5 (NE FL/SE GA 29.5-31.4°N)
+  AMZ474:
+    description: "Waters St Augustine to Flagler Beach FL 20-60 NM"
+    office: JAX
+    periods:
+      MON:
+        wind_dir: "S"
+        wind_dir_deg: 180
+        wind_kt: [10, 15]
+        wind_gust_kt: 15
+        sea_ft: [2, 3]
+        wave_detail:
+          primary: {direction: SW, direction_deg: 225, height_ft: 2, period_s: 3}
+  AMZ472:
+    description: "Waters Fernandina Beach to St Augustine FL 20-60 NM"
+    office: JAX
+    periods:
+      MON_NIGHT:
+        wind_dir: "SW"
+        wind_dir_deg: 225
+        wind_kt: [15, 15]
+        wind_gust_kt: 20
+        sea_ft: [2, 3]
+        wave_detail:
+          primary: {direction: S, direction_deg: 180, height_ft: 3, period_s: 4}
+          secondary: {direction: SE, direction_deg: 135, height_ft: 2, period_s: 7}
+  AMZ470:
+    description: "Waters Altamaha Sound GA to Fernandina Beach FL 20-60 NM"
+    office: JAX
+    periods:
+      TUE:
+        wind_dir: "W"
+        wind_dir_deg: 270
+        wind_kt: [10, 15]
+        wind_gust_kt: 15
+        sea_ft: [2, 3]
+        wave_detail:
+          primary: {direction: W, direction_deg: 270, height_ft: 3, period_s: 4}
+          secondary: {direction: SE, direction_deg: 135, height_ft: 2, period_s: 7}
+
+  # CHS zones for WP6-WP9 (GA/SC 31.4-32.76°N)
+  AMZ384:
+    description: "Waters Savannah GA to Altamaha Sound GA 20-60 NM"
+    office: CHS
+    periods:
+      TUE:
+        wind_dir: "SW"
+        wind_dir_deg: 225
+        wind_kt: [10, 15]
+        wind_gust_kt: 20
+        sea_ft: [2, 3]
+        wave_detail:
+          primary: {direction: W, direction_deg: 270, height_ft: 3, period_s: 4}
+          secondary: {direction: SE, direction_deg: 135, height_ft: 1, period_s: 7}
+  AMZ382:
+    description: "Waters Edisto Beach SC to Savannah GA 20-60 NM"
+    office: CHS
+    periods:
+      TUE:
+        wind_dir: "SW"
+        wind_dir_deg: 225
+        wind_kt: [15, 20]
+        wind_gust_kt: 25
+        sea_ft: [3, 4]
+        wave_detail:
+          primary: {direction: SW, direction_deg: 225, height_ft: 4, period_s: 5}
+          secondary: {direction: SE, direction_deg: 135, height_ft: 1, period_s: 7}
+  AMZ360:
+    description: "Coastal waters South Santee River to Edisto Beach SC out 20 NM"
+    office: CHS
+    periods:
+      TUE:
+        wind_dir: "SW"
+        wind_dir_deg: 225
+        wind_kt: [15, 20]
+        wind_gust_kt: 25
+        sea_ft: [3, 4]
+        wave_detail:
+          primary: {direction: SW, direction_deg: 225, height_ft: 4, period_s: 5}
+          secondary: {direction: SE, direction_deg: 135, height_ft: 1, period_s: 8}
+  AMZ340:
+    description: "Charleston Harbor"
+    office: CHS
+    periods:
+      TUE:
+        wind_dir: "SW"
+        wind_dir_deg: 225
+        wind_kt: [10, 15]
+        wind_gust_kt: 20
+        sea_ft: [1, 1]
+        wave_detail:
+          primary: {direction: SW, direction_deg: 225, height_ft: 1, period_s: 3}
+
+afd_marine:
+  CHS: |
+    Updated synopsis from CHS 539 PM EDT Sun 6/21 bulletin:
+    Broad high pressure will reside over the area through Monday. A
+    cold front will approach the area Monday night into Tuesday and
+    stall across southeast South Carolina and southeast Georgia
+    through the end of the week. Tue conditions on SC coastal waters
+    forecast SW 15-20 G 25 kt with seas 3-4 ft, then improving Tue
+    night as front passes (SW shifting W 10-15 after midnight,
+    seas subsiding 2-3 ft).
+
+    Underway observation Sun 8 PM: Buoy 41033 (Fripp Island
+    Nearshore) reading WSW 23 G 31 kt while neighbors at 14 G 18
+    indicates LOCALIZED CONVECTIVE activity at 41033, consistent
+    with AFD chance-of-evening-storms. Not synoptic front yet.
+
+synopses:
+  MLB:
+    zone: AMZ500
+    text: |
+      Generally favorable conditions outside offshore-moving lightning
+      storms, as high pressure over subtropical Atlantic extending
+      to Florida remains in control. Ridge axis of the high stationary
+      over South FL to Straits of FL, continuing offshore (WSW-SW)
+      flow shifting SSE-E afternoons into early overnights behind
+      sea breeze. Wind 5-10 kt occasionally 15 kt overnight. Seas
+      1-2 ft. High chances for lightning storms through this evening.
+      Gulf Stream Hazards: None.
+  JAX:
+    zone: AMZ400
+    text: |
+      Frontal boundary shifts north of waters Today. Showers and storms
+      push over waters this afternoon and into evening hours. Weak high
+      pressure ridge slowly builds Monday-Tuesday with isolated to
+      scattered thunderstorms returning by midweek as another front
+      moves in from the north. Stronger offshore winds with exercise
+      caution level winds possible for offshore waters Mon-Tue.
+  CHS:
+    zone: AMZ300
+    text: |
+      Broad high pressure resides over area through Monday. Cold front
+      approaches Monday night into Tuesday and stalls across southeast
+      SC and southeast GA through end of week. Tue seas peak 3-4 ft
+      AMZ360/382, subsiding 2-3 ft Tue night after midnight.
+
+gulf_stream:
+  effective_date: "2026-06-21"
+  positions:
+    - "Vessel currently in Stream at 27.48°N, 79.94°W"
+    - "16 NM E of Fort Pierce Inlet (Stream west wall)"
+    - "24 NM E of Sebastian Inlet"
+    - "30 NM E of Port Canaveral"
+    - "42 NM E of Ponce Inlet"
+    - "50 NM E of Flagler Beach"
+    - "53 NM E of Saint Augustine Beach"
+    - "64 NM ESE of Jacksonville Beach"
+  notes: |
+    Vessel is currently riding Stream centerline ~12 NM ESE of Vero
+    Beach, gaining 2+ kt N-flowing assist (observed SOG 10 kt at
+    cat polar 7-8 kt boat speed). Stream remains favorable through
+    WP4 (off Jacksonville Beach) before route closes back to coast
+    for SC approach. Stream Hazards: None.
+
+# Per-WP forecast assignments with current pacing (8.5 kt expected average,
+# build will compute polar-driven speeds per leg).
+waypoint_assignments:
+  plan_a:
+    WP0:
+      zone: AMZ575
+      period: TONIGHT
+      risk_level: green
+      row_band: green
+      pressure: 30.03
+      pressure_trend_auto: true
+      notes_addendum: >
+        Sun 9:30 PM EDT — vessel in Stream 12 NM ESE Vero Beach
+        making ~10 kt SOG. Local conditions per 41009 (60 NM N):
+        SW 4 G 8, seas 1 ft, period 8 sec. Light westerly transition.
+        Course 350° → TWA ~125° broad reach starboard, very light
+        breeze. Cat largely Stream-driven at this moment.
+      weather_risk: >
+        Current position calm Stream conditions. Continue current
+        pace; light SW will hold overnight. Watch radar for any
+        residual convective cells per MLB AFD.
+
+    WP1:
+      zone: AMZ572
+      period: MON
+      risk_level: green
+      row_band: green
+      pressure: 30.03
+      pressure_trend_auto: true
+      notes_addendum: >
+        Mon ~7 AM EDT (approx, polar-driven). Off Cape Canaveral
+        28.5°N. Buoy 41009 nearby — pull live ground truth at
+        dawn check-in. Forecast S 5-10 kt building, light chop.
+      weather_risk: >
+        Morning transit middle FL coast. Light wind, motor-sailing
+        likely. Dawn watch handover opportunity.
+
+    WP2:
+      zone: AMZ570
+      period: MON
+      risk_level: green
+      row_band: green
+      pressure: 30.02
+      pressure_trend_auto: true
+      notes_addendum: >
+        Mon late morning. Off Daytona Beach. S 5-10 kt building
+        through afternoon. Course 352° → TWA ~117° broad reach
+        starboard. Stream still helping.
+      weather_risk: "Comfortable broad reach in light SW, Stream assist active."
+
+    WP3:
+      zone: AMZ474
+      period: MON
+      risk_level: yellow
+      row_band: yellow
+      pressure: 30.00
+      pressure_trend_auto: true
+      notes_addendum: >
+        Mon mid-afternoon. Off St Augustine. Wind building to S
+        10-15 kt per JAX MON forecast. Course 345° → TWA ~120°
+        broad reach. Cat polar 8-9 kt expected here.
+      weather_risk: >
+        Phase 2 building begins. Watch JAX afternoon convective
+        development per AFD (slight chance storms PM).
+
+    WP4:
+      zone: AMZ472
+      period: MON_NIGHT
+      risk_level: yellow
+      row_band: yellow
+      pressure: 29.98
+      pressure_trend_auto: true
+      notes_addendum: >
+        Mon evening. Off Jacksonville Beach. JAX MON_NIGHT: SW
+        ~15 kt G 20, seas 2-3 ft, S 3 ft @ 4 sec primary. Course
+        014° → TWA ~90° beam reach starboard. Cat fast here.
+      weather_risk: >
+        Solid beam-reach broad-reach corridor through Mon night.
+        Cat polar 9-10 kt expected at TWA 90° in 15 kt SW.
+
+    WP5:
+      zone: AMZ470
+      period: TUE
+      risk_level: yellow
+      row_band: yellow
+      pressure: 29.97
+      pressure_trend_auto: true
+      notes_addendum: >
+        Tue ~2 AM EDT. Off Brunswick GA. Crossing into TUE period.
+        JAX TUE: W 10-15 kt, seas 2-3 ft. Course 000° → TWA ~90°
+        beam reach port tack as wind veers to W.
+      weather_risk: >
+        Pre-dawn Tue, transitioning into front timing window.
+        Continue monitoring 41033 buoy via radio/data link for
+        front timing confirmation.
+
+    WP6:
+      zone: AMZ384
+      period: TUE
+      risk_level: yellow
+      row_band: yellow
+      pressure: 29.96
+      pressure_trend_auto: true
+      notes_addendum: >
+        Tue dawn. Off Grays Reef NMS. Buoy 41008 ON-TRACK
+        (~5 NM W) — pull live ground truth here. CHS AMZ384 TUE:
+        SW 10-15 G 20, seas 2-3 ft. Course 017° → TWA ~118° broad
+        reach starboard.
+      weather_risk: >
+        Dawn arrival GA waters. AMZ384 (off-shelf, well S of front
+        axis) MILDER than AMZ382/360 to the N. Verify 41033 reading
+        — if still elevated above neighbors, front timing accelerated.
+
+    WP7:
+      zone: AMZ382
+      period: TUE
+      risk_level: yellow
+      row_band: yellow
+      pressure: 29.94
+      pressure_trend_auto: true
+      notes_addendum: >
+        Tue late morning. Off Hilton Head SC. Buoy 41033 (~10 NM SW)
+        is the on-track ground truth here. Sun 8 PM convective spike
+        observed at this station (WSW 23 G 31) — likely localized,
+        verify via fresh pull on arrival. CHS AMZ382 TUE: SW 15-20
+        G 25, seas 3-4 ft. Course 042° → TWA ~93° beam reach starboard.
+        ENTERING THE FRONT WINDOW.
+      weather_risk: >
+        Phase 3 begins. SW 15-20 G 25 forecast, seas 3-4 ft. Reefed
+        beam reach. Convective activity ongoing in this zone per
+        41033 Sun PM reading; watch radar for cells.
+
+    WP8:
+      zone: AMZ360
+      period: TUE
+      risk_level: yellow
+      row_band: yellow
+      pressure: 29.93
+      pressure_trend_auto: true
+      notes_addendum: >
+        Tue afternoon. Charleston Sea Buoy 2CL. CHS AMZ360 TUE:
+        SW 15-20 G 25, seas 3-4 ft (SW 4 ft @ 5 sec primary).
+        Course 306° (turning NW into Charleston) → TWA ~120° broad
+        reach starboard becoming close reach as wind clocks SW with
+        course change. Final approach phase.
+      weather_risk: >
+        Charleston Sea Buoy arrival in peak front conditions.
+        Reefed beam-to-close reach. Watch for harbor traffic clearing.
+
+    WP9:
+      zone: AMZ340
+      period: TUE
+      risk_level: green
+      row_band: green
+      pressure: 29.93
+      pressure_trend_auto: true
+      notes_addendum: >
+        Tue afternoon arrival Charleston Harbor Entrance (inside the
+        jetties). AMZ340 TUE: SW 10-15 G 20, harbor seas 1 ft.
+        Sheltered. Channel project depth 42 ft.
+      weather_risk: >
+        Inside the jetties. Sheltered harbor waters. Strong SW
+        gusts possible but no significant seas inside harbor.
+
+plan_commentary:
+  plan_a: |
+    UNDERWAY UPDATE — Sun 6/21 9:30 PM EDT, from current position
+    27.48°N, 79.94°W (12 NM ESE Vero Beach in Stream) to Charleston
+    Harbor Entrance. 339 NM remaining.
+
+    Vessel progress: ~44 NM in 4h25m at ~10 kt SOG since 5:00 PM
+    Sun departure (1.5+ kt above pre-departure plan). Cat sailing
+    well in evening SSE breeze + 2+ kt Stream assist.
+
+    THREE PHASES from current position:
+
+    Phase 1 (Sun 21:30 → Mon mid-afternoon, WP0-WP3, ~146 NM):
+    Light SW 5-10 kt MLB/JAX zones, seas 1-2 ft, Stream assist
+    holds through WP2-3. Cat largely motor-sailing below 9 kt TWS
+    crossover but still making 7.5-8 kt with Stream. Watch radar
+    Sun evening for residual convective cells per MLB AFD chance
+    of evening thunderstorms.
+
+    Phase 2 (Mon afternoon → Tue dawn, WP3-WP6, ~107 NM):
+    Wind builds S 10-15 → SW 15 G 20 across JAX/CHS zones as front
+    approaches. JAX MON NIGHT seas 2-3 ft S @ 4 sec. Cat broad-to-
+    beam reach starboard — favorable point of sail, polar shows
+    9-10 kt boat speed. This is the cat-favored corridor where you
+    bank time.
+
+    Phase 3 (Tue dawn → Tue afternoon arrival, WP6-WP9, ~86 NM):
+    Front window. CHS TUE: SW 15-20 G 25, seas 3-4 ft AMZ360/AMZ382.
+    Cat reefed beam-to-close reach approaching Charleston. Convective
+    activity ongoing in SC nearshore zone per 41033 Sun 8 PM reading
+    (WSW 23 G 31, localized) — verify via fresh pulls Mon AM and
+    Tue dawn.
+
+    TACTICAL CONSIDERATION: At current 10 kt SOG average, arrival
+    would shift earlier (Tue morning, ahead of front peak). At
+    polar-driven expected ~8 kt avg, arrival lands in Tue PM front
+    peak. At deliberate 7 kt avg, arrival shifts to Tue night after
+    front clears. Decision point: refresh again Mon late afternoon
+    (after CHS 4 PM cycle) and commit to push-hard OR slow-down.
+
+    REFRESH POINTS REQUIRED:
+    - Mon ~6 AM EDT (~9 hr in): CWFJAX + 41008/41033 buoys —
+      verify front timing has not accelerated
+    - Mon ~4 PM EDT (~19 hr in): CWFCHS + AFDCHS — commit to
+      Push-Hard vs Slow-Down pacing strategy
+    - Tue dawn (~33 hr in): CWFCHS + 41033/41004 — final approach
+      decision; verify Charleston Harbor conditions for arrival
