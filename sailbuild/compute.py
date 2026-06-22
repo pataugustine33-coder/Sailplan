@@ -688,3 +688,327 @@ def _decimal_to_hm(decimal_h: float) -> str:
     else:
         h12, ampm = h - 12, "PM"
     return f"{h12}:{m:02d} {ampm}"
+
+
+# ======================================================================
+# Watch Brief — 12-hour tactical dashboard segment derivation
+# ======================================================================
+@dataclass
+class WatchSegment:
+    """One 3-hour segment of the 12-hour watch brief.
+
+    Built by walking the polar-driven Leg list and projecting the boat's
+    expected conditions, performance, and position at the segment midpoint.
+    Each segment maps to one Leg (the leg the boat is sailing TO during the
+    segment's time span), so the forecast and polar math come straight from
+    the existing build pipeline — no second source of truth.
+    """
+    idx: int
+    start_hr: float             # hours from plan depart
+    end_hr: float
+    start_clock: str            # "Mon 9:30 AM"
+    end_clock: str              # "Mon 12:30 PM"
+    label: str                  # "Mon 9:30 AM - 12:30 PM"
+
+    # Day/night context
+    is_day: bool                # True if segment is mostly daylight
+    day_night_text: str         # "DAY" / "NIGHT" / "DAY → DUSK" / "DAWN → DAY"
+    contains_sunrise: bool
+    contains_sunset: bool
+
+    # Position context (from active leg)
+    active_wp_id: str           # WP the boat is approaching during this segment
+    active_wp_name: str
+    position_label: str         # "Between WP1 (St Aug) and WP2 (Jacksonville)"
+
+    # Forecast conditions (from active leg)
+    course: int
+    twa: int
+    tws: float
+    wind_dir_text: str
+    wind_dir_deg: int
+    wind_low: float
+    wind_high: float
+    gust: Optional[float]
+    seas_low: float
+    seas_high: float
+    sea_period: float
+    sea_from_deg: int
+    sea_from_text: str
+    pressure: Optional[float]
+    pressure_trend: Optional[str]
+
+    # Performance
+    boat_speed_polar: float       # Pure polar Vs at this TWS/TWA
+    boat_speed_calibrated: float  # Polar × sea_factor (what the boat will actually do)
+    sail_mode: str
+    aws: float
+    awa: int
+    distance_segment_nm: float    # NM covered in segment_hours at calibrated speed
+
+    # Risk + tactical
+    risk_color: str             # hex (C6EFCE/FFEB9C/FFC7CE)
+    risk_level: str             # green/yellow/red
+    action: str                 # 1-2 line tactical advice
+
+    # Convenience flags for action derivation
+    is_arrival: bool = False
+    notes: str = ""
+
+
+def _t_to_clock_str(plan_depart_hour: float, depart_day: str, t_hr: float) -> str:
+    """Convert hours-from-depart to a 12-hour clock string with day prefix.
+
+    Day cycles forward: Sun → Mon → Tue → Wed (etc). Handles past-midnight
+    segments correctly.
+    """
+    DAY_ORDER = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+    try:
+        di = DAY_ORDER.index(depart_day)
+    except ValueError:
+        di = 0
+    total_h = plan_depart_hour + t_hr
+    day_offset = int(total_h // 24)
+    hour_of_day = total_h % 24
+    day_label = DAY_ORDER[(di + day_offset) % 7]
+
+    h_int = int(hour_of_day)
+    m = int(round((hour_of_day - h_int) * 60))
+    if m == 60:
+        h_int += 1
+        m = 0
+    if h_int >= 24:
+        h_int -= 24
+    if h_int == 0:
+        h12, ampm = 12, "AM"
+    elif h_int < 12:
+        h12, ampm = h_int, "AM"
+    elif h_int == 12:
+        h12, ampm = 12, "PM"
+    else:
+        h12, ampm = h_int - 12, "PM"
+    return f"{day_label} {h12}:{m:02d} {ampm}"
+
+
+def _find_active_leg(legs, t_hr):
+    """Find the leg the boat is sailing AT time t_hr (hours from depart).
+
+    Each leg's cum_time_hr is the time the boat REACHES that WP. Conditions
+    on the leg describe the transit INTO that WP from the previous one.
+    So for a segment whose midpoint is at t_hr, the active leg is the first
+    leg with cum_time_hr >= t_hr (the one the boat is currently approaching).
+    """
+    for i, leg in enumerate(legs):
+        if leg.cum_time_hr >= t_hr:
+            return i, leg
+    return len(legs) - 1, legs[-1]
+
+
+def _classify_day_night(start_hour: float, end_hour: float, day_window):
+    """Classify a segment's time span vs daylight window.
+
+    day_window is [sunrise_h, sunset_h] in 24-hour decimal at the destination.
+    Returns (is_day, label, contains_sunrise, contains_sunset).
+
+    For midnight-spanning segments, normalizes both ends to [0, 24).
+    """
+    if day_window is None or len(day_window) != 2:
+        return True, "DAY", False, False
+    sr, ss = day_window  # sunrise hour, sunset hour
+    s = start_hour % 24
+    e = end_hour % 24
+    contains_sr = False
+    contains_ss = False
+    if s < e:
+        contains_sr = s <= sr <= e
+        contains_ss = s <= ss <= e
+    else:
+        # wraps midnight
+        contains_sr = sr >= s or sr <= e
+        contains_ss = ss >= s or ss <= e
+
+    def hr_is_day(h):
+        return sr <= h <= ss
+
+    s_is_day = hr_is_day(s)
+    mid = (start_hour + end_hour) / 2 % 24
+    mid_is_day = hr_is_day(mid)
+    e_is_day = hr_is_day(e)
+
+    if s_is_day and e_is_day and not contains_sr and not contains_ss:
+        return True, "DAY", False, False
+    if not s_is_day and not e_is_day and not contains_sr and not contains_ss:
+        return False, "NIGHT", False, False
+    if contains_sunrise := contains_sr:
+        return mid_is_day, "DAWN → DAY", True, False
+    if contains_ss:
+        return mid_is_day, "DAY → DUSK", False, True
+    return mid_is_day, "DAY" if mid_is_day else "NIGHT", contains_sr, contains_ss
+
+
+def _position_label(active_leg, prev_leg, t_hr):
+    """Build a compact position description for the watch card.
+
+    'Approaching St Augustine' if the segment lands close to the active WP.
+    'St Augustine → Jacksonville' for mid-leg segments (no WP IDs, just
+    short city labels — keeps text short enough for the card width).
+    """
+    def short(name):
+        from .charts import _short_location_from_wp_name
+        sl = _short_location_from_wp_name(name)
+        return sl or name[:18]
+
+    wp_short = short(active_leg.wp_name)
+    if prev_leg is None:
+        return f"Approaching {wp_short}"
+    span = active_leg.cum_time_hr - prev_leg.cum_time_hr
+    if span <= 0:
+        frac = 1.0
+    else:
+        frac = (t_hr - prev_leg.cum_time_hr) / span
+    if frac > 0.80:
+        return f"Approaching {wp_short}"
+    prev_short = short(prev_leg.wp_name)
+    return f"{prev_short} → {wp_short}"
+
+
+def _derive_action(seg: WatchSegment) -> str:
+    """Generate a tactical action recommendation for the segment.
+
+    Rule-based heuristic combining wind/gust/sea levels, day/night
+    transitions, convective probability, and risk classification.
+    """
+    actions = []
+
+    # Sun events take precedence — schedule-relevant for watch staffing
+    if seg.contains_sunrise:
+        actions.append("Sunrise this segment — switch off nav lights, day-watch handover")
+    if seg.contains_sunset:
+        actions.append("Sunset this segment — switch to nav lights, reef before dark if doubtful")
+
+    # Reefing triggers from gust forecast
+    if seg.gust is not None and seg.gust >= 25:
+        actions.append(f"Reef BEFORE this segment — gusts to {int(seg.gust)} kt forecast")
+    elif seg.gust is not None and seg.gust >= 20:
+        actions.append(f"Stand-by reef — gusts to {int(seg.gust)} kt (SCA-threshold territory)")
+    elif seg.wind_high >= 18:
+        actions.append("Watch for SCA-threshold winds; reef if sustained 18+ kt")
+
+    # Night transit in elevated conditions
+    if not seg.is_day and seg.risk_level == "yellow" and seg.gust is None:
+        actions.append("Night watch in elevated conditions — keep reefed sail plan")
+
+    # Convective watch from notes
+    note_low = (seg.notes or "").lower()
+    if any(k in note_low for k in ["tstm", "thunderstorm", "convective", "storm"]):
+        actions.append("Watch radar for convective cells")
+
+    # Arrival callout
+    if seg.is_arrival:
+        actions.append("FINAL APPROACH — verify harbor traffic on VHF, prep dock lines/fenders")
+
+    # Sail-mode hint
+    sm_low = (seg.sail_mode or "").lower()
+    if "motor" in sm_low and seg.tws < 9:
+        actions.append("Light wind — motor-sailing regime; monitor fuel burn")
+
+    if not actions:
+        actions.append("Maintain pace; conditions stable for this segment")
+    return " · ".join(actions)
+
+
+def build_watch_segments(plan, legs, arrival_timing, total_nm, segment_hours=3.0, n_segments=4):
+    """Derive 4 x 3-hour watch segments starting from the plan's depart_hour.
+
+    Each segment is mapped to the active leg the boat is sailing during the
+    segment's time window. Forecast, polar, and tactical fields are pulled
+    from the leg with no second source of truth.
+
+    Args:
+      plan: passage YAML plan block (must have depart_hour, depart_day)
+      legs: list of Leg objects from build_legs_for_plan
+      arrival_timing: passage YAML arrival_timing block (for day_window)
+      total_nm: total passage distance (for arrival-callout detection)
+
+    Returns:
+      list of WatchSegment, length n_segments.
+    """
+    depart_hour = float(plan["depart_hour"])
+    depart_day = plan.get("depart_day", "Mon")
+    day_window = (arrival_timing or {}).get("day_window")
+    last_leg_cum = legs[-1].cum_time_hr if legs else 0.0
+
+    segments = []
+    for i in range(n_segments):
+        start_hr = i * segment_hours
+        end_hr = (i + 1) * segment_hours
+        mid_hr = start_hr + segment_hours / 2
+
+        leg_idx, active_leg = _find_active_leg(legs, mid_hr)
+        prev_leg = legs[leg_idx - 1] if leg_idx > 0 else None
+        # In current absolute clock terms, what's the start/end?
+        absolute_start = depart_hour + start_hr
+        absolute_end = depart_hour + end_hr
+
+        is_day, dn_text, has_sr, has_ss = _classify_day_night(
+            absolute_start, absolute_end, day_window
+        )
+
+        # Position fraction along passage (for arrival check)
+        is_arrival = mid_hr >= last_leg_cum * 0.92 if last_leg_cum > 0 else False
+
+        # Boat speed: polar potential vs calibrated.
+        # active_leg.polar_speed is pure polar Vs; active_leg.boat_speed includes
+        # sea_factor calibration. For motoring legs, both equal motor_speed.
+        polar_bs = active_leg.polar_speed if active_leg.polar_speed > 0 else active_leg.boat_speed
+        calib_bs = active_leg.boat_speed
+
+        # Distance covered in segment_hours at calibrated speed
+        distance = calib_bs * segment_hours
+
+        seg = WatchSegment(
+            idx=i,
+            start_hr=start_hr,
+            end_hr=end_hr,
+            start_clock=_t_to_clock_str(depart_hour, depart_day, start_hr),
+            end_clock=_t_to_clock_str(depart_hour, depart_day, end_hr),
+            label="",  # set below
+            is_day=is_day,
+            day_night_text=dn_text,
+            contains_sunrise=has_sr,
+            contains_sunset=has_ss,
+            active_wp_id=active_leg.wp_id,
+            active_wp_name=active_leg.wp_name,
+            position_label=_position_label(active_leg, prev_leg, mid_hr),
+            course=int(active_leg.course_out) if active_leg.course_out is not None else 0,
+            twa=active_leg.twa,
+            tws=active_leg.wind_kt_avg,
+            wind_dir_text=active_leg.wind_dir_text,
+            wind_dir_deg=active_leg.wind_dir_deg,
+            wind_low=active_leg.wind_kt_low,
+            wind_high=active_leg.wind_kt_high,
+            gust=active_leg.gust_kt,
+            seas_low=active_leg.sea_ft_low,
+            seas_high=active_leg.sea_ft_high,
+            sea_period=active_leg.sea_period_s,
+            sea_from_deg=active_leg.sea_from_deg,
+            sea_from_text=active_leg.sea_from_label,
+            pressure=active_leg.pressure_inhg,
+            pressure_trend=active_leg.pressure_trend,
+            boat_speed_polar=round(polar_bs, 1),
+            boat_speed_calibrated=round(calib_bs, 1),
+            sail_mode=active_leg.sail_mode,
+            aws=active_leg.aws,
+            awa=active_leg.awa,
+            distance_segment_nm=round(distance, 1),
+            risk_color=active_leg.risk_color,
+            risk_level={"C6EFCE": "green", "FFEB9C": "yellow", "FFC7CE": "red"}.get(active_leg.risk_color, "green"),
+            action="",
+            is_arrival=is_arrival,
+            notes=active_leg.notes or "",
+        )
+        seg.label = f"{seg.start_clock} – {seg.end_clock}"
+        seg.action = _derive_action(seg)
+        segments.append(seg)
+
+    return segments

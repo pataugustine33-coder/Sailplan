@@ -518,3 +518,338 @@ def mini_polar_png_bytes(tws, twa, design="D1170", output_px=200, tack="starboar
     plt.close(fig)
     buf.seek(0)
     return buf
+
+
+# ======================================================================
+# Watch Brief charts — 4 cards + 12-hour strip for the tactical dashboard
+# ======================================================================
+COLOR_NIGHT_BAND = "#E7EBF2"      # Light blue-gray night shading
+COLOR_DAY_BAND = "#FFFFFF"        # White day background
+COLOR_RISK_GREEN = "#C6EFCE"
+COLOR_RISK_YELLOW = "#FFEB9C"
+COLOR_RISK_RED = "#FFC7CE"
+
+# Border / accent colors per risk
+RISK_BORDER = {
+    "green":  "#70AD47",
+    "yellow": "#BF8F00",
+    "red":    "#C00000",
+}
+
+
+def _draw_segment_compass(ax, wind_deg, sea_deg, course):
+    """Draw a small wind+sea compass rose on the given Axes (course-up frame).
+
+    Same visual language as the per-WP plan-tab roses but simplified for the
+    smaller card real estate. Course is shown as the up-direction label;
+    wind arrow comes FROM wind_deg; sea arrow comes FROM sea_deg.
+    """
+    # Background circle
+    theta = np.linspace(0, 2 * np.pi, 100)
+    ax.plot(np.cos(theta), np.sin(theta), color=COLOR_GRID, linewidth=1.0)
+    ax.fill(np.cos(theta), np.sin(theta), color="#FAFAFA", zorder=0)
+
+    # Cardinal ticks (course-up rotation: 0 at top of rose = course direction)
+    for cardinal, deg_offset in [("N", 0), ("E", 90), ("S", 180), ("W", 270)]:
+        # In course-up frame, the cardinal letter goes where N/E/S/W is
+        # relative to course
+        angle = math.radians((deg_offset - course) % 360 - 90)
+        ax.text(1.15 * math.cos(angle), 1.15 * math.sin(angle),
+                cardinal, ha="center", va="center", fontsize=7, color="#777777")
+
+    # Course-up indicator (small triangle at top center, course bearing label)
+    ax.plot([0, 0], [0, 0.92], color="#444444", linewidth=1.5, alpha=0.6)
+    ax.text(0, 1.15, f"{course}°T", ha="center", va="bottom",
+            fontsize=8, fontweight="bold", color=COLOR_TITLE)
+
+    # Wind arrow — wind comes FROM wind_deg, arrow points the direction wind GOES.
+    # In course-up frame, wind_deg relative to course = wind_deg - course
+    def to_xy(deg_true, length):
+        # True bearing rotated so course = up (0° rose-relative = course true)
+        angle = math.radians((deg_true - course) % 360 - 90)
+        # The arrow points FROM the angle TO 180° opposite (wind GOES that way)
+        from_x = math.cos(angle) * length
+        from_y = math.sin(angle) * length
+        to_x = -from_x
+        to_y = -from_y
+        return from_x, from_y, to_x, to_y
+
+    if wind_deg is not None:
+        fx, fy, tx, ty = to_xy(wind_deg, 0.85)
+        ax.annotate("", xy=(tx, ty), xytext=(fx, fy),
+                    arrowprops=dict(arrowstyle="-|>", color="#1565C0",
+                                    lw=2.0, mutation_scale=15))
+
+    if sea_deg is not None and sea_deg > 0:
+        fx, fy, tx, ty = to_xy(sea_deg, 0.65)
+        ax.annotate("", xy=(tx, ty), xytext=(fx, fy),
+                    arrowprops=dict(arrowstyle="-|>", color="#1B5E20",
+                                    lw=1.6, mutation_scale=12,
+                                    linestyle="--"))
+
+    ax.set_xlim(-1.35, 1.35)
+    ax.set_ylim(-1.35, 1.35)
+    ax.set_aspect("equal")
+    ax.axis("off")
+
+
+def watch_cards_png_bytes(segments, output_w_px=1600, output_h_px=540):
+    """Render 4 watch cards side-by-side as a single PNG.
+
+    Each card is one 3-hour segment with:
+      - Time period header + day/night icon
+      - Compass rose (wind direction + sea direction + course-up)
+      - Wind / sea / pressure text
+      - Boat speed (polar potential + calibrated expected)
+      - Sail mode badge
+      - Risk-color border + bottom strip
+
+    Pillar visual goal: scannable horizontally for watch handover.
+    """
+    if not segments:
+        return None
+    n = len(segments)
+    fig, axes = plt.subplots(1, n, figsize=(output_w_px / 100, output_h_px / 100),
+                             dpi=100, gridspec_kw={"wspace": 0.04})
+    if n == 1:
+        axes = [axes]
+    fig.patch.set_facecolor("white")
+
+    for idx, seg in enumerate(segments):
+        ax = axes[idx]
+        ax.axis("off")
+        ax.set_xlim(0, 10)
+        ax.set_ylim(0, 14)
+
+        # Card background with risk-color border
+        risk = seg.risk_level
+        risk_fill = {"green": COLOR_RISK_GREEN, "yellow": COLOR_RISK_YELLOW,
+                     "red": COLOR_RISK_RED}.get(risk, COLOR_RISK_GREEN)
+        border = RISK_BORDER.get(risk, RISK_BORDER["green"])
+        # Outer card (rounded look via slight inset)
+        ax.add_patch(plt.Rectangle((0.15, 0.15), 9.7, 13.7,
+                                   facecolor="white", edgecolor=border,
+                                   linewidth=2.5, zorder=1))
+        # Risk strip at the bottom (visual anchor)
+        ax.add_patch(plt.Rectangle((0.15, 0.15), 9.7, 0.55,
+                                   facecolor=risk_fill, edgecolor=border,
+                                   linewidth=1.5, zorder=2))
+
+        # Title bar at top with the time + day/night
+        ax.add_patch(plt.Rectangle((0.15, 12.55), 9.7, 1.30,
+                                   facecolor=COLOR_TITLE, edgecolor=border,
+                                   linewidth=1.5, zorder=2))
+        ax.text(5, 13.40, seg.label, ha="center", va="center",
+                fontsize=10.5, color="white", fontweight="bold", zorder=3)
+        # Day/night badge
+        icon = "☼" if seg.is_day else "☾"
+        ax.text(5, 12.85, f"{icon}  {seg.day_night_text}",
+                ha="center", va="center",
+                fontsize=9, color="#FFD54F", fontweight="bold", zorder=3)
+
+        # Compass rose inset (top middle of card body)
+        rose_ax = fig.add_axes([0, 0, 0.1, 0.1])  # placeholder; reposition next
+        # Compute position in figure coords. axes[idx] occupies a horizontal slot.
+        pos = ax.get_position()
+        rose_left = pos.x0 + 0.32 * pos.width
+        rose_bottom = pos.y0 + 0.55 * pos.height
+        rose_width = pos.width * 0.36
+        rose_height = pos.height * 0.28
+        rose_ax.set_position([rose_left, rose_bottom, rose_width, rose_height])
+        _draw_segment_compass(rose_ax, seg.wind_dir_deg, seg.sea_from_deg, seg.course)
+
+        # Conditions block (below compass)
+        y_cur = 7.0
+        wind_text = f"{seg.wind_dir_text} {int(round(seg.wind_low))}-{int(round(seg.wind_high))} kt"
+        if seg.gust:
+            wind_text += f" · G {int(round(seg.gust))}"
+        ax.text(5, y_cur, wind_text, ha="center", va="center",
+                fontsize=11, color=COLOR_WIND_EDGE, fontweight="bold")
+        sea_text = f"Seas {int(round(seg.seas_low))}-{int(round(seg.seas_high))} ft @ {int(round(seg.sea_period))}s · from {seg.sea_from_text}"
+        ax.text(5, y_cur - 0.7, sea_text, ha="center", va="center",
+                fontsize=9, color=COLOR_SEA_LINE, fontweight="bold")
+        if seg.pressure:
+            ax.text(5, y_cur - 1.4, f"Pressure {seg.pressure:.2f} inHg · {seg.pressure_trend or ''}",
+                    ha="center", va="center", fontsize=8, color="#555555")
+
+        # Sailing block
+        y_cur = 4.2
+        course_text = f"Course {seg.course}°T · TWA {seg.twa}° · {seg.sail_mode}"
+        ax.text(5, y_cur, course_text, ha="center", va="center",
+                fontsize=9.5, color="#333333", fontweight="bold")
+
+        # Boat speed: polar / calibrated (the headline number per skipper request)
+        y_cur = 3.0
+        ax.text(5, y_cur,
+                f"{seg.boat_speed_polar:.1f} kt polar",
+                ha="center", va="center",
+                fontsize=14, color="#1F3864", fontweight="bold")
+        ax.text(5, y_cur - 0.85,
+                f"{seg.boat_speed_calibrated:.1f} kt calibrated",
+                ha="center", va="center",
+                fontsize=11, color="#666666", fontweight="bold")
+
+        # Distance this segment
+        ax.text(5, 1.20, f"Distance: {seg.distance_segment_nm:.1f} NM",
+                ha="center", va="center", fontsize=9, color="#444444")
+
+        # Position label
+        ax.text(5, 0.42, seg.position_label,
+                ha="center", va="center", fontsize=7.5, color="#333333",
+                fontweight="bold", zorder=3)
+
+    buf = io.BytesIO()
+    plt.savefig(buf, format="png", dpi=100, bbox_inches="tight",
+                facecolor="white", edgecolor="none")
+    plt.close(fig)
+    buf.seek(0)
+    return buf
+
+
+def twelve_hour_strip_png_bytes(segments, output_w_px=1400, output_h_px=380):
+    """12-hour wind+sea+boat-speed strip with segment boundaries and day/night shading.
+
+    Time axis from 0 to 12 hours (segment-relative). Top panel: wind sustained
+    bars (per 3-hr segment) + gust marks + SCA/Reef thresholds. Middle panel:
+    sea height line. Bottom panel: boat-speed (polar vs calibrated) bars.
+    Vertical dividers at each segment boundary; day/night strip across top.
+    """
+    if not segments:
+        return None
+
+    n = len(segments)
+    seg_hours = segments[0].end_hr - segments[0].start_hr
+    total_hours = n * seg_hours
+
+    fig = plt.figure(figsize=(output_w_px / 100, output_h_px / 100), dpi=100)
+    gs = fig.add_gridspec(3, 1, height_ratios=[2.2, 1.0, 1.5], hspace=0.18,
+                          left=0.06, right=0.97, top=0.93, bottom=0.10)
+    ax_wind = fig.add_subplot(gs[0])
+    ax_sea  = fig.add_subplot(gs[1], sharex=ax_wind)
+    ax_bs   = fig.add_subplot(gs[2], sharex=ax_wind)
+
+    # X positions — segment center for bar locations
+    centers = [s.start_hr + seg_hours / 2 for s in segments]
+    wind_high = [s.wind_high for s in segments]
+    wind_low  = [s.wind_low for s in segments]
+    gusts     = [s.gust if s.gust else 0 for s in segments]
+    seas      = [s.seas_high for s in segments]
+    bs_polar  = [s.boat_speed_polar for s in segments]
+    bs_calib  = [s.boat_speed_calibrated for s in segments]
+
+    # Day/night shading on all three panels — paint NIGHT bands first
+    for s in segments:
+        if not s.is_day:
+            for axx in (ax_wind, ax_sea, ax_bs):
+                axx.axvspan(s.start_hr, s.end_hr, color=COLOR_NIGHT_BAND,
+                            alpha=0.6, zorder=0)
+
+    # Segment boundary verticals + segment number labels
+    for s in segments:
+        for axx in (ax_wind, ax_sea, ax_bs):
+            axx.axvline(s.end_hr, color="#BFBFBF", linewidth=0.8,
+                        linestyle="-", alpha=0.7, zorder=1)
+
+    bar_w = seg_hours * 0.7
+
+    # ====== TOP PANEL: Wind ======
+    ax_wind.bar(centers, wind_high, width=bar_w, color=COLOR_WIND_BAR,
+                edgecolor=COLOR_WIND_EDGE, linewidth=1.4, zorder=3,
+                label="Wind sustained (kt)")
+    # Show range as a thinner darker line from low to high
+    for c, lo, hi in zip(centers, wind_low, wind_high):
+        if lo < hi:
+            ax_wind.plot([c, c], [lo, hi], color=COLOR_WIND_EDGE,
+                         linewidth=2.5, alpha=0.4, zorder=4)
+    # Gust caps
+    has_gusts = False
+    for c, g, w in zip(centers, gusts, wind_high):
+        if g and g > w:
+            ax_wind.plot([c - bar_w/2 - 0.05, c + bar_w/2 + 0.05], [g, g],
+                         color=COLOR_WIND_GUST, linewidth=2.6, zorder=5)
+            ax_wind.plot([c, c], [w, g], color=COLOR_WIND_GUST,
+                         linewidth=1.2, linestyle=":", alpha=0.7, zorder=4)
+            ax_wind.annotate(f"G {int(g)}", xy=(c, g), xytext=(0, 5),
+                             textcoords="offset points", ha="center",
+                             fontsize=9, color=COLOR_WIND_GUST, fontweight="bold")
+            has_gusts = True
+    # Wind labels inside the bars
+    for c, w in zip(centers, wind_high):
+        if w > 0:
+            ax_wind.annotate(f"{int(w)}", xy=(c, w/2), ha="center", va="center",
+                             fontsize=11, color=COLOR_WIND_EDGE, fontweight="bold",
+                             zorder=4)
+    # Thresholds
+    ax_wind.axhline(y=18, color=COLOR_SCA_THRESHOLD, linewidth=1.4,
+                    linestyle="--", alpha=0.8, zorder=2)
+    ax_wind.axhline(y=25, color=COLOR_REEF_THRESHOLD, linewidth=1.4,
+                    linestyle="--", alpha=0.7, zorder=2)
+    ax_wind.text(0.05, 18.6, "SCA 18 kt",
+                 fontsize=8, color="#9C5700", ha="left", va="bottom", fontweight="bold")
+    ax_wind.text(0.05, 25.6, "Reef 25 kt",
+                 fontsize=8, color=COLOR_REEF_THRESHOLD, ha="left", va="bottom", fontweight="bold")
+
+    ax_wind.set_ylabel("Wind (kt)", fontsize=10, color=COLOR_WIND_EDGE, fontweight="bold")
+    ax_wind.set_ylim(0, max(32, max(wind_high + gusts) * 1.3))
+    ax_wind.tick_params(axis="y", labelcolor=COLOR_WIND_EDGE, labelsize=9)
+    ax_wind.grid(axis="y", color=COLOR_GRID, linewidth=0.5, alpha=0.5, zorder=1)
+    ax_wind.set_axisbelow(True)
+    plt.setp(ax_wind.get_xticklabels(), visible=False)
+    ax_wind.set_title("12-Hour Watch Strip — wind / sea / boat speed",
+                      fontsize=11, color=COLOR_TITLE, fontweight="bold",
+                      loc="left", pad=6)
+
+    # ====== MIDDLE PANEL: Sea height ======
+    ax_sea.plot(centers, seas, color=COLOR_SEA_LINE, linewidth=2.5, marker="o",
+                markersize=8, markeredgecolor="white", markeredgewidth=1.3, zorder=4)
+    for c, s in zip(centers, seas):
+        if s > 0:
+            ax_sea.annotate(f"{s:.0f} ft", xy=(c, s), xytext=(0, 7),
+                            textcoords="offset points", ha="center",
+                            fontsize=9, color=COLOR_SEA_LINE, fontweight="bold")
+    ax_sea.set_ylabel("Sea (ft)", fontsize=10, color=COLOR_SEA_LINE, fontweight="bold")
+    ax_sea.set_ylim(0, max(7, max(seas) * 1.5))
+    ax_sea.tick_params(axis="y", labelcolor=COLOR_SEA_LINE, labelsize=9)
+    ax_sea.grid(axis="y", color=COLOR_GRID, linewidth=0.5, alpha=0.5, zorder=1)
+    ax_sea.set_axisbelow(True)
+    plt.setp(ax_sea.get_xticklabels(), visible=False)
+
+    # ====== BOTTOM PANEL: Boat speed — polar vs calibrated ======
+    bs_offset = bar_w * 0.22
+    ax_bs.bar([c - bs_offset for c in centers], bs_polar, width=bar_w * 0.4,
+              color="#9DC3E6", edgecolor="#305496", linewidth=1.2, zorder=3,
+              label="Polar")
+    ax_bs.bar([c + bs_offset for c in centers], bs_calib, width=bar_w * 0.4,
+              color="#305496", edgecolor="#1F3864", linewidth=1.2, zorder=3,
+              label="Calibrated")
+    for c, p, k in zip(centers, bs_polar, bs_calib):
+        if p > 0:
+            ax_bs.annotate(f"{p:.1f}", xy=(c - bs_offset, p), xytext=(0, 4),
+                           textcoords="offset points", ha="center",
+                           fontsize=8, color="#305496", fontweight="bold")
+        if k > 0:
+            ax_bs.annotate(f"{k:.1f}", xy=(c + bs_offset, k), xytext=(0, 4),
+                           textcoords="offset points", ha="center",
+                           fontsize=8, color="white", fontweight="bold")
+    ax_bs.set_ylabel("Boat speed (kt)", fontsize=10, color="#1F3864", fontweight="bold")
+    ax_bs.set_ylim(0, max(12, max(bs_polar + bs_calib) * 1.30))
+    ax_bs.tick_params(axis="y", labelcolor="#1F3864", labelsize=9)
+    ax_bs.grid(axis="y", color=COLOR_GRID, linewidth=0.5, alpha=0.5, zorder=1)
+    ax_bs.set_axisbelow(True)
+    # Legend in upper-right where there's empty space (bars are in lower portion)
+    ax_bs.legend(loc="upper right", fontsize=8, frameon=True, edgecolor=COLOR_GRID,
+                 framealpha=0.95, ncol=2)
+
+    # X-axis: segment labels at the centers
+    seg_labels = [f"{s.start_clock.split(' ', 1)[1]}\n{s.day_night_text}"
+                  for s in segments]
+    ax_bs.set_xticks(centers)
+    ax_bs.set_xticklabels(seg_labels, fontsize=9, color=COLOR_TITLE, fontweight="bold")
+    ax_bs.set_xlim(-0.1, total_hours + 0.1)
+
+    buf = io.BytesIO()
+    plt.savefig(buf, format="png", dpi=100, bbox_inches="tight",
+                facecolor="white", edgecolor="none")
+    plt.close(fig)
+    buf.seek(0)
+    return buf

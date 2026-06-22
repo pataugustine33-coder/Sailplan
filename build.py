@@ -17,6 +17,7 @@ from openpyxl import Workbook
 
 from sailbuild.compute import build_legs_for_plan
 from sailbuild.tabs.plan import render_plan_tab
+from sailbuild.tabs.watch_brief import render_watch_brief_tab
 from sailbuild.tabs.risk_bowtie import render_risk_bowtie
 from sailbuild.tabs.briefing import render_briefing
 from sailbuild.tabs.support import (
@@ -139,6 +140,23 @@ def build(passage_path, forecast_path, buoys_path, output_path, lessons_path=Non
             bowtie_name = bowtie_name[:31]
         ws = wb.create_sheet(bowtie_name)
         render_risk_bowtie(ws, passage, plan, legs_by_plan[plan["id"]])
+
+        # === Watch Brief tab — 12-hour tactical dashboard ===
+        # Added 6/22/26 per skipper request; mirrors the Plan tab but at
+        # watch-handover resolution (4 × 3-hour segments from depart_hour).
+        watch_name = f"Watch - {plan['tab_label']}"
+        if len(watch_name) > 31:
+            watch_name = watch_name[:31]
+        ws = wb.create_sheet(watch_name)
+        cycle_label = forecast.get("cycle", {}).get("label", "")
+        render_watch_brief_tab(
+            ws,
+            passage=passage,
+            plan_meta=plan,
+            legs=legs_by_plan[plan["id"]],
+            total_nm=passage["passage"]["total_nm"],
+            forecast_cycle_label=cycle_label,
+        )
 
     # === GROUP 3: THE WEATHER ===
     # Live buoy obs come first (current ground truth), then forecast attribution

@@ -379,7 +379,7 @@ def _check_tab_inventory(wb, passage: dict) -> list[Finding]:
     # Forecast Products, URL Quick Reference, Glossary, Verification Scorecard
     # = 12 fixed
     expected = 12
-    expected += 2 * n_plans  # Plan + Bowtie per plan
+    expected += 3 * n_plans  # Plan + Bowtie + Watch Brief per plan
     if include_comparison:
         expected += 1
 
@@ -389,7 +389,7 @@ def _check_tab_inventory(wb, passage: dict) -> list[Finding]:
             "warn",
             "workbook:tabs",
             f"Tab count is {actual}, expected {expected} "
-            f"(12 base + {2*n_plans} plan/bowtie pairs"
+            f"(12 base + {3*n_plans} plan/bowtie/watch triples"
             f"{' + 1 Vessel Comparison' if include_comparison else ''}).",
         ))
     return findings
@@ -1195,13 +1195,18 @@ def _required_tabs(passage: dict) -> list[tuple]:
         ("Glossary",               "error", "Definitions: TWA, Sea Angle, Pressure Trend vocab, etc"),
         ("Verification Scorecard", "error", "Pre/under/post scorecard for verification methodology"),
     ]
-    # Plan and Bowtie tabs, one per plan
+    # Plan, Bowtie, and Watch Brief tabs, one each per plan
     for plan in passage.get("plans", []):
         label = plan.get("tab_label")
         if label:
             base.append((label, "error", f"Plan tab for {plan.get('id', '?')}"))
             base.append((f"{label} Bowtie", "error",
                          f"Risk bowtie for {plan.get('id', '?')}"))
+            watch_label = f"Watch - {label}"
+            if len(watch_label) > 31:
+                watch_label = watch_label[:31]
+            base.append((watch_label, "error",
+                         f"12-hour watch brief for {plan.get('id', '?')}"))
     if passage.get("include_vessel_comparison", False):
         base.append(("Vessel Comparison", "error", "HR48 vs HR54 side-by-side comparison"))
     return base
