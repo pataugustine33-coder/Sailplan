@@ -1,0 +1,240 @@
+# Charleston SC → Nantucket MA — OUTREMER 55.
+# Offshore passage, Gulf Stream-optimized track Charleston→Hatteras, then
+# NNE outside to a SW approach on Nantucket (west of Nantucket Shoals).
+# Vessel block carries full Outremer attribution (VPLP / Outremer Yachting /
+# Outremer base polar). Stability is ESTIMATE (multihull — monohull RM N/A).
+
+passage:
+  id: chs-nantucket-o55
+  name: Charleston-Nantucket-Outremer55
+  origin: Charleston, SC (Charleston Sea Buoy 2CL)
+  destination: Nantucket, MA (Nantucket Harbor Entrance)
+  total_nm: 730.15
+
+vessel:
+  designation: Outremer 55
+  design_number: O55
+  load_config: cruising-loaded
+  displacement_lb: 25353
+  motor_speed_kt: 7.5
+  motor_crossover_tws_kt: 9.0
+  fuel_capacity_gal: 243
+  fuel_burn_gph: 1.7
+
+  designer: VPLP (Van Peteghem - Lauriot Prévost)
+  builder: Outremer Yachting
+  ce_category: A
+  ce_category_note: Ocean — unlimited offshore
+  polar_source: Outremer base polar table (PW_O55_Base_Polar.xlsx)
+  data_sheet_source: Outremer Yachting catalog
+  stability_source: >
+    ESTIMATE — monohull RM/RMC framework does not directly apply to
+    multihulls. Catamaran stability is dominated by form (beam) not
+    ballast. Outremer 55 is CE Category A with ~7.8 m beam giving
+    high initial stability. Diagonal stability (the cat-relevant
+    failure mode — pitchpoling) and capsize threshold are not
+    captured by the monohull RM curve. Values below are rough
+    proxies set so the build does not fail; treat as not-applicable.
+
+  rmc_kgm: 0
+  rm_30deg_kgm: 0
+  rm_max_kgm: 0
+  brewer_cr: 22.5
+  csf: 2.55
+
+calibration:
+  sea_factors:
+    steep_chop_bow: 0.65
+    close_reach: 0.85
+    beam_reach: 0.94
+    broad_reach: 0.95
+    reefed_active_trough: 0.85
+
+# Nantucket arrival envelope (41.28N 70.10W), late June.
+# Sunrise ~5:09 AM EDT, sunset ~8:25 PM EDT; civil dawn ~4:34 AM,
+# civil dusk ~9:00 PM (almanac). Night arrival NOT accepted —
+# Nantucket Shoals + advection fog make a dark approach unsafe.
+arrival_timing:
+  destination_label: "Nantucket, MA (Nantucket Harbor Entrance)"
+  civil_dawn: 4.567
+  sunrise: 5.150
+  sunset: 20.417
+  civil_dusk: 21.000
+  day_window: [5.150, 20.417]
+  twilight_windows:
+    - [4.567, 5.150]
+    - [20.417, 21.000]
+  night_arrival_accepted: false
+  preferred_window:
+    start: 5.5
+    end: 18.0
+
+waypoints:
+  - id: WP0
+    name: Charleston Sea Buoy 2CL
+    lat: 32.6717
+    lon: -79.7383
+    cum_nm: 0.00
+    course_out: 56
+    chart_label: Charleston
+  - id: WP1
+    name: Gulf Stream Entry (ENE of Charleston)
+    lat: 32.9500
+    lon: -79.2500
+    cum_nm: 29.77
+    course_out: 55
+    chart_label: Stream Entry
+  - id: WP2
+    name: Off Long Bay / S of Cape Fear (Stream)
+    lat: 33.5500
+    lon: -78.2000
+    cum_nm: 93.62
+    course_out: 77
+    chart_label: Long Bay
+  - id: WP3
+    name: Frying Pan Offing (E of shoals)
+    lat: 33.7500
+    lon: -77.1000
+    cum_nm: 149.90
+    course_out: 56
+    chart_label: Frying Pan
+  - id: WP4
+    name: SE of Cape Lookout
+    lat: 34.4000
+    lon: -75.9000
+    cum_nm: 221.20
+    course_out: 56
+    chart_label: Cape Lookout
+  - id: WP5
+    name: Diamond Shoals Offing / Hatteras (Stream axis)
+    lat: 35.0500
+    lon: -74.7000
+    cum_nm: 292.12
+    course_out: 25
+    chart_label: Hatteras
+  - id: WP6
+    name: Mid-Atlantic NNE (Hudson Canyon offing)
+    lat: 37.4000
+    lon: -73.3000
+    cum_nm: 448.66
+    course_out: 30
+    chart_label: Mid-Atlantic
+  - id: WP7
+    name: South of Long Island (shelf edge)
+    lat: 39.4000
+    lon: -71.8000
+    cum_nm: 587.94
+    course_out: 15
+    chart_label: S of Long Is
+  - id: WP8
+    name: SW of Nantucket Shoals (Great South Channel apch)
+    lat: 40.5500
+    lon: -70.7500
+    cum_nm: 672.21
+    course_out: 61
+    chart_label: SW Shoals
+  - id: WP9
+    name: S of Marthas Vineyard / Sound approach
+    lat: 41.1000
+    lon: -70.5500
+    cum_nm: 706.46
+    course_out: 61
+    chart_label: Sound Apch
+  - id: WP10
+    name: Nantucket Harbor Entrance (Brant Point)
+    lat: 41.2917
+    lon: -70.0917
+    cum_nm: 730.15
+    course_out: null
+    chart_label: Nantucket
+
+plans:
+  - id: plan_a
+    tab_label: "Plan A - Fri 7 AM"
+    qualifier: "early-morning departure"
+    depart_day: Fri
+    depart_date: 2026-06-26
+    depart_hour: 7.0
+  - id: plan_b
+    tab_label: "Plan B - Fri 11 AM"
+    qualifier: "later-morning departure (arrival-timing sensitivity)"
+    depart_day: Fri
+    depart_date: 2026-06-26
+    depart_hour: 11.0
+
+route_buoys:
+  - id: 41008
+    name: Grays Reef NMS (off Sapelo Sound GA)
+    lat: 31.400
+    lon: -80.867
+    relevant_wps:
+      WP0: "~70 NM SW (departure-region synoptic context)"
+      WP1: "~80 NM SW"
+  - id: 41002
+    name: South Hatteras
+    lat: 31.760
+    lon: -74.960
+    relevant_wps:
+      WP2: "Gulf Stream warm-side reference (SST 83F)"
+      WP3: "offshore Stream reference"
+  - id: 41001
+    name: Cape Hatteras East 150 NM
+    lat: 34.790
+    lon: -72.420
+    relevant_wps:
+      WP5: "~110 NM E (Gulf Stream exit reference)"
+      WP6: "~150 NM SE"
+  - id: 44014
+    name: Virginia Beach 64 NM E
+    lat: 36.600
+    lon: -74.840
+    relevant_wps:
+      WP6: "~70 NM W (mid-Atlantic shelf; wind/wave sensors down 6/25)"
+  - id: 44025
+    name: Long Island 30 NM S
+    lat: 40.260
+    lon: -73.180
+    relevant_wps:
+      WP7: "~65 NM E (shelf-edge wind reference)"
+  - id: 44008
+    name: Nantucket SE 54 NM
+    lat: 40.500
+    lon: -69.250
+    relevant_wps:
+      WP8: "~70 NM E (HIGHEST priority for arrival; SST 58F — fog driver)"
+      WP9: "approach reference"
+  - id: 44011
+    name: Georges Bank
+    lat: 41.090
+    lon: -66.550
+    relevant_wps:
+      WP9: "~175 NM E (major weather marker, synoptic context)"
+
+forecast_offices:
+  - office: NWS Charleston SC (KCHS)
+    code: CHS
+    zones:
+      AMZ380: Waters South Santee River to Edisto Beach SC 20-60 NM
+  - office: NWS Ocean Prediction Center (OPC)
+    code: OPC
+    zones:
+      ANZ835: Cape Fear to 31N to 1000 FM
+      ANZ833: Cape Hatteras to Cape Fear to 100 NM offshore
+      ANZ930: Hatteras Canyon to Cape Fear between 100 and 250 NM offshore
+      ANZ925: Baltimore Canyon to Hatteras Canyon between 100 and 250 NM offshore
+      ANZ920: Baltimore Canyon to 69W east of 1000FM south of 38.5N to 250 NM
+      ANZ905: East of 69W to the Hague Line between 1000 FM and 39N
+      ANZ900: Georges Bank between 68W and the Hague Line
+  - office: NWS Boston/Norton MA (KBOX)
+    code: BOX
+    zones:
+      ANZ255: Waters south of Marthas Vineyard and Nantucket
+      ANZ232: Nantucket Sound
+
+tide_stations:
+  - id: 8665530
+    name: Charleston, Cooper River Entrance, SC
+    relevance: departure
+  - id: 8449130
+    name: Nantucket Harbor, MA
+    relevance: arrival

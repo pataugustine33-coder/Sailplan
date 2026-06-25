@@ -1,0 +1,698 @@
+# Forecast bundle — Charleston SC → Nantucket MA, OUTREMER 55.
+# All products LIVE-fetched Thu Jun 25 2026 PM cycle (Chrome → NWS/OPC).
+#
+# CYCLE DATA (all issued Thu 6/25 PM):
+#   - CWFCHS synopsis 2:24 PM EDT  + AFDCHS marine 2:21 PM EDT
+#   - AFDMHX (Newport/Morehead City marine) 3:06 PM EDT
+#   - OPC OFFNT2 (FZNT22 KWBC, mid-Atlantic offshore) 4:20 PM EDT
+#   - OPC OFFNT1 (New England offshore) 4:20 PM EDT
+#   - AFDBOX (Boston/Norton marine) 2:54 PM EDT
+#   - NHC Tropical Wx Outlook (MIATWOAT) 2:00 PM EDT — NO development 7 days
+#
+# SYNOPTIC HEADLINE: A COLD FRONT is the dominant feature. Warm front lifts
+# N tonight→Fri; cold front approaches Fri night, crosses central/southern
+# offshore waters Sat→Sun night; winds veer SW→NE behind it Sun-Mon. High
+# builds in behind. PEAK OFFSHORE HAZARD = Sat night (ANZ920 SW 20-30 kt,
+# seas to 8 ft) with frontal convection / downburst risk. NANTUCKET APPROACH
+# = light but FOG-prone (SST gradient 83°F Gulf Stream → 58°F shelf).
+
+cycle:
+  label: "Thu 6/25 PM cycle (CHS 224 PM, OPC OFFNT 420 PM, BOX 254 PM)"
+  cwfchs:
+    issued: "2026-06-25T14:24:00-04:00"
+    label_short: "Thu 6/25 224 PM"
+    label_full: "224 PM EDT Thu Jun 25 2026"
+  afdchs:
+    issued: "2026-06-25T14:21:00-04:00"
+    label_short: "Thu 6/25 221 PM"
+    label_full: "221 PM EDT Thu Jun 25 2026"
+  afdmhx:
+    issued: "2026-06-25T15:06:00-04:00"
+    label_short: "Thu 6/25 306 PM"
+    label_full: "306 PM EDT Thu Jun 25 2026"
+  cwfopc:
+    issued: "2026-06-25T16:20:00-04:00"
+    label_short: "Thu 6/25 420 PM"
+    label_full: "420 PM EDT Thu Jun 25 2026 (OPC OFFNT)"
+  cwfbox:
+    issued: "2026-06-25T14:54:00-04:00"
+    label_short: "Thu 6/25 254 PM"
+    label_full: "254 PM EDT Thu Jun 25 2026"
+  afdbox:
+    issued: "2026-06-25T14:54:00-04:00"
+    label_short: "Thu 6/25 254 PM"
+    label_full: "254 PM EDT Thu Jun 25 2026"
+  nhc:
+    issued: "2026-06-25T14:00:00-04:00"
+    label_short: "Thu 6/25 200 PM"
+    label_full: "200 PM EDT Thu Jun 25 2026 — No tropical development next 7 days"
+
+zones:
+  # ── AMZ360 — Charleston nearshore 0-20 NM (CHS). Departure-day numbers
+  #    from AFDCHS marine discussion (benign summer pattern under high).
+  #    WP0/WP1 sit ~11 NM offshore — inside the 0-20 NM band, not AMZ380.
+  AMZ360:
+    description: "Coastal waters from South Santee River to Edisto Beach SC out 20 NM"
+    office: CHS
+    periods:
+      FRI:
+        wind_dir: "S-SW"
+        wind_dir_deg: 202
+        wind_kt: [10, 15]
+        wind_gust_kt: 20
+        sea_ft: [2, 3]
+        wave_detail:
+          primary: {direction: SE, direction_deg: 135, height_ft: 2, period_s: 7}
+          secondary: {direction: SW, direction_deg: 225, height_ft: 1, period_s: 4}
+
+  # ── ANZ835 — Cape Fear to 31N to 1000 FM (OPC OFFNT2)
+  ANZ835:
+    description: "Cape Fear to 31N to 1000 FM"
+    office: OPC
+    periods:
+      FRI:
+        wind_dir: "S-SW"
+        wind_dir_deg: 202
+        wind_kt: [5, 15]
+        sea_ft: [3, 4]
+        wave_detail:
+          primary: {direction: SW, direction_deg: 225, height_ft: 3, period_s: 5}
+          secondary: {direction: SE, direction_deg: 135, height_ft: 2, period_s: 7}
+      FRI_NIGHT:
+        wind_dir: "S-SW"
+        wind_dir_deg: 202
+        wind_kt: [10, 20]
+        sea_ft: [3, 5]
+        wave_detail:
+          primary: {direction: SW, direction_deg: 225, height_ft: 4, period_s: 6}
+      SAT:
+        wind_dir: "SW"
+        wind_dir_deg: 225
+        wind_kt: [10, 20]
+        sea_ft: [3, 5]
+        wave_detail:
+          primary: {direction: SW, direction_deg: 225, height_ft: 4, period_s: 6}
+      SAT_NIGHT:
+        wind_dir: "SW"
+        wind_dir_deg: 225
+        wind_kt: [15, 25]
+        sea_ft: [3, 6]
+        wave_detail:
+          primary: {direction: SW, direction_deg: 225, height_ft: 5, period_s: 7}
+      SUN:
+        wind_dir: "W to W-SW"
+        wind_dir_deg: 260
+        wind_kt: [10, 25]
+        sea_ft: [3, 6]
+        wave_detail:
+          primary: {direction: W, direction_deg: 270, height_ft: 4, period_s: 6}
+      MON:
+        wind_dir: "N-NW to N-NE"
+        wind_dir_deg: 350
+        wind_kt: [5, 15]
+        sea_ft: [3, 5]
+        wave_detail:
+          primary: {direction: N, direction_deg: 0, height_ft: 3, period_s: 6}
+
+  # ── ANZ833 — Cape Hatteras to Cape Fear to 100 NM (OPC OFFNT2)
+  ANZ833:
+    description: "Cape Hatteras to Cape Fear to 100 NM offshore"
+    office: OPC
+    periods:
+      FRI:
+        wind_dir: "W to SW"
+        wind_dir_deg: 248
+        wind_kt: [5, 15]
+        sea_ft: [3, 4]
+        wave_detail:
+          primary: {direction: SW, direction_deg: 225, height_ft: 3, period_s: 5}
+      FRI_NIGHT:
+        wind_dir: "SW"
+        wind_dir_deg: 225
+        wind_kt: [10, 20]
+        sea_ft: [3, 5]
+        wave_detail:
+          primary: {direction: SW, direction_deg: 225, height_ft: 4, period_s: 6}
+      SAT:
+        wind_dir: "SW"
+        wind_dir_deg: 225
+        wind_kt: [15, 20]
+        sea_ft: [4, 6]
+        wave_detail:
+          primary: {direction: SW, direction_deg: 225, height_ft: 5, period_s: 6}
+      SAT_NIGHT:
+        wind_dir: "SW"
+        wind_dir_deg: 225
+        wind_kt: [20, 25]
+        sea_ft: [5, 6]
+        wave_detail:
+          primary: {direction: SW, direction_deg: 225, height_ft: 6, period_s: 7}
+      SUN:
+        wind_dir: "W"
+        wind_dir_deg: 270
+        wind_kt: [10, 20]
+        sea_ft: [4, 6]
+        wave_detail:
+          primary: {direction: W, direction_deg: 270, height_ft: 5, period_s: 6}
+      MON:
+        wind_dir: "NE"
+        wind_dir_deg: 45
+        wind_kt: [5, 15]
+        sea_ft: [4, 5]
+        wave_detail:
+          primary: {direction: NE, direction_deg: 45, height_ft: 4, period_s: 6}
+
+  # ── ANZ930 — Hatteras Canyon to Cape Fear 100-250 NM (OPC OFFNT2)
+  ANZ930:
+    description: "Hatteras Canyon to Cape Fear between 100 and 250 NM offshore"
+    office: OPC
+    periods:
+      FRI:
+        wind_dir: "SW"
+        wind_dir_deg: 225
+        wind_kt: [5, 15]
+        sea_ft: [4, 5]
+        wave_detail:
+          primary: {direction: SW, direction_deg: 225, height_ft: 4, period_s: 6}
+      SAT:
+        wind_dir: "SW"
+        wind_dir_deg: 225
+        wind_kt: [15, 25]
+        sea_ft: [3, 6]
+        wave_detail:
+          primary: {direction: SW, direction_deg: 225, height_ft: 5, period_s: 6}
+      SAT_NIGHT:
+        wind_dir: "S-SW"
+        wind_dir_deg: 213
+        wind_kt: [15, 25]
+        sea_ft: [4, 7]
+        wave_detail:
+          primary: {direction: SW, direction_deg: 225, height_ft: 6, period_s: 7}
+      SUN:
+        wind_dir: "W-SW"
+        wind_dir_deg: 248
+        wind_kt: [10, 20]
+        sea_ft: [4, 7]
+        wave_detail:
+          primary: {direction: W, direction_deg: 270, height_ft: 5, period_s: 7}
+
+  # ── ANZ925 — Baltimore Canyon to Hatteras Canyon 100-250 NM (OPC OFFNT2)
+  ANZ925:
+    description: "Baltimore Canyon to Hatteras Canyon between 100 and 250 NM offshore"
+    office: OPC
+    periods:
+      SAT:
+        wind_dir: "SW"
+        wind_dir_deg: 225
+        wind_kt: [15, 25]
+        sea_ft: [4, 6]
+        wave_detail:
+          primary: {direction: SW, direction_deg: 225, height_ft: 5, period_s: 6}
+      SAT_NIGHT:
+        wind_dir: "SW"
+        wind_dir_deg: 225
+        wind_kt: [15, 25]
+        sea_ft: [4, 8]
+        wave_detail:
+          primary: {direction: SW, direction_deg: 225, height_ft: 6, period_s: 7}
+
+  # ── ANZ920 — Baltimore Cyn to 69W S of 38.5N to 250 NM (OPC OFFNT2)
+  #    PEAK OFFSHORE HAZARD — Sat night SW 20-30 kt, seas to 8 ft.
+  ANZ920:
+    description: "Baltimore Canyon to 69W east of 1000 FM south of 38.5N out to 250 NM"
+    office: OPC
+    periods:
+      FRI:
+        wind_dir: "SW"
+        wind_dir_deg: 225
+        wind_kt: [5, 20]
+        sea_ft: [3, 5]
+        wave_detail:
+          primary: {direction: SW, direction_deg: 225, height_ft: 4, period_s: 6}
+      FRI_NIGHT:
+        wind_dir: "SW"
+        wind_dir_deg: 225
+        wind_kt: [10, 15]
+        sea_ft: [3, 5]
+        wave_detail:
+          primary: {direction: SW, direction_deg: 225, height_ft: 4, period_s: 6}
+      SAT:
+        wind_dir: "SW"
+        wind_dir_deg: 225
+        wind_kt: [10, 20]
+        sea_ft: [3, 6]
+        wave_detail:
+          primary: {direction: SW, direction_deg: 225, height_ft: 5, period_s: 6}
+      SAT_NIGHT:
+        wind_dir: "SW"
+        wind_dir_deg: 225
+        wind_kt: [20, 30]
+        sea_ft: [4, 8]
+        wave_detail:
+          primary: {direction: SW, direction_deg: 225, height_ft: 7, period_s: 8}
+      SUN:
+        wind_dir: "NE"
+        wind_dir_deg: 45
+        wind_kt: [5, 15]
+        sea_ft: [4, 8]
+        wave_detail:
+          primary: {direction: NE, direction_deg: 45, height_ft: 5, period_s: 7}
+          secondary: {direction: SW, direction_deg: 225, height_ft: 4, period_s: 8}
+      MON:
+        wind_dir: "NE"
+        wind_dir_deg: 45
+        wind_kt: [10, 20]
+        sea_ft: [3, 6]
+        wave_detail:
+          primary: {direction: NE, direction_deg: 45, height_ft: 4, period_s: 6}
+
+  # ── ANZ905 — E of 69W to the Hague Line, 1000 FM to 39N (OPC OFFNT2)
+  ANZ905:
+    description: "East of 69W to the Hague Line between 1000 FM and 39N"
+    office: OPC
+    periods:
+      FRI:
+        wind_dir: "W-SW"
+        wind_dir_deg: 248
+        wind_kt: [10, 20]
+        sea_ft: [3, 6]
+        wave_detail:
+          primary: {direction: SW, direction_deg: 225, height_ft: 4, period_s: 7}
+      SAT_NIGHT:
+        wind_dir: "W-SW"
+        wind_dir_deg: 248
+        wind_kt: [15, 25]
+        sea_ft: [4, 7]
+        wave_detail:
+          primary: {direction: SW, direction_deg: 225, height_ft: 5, period_s: 7}
+      SUN:
+        wind_dir: "N-NE"
+        wind_dir_deg: 23
+        wind_kt: [10, 15]
+        sea_ft: [4, 7]
+        wave_detail:
+          primary: {direction: NE, direction_deg: 45, height_ft: 5, period_s: 7}
+      MON:
+        wind_dir: "N-NE"
+        wind_dir_deg: 23
+        wind_kt: [5, 15]
+        sea_ft: [3, 5]
+        wave_detail:
+          primary: {direction: NE, direction_deg: 45, height_ft: 3, period_s: 6}
+
+  # ── ANZ900 — Georges Bank (OPC OFFNT1). Light + AREAS OF FOG.
+  ANZ900:
+    description: "Georges Bank between 68W and the Hague Line"
+    office: OPC
+    periods:
+      SUN:
+        wind_dir: "N-NE"
+        wind_dir_deg: 23
+        wind_kt: [5, 15]
+        sea_ft: [3, 5]
+        wave_detail:
+          primary: {direction: NE, direction_deg: 45, height_ft: 3, period_s: 6}
+
+  # ── ANZ255 — Waters south of Marthas Vineyard & Nantucket (BOX).
+  #    Built from AFDBOX marine + OPC OFFNT1 New England light/fog data.
+  #    Approach is LIGHT but fog-prone (SST gradient = advection fog).
+  ANZ255:
+    description: "Waters south of Marthas Vineyard and Nantucket"
+    office: BOX
+    periods:
+      SUN_NIGHT:
+        wind_dir: "NE to variable"
+        wind_dir_deg: 45
+        wind_kt: [5, 15]
+        sea_ft: [3, 5]
+        wave_detail:
+          primary: {direction: NE, direction_deg: 45, height_ft: 3, period_s: 6}
+          secondary: {direction: S, direction_deg: 180, height_ft: 2, period_s: 8}
+      MON:
+        wind_dir: "N-NE"
+        wind_dir_deg: 23
+        wind_kt: [5, 15]
+        sea_ft: [2, 4]
+        wave_detail:
+          primary: {direction: NE, direction_deg: 45, height_ft: 2, period_s: 6}
+
+  # ── ANZ232 — Nantucket Sound (BOX). Harbor approach — light, fog/BR.
+  ANZ232:
+    description: "Nantucket Sound"
+    office: BOX
+    periods:
+      MON:
+        wind_dir: "NE to variable"
+        wind_dir_deg: 45
+        wind_kt: [5, 10]
+        sea_ft: [1, 3]
+        wave_detail:
+          primary: {direction: NE, direction_deg: 45, height_ft: 1, period_s: 5}
+
+waypoint_assignments:
+  plan_a:
+    WP0:
+      zone: AMZ360
+      period: FRI
+      risk_level: green
+      row_band: green
+      pressure: 30.06
+      pressure_trend_auto: true
+      notes_addendum: >
+        Fri ~7:00 AM EDT departure, Charleston Sea Buoy 2CL. Morning
+        ebb (L 12:00 PM, H 5:52 AM) carries the cat out the jetties.
+        High pressure over the region → benign start. AFDCHS marine:
+        S-SW 10-15 kt, gusts ~20, seas ~2 ft. Buoy 41008 (Grays Reef)
+        7.8 G 9.7, pres 30.03 falling. Course 056° → TWA ~120-150°
+        broad reach starboard. Set nav-light + watch bill before dark.
+      weather_risk: >
+        Easy daylight departure under high pressure. Light-moderate S-SW
+        broad reach with morning ebb assist. Convection chance low.
+    WP1:
+      zone: AMZ360
+      period: FRI
+      risk_level: green
+      row_band: green
+      pressure: 30.05
+      pressure_trend_auto: true
+      notes_addendum: >
+        Fri ~late morning. Crossing the Gulf Stream western wall ENE of
+        Charleston (warm push, SST climbing toward 83°F at 41002). Expect
+        +1.5-2.5 kt favorable Stream set on the Charleston→Hatteras leg —
+        the build's boat speed is THROUGH-WATER and therefore conservative
+        on this segment. Watch for Stream-edge convergence chop if wind
+        opposes current (wind S-SW with NE-flowing Stream = following).
+      weather_risk: >
+        Comfortable Stream entry. Following wind-over-current keeps the
+        sea state down. Significant SOG boost expected over ground.
+    WP2:
+      zone: ANZ835
+      period: FRI
+      risk_level: green
+      row_band: green
+      pressure: 30.02
+      pressure_trend_auto: true
+      notes_addendum: >
+        Fri afternoon, off Long Bay / S of Cape Fear in the Stream. OPC
+        ANZ835 FRI: S-SW 5-15 kt, seas 3-4 ft. Course 077°. Buoy 41002
+        (S Hatteras) SSW 200° 15.5 G 17.5, water 83.5°F for Stream
+        ground-truth. Pressure easing as the warm sector arrives ahead
+        of the front.
+      weather_risk: >
+        Pleasant Stream reach, S-SW 5-15 kt, 3-4 ft. Hold the favorable
+        current band; monitor for isolated Stream-edge cells.
+    WP3:
+      zone: ANZ835
+      period: FRI_NIGHT
+      risk_level: yellow
+      row_band: yellow
+      pressure: 29.98
+      pressure_trend_auto: true
+      notes_addendum: >
+        Fri night, Frying Pan offing (E of the shoals — give Frying Pan
+        Shoals a wide berth). ANZ835 FRI NIGHT: S-SW 10-20 kt, seas 3-5
+        ft. First full night at sea; reef for the watch. Course 056°.
+        Pressure falling steadily — cold front is the story for Sat.
+      weather_risk: >
+        Night transit, S-SW 10-20 kt building, 3-5 ft. Reef before dark.
+        Keep well east of Frying Pan Shoals. Radar watch for convection.
+    WP4:
+      zone: ANZ833
+      period: SAT
+      risk_level: yellow
+      row_band: yellow
+      pressure: 29.94
+      pressure_trend_auto: true
+      notes_addendum: >
+        Sat midday, SE of Cape Lookout approaching the Hatteras Stream
+        exit. ANZ833 SAT: SW 15-20 kt, seas 4-6 ft. Diamond Shoals lies
+        ahead — the course bends N to clear it well offshore. Gulf Stream
+        SST max here; wind-over-current still following (SW wind / NE
+        set). Convection chances rising per AFDMHX (Gulf Stream showers
+        & tstms Sat).
+      weather_risk: >
+        SW 15-20 kt, 4-6 ft. Building ahead of the front. Watch radar —
+        Gulf Stream convection Sat (downburst potential). Clear Diamond
+        Shoals by a wide margin.
+    WP5:
+      zone: ANZ930
+      period: SAT
+      risk_level: yellow
+      row_band: yellow
+      pressure: 29.90
+      pressure_trend_auto: true
+      notes_addendum: >
+        Sat afternoon/evening, Diamond Shoals offing / Hatteras, turning
+        NNE up the shelf edge into deeper offshore water. ANZ930 SAT: SW
+        15-25 kt, seas 3-6 ft (upper end developing). Course 025°. Buoy
+        41001 (Hatteras E 150 NM) SSW 7.8 G 9.7 pres 30.11 for ground
+        truth. This is the gateway into the Sat-night peak-wind window —
+        decision point on whether to slow/heave-to or press on.
+      weather_risk: >
+        SW 15-25 kt, 3-6 ft and building. Pre-frontal. DECISION POINT:
+        confirm reefing plan for the Sat-night blow ahead at WP6.
+    WP6:
+      zone: ANZ920
+      period: SAT_NIGHT
+      risk_level: red
+      row_band: red
+      pressure: 29.86
+      pressure_trend_auto: true
+      notes_addendum: >
+        Sat night, mid-Atlantic (Hudson Canyon offing). PEAK HAZARD OF
+        THE PASSAGE. OPC ANZ920 SAT NIGHT: SW 20-30 kt, seas 4-8 ft, at
+        the lowest pressure of the crossing as the COLD FRONT passes.
+        AFDBOX/AFDMHX flag frontal convection with effective shear
+        40-50 kt and DAMAGING DOWNBURST potential (40-60 mph gusts) along
+        the front Sat night. Course 030°. Deep-reef / storm canvas;
+        consider easing east to take the front more on the quarter.
+      weather_risk: >
+        Frontal passage. SW 20-30 kt sustained, seas to 8 ft, embedded
+        convection with downburst risk. Deep reef before dark, harness/
+        jacklines, slow the boat, active radar watch. The defining
+        weather event of the passage — be fully set up by Sat dusk.
+    WP7:
+      zone: ANZ905
+      period: SUN
+      risk_level: yellow
+      row_band: yellow
+      pressure: 29.92
+      pressure_trend_auto: true
+      notes_addendum: >
+        Sun, S of Long Island shelf edge, behind the front. Winds veer
+        and ease N-NE 10-15 kt (ANZ905 SUN), seas 4-7 ft and subsiding.
+        Now a beat/close reach into the new NE flow — slower VMG made
+        good toward Nantucket. Course 015°. Buoy 44025 (Long Is 30 NM S)
+        for ground truth. Pressure rising as high builds in.
+      weather_risk: >
+        Post-frontal NE 10-15 kt, lumpy residual 4-7 ft sea easing.
+        Upwind work begins. Cooler, clearer air behind the front.
+    WP8:
+      zone: ANZ255
+      period: SUN_NIGHT
+      risk_level: yellow
+      row_band: yellow
+      pressure: 30.02
+      pressure_trend_auto: true
+      notes_addendum: >
+        SW of Nantucket Shoals — Great South Channel approach, routing
+        WEST of the shoals. Light NE-to-variable 5-15 kt, seas 3-5 ft,
+        but ADVECTION FOG is the hazard: buoy 44008 water 58.3°F against
+        Gulf Stream air = vsby possibly <1 NM (AFDBOX flags fog/BR for
+        KACK). **ARRIVAL-TIMING GATE:** if the polar pace puts this WP in
+        darkness, STAND OFF SOUTH of the shoals and wait for Mon civil
+        dawn (~4:34 AM) — night_arrival_accepted = false. Course 061°.
+      weather_risk: >
+        Light wind, but fog + Nantucket Shoals = no night approach. Hold
+        south of the shoals in deep water until daylight. AIS/radar
+        guard, sound signals, post extra lookout.
+    WP9:
+      zone: ANZ255
+      period: MON
+      risk_level: yellow
+      row_band: yellow
+      pressure: 30.10
+      pressure_trend_auto: true
+      notes_addendum: >
+        Mon, S of Marthas Vineyard / Sound approach. N-NE 5-15 kt, seas
+        2-4 ft, fog/BR possible into the morning then lifting as the high
+        settles. Daylight pilotage from here. Course 061°. Buoy 44008
+        (~70 NM E) and local Nantucket obs for fog ground-truth before
+        committing to the entrance.
+      weather_risk: >
+        Light NE, low seas, residual morning fog. Daylight approach only.
+        Confirm visibility before entering the buoyed channel.
+    WP10:
+      zone: ANZ232
+      period: MON
+      risk_level: yellow
+      row_band: yellow
+      pressure: 30.14
+      pressure_trend_auto: true
+      notes_addendum: >
+        Mon arrival, Nantucket Harbor Entrance (Brant Point). Light NE-to-
+        variable 5-10 kt, seas 1-3 ft, possible lingering fog/BR early.
+        Nantucket Hbr tides Mon 6/29: H 12:13 AM, L 6:34 AM, H 1:09 PM,
+        L 6:13 PM — a late-morning/midday entry rides the flood. Pressure
+        30.14 and rising — settled. Daylight + adequate visibility
+        required to enter.
+      weather_risk: >
+        Calm harbor approach. Only gate is visibility — wait out any
+        morning fog. Flood tide late morning/midday eases the entrance.
+
+  plan_b:
+    WP0:
+      zone: AMZ360
+      period: FRI
+      risk_level: green
+      row_band: green
+      pressure: 30.06
+      pressure_trend_auto: true
+      notes_addendum: >
+        Plan B — Fri ~11:00 AM EDT departure (4 hr later than Plan A).
+        Departs near the midday low slack (L 12:00 PM) — less ebb assist
+        out the jetties than the 7 AM option, but still benign. Same
+        synoptic setup. This later start shifts the whole timeline ~4 hr
+        right, which is the key lever on the Nantucket arrival gate.
+      weather_risk: >
+        Easy daylight departure, high pressure. Light-moderate S-SW.
+        Later start trades morning ebb for arrival-timing flexibility.
+    WP1:
+      zone: AMZ360
+      period: FRI
+      risk_level: green
+      row_band: green
+      pressure: 30.05
+      pressure_trend_auto: true
+      notes_addendum: >
+        Fri early afternoon, Gulf Stream entry. Same favorable Stream set
+        (+1.5-2.5 kt) on the run to Hatteras; build speed is through-water
+        and conservative over ground here.
+      weather_risk: >
+        Comfortable Stream entry, following wind-over-current. SOG boost
+        over ground.
+    WP2:
+      zone: ANZ835
+      period: FRI
+      risk_level: green
+      row_band: green
+      pressure: 30.02
+      pressure_trend_auto: true
+      notes_addendum: >
+        Fri late afternoon/evening, off Long Bay in the Stream. ANZ835
+        FRI: S-SW 5-15 kt, seas 3-4 ft. Course 077°.
+      weather_risk: >
+        Pleasant Stream reach, S-SW 5-15 kt, 3-4 ft.
+    WP3:
+      zone: ANZ835
+      period: FRI_NIGHT
+      risk_level: yellow
+      row_band: yellow
+      pressure: 29.98
+      pressure_trend_auto: true
+      notes_addendum: >
+        Fri night, Frying Pan offing. ANZ835 FRI NIGHT: S-SW 10-20 kt,
+        seas 3-5 ft. Reef for the night watch; stay east of Frying Pan
+        Shoals. Course 056°.
+      weather_risk: >
+        Night transit, S-SW 10-20 kt, 3-5 ft. Reef before dark; clear
+        Frying Pan Shoals.
+    WP4:
+      zone: ANZ833
+      period: SAT
+      risk_level: yellow
+      row_band: yellow
+      pressure: 29.94
+      pressure_trend_auto: true
+      notes_addendum: >
+        Sat (later than Plan A), SE of Cape Lookout. ANZ833 SAT: SW 15-20
+        kt, seas 4-6 ft. Gulf Stream convection risk Sat. Clear Diamond
+        Shoals well offshore. Course 056°.
+      weather_risk: >
+        SW 15-20 kt, 4-6 ft, building. Radar watch for Stream convection.
+    WP5:
+      zone: ANZ930
+      period: SAT_NIGHT
+      risk_level: yellow
+      row_band: yellow
+      pressure: 29.90
+      pressure_trend_auto: true
+      notes_addendum: >
+        Sat evening/night, Hatteras offing turning NNE. With the later
+        start the boat reaches the shelf edge nearer the front. ANZ930
+        SAT NIGHT: S-SW 15-25 kt, seas 4-7 ft. Course 025°. DECISION
+        POINT for the frontal blow at WP6.
+      weather_risk: >
+        S-SW 15-25 kt, 4-7 ft. Pre-frontal, building into the night.
+        Confirm storm canvas plan now.
+    WP6:
+      zone: ANZ920
+      period: SAT_NIGHT
+      risk_level: red
+      row_band: red
+      pressure: 29.86
+      pressure_trend_auto: true
+      notes_addendum: >
+        Sat night/Sun, mid-Atlantic — frontal passage, PEAK HAZARD.
+        ANZ920 SAT NIGHT: SW 20-30 kt, seas 4-8 ft with downburst-capable
+        convection (shear 40-50 kt). Later start may place the boat just
+        west/south of the worst of it — but treat as full frontal
+        exposure. Deep reef, jacklines, slow down. Course 030°.
+      weather_risk: >
+        Frontal passage. SW 20-30 kt, seas to 8 ft, downburst risk. Be
+        fully reefed and set up before dark. Defining event of the trip.
+    WP7:
+      zone: ANZ905
+      period: SUN
+      risk_level: yellow
+      row_band: yellow
+      pressure: 29.92
+      pressure_trend_auto: true
+      notes_addendum: >
+        Sun, S of Long Island behind the front. N-NE 10-15 kt, seas 4-7
+        ft easing. Upwind work into the new NE flow. Course 015°.
+      weather_risk: >
+        Post-frontal NE 10-15 kt, residual 4-7 ft easing. Beat begins.
+    WP8:
+      zone: ANZ255
+      period: MON
+      risk_level: yellow
+      row_band: yellow
+      pressure: 30.02
+      pressure_trend_auto: true
+      notes_addendum: >
+        SW of Nantucket Shoals (west of the shoals). The 4-hr-later start
+        tends to push this approach into Mon DAYLIGHT — the advantage of
+        Plan B. Light NE-variable 5-15 kt, seas 3-5 ft, fog the main
+        hazard (44008 water 58.3°F). Still: if arriving in darkness,
+        stand off south until civil dawn. Course 061°.
+      weather_risk: >
+        Light wind, fog risk + Nantucket Shoals. Daylight approach only;
+        Plan B timing favors a daytime arrival here.
+    WP9:
+      zone: ANZ255
+      period: MON
+      risk_level: yellow
+      row_band: yellow
+      pressure: 30.10
+      pressure_trend_auto: true
+      notes_addendum: >
+        Mon, S of Marthas Vineyard / Sound approach. N-NE 5-15 kt, seas
+        2-4 ft, morning fog lifting. Daylight pilotage. Course 061°.
+      weather_risk: >
+        Light NE, low seas, residual fog. Confirm visibility before the
+        channel.
+    WP10:
+      zone: ANZ232
+      period: MON
+      risk_level: yellow
+      row_band: yellow
+      pressure: 30.14
+      pressure_trend_auto: true
+      notes_addendum: >
+        Mon arrival, Nantucket Harbor Entrance. Light NE-variable 5-10
+        kt, seas 1-3 ft, possible early fog/BR. Flood tide late morning/
+        midday. Settled high pressure.
+      weather_risk: >
+        Calm approach; only gate is visibility. Wait out morning fog if
+        present.

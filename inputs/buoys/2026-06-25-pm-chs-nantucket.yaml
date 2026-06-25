@@ -1,0 +1,232 @@
+# NDBC realtime buoys — Charleston SC → Nantucket MA route.
+# All obs LIVE-fetched Thu Jun 25 2026 ~5:00 PM EDT (2100 GMT) via Chrome,
+# except 44025 at 1950 GMT. Cross-checked against the Thu 6/25 PM OPC/AFD
+# forecast cycle.
+#
+# KEY FINDINGS:
+#   - Pre-frontal, benign NOW across the whole route. Pressures 30.03-30.15
+#     inHg, light-to-moderate S-SW flow — consistent with the warm sector
+#     ahead of the weekend cold front.
+#   - SST GRADIENT confirms the fog risk on the Nantucket approach:
+#       41002 (Gulf Stream)        water 83.5°F
+#       44008 (Nantucket SE shelf) water 58.3°F
+#     A ~25°F drop = classic advection-fog setup as warm Stream air moves
+#     over the cold shelf. This is why the approach is YELLOW (fog), not
+#     the wind.
+#   - 44014 (Virginia Beach) wind & wave sensors are DOWN — temperature
+#     channel only. No wind/wave ground-truth at the mid-Atlantic shelf;
+#     lean on 44025 (Long Is) and OPC ANZ920/ANZ925 for WP6-7.
+
+pull:
+  label: "~5:00 PM EDT (2100 GMT) Thu 6/25"
+  utc: "2026-06-25T21:00:00Z"
+
+front_passage:
+  description: |
+    No frontal signal in the obs yet — this is the pre-frontal warm
+    sector. Pressures are high and coherent (30.03-30.15 inHg) with no
+    rapid drop. The cold front is still upstream; it reaches the
+    mid-Atlantic offshore waters Sat night (the WP6 peak-hazard window),
+    veering winds SW → NE behind it Sun-Mon. Watch 41002 and 41001
+    pressure/wind for the front's offshore arrival on Saturday.
+
+stations:
+  - id: 41008
+    name: "Grays Reef NMS GA (departure-region synoptic context, ~70 NM SW of WP0)"
+    lat: 31.400
+    lon: -80.867
+    reading_time: "5:00 PM EDT Thu 6/25"
+    status: "fresh"
+    wind_dir: "S-SW"
+    wind_dir_deg: 200
+    wind_kt: 7.8
+    gust_kt: 9.7
+    wave_ft: 1.6
+    period_s: 7.1
+    swell_dir: "E"
+    swell_dir_deg: 90
+    pressure_hpa: 1016.8
+    pressure_trend: "Falling slow (30.03 inHg)"
+    findings: |
+      Calm departure region. Light S-SW 8 G 10, low 1.6 ft E swell at
+      7 s. Pressure 30.03 easing — warm sector. Confirms a benign
+      Charleston departure Fri morning.
+
+  - id: 41002
+    name: "South Hatteras (Gulf Stream warm-side reference for WP2-3)"
+    lat: 31.760
+    lon: -74.960
+    reading_time: "5:00 PM EDT Thu 6/25"
+    status: "fresh"
+    wind_dir: "SSW"
+    wind_dir_deg: 200
+    wind_kt: 15.5
+    gust_kt: 17.5
+    wave_ft: 4.9
+    period_s: 5.9
+    swell_dir: "SSW"
+    swell_dir_deg: 200
+    pressure_hpa: 1018.9
+    pressure_trend: "Falling slow (30.09 inHg)"
+    water_temp_f: 83.5
+    findings: |
+      In the Gulf Stream — water 83.5°F. SSW 15 G 18, short-period
+      4.9 ft wind wave at 6 s (typical Stream chop). This is the warm-air
+      source for the downstream fog. Following wind-over-current keeps
+      the Stream sea state manageable on the WP2-3 reach.
+
+  - id: 41001
+    name: "Cape Hatteras East 150 NM (Stream-exit reference for WP5-6)"
+    lat: 34.790
+    lon: -72.420
+    reading_time: "5:00 PM EDT Thu 6/25"
+    status: "fresh"
+    wind_dir: "SSW"
+    wind_dir_deg: 200
+    wind_kt: 7.8
+    gust_kt: 9.7
+    wave_ft: 2.3
+    period_s: 6.7
+    swell_dir: "S"
+    swell_dir_deg: 180
+    pressure_hpa: 1019.5
+    pressure_trend: "Steady (30.11 inHg)"
+    findings: |
+      Quiet offshore now — SSW 8 G 10, 2.3 ft S swell at 7 s, pressure
+      steady 30.11. This is the key station to watch Saturday: when the
+      front arrives the wind will veer and pressure will fall here first.
+      Master variable for WP5-6 frontal timing.
+
+  - id: 44014
+    name: "Virginia Beach 64 NM E (mid-Atlantic shelf — SENSORS DOWN)"
+    lat: 36.600
+    lon: -74.840
+    reading_time: "5:00 PM EDT Thu 6/25"
+    status: "sensors down (temperature only)"
+    wind_dir: null
+    wind_dir_deg: null
+    wind_kt: null
+    gust_kt: null
+    wave_ft: null
+    period_s: null
+    swell_dir: null
+    swell_dir_deg: null
+    pressure_hpa: null
+    pressure_trend: "n/a — wind/wave/pressure sensors offline"
+    water_temp_f: 71.4
+    findings: |
+      Wind, wave and pressure channels are OFFLINE — only water temp
+      (71.4°F) reporting. No ground-truth available here for the WP6
+      mid-Atlantic frontal window; rely on OPC ANZ920/ANZ925 forecast
+      and the 44025 (Long Is) station instead.
+
+  - id: 44025
+    name: "Long Island 30 NM S (shelf-edge reference for WP7)"
+    lat: 40.260
+    lon: -73.180
+    reading_time: "4:50 PM EDT Thu 6/25"
+    status: "fresh"
+    wind_dir: "S"
+    wind_dir_deg: 180
+    wind_kt: 7.8
+    gust_kt: 9.7
+    wave_ft: null
+    period_s: null
+    swell_dir: null
+    swell_dir_deg: null
+    pressure_hpa: 1018.9
+    pressure_trend: "Falling slow (30.09 inHg)"
+    findings: |
+      Light S 8 G 10, pressure 30.09 easing. Pre-frontal calm on the
+      Long Island shelf edge. Best available proxy for WP6-7 since 44014
+      is down. Will veer NE behind the front Sun.
+
+  - id: 44008
+    name: "Nantucket SE 54 NM (HIGHEST priority — arrival/fog driver for WP8-9)"
+    lat: 40.500
+    lon: -69.250
+    reading_time: "5:00 PM EDT Thu 6/25"
+    status: "fresh"
+    wind_dir: "SSW"
+    wind_dir_deg: 200
+    wind_kt: 5.8
+    gust_kt: null
+    wave_ft: 2.6
+    period_s: 7.7
+    swell_dir: "S"
+    swell_dir_deg: 180
+    pressure_hpa: 1019.5
+    pressure_trend: "Steady (30.11 inHg)"
+    water_temp_f: 58.3
+    findings: |
+      Light SSW 6 kt, 2.6 ft S swell at 8 s — gentle. The number that
+      matters is WATER 58.3°F: against 83.5°F Stream air this drives
+      advection fog over the Nantucket approach. Pull this station's
+      visibility/obs underway before committing to the entrance. The
+      arrival hazard is fog + Nantucket Shoals, not wind.
+
+  - id: 44011
+    name: "Georges Bank (synoptic context for the approach)"
+    lat: 41.090
+    lon: -66.550
+    reading_time: "5:00 PM EDT Thu 6/25"
+    status: "fresh"
+    wind_dir: "SW"
+    wind_dir_deg: 225
+    wind_kt: 3.9
+    gust_kt: null
+    wave_ft: 3.0
+    period_s: 9.1
+    swell_dir: "SSE"
+    swell_dir_deg: 157
+    pressure_hpa: 1020.9
+    pressure_trend: "Steady (30.15 inHg)"
+    water_temp_f: 61.3
+    findings: |
+      Very light SW 4 kt, long 3.0 ft SSE swell at 9 s, highest pressure
+      on the route (30.15). Confirms the high building in to the NE.
+      Synoptic marker — not on the rhumb line but brackets the eastern
+      side of the approach.
+
+pressure_trend:
+  - station: "41008 Grays Reef"
+    time: "Thu 5:00 PM"
+    pressure: 30.03
+    delta: "falling slow"
+    interpretation: >
+      Warm sector ahead of the front; light winds. Benign departure region.
+  - station: "41002 S Hatteras"
+    time: "Thu 5:00 PM"
+    pressure: 30.09
+    delta: "falling slow"
+    interpretation: >
+      Gulf Stream station easing — front approaching from the west. Watch
+      for the wind veer + pressure drop here Saturday as the front arrives.
+  - station: "41001 Hatteras E 150"
+    time: "Thu 5:00 PM"
+    pressure: 30.11
+    delta: "steady"
+    interpretation: >
+      Master front-timing station for WP5-6. Currently steady/quiet; the
+      first sharp fall here marks the Saturday-night frontal passage.
+  - station: "44025 Long Is 30 S"
+    time: "Thu 4:50 PM"
+    pressure: 30.09
+    delta: "falling slow"
+    interpretation: >
+      Mid-Atlantic proxy (44014 sensors down). Pre-frontal; veers NE behind
+      the front Sunday.
+  - station: "44008 Nantucket SE"
+    time: "Thu 5:00 PM"
+    pressure: 30.11
+    delta: "steady"
+    interpretation: >
+      Arrival station — high holding, light winds. Fog (water 58.3°F), not
+      wind, is the approach hazard.
+  - station: "44011 Georges Bank"
+    time: "Thu 5:00 PM"
+    pressure: 30.15
+    delta: "steady"
+    interpretation: >
+      Highest pressure on the route — high building in to the NE behind the
+      front. Settled conditions for the Monday arrival.

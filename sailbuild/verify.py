@@ -1218,7 +1218,10 @@ def _required_tabs(passage: dict) -> list[tuple]:
         label = plan.get("tab_label")
         if label:
             base.append((label, "error", f"Plan tab for {plan.get('id', '?')}"))
-            base.append((f"{label} Bowtie", "error",
+            bowtie_label = f"{label} Bowtie"
+            if len(bowtie_label) > 31:
+                bowtie_label = bowtie_label[:31]
+            base.append((bowtie_label, "error",
                          f"Risk bowtie for {plan.get('id', '?')}"))
             watch_label = f"Watch - {label}"
             if len(watch_label) > 31:
