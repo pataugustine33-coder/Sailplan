@@ -184,9 +184,24 @@ def render_waypoints(ws, passage, total_nm):
         style_number_cell(ws.cell(r, 3), -abs(wp["lon"]), number_format="0.0000")
         style_text_cell(ws.cell(r, 4), wp["name"], wrap=False)
 
+    # Current-position row appended to the CSV block (if an underway fix exists)
+    vp = passage.get("vessel_position")
+    if vp and vp.get("lat") is not None and vp.get("lon") is not None:
+        r = csv_row + 2 + len(wps)
+        vdesc = "CURRENT POSITION"
+        if vp.get("time"):
+            vdesc += f" ({vp['time']})"
+        style_text_cell(ws.cell(r, 1), "BOAT", wrap=False)
+        style_number_cell(ws.cell(r, 2), vp["lat"], number_format="0.0000")
+        style_number_cell(ws.cell(r, 3), -abs(vp["lon"]), number_format="0.0000")
+        style_text_cell(ws.cell(r, 4), vdesc, wrap=False)
+
     # === Map links + total ===
     coords = "/".join(f"{wp['lat']},-{abs(wp['lon'])}" for wp in wps)
-    link_row = csv_row + 2 + len(wps) + 2
+    vp = passage.get("vessel_position")
+    has_vp = bool(vp and vp.get("lat") is not None and vp.get("lon") is not None)
+    extra = 1 if has_vp else 0
+    link_row = csv_row + 2 + len(wps) + extra + 2
 
     style_section_header(ws.cell(link_row, 1), "Quick links")
     ws.merge_cells(start_row=link_row, start_column=1, end_row=link_row, end_column=8)
@@ -196,7 +211,37 @@ def render_waypoints(ws, passage, total_nm):
     url_cell.font = Font(name="Calibri", size=10, color="0563C1", underline="single")
     ws.merge_cells(start_row=link_row + 1, start_column=2, end_row=link_row + 1, end_column=8)
 
-    total_cell = ws.cell(link_row + 3, 1,
+    # Current-position links (Google Earth Web fly-to + Google Maps pin).
+    if has_vp:
+        vlat = vp["lat"]
+        vlonw = abs(vp["lon"])          # positive west, for display
+        vlon_signed = -abs(vp["lon"])   # signed for URLs
+        vtime = vp.get("time", "")
+
+        ge_label = "Google Earth — current position" + (f" ({vtime})" if vtime else "")
+        ws.cell(link_row + 2, 1, value=ge_label).font = body_bold_font()
+        # Google Earth Web fly-to URL: @lat,lon,altitude a,range d,tilt y,heading h,...
+        ge_url = (f"https://earth.google.com/web/@{vlat:.5f},{vlon_signed:.5f},"
+                  f"0a,120000d,35y,0h,0t,0r")
+        ge_cell = ws.cell(link_row + 2, 2, value=ge_url)
+        ge_cell.font = Font(name="Calibri", size=10, color="0563C1", underline="single")
+        ws.merge_cells(start_row=link_row + 2, start_column=2, end_row=link_row + 2, end_column=8)
+
+        ws.cell(link_row + 3, 1, value="Google Maps — current position pin").font = body_bold_font()
+        gm_url = f"https://www.google.com/maps/search/?api=1&query={vlat:.5f},{vlon_signed:.5f}"
+        gm_cell = ws.cell(link_row + 3, 2, value=gm_url)
+        gm_cell.font = Font(name="Calibri", size=10, color="0563C1", underline="single")
+        ws.merge_cells(start_row=link_row + 3, start_column=2, end_row=link_row + 3, end_column=8)
+
+        ws.cell(link_row + 4, 1,
+                value=f"Fix: {vlat:.4f}°N, {vlonw:.4f}°W   "
+                      f"{('@ ' + vtime) if vtime else ''}").font = caption_font()
+        ws.cell(link_row + 4, 1).font = caption_font()
+        note_row_off = 6
+    else:
+        note_row_off = 3
+
+    total_cell = ws.cell(link_row + note_row_off, 1,
                          value=f"Total: {total_nm:.1f} NM   |   {len(wps)} waypoints")
     total_cell.font = body_bold_font()
 

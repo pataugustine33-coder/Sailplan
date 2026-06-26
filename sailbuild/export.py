@@ -64,6 +64,16 @@ def write_kml(passage: dict, output_path: str, legs: list = None) -> str:
     parts.append('    <LabelStyle><scale>0.9</scale></LabelStyle>')
     parts.append('  </Style>')
 
+    # Style for the CURRENT VESSEL POSITION pin — distinct red, larger.
+    parts.append('  <Style id="current_pos_style">')
+    parts.append('    <IconStyle>')
+    parts.append('      <color>ff0000ff</color>')   # red (AABBGGRR)
+    parts.append('      <scale>1.4</scale>')
+    parts.append('      <Icon><href>http://maps.google.com/mapfiles/kml/shapes/ferry.png</href></Icon>')
+    parts.append('    </IconStyle>')
+    parts.append('    <LabelStyle><color>ff0000ff</color><scale>1.1</scale></LabelStyle>')
+    parts.append('  </Style>')
+
     # Style for the route line — default fallback (no daylight info)
     parts.append('  <Style id="route_style">')
     parts.append('    <LineStyle>')
@@ -101,6 +111,35 @@ def write_kml(passage: dict, output_path: str, legs: list = None) -> str:
         parts.append('    <styleUrl>#wp_style</styleUrl>')
         parts.append('    <Point>')
         parts.append(f'      <coordinates>{lon:.6f},{lat:.6f},0</coordinates>')
+        parts.append('    </Point>')
+        parts.append('  </Placemark>')
+
+    # Current vessel position placemark (if an underway fix is supplied).
+    vp = passage.get("vessel_position")
+    if vp and vp.get("lat") is not None and vp.get("lon") is not None:
+        vlat = vp["lat"]
+        vlon = -abs(vp["lon"])
+        vtime = vp.get("time", "")
+        desc_bits = []
+        if vtime:
+            desc_bits.append(f"Fix: {vtime}")
+        if vp.get("cog_deg") is not None:
+            desc_bits.append(f"COG: {vp['cog_deg']:.0f}°T")
+        if vp.get("sog_kt") is not None:
+            desc_bits.append(f"SOG: {vp['sog_kt']:.1f} kt")
+        if vp.get("cum_nm") is not None:
+            desc_bits.append(f"Cum: {vp['cum_nm']:.0f} NM")
+        if vp.get("note"):
+            desc_bits.append(str(vp["note"]))
+        name = "\u25c9 CURRENT POSITION"
+        if vtime:
+            name += f" — {vtime}"
+        parts.append('  <Placemark>')
+        parts.append(f'    <name>{xml_escape(name)}</name>')
+        parts.append(f'    <description>{xml_escape(chr(10).join(desc_bits))}</description>')
+        parts.append('    <styleUrl>#current_pos_style</styleUrl>')
+        parts.append('    <Point>')
+        parts.append(f'      <coordinates>{vlon:.6f},{vlat:.6f},0</coordinates>')
         parts.append('    </Point>')
         parts.append('  </Placemark>')
 

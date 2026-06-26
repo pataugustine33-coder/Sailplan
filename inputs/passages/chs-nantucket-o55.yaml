@@ -11,6 +11,18 @@ passage:
   destination: Nantucket, MA (Nantucket Harbor Entrance)
   total_nm: 730.15
 
+# Underway vessel fix — drives the "Current Position" placemark in the KML
+# (Google Earth) and the current-position row + Google Earth link on the
+# Waypoints tab. UPDATE THIS EVERY REBUILD with the latest fix.
+vessel_position:
+  lat: 33.0885
+  lon: -78.5300
+  time: "Fri 6/26 6:11 PM EDT"
+  cog_deg: 69
+  sog_kt: 12.1
+  cum_nm: 67
+  note: "On the WP1->WP2 Gulf Stream leg; banking ~2.3 hr of Stream lead."
+
 vessel:
   designation: Outremer 55
   design_number: O55
