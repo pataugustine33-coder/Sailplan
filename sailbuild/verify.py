@@ -265,8 +265,13 @@ def _check_arrival_timing(wb, passage: dict) -> list[Finding]:
     if not arrival_timing:
         return findings
 
+    # Identify plan tabs by their YAML tab_label (truncated to Excel's
+    # 31-char cap), not a hard-coded "Plan " prefix — underway/relabeled
+    # plans (e.g. "Underway - Fri Noon") must still be checked. Bowtie and
+    # Watch tabs have different names and are naturally excluded.
+    plan_labels = {str(p.get("tab_label", ""))[:31] for p in passage.get("plans", [])}
     for tab_name in wb.sheetnames:
-        if not tab_name.startswith("Plan ") or tab_name.endswith("Bowtie"):
+        if tab_name not in plan_labels:
             continue
         ws = wb[tab_name]
         # Find the totals marker (col B says "PASSAGE TOTALS") to bound the WP block.
@@ -416,11 +421,9 @@ def _check_gust_data_populated(wb, passage: dict, forecast: dict) -> list[Findin
         tab_to_plan_id[label[:31]] = plan["id"]
 
     for tab_name in wb.sheetnames:
-        if not tab_name.startswith("Plan ") or tab_name.endswith("Bowtie"):
-            continue
         plan_id = tab_to_plan_id.get(tab_name)
         if plan_id is None:
-            continue  # not a plan tab we can map (defensive)
+            continue  # not a plan tab (Bowtie/Watch/other) — skip
         plan_assignments = assignments_by_plan.get(plan_id, {})
         ws = wb[tab_name]
 

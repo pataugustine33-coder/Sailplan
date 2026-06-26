@@ -150,17 +150,17 @@ waypoints:
 
 plans:
   - id: plan_a
-    tab_label: "Plan A - Fri 7 AM"
-    qualifier: "early-morning departure"
+    tab_label: "Underway - Fri Noon"
+    qualifier: "ACTUAL departure — sea buoy crossed ~11:55 AM EDT Fri 6/26"
     depart_day: Fri
     depart_date: 2026-06-26
-    depart_hour: 7.0
+    depart_hour: 12.0
   - id: plan_b
-    tab_label: "Plan B - Fri 11 AM"
-    qualifier: "later-morning departure (arrival-timing sensitivity)"
+    tab_label: "Underway - eased 2 PM"
+    qualifier: "conservative bracket (+2 hr) if pace eases for weather"
     depart_day: Fri
     depart_date: 2026-06-26
-    depart_hour: 11.0
+    depart_hour: 14.0
 
 route_buoys:
   - id: 41008
