@@ -886,6 +886,24 @@ import re as _re
 # → every Wind/Sea Rose became "—" while the cell-scan check happily
 # saw "—" as a non-empty string and moved on.
 
+def _plan_node_ids(passage: dict, plan_def: dict):
+    """Node ids a plan tab should contain, honoring underway_start.
+
+    Normal plan: every passage waypoint id.
+    Underway-start plan: the BOAT/start-node label + the waypoints AHEAD of
+    the current fix (cum_nm > start_cum). Passed waypoints are intentionally
+    dropped, so checks must not expect them.
+    """
+    waypoints = passage.get("waypoints", [])
+    us = plan_def.get("underway_start")
+    if not us:
+        return [wp["id"] for wp in waypoints]
+    start_cum = float(us.get("cum_nm", 0))
+    label = us.get("label", "BOAT")
+    ahead = [wp["id"] for wp in waypoints if wp["cum_nm"] > start_cum + 0.05]
+    return [label] + ahead
+
+
 def _check_plan_tab_images(wb, passage: dict, forecast: dict) -> list[Finding]:
     """Verify each plan tab has the expected count of embedded images.
 
@@ -922,12 +940,23 @@ def _check_plan_tab_images(wb, passage: dict, forecast: dict) -> list[Finding]:
         ws = wb[tab_name]
 
         # Per-plan expected count: WPs that have BOTH course_out (outbound
-        # leg) AND a forecast assignment in this plan.
+        # leg) AND a forecast assignment in this plan. For an underway-start
+        # plan, the dropped (passed) waypoints don't render; the injected
+        # BOAT node does render one rose/polar.
         plan_assignments = wp_assignments.get(plan_def["id"], {}) or {}
-        expected_per_col = sum(
-            1 for wp in waypoints
-            if wp.get("course_out") is not None and wp["id"] in plan_assignments
-        )
+        us = plan_def.get("underway_start")
+        if us:
+            start_cum = float(us.get("cum_nm", 0))
+            ahead = [wp for wp in waypoints if wp["cum_nm"] > start_cum + 0.05]
+            expected_per_col = 1 + sum(  # +1 for the BOAT node's outbound leg
+                1 for wp in ahead
+                if wp.get("course_out") is not None and wp["id"] in plan_assignments
+            )
+        else:
+            expected_per_col = sum(
+                1 for wp in waypoints
+                if wp.get("course_out") is not None and wp["id"] in plan_assignments
+            )
 
         rose_count = 0   # col U
         polar_count = 0  # col V
@@ -1295,21 +1324,23 @@ def _check_methodology_compliance(wb, passage: dict, forecast: dict) -> list[Fin
                     f"column at position {col_pos}.",
                 ))
 
-        # --- C. One row per WP, matching the passage waypoints ---
-        expected_wps = [wp["id"] for wp in passage.get("waypoints", [])]
-        wp_rows = {}
+        # --- C. One row per node, honoring underway_start ---
+        plan_def = next((p for p in passage.get("plans", [])
+                         if p.get("tab_label") == tab), {})
+        expected_wps = _plan_node_ids(passage, plan_def)
+        present_ids = set()
         for r in range(header_row + 1, ws.max_row + 1):
             v = ws.cell(r, 1).value
-            if isinstance(v, str) and v.startswith("WP"):
-                wp_rows[v] = r
+            if isinstance(v, str) and v.strip():
+                present_ids.add(v.strip())
         for wp_id in expected_wps:
-            if wp_id not in wp_rows:
+            if wp_id not in present_ids:
                 findings.append(Finding(
                     "error",
                     f"{tab}:A (WP column)",
-                    f"Plan tab missing row for {wp_id}. Passage defines "
-                    f"{len(expected_wps)} waypoints; plan tab has "
-                    f"{len(wp_rows)} WP rows.",
+                    f"Plan tab missing row for {wp_id}. Plan should contain "
+                    f"{len(expected_wps)} nodes "
+                    f"({'underway start from ' + plan_def['underway_start'].get('label','BOAT') if plan_def.get('underway_start') else 'full route'}).",
                 ))
 
     # --- D. Pressure Trend vocabulary ---

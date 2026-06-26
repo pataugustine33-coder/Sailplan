@@ -314,6 +314,40 @@ def build_legs_for_plan(passage: dict, forecast: dict, plan_id: str) -> list[Leg
     motor_crossover = passage["vessel"]["motor_crossover_tws_kt"]
     polar_design = passage["vessel"].get("design_number", "D1170")
 
+    # Underway mid-route start: when a plan declares `underway_start`, drop the
+    # waypoints already passed and begin the leg sequence at the boat's current
+    # fix. depart_hour for such a plan is the FIX time (not the original
+    # departure), so the remaining legs are timed forward from the fix.
+    us = plan.get("underway_start")
+    if us:
+        start_cum = float(us["cum_nm"])
+        ahead = [wp for wp in waypoints if wp["cum_nm"] > start_cum + 0.05]
+        if ahead:
+            boat_node = {
+                "id": us.get("label", "BOAT"),
+                "name": us.get("name", "Current Position"),
+                "lat": us["lat"],
+                "lon": us["lon"],
+                "cum_nm": start_cum,
+                "course_out": us.get("course_out", ahead[0].get("course_out")),
+                "chart_label": us.get("name", "Current Position"),
+            }
+            # The leg departing the boat now is best represented by the
+            # conditions forecast for the waypoint it is currently approaching.
+            boat_assign = dict(assignments.get(ahead[0]["id"], {}))
+            remaining = passage["passage"].get("total_nm", ahead[-1]["cum_nm"]) - start_cum
+            boat_assign["notes_addendum"] = (
+                f"CURRENT FIX {us.get('time', '')} — {start_cum:.0f} NM run, "
+                f"{remaining:.0f} NM remaining. SOG {us.get('sog_kt', '?')} kt, "
+                f"COG {us.get('course_out', '?')}°T. Leg conditions per {ahead[0]['id']} forecast."
+            )
+            boat_assign["weather_risk"] = (
+                "Underway from the current fix; legs ahead timed from this position."
+            )
+            assignments = dict(assignments)
+            assignments[boat_node["id"]] = boat_assign
+            waypoints = [boat_node] + ahead
+
     legs: list[Leg] = []
     cum_time = 0.0
     cum_sailing = 0.0
