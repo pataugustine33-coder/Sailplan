@@ -514,14 +514,11 @@ waypoint_assignments:
       pressure: 30.10
       pressure_trend_auto: true
       notes_addendum: >
-        Plan B — Fri ~11:00 AM EDT departure (4 hr later than Plan A).
-        Departs near midday low slack (less ebb assist) but still benign
-        under the high. Same synoptic setup; the later start shifts the
-        whole timeline ~4 hr right, the key lever on the Nantucket arrival
-        gate.
+        Charleston departure under high pressure — benign. (Not rendered on
+        the Current Position plan, which starts from the underway fix; kept
+        for reference.) S-SW 10-15 kt, gusts ~20, seas 2-4 ft.
       weather_risk: >
-        Easy daylight departure, high pressure, light-moderate S-SW. Later
-        start trades morning ebb for arrival-timing flexibility.
+        Easy daylight departure, high pressure, light-moderate S-SW.
     WP1:
       zone: AMZ360
       period: FRI
@@ -569,7 +566,7 @@ waypoint_assignments:
       pressure: 30.12
       pressure_trend_auto: true
       notes_addendum: >
-        Sat (later than Plan A), SE of Cape Lookout. ANZ833 SAT: SW 15-20
+        Sat, SE of Cape Lookout. ANZ833 SAT: SW 15-20
         kt, seas 4-5 ft. Gulf Stream convection possible. Clear Diamond
         Shoals well offshore. Sat-afternoon severe threat is inshore over
         the coastal Carolinas, not here. Course 056°.
@@ -583,8 +580,8 @@ waypoint_assignments:
       pressure: 30.10
       pressure_trend_auto: true
       notes_addendum: >
-        Sat evening/night, Hatteras offing turning NNE. Later start puts
-        the boat at the shelf edge nearer the windier overnight band.
+        Sat evening/night, Hatteras offing turning NNE, near the windier
+        overnight band.
         ANZ930 SAT NIGHT: SW 10-20 kt, seas 3-6 ft. Course 025°. Confirm
         storm-canvas plan for WP6.
       weather_risk: >
@@ -625,14 +622,14 @@ waypoint_assignments:
       pressure: 30.12
       pressure_trend_auto: true
       notes_addendum: >
-        SW of Nantucket Shoals (west of the shoals). The 4-hr-later start
-        tends to push this approach toward Mon DAYLIGHT — Plan B's
-        advantage. Light NE-variable 5-10 kt, seas 2-4 ft, fog the main
-        hazard (44008 water 59.2°F). If arriving in darkness, stand off
-        south until civil dawn. Course 061°.
+        SW of Nantucket Shoals (west of the shoals). At the current pace
+        this approach falls in Mon DAYLIGHT (~late afternoon), which clears
+        the shoals safely. Light NE-variable 5-10 kt, seas 2-4 ft, fog the
+        main hazard (44008 water 59.2°F). If the final leg slips into
+        darkness, stand off south until civil dawn. Course 061°.
       weather_risk: >
-        Light wind, fog risk + Nantucket Shoals. Daylight approach only;
-        Plan B timing favors a daytime arrival here.
+        Light wind, fog risk + Nantucket Shoals. Daylight shoals transit at
+        the current pace; keep the harbor entrance for daylight/first light.
     WP9:
       zone: ANZ255
       period: MON
