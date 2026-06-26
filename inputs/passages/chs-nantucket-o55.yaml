@@ -150,17 +150,17 @@ waypoints:
 
 plans:
   - id: plan_a
-    tab_label: "Underway - Fri Noon"
-    qualifier: "ACTUAL departure — sea buoy crossed ~11:55 AM EDT Fri 6/26"
+    tab_label: "Underway - Stream pace"
+    qualifier: "projected from 6:11 PM fix (33 05.3N 78 31.8W, cum ~67) — carries the ~2.3 hr Gulf Stream lead banked so far, then polar pace"
+    depart_day: Fri
+    depart_date: 2026-06-26
+    depart_hour: 9.8
+  - id: plan_b
+    tab_label: "Underway - slow floor"
+    qualifier: "conservative through-water floor (actual noon departure, ignores Gulf Stream set) — the slow bound"
     depart_day: Fri
     depart_date: 2026-06-26
     depart_hour: 12.0
-  - id: plan_b
-    tab_label: "Underway - eased 2 PM"
-    qualifier: "conservative bracket (+2 hr) if pace eases for weather"
-    depart_day: Fri
-    depart_date: 2026-06-26
-    depart_hour: 14.0
 
 route_buoys:
   - id: 41008

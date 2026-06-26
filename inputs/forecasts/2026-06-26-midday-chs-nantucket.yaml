@@ -35,9 +35,9 @@ cycle:
     label_short: "Fri 6/26 721 AM"
     label_full: "721 AM EDT Fri Jun 26 2026"
   afdmhx:
-    issued: "2026-06-26T03:57:00-04:00"
-    label_short: "Fri 6/26 357 AM"
-    label_full: "357 AM EDT Fri Jun 26 2026 (no midday reissue)"
+    issued: "2026-06-26T14:14:00-04:00"
+    label_short: "Fri 6/26 214 PM"
+    label_full: "214 PM EDT Fri Jun 26 2026 (Sat coastal-NC severe upgrade; offshore zones unchanged)"
   cwfopc:
     issued: "2026-06-26T10:56:00-04:00"
     label_short: "Fri 6/26 1056 AM"
