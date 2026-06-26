@@ -14,7 +14,7 @@ from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
 from openpyxl.utils import get_column_letter
 from openpyxl.drawing.image import Image as XLImage
 
-from ..compute import build_watch_segments
+from ..compute import build_watch_segments, elapsed_hr_at_cum
 from ..charts import watch_cards_png_bytes, twelve_hour_strip_png_bytes
 
 
@@ -54,7 +54,15 @@ def render_watch_brief_tab(ws, passage, plan_meta, legs, total_nm, forecast_cycl
       forecast_cycle_label: short label of the forecast cycle (for header)
     """
     arrival_timing = passage.get("arrival_timing")
-    segments = build_watch_segments(plan_meta, legs, arrival_timing, total_nm)
+    # Anchor the 12-hour window to the boat's current position when underway,
+    # so the Watch Brief shows the NEXT 12 hours from the latest fix rather
+    # than from the (possibly back-anchored) departure.
+    start_offset_hr = 0.0
+    vp = passage.get("vessel_position")
+    if vp and vp.get("cum_nm") is not None:
+        start_offset_hr = elapsed_hr_at_cum(legs, vp["cum_nm"])
+    segments = build_watch_segments(plan_meta, legs, arrival_timing, total_nm,
+                                    start_offset_hr=start_offset_hr)
 
     # Column widths — let cells span the image widths reasonably
     ws.column_dimensions["A"].width = 4
@@ -198,7 +206,7 @@ def render_watch_brief_tab(ws, passage, plan_meta, legs, total_nm, forecast_cycl
             value="How to read this tab").font = HEADER_FONT
 
     notes = [
-        "• Window starts at this plan's depart_hour and covers the next 12 hours in 4 × 3-hour segments.",
+        "• Window starts at the boat's current fix (vessel_position) when underway, else at depart_hour — next 12 hours in 4 × 3-hour segments.",
         "• Each watch card shows forecast conditions (wind, seas, pressure) and cat-polar performance (boat speed) for that 3-hour segment.",
         "• Boat speed shows BOTH polar potential (clean theoretical Vs) AND calibrated expected (polar × sea_factor for the conditions). Calibrated is what you'll actually do.",
         "• Risk color matches the source Plan tab (green/yellow/red) — driven by gust thresholds, sea state, and night transitions.",

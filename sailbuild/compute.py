@@ -917,7 +917,34 @@ def _derive_action(seg: WatchSegment) -> str:
     return " · ".join(actions)
 
 
-def build_watch_segments(plan, legs, arrival_timing, total_nm, segment_hours=3.0, n_segments=4):
+def elapsed_hr_at_cum(legs, cum_nm):
+    """Interpolate elapsed passage time (hr) at a given cumulative distance (NM).
+
+    Used to anchor the Watch Brief window to the boat's current position when
+    underway. Each leg carries cum_nm (distance to that WP) and cum_time_hr
+    (time to reach it). Linear interpolation between the bracketing legs.
+    Clamps to [0, last leg time].
+    """
+    if not legs or cum_nm is None:
+        return 0.0
+    cum_nm = float(cum_nm)
+    if cum_nm <= legs[0].cum_nm:
+        # Before/at first WP — scale from origin (0,0) to first leg.
+        if legs[0].cum_nm <= 0:
+            return 0.0
+        return max(0.0, cum_nm / legs[0].cum_nm * legs[0].cum_time_hr)
+    for i in range(1, len(legs)):
+        a, b = legs[i - 1], legs[i]
+        if cum_nm <= b.cum_nm:
+            span_nm = b.cum_nm - a.cum_nm
+            if span_nm <= 0:
+                return a.cum_time_hr
+            frac = (cum_nm - a.cum_nm) / span_nm
+            return a.cum_time_hr + frac * (b.cum_time_hr - a.cum_time_hr)
+    return legs[-1].cum_time_hr
+
+
+def build_watch_segments(plan, legs, arrival_timing, total_nm, segment_hours=3.0, n_segments=4, start_offset_hr=0.0):
     """Derive 4 x 3-hour watch segments starting from the plan's depart_hour.
 
     Each segment is mapped to the active leg the boat is sailing during the
@@ -929,6 +956,11 @@ def build_watch_segments(plan, legs, arrival_timing, total_nm, segment_hours=3.0
       legs: list of Leg objects from build_legs_for_plan
       arrival_timing: passage YAML arrival_timing block (for day_window)
       total_nm: total passage distance (for arrival-callout detection)
+      start_offset_hr: elapsed hours into the passage at which the 12-hour
+        watch window begins. 0 for a pre-departure plan; for an underway
+        boat, set to the elapsed time at the current fix so the Watch Brief
+        tracks the NEXT 12 hours from the boat's position, not from the
+        (possibly back-anchored) departure.
 
     Returns:
       list of WatchSegment, length n_segments.
@@ -940,8 +972,14 @@ def build_watch_segments(plan, legs, arrival_timing, total_nm, segment_hours=3.0
 
     segments = []
     for i in range(n_segments):
-        start_hr = i * segment_hours
-        end_hr = (i + 1) * segment_hours
+        # chart_* are 0-based (the strip-chart x-axis is fixed to 0..12 hr).
+        # elapsed_* (start_hr/end_hr/mid_hr) include start_offset_hr so the
+        # window, clocks, active-leg lookup and day/night track the boat's
+        # current position when underway.
+        chart_start = i * segment_hours
+        chart_end = (i + 1) * segment_hours
+        start_hr = start_offset_hr + chart_start
+        end_hr = start_offset_hr + chart_end
         mid_hr = start_hr + segment_hours / 2
 
         leg_idx, active_leg = _find_active_leg(legs, mid_hr)
@@ -968,8 +1006,8 @@ def build_watch_segments(plan, legs, arrival_timing, total_nm, segment_hours=3.0
 
         seg = WatchSegment(
             idx=i,
-            start_hr=start_hr,
-            end_hr=end_hr,
+            start_hr=chart_start,
+            end_hr=chart_end,
             start_clock=_t_to_clock_str(depart_hour, depart_day, start_hr),
             end_clock=_t_to_clock_str(depart_hour, depart_day, end_hr),
             label="",  # set below

@@ -201,7 +201,7 @@ route_buoys:
     lat: 36.600
     lon: -74.840
     relevant_wps:
-      WP6: "~70 NM W (mid-Atlantic shelf; wind/wave sensors down 6/25)"
+      WP6: "~70 NM W (mid-Atlantic shelf; 44014 wind/pressure sensors offline as of 6/26 4 PM)"
   - id: 44025
     name: Long Island 30 NM S
     lat: 40.260
