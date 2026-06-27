@@ -15,13 +15,13 @@ passage:
 # (Google Earth) and the current-position row + Google Earth link on the
 # Waypoints tab. UPDATE THIS EVERY REBUILD with the latest fix.
 vessel_position:
-  lat: 33.0885
-  lon: -78.5300
-  time: "Fri 6/26 6:11 PM EDT"
-  cog_deg: 69
-  sog_kt: 12.1
-  cum_nm: 67
-  note: "On the WP1->WP2 Gulf Stream leg; banking ~2.3 hr of Stream lead."
+  lat: 33.31653
+  lon: -77.62575
+  time: "Fri 6/26 10:51 PM EDT"
+  cog_deg: 71
+  sog_kt: 12.0
+  cum_nm: 112.9
+  note: "On the WP2->WP3 leg, ~20 NM S of rhumb (carrying E in the Gulf Stream). 37 NM / 045°T to rejoin at WP3."
 
 vessel:
   designation: Outremer 55
@@ -169,18 +169,18 @@ plans:
     depart_hour: 12.0
   - id: plan_b
     tab_label: "Current Position"
-    qualifier: "underway re-time from the 6:11 PM fix — remaining legs only, timed forward from current position"
+    qualifier: "underway re-time from the 10:51 PM fix — remaining legs only, timed forward from current position (37 NM / 045°T rejoin to WP3)"
     depart_day: Fri
     depart_date: 2026-06-26
-    depart_hour: 18.18
+    depart_hour: 22.85
     underway_start:
-      cum_nm: 67
-      lat: 33.0885
-      lon: -78.5300
-      course_out: 69
-      sog_kt: 12.1
-      time: "Fri 6/26 6:11 PM EDT"
-      name: "Current Position (6:11 PM fix)"
+      cum_nm: 112.9
+      lat: 33.31653
+      lon: -77.62575
+      course_out: 45
+      sog_kt: 12.0
+      time: "Fri 6/26 10:51 PM EDT"
+      name: "Current Position (10:51 PM fix)"
       label: "BOAT"
 
 route_buoys:
