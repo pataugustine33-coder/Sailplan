@@ -15,13 +15,13 @@ passage:
 # (Google Earth) and the current-position row + Google Earth link on the
 # Waypoints tab. UPDATE THIS EVERY REBUILD with the latest fix.
 vessel_position:
-  lat: 33.92355
-  lon: -75.5437
-  time: "Sat 6/27 9:24 AM EDT"
-  cog_deg: 39
-  sog_kt: 9.5
-  cum_nm: 212.6
-  note: "Stood offshore E in the Stream — bypassed WP4 (33 NM off the NW beam). Tracking to WP5: 79.5 NM / 031°T."
+  lat: 35.11327
+  lon: -74.5536
+  time: "Sat 6/27 5:50 PM EDT"
+  cog_deg: 46
+  sog_kt: 8.6
+  cum_nm: 298.6
+  note: "Just past WP5/Diamond Shoals (8 NM astern). Entering the mid-Atlantic corridor — 150 NM / 023°T to WP6. Convective/MCS window tonight."
 
 vessel:
   designation: Outremer 55
@@ -169,20 +169,20 @@ plans:
     depart_hour: 12.0
   - id: plan_b
     tab_label: "Current Position"
-    qualifier: "underway re-time from the 9:24 AM Sat fix — stood offshore, bypassed WP4; next mark WP5 (Diamond Shoals) at 79.5 NM / 031°T, remaining legs timed forward"
+    qualifier: "underway re-time from the 5:50 PM Sat fix — past WP5; next mark WP6 at 150 NM / 023°T through the corridor (convective night), remaining legs timed forward"
     depart_day: Sat
     depart_date: 2026-06-27
-    depart_hour: 9.4
+    depart_hour: 17.83
     underway_start:
-      next_wp_id: WP5
-      cum_nm: 212.6
-      lat: 33.92355
-      lon: -75.5437
-      course_out: 31
-      cog_deg: 39
-      sog_kt: 9.5
-      time: "Sat 6/27 9:24 AM EDT"
-      name: "Current Position (Sat 9:24 AM fix)"
+      next_wp_id: WP6
+      cum_nm: 298.6
+      lat: 35.11327
+      lon: -74.5536
+      course_out: 23
+      cog_deg: 46
+      sog_kt: 8.6
+      time: "Sat 6/27 5:50 PM EDT"
+      name: "Current Position (Sat 5:50 PM fix)"
       label: "BOAT"
 
 route_buoys:
