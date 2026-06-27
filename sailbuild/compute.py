@@ -15,7 +15,18 @@ A "leg" here means the row for one waypoint on a Plan tab. Each leg has:
 """
 from dataclasses import dataclass, field
 from typing import Optional
+import math
 from .polar import polar_speed, select_sea_factor, apparent_wind
+
+
+def _haversine_nm(lat1, lon1, lat2, lon2):
+    """Great-circle distance in nautical miles between two lat/lon points."""
+    R = 3440.065  # earth radius in NM
+    p1, p2 = math.radians(lat1), math.radians(lat2)
+    dp = math.radians(lat2 - lat1)
+    dl = math.radians(lon2 - lon1)
+    a = math.sin(dp / 2) ** 2 + math.cos(p1) * math.cos(p2) * math.sin(dl / 2) ** 2
+    return 2 * R * math.asin(math.sqrt(a))
 
 
 DAY_ORDER = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
@@ -320,26 +331,40 @@ def build_legs_for_plan(passage: dict, forecast: dict, plan_id: str) -> list[Leg
     # departure), so the remaining legs are timed forward from the fix.
     us = plan.get("underway_start")
     if us:
-        start_cum = float(us["cum_nm"])
-        ahead = [wp for wp in waypoints if wp["cum_nm"] > start_cum + 0.05]
+        # Determine the waypoints AHEAD of the boat. Prefer an explicit
+        # next_wp_id (handles a corner-cut, where the boat has stood off the
+        # rhumb and bypassed a waypoint that is still "ahead" by cum). Else
+        # fall back to the cum_nm filter.
+        next_id = us.get("next_wp_id")
+        if next_id:
+            idx = next((j for j, wp in enumerate(waypoints) if wp["id"] == next_id), None)
+            ahead = list(waypoints[idx:]) if idx is not None else []
+        else:
+            start_cum = float(us["cum_nm"])
+            ahead = [wp for wp in waypoints if wp["cum_nm"] > start_cum + 0.05]
         if ahead:
+            # First leg distance from ACTUAL fix coords to the next waypoint
+            # (not a cum difference — the boat may be well off the rhumb).
+            d0 = _haversine_nm(us["lat"], us["lon"], ahead[0]["lat"], ahead[0]["lon"])
+            boat_cum = ahead[0]["cum_nm"] - d0
             boat_node = {
                 "id": us.get("label", "BOAT"),
                 "name": us.get("name", "Current Position"),
                 "lat": us["lat"],
                 "lon": us["lon"],
-                "cum_nm": start_cum,
+                "cum_nm": boat_cum,
                 "course_out": us.get("course_out", ahead[0].get("course_out")),
                 "chart_label": us.get("name", "Current Position"),
             }
             # The leg departing the boat now is best represented by the
             # conditions forecast for the waypoint it is currently approaching.
             boat_assign = dict(assignments.get(ahead[0]["id"], {}))
-            remaining = passage["passage"].get("total_nm", ahead[-1]["cum_nm"]) - start_cum
+            remaining = passage["passage"].get("total_nm", ahead[-1]["cum_nm"]) - boat_cum
             boat_assign["notes_addendum"] = (
-                f"CURRENT FIX {us.get('time', '')} — {start_cum:.0f} NM run, "
+                f"CURRENT FIX {us.get('time', '')} — {boat_cum:.0f} NM run, "
                 f"{remaining:.0f} NM remaining. SOG {us.get('sog_kt', '?')} kt, "
-                f"COG {us.get('course_out', '?')}°T. Leg conditions per {ahead[0]['id']} forecast."
+                f"COG {us.get('cog_deg', us.get('course_out', '?'))}°T. "
+                f"{d0:.0f} NM to {ahead[0]['id']}; leg conditions per {ahead[0]['id']} forecast."
             )
             boat_assign["weather_risk"] = (
                 "Underway from the current fix; legs ahead timed from this position."

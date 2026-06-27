@@ -1,0 +1,207 @@
+# NDBC realtime buoys — CHS -> Nantucket, OUTREMER 55 (UNDERWAY, Sat AM pull).
+# Live-fetched Sat Jun 27 2026 9:00 AM EDT (1300 GMT) via Chrome.
+# Vessel fix at rebuild: 33 55.413N 75 32.622W, 9.5 kt on 039 at 9:24 AM —
+# off Cape Lookout/Hatteras, stood offshore E in the Stream, tracking to WP5.
+#
+# READ: High ridge still holding ahead of the approaching cold front —
+# pressures 30.04-30.20 inHg and RISING slightly (PTDY +0.3 to +0.7). Front
+# is NW/upstream; per OPC it moves into the N waters tonight and crosses the
+# central waters Sun. SW 12-15 kt at the offshore stations now; OPC builds
+# Hatteras seas to 5-6 ft today/tonight. SST gradient holds (41002 83.5F
+# Stream vs 44008 60.0F shelf) -> fog the approach hazard. 44014 wind/pres
+# still offline.
+
+pull:
+  label: "9:00 AM EDT (1300 GMT) Sat 6/27 — underway, full AM pull"
+  utc: "2026-06-27T13:00:00Z"
+
+front_passage:
+  description: |
+    Pre-frontal, high ridge holding (pressures rising slightly). OPC 428 AM:
+    cold front into N waters tonight, crosses central waters Sun-Sun night,
+    S waters Mon-Tue. The boat's next legs (WP5 Diamond Shoals tonight, WP6
+    corridor Sat night-Sun) coincide with the active window: ANZ920 W-SW
+    15-25 kt, seas 4-7 ft, NUMEROUS tstms Sat night-Sun. MHX 413 AM: SCA for
+    NC coastal waters (gusts 25-29) 2 PM-11 PM; a strong-to-severe MCS moves
+    offshore near Hatteras Sat evening into the first half of tonight — the
+    dominant tactical hazard for the WP5 area tonight. Watch 41001 for the
+    first sharp pressure fall + wind veer marking frontal arrival.
+
+stations:
+  - id: 41002
+    name: "South Hatteras (Gulf Stream warm-side reference)"
+    lat: 31.760
+    lon: -74.960
+    reading_time: "9:00 AM EDT Sat 6/27"
+    status: "fresh"
+    wind_dir: "SW"
+    wind_dir_deg: 220
+    wind_kt: 11.7
+    gust_kt: 13.6
+    wave_ft: null
+    period_s: null
+    swell_dir: null
+    swell_dir_deg: null
+    pressure_hpa: 1022.5
+    pressure_trend: "Rising slow (30.20 inHg, +0.7 hPa/3hr)"
+    water_temp_f: 83.5
+    findings: |
+      In the Stream — water 83.5F. SW 12 G 14, pressure 30.20 rising. Ridge
+      still in place; warm-air source for the downstream fog.
+
+  - id: 41001
+    name: "Cape Hatteras East 150 NM (front-timing master, WP5-6)"
+    lat: 34.790
+    lon: -72.420
+    reading_time: "9:00 AM EDT Sat 6/27"
+    status: "fresh"
+    wind_dir: "SSW"
+    wind_dir_deg: 210
+    wind_kt: 13.6
+    gust_kt: 17.5
+    wave_ft: null
+    period_s: null
+    swell_dir: null
+    swell_dir_deg: null
+    pressure_hpa: 1021.2
+    pressure_trend: "Rising slow (30.16 inHg, +0.5 hPa/3hr)"
+    water_temp_f: 77.0
+    findings: |
+      SSW 14 G 17, pressure 30.16 rising — front not here yet. KEY WATCH:
+      the first sharp pressure fall + wind veer here marks frontal arrival
+      ahead of WP5-6 (expected tonight-Sunday). Nearest offshore reference
+      for the boat's next legs.
+
+  - id: 41048
+    name: "W Bermuda (far-offshore context)"
+    lat: 31.831
+    lon: -69.585
+    reading_time: "9:00 AM EDT Sat 6/27"
+    status: "fresh (context only, off-route)"
+    wind_dir: "S-SW"
+    wind_dir_deg: 200
+    wind_kt: 3.9
+    gust_kt: 3.9
+    wave_ft: null
+    period_s: null
+    swell_dir: null
+    swell_dir_deg: null
+    pressure_hpa: 1024.1
+    pressure_trend: "Rising slow (30.24 inHg, +0.3 hPa/3hr)"
+    water_temp_f: 81.0
+    findings: |
+      Light, high pressure 30.24 — the ridge center to the SE. Off-route
+      context for the ridge position.
+
+  - id: 44014
+    name: "Virginia Beach 64 NM E (mid-Atlantic shelf — SENSORS DOWN)"
+    lat: 36.600
+    lon: -74.840
+    reading_time: "9:00 AM EDT Sat 6/27"
+    status: "partial (wind/pressure/wave offline; temp only)"
+    wind_dir: null
+    wind_dir_deg: null
+    wind_kt: null
+    gust_kt: null
+    wave_ft: null
+    period_s: null
+    swell_dir: null
+    swell_dir_deg: null
+    pressure_hpa: null
+    pressure_trend: "n/a — wind/pressure sensors offline"
+    water_temp_f: 72.7
+    findings: |
+      Wind/pressure channels OFFLINE; water 72.7F only. No ground-truth for
+      the WP6 window — lean on OPC ANZ920/925, 41001, and 44025.
+
+  - id: 44025
+    name: "Long Island 30 NM S (shelf-edge reference, WP7)"
+    lat: 40.260
+    lon: -73.180
+    reading_time: "9:00 AM EDT Sat 6/27"
+    status: "fresh"
+    wind_dir: "SE"
+    wind_dir_deg: 140
+    wind_kt: 1.9
+    gust_kt: 3.9
+    wave_ft: null
+    period_s: null
+    swell_dir: null
+    swell_dir_deg: null
+    pressure_hpa: 1017.4
+    pressure_trend: "Steady (30.04 inHg)"
+    water_temp_f: 69.3
+    findings: |
+      Light/variable, pressure 30.04. Proxy for WP6-7 with 44014 down.
+      Veers NE behind the front Sun.
+
+  - id: 44008
+    name: "Nantucket SE 54 NM (arrival/fog driver, WP8-9)"
+    lat: 40.500
+    lon: -69.250
+    reading_time: "9:00 AM EDT Sat 6/27"
+    status: "fresh"
+    wind_dir: "S"
+    wind_dir_deg: 200
+    wind_kt: 5.8
+    gust_kt: 7.8
+    wave_ft: null
+    period_s: null
+    swell_dir: null
+    swell_dir_deg: null
+    pressure_hpa: 1017.6
+    pressure_trend: "Rising slow (30.05 inHg, +0.7 hPa/3hr)"
+    water_temp_f: 60.0
+    findings: |
+      Light S 6 G 8. WATER 60.0F — against Stream air this is the advection-
+      fog driver; AFDBOX flags fog/IFR-LIFR over the Cape & Islands tonight,
+      diminishing Sun. Pull visibility before the entrance.
+
+  - id: 44011
+    name: "Georges Bank (synoptic context for the approach)"
+    lat: 41.090
+    lon: -66.550
+    reading_time: "9:00 AM EDT Sat 6/27"
+    status: "fresh"
+    wind_dir: "W-SW"
+    wind_dir_deg: 250
+    wind_kt: 5.8
+    gust_kt: 7.8
+    wave_ft: null
+    period_s: null
+    swell_dir: null
+    swell_dir_deg: null
+    pressure_hpa: 1018.0
+    pressure_trend: "Rising slow (30.06 inHg, +0.6 hPa/3hr)"
+    water_temp_f: 65.0
+    findings: |
+      Light W-SW 6 G 8, pressure 30.06 rising. High building toward the NE —
+      settled, light + fog for the Mon arrival window.
+
+pressure_trend:
+  - station: "41001 Hatteras E 150"
+    time: "Sat 9:00 AM"
+    pressure: 30.16
+    delta: "rising slow (+0.5)"
+    interpretation: >
+      Master front-timing station for WP5-6; pressure rising = ridge still
+      ahead of the front. First sharp fall marks the Sat night-Sun frontal
+      passage.
+  - station: "41002 S Hatteras"
+    time: "Sat 9:00 AM"
+    pressure: 30.20
+    delta: "rising slow (+0.7)"
+    interpretation: >
+      Stream station high/rising — front upstream.
+  - station: "44008 Nantucket SE"
+    time: "Sat 9:00 AM"
+    pressure: 30.05
+    delta: "rising slow (+0.7)"
+    interpretation: >
+      Arrival station steady/light; fog (water 60.0F) the hazard, not wind.
+  - station: "44011 Georges Bank"
+    time: "Sat 9:00 AM"
+    pressure: 30.06
+    delta: "rising slow (+0.6)"
+    interpretation: >
+      High building NE — settled arrival window.

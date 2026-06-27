@@ -898,9 +898,14 @@ def _plan_node_ids(passage: dict, plan_def: dict):
     us = plan_def.get("underway_start")
     if not us:
         return [wp["id"] for wp in waypoints]
-    start_cum = float(us.get("cum_nm", 0))
     label = us.get("label", "BOAT")
-    ahead = [wp["id"] for wp in waypoints if wp["cum_nm"] > start_cum + 0.05]
+    next_id = us.get("next_wp_id")
+    if next_id:
+        idx = next((j for j, wp in enumerate(waypoints) if wp["id"] == next_id), None)
+        ahead = [wp["id"] for wp in waypoints[idx:]] if idx is not None else []
+    else:
+        start_cum = float(us.get("cum_nm", 0))
+        ahead = [wp["id"] for wp in waypoints if wp["cum_nm"] > start_cum + 0.05]
     return [label] + ahead
 
 
@@ -946,8 +951,13 @@ def _check_plan_tab_images(wb, passage: dict, forecast: dict) -> list[Finding]:
         plan_assignments = wp_assignments.get(plan_def["id"], {}) or {}
         us = plan_def.get("underway_start")
         if us:
-            start_cum = float(us.get("cum_nm", 0))
-            ahead = [wp for wp in waypoints if wp["cum_nm"] > start_cum + 0.05]
+            next_id = us.get("next_wp_id")
+            if next_id:
+                idx = next((j for j, wp in enumerate(waypoints) if wp["id"] == next_id), None)
+                ahead = list(waypoints[idx:]) if idx is not None else []
+            else:
+                start_cum = float(us.get("cum_nm", 0))
+                ahead = [wp for wp in waypoints if wp["cum_nm"] > start_cum + 0.05]
             expected_per_col = 1 + sum(  # +1 for the BOAT node's outbound leg
                 1 for wp in ahead
                 if wp.get("course_out") is not None and wp["id"] in plan_assignments
