@@ -1,0 +1,176 @@
+# NDBC realtime buoys — CHS -> Nantucket, OUTREMER 55 (UNDERWAY, late Sat pull).
+# Live-fetched Sat Jun 27 2026 9:40 PM EDT (0140 GMT 6/28) via Chrome.
+# Vessel fix at rebuild: 35 40.238N 73 52.459W, 8.6 kt on 046 at 10:04 PM —
+# ~40 NM up the BOAT->WP6 corridor leg, in the convective window.
+#
+# READ: Pre-frontal SW flow in the corridor; 41001 (now SW of the boat) S 16
+# G 19, pressure steady 30.08. MHX 934 PM: severe watch CANCELLED, the
+# afternoon MCS weakened to sub-severe and is moving offshore (30-35 kt in
+# the complex, lightning); overnight convection sub-severe. Arrival (44008)
+# light, water 60.8F -> fog the approach hazard, eroding Sun PM. 44014
+# wind/pressure still offline.
+
+pull:
+  label: "9:40 PM EDT (0140 GMT) Sat 6/27 — underway, late pull"
+  utc: "2026-06-28T01:40:00Z"
+
+front_passage:
+  description: |
+    Pre-frontal. OPC 445 PM (carried): cold front into N waters tonight,
+    crosses central waters Sun-Sun night, S waters Mon-Tue night. The boat is
+    in the ANZ920 corridor in the warm sector: W-SW 10-20 kt, seas 4-7 ft,
+    numerous tstms. MHX 934 PM: the afternoon severe MCS has WEAKENED to
+    sub-severe and moved offshore (was 40-60 mph; now 30-35 kt, lightning);
+    a trailing VA MCV may keep lingering sub-severe cells going for a few
+    hours. Another, better-organized round (30-50 kt gusts) is expected Sun
+    afternoon/evening, then the backdoor front Sun night with a NE shift.
+
+stations:
+  - id: 41001
+    name: "Cape Hatteras East 150 NM (front-timing / corridor reference, now SW of boat)"
+    lat: 34.790
+    lon: -72.420
+    reading_time: "9:40 PM EDT Sat 6/27"
+    status: "fresh"
+    wind_dir: "S"
+    wind_dir_deg: 200
+    wind_kt: 15.5
+    gust_kt: 19.4
+    wave_ft: null
+    period_s: null
+    swell_dir: null
+    swell_dir_deg: null
+    pressure_hpa: 1018.7
+    pressure_trend: "Steady (30.08 inHg)"
+    water_temp_f: 77.5
+    findings: |
+      S 16 G 19 — pre-frontal SW flow, gusts to ~19 kt outside cells.
+      Pressure steady 30.08. Best in-corridor reference for the overnight
+      BOAT->WP6 leg; watch for the wind veer (S->SW->W) marking the front.
+
+  - id: 44100
+    name: "Cape Hatteras 12 NM E (wave reference behind the boat)"
+    lat: 36.260
+    lon: -75.594
+    reading_time: "9:30 PM EDT Sat 6/27"
+    status: "fresh (wave/temp; wind channel MM)"
+    wind_dir: null
+    wind_dir_deg: null
+    wind_kt: null
+    gust_kt: null
+    wave_ft: 2.3
+    period_s: 8.0
+    swell_dir: "SE"
+    swell_dir_deg: 143
+    pressure_hpa: null
+    pressure_trend: "n/a (wave station)"
+    water_temp_f: 74.5
+    findings: |
+      Seas 2.3 ft at 8 s SE behind the boat — modest outside cells. Wind
+      channel down.
+
+  - id: 44014
+    name: "Virginia Beach 64 NM E (mid-Atlantic shelf — SENSORS DOWN)"
+    lat: 36.600
+    lon: -74.840
+    reading_time: "9:40 PM EDT Sat 6/27"
+    status: "partial (wind/pressure/wave offline; temp only)"
+    wind_dir: null
+    wind_dir_deg: null
+    wind_kt: null
+    gust_kt: null
+    wave_ft: null
+    period_s: null
+    swell_dir: null
+    swell_dir_deg: null
+    pressure_hpa: null
+    pressure_trend: "n/a — wind/pressure sensors offline"
+    water_temp_f: 73.0
+    findings: |
+      Wind/pressure OFFLINE; water 73.0F only. Lean on 41001, OPC ANZ920, and
+      onboard radar for the corridor window.
+
+  - id: 44025
+    name: "Long Island 30 NM S (shelf-edge reference, WP7)"
+    lat: 40.260
+    lon: -73.180
+    reading_time: "9:10 PM EDT Sat 6/27"
+    status: "fresh (wave/temp; wind/pres MM)"
+    wind_dir: null
+    wind_dir_deg: null
+    wind_kt: null
+    gust_kt: null
+    wave_ft: 2.3
+    period_s: 6.0
+    swell_dir: "SSE"
+    swell_dir_deg: 161
+    pressure_hpa: null
+    pressure_trend: "n/a this ob"
+    water_temp_f: 68.9
+    findings: |
+      Seas 2.3 ft at 6 s SSE; wind/pres missing. Proxy for WP6-7 with 44014
+      down. Veers NE behind the front Sun.
+
+  - id: 44008
+    name: "Nantucket SE 54 NM (arrival/fog driver, WP8-9)"
+    lat: 40.500
+    lon: -69.250
+    reading_time: "9:40 PM EDT Sat 6/27"
+    status: "fresh"
+    wind_dir: "E"
+    wind_dir_deg: 80
+    wind_kt: 5.8
+    gust_kt: 5.8
+    wave_ft: null
+    period_s: null
+    swell_dir: null
+    swell_dir_deg: null
+    pressure_hpa: 1016.1
+    pressure_trend: "Steady (30.01 inHg)"
+    water_temp_f: 60.8
+    findings: |
+      Light E 6 kt. WATER 60.8F — against Stream air this is the advection-fog
+      driver; BOX flags fog over the Cape & Islands into Sun midday, eroding
+      Sun PM. Pull visibility before the entrance.
+
+  - id: 44011
+    name: "Georges Bank (synoptic context for the approach)"
+    lat: 41.090
+    lon: -66.550
+    reading_time: "9:40 PM EDT Sat 6/27"
+    status: "fresh"
+    wind_dir: "calm/variable"
+    wind_dir_deg: null
+    wind_kt: 0.0
+    gust_kt: 1.9
+    wave_ft: null
+    period_s: null
+    swell_dir: null
+    swell_dir_deg: null
+    pressure_hpa: 1016.6
+    pressure_trend: "Steady (30.02 inHg)"
+    water_temp_f: 65.7
+    findings: |
+      Calm. High building behind the front for the Mon arrival window; light
+      NE + diminishing fog expected Monday.
+
+pressure_trend:
+  - station: "41001 Hatteras E 150"
+    time: "Sat 9:40 PM"
+    pressure: 30.08
+    delta: "steady"
+    interpretation: >
+      In-corridor reference S 16 G 19; pre-frontal. First sharp veer marks
+      the front (central waters Sun-Sun night).
+  - station: "44008 Nantucket SE"
+    time: "Sat 9:40 PM"
+    pressure: 30.01
+    delta: "steady"
+    interpretation: >
+      Arrival station light E; fog (water 60.8F) the hazard, not wind.
+  - station: "44011 Georges Bank"
+    time: "Sat 9:40 PM"
+    pressure: 30.02
+    delta: "steady"
+    interpretation: >
+      High building behind the front — settled, light + fog Mon arrival.
