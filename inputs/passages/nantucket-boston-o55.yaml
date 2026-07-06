@@ -1,0 +1,198 @@
+# Nantucket MA → Boston MA — OUTREMER 55.
+# OFFSHORE route around the OUTSIDE of Cape Cod: round Great Point, stand
+# EAST of Nantucket Shoals and Pollock Rip, up the backside (eastern shore)
+# of the outer Cape, round Race Point / Provincetown, then SW across
+# Massachusetts Bay to Boston. Deliberately avoids the Cape Cod Canal.
+#
+# Vessel block carries full Outremer attribution (VPLP / Outremer Yachting /
+# Outremer base polar). Stability is ESTIMATE (multihull — monohull RM N/A).
+# Pre-departure build (NOT underway): two departure-time scenarios, full
+# route WP1->WP8 on each. No vessel_position / underway_start.
+
+passage:
+  id: nantucket-boston-o55
+  name: Nantucket-Boston-Outremer55
+  origin: Nantucket, MA (Nantucket Harbor Entrance / Brant Point)
+  destination: Boston, MA (President Roads / Inner Harbor)
+  total_nm: 115.35
+
+vessel:
+  designation: Outremer 55
+  design_number: O55
+  load_config: cruising-loaded
+  displacement_lb: 25353
+  motor_speed_kt: 7.5
+  motor_crossover_tws_kt: 9.0
+  fuel_capacity_gal: 243
+  fuel_burn_gph: 1.7
+
+  designer: VPLP (Van Peteghem - Lauriot Prévost)
+  builder: Outremer Yachting
+  ce_category: A
+  ce_category_note: Ocean — unlimited offshore
+  polar_source: Outremer base polar table (PW_O55_Base_Polar.xlsx)
+  data_sheet_source: Outremer Yachting catalog
+  stability_source: >
+    ESTIMATE — monohull RM/RMC framework does not directly apply to
+    multihulls. Catamaran stability is dominated by form (beam) not
+    ballast. Outremer 55 is CE Category A with ~7.8 m beam giving
+    high initial stability. Diagonal stability (the cat-relevant
+    failure mode — pitchpoling) and capsize threshold are not
+    captured by the monohull RM curve. Values below are rough
+    proxies set so the build does not fail; treat as not-applicable.
+
+  rmc_kgm: 0
+  rm_30deg_kgm: 0
+  rm_max_kgm: 0
+  brewer_cr: 22.5
+  csf: 2.55
+
+calibration:
+  sea_factors:
+    steep_chop_bow: 0.65
+    close_reach: 0.85
+    beam_reach: 0.94
+    broad_reach: 0.95
+    reefed_active_trough: 0.85
+
+# Boston arrival envelope (President Roads ~42.35N 70.99W), Thu 9 July 2026.
+# Sun times live-fetched for the date: sunrise 5:14 AM EDT, sunset 8:23 PM
+# EDT; civil dawn ~4:42 AM, civil dusk ~8:56 PM EDT.
+# Night arrival NOT accepted for the standard (daylight-preferred rule).
+# NOTE: Boston is a major, heavily-lit commercial harbor and IS routinely
+# enterable after dark — a night arrival here is far lower-consequence than
+# at Nantucket. Kept false so any post-dusk ETA flags for a conscious skipper
+# decision rather than passing silently.
+arrival_timing:
+  destination_label: "Boston, MA (President Roads / Inner Harbor)"
+  civil_dawn: 4.700
+  sunrise: 5.233
+  sunset: 20.383
+  civil_dusk: 20.933
+  day_window: [5.233, 20.383]
+  twilight_windows:
+    - [4.700, 5.233]
+    - [20.383, 20.933]
+  night_arrival_accepted: false
+  preferred_window:
+    start: 6.0
+    end: 20.0
+
+waypoints:
+  - id: WP1
+    name: Nantucket Harbor Entrance (Brant Point)
+    lat: 41.2917
+    lon: -70.0917
+    cum_nm: 0.00
+    course_out: 40
+    chart_label: Nantucket
+  - id: WP2
+    name: N of Great Point (clear Nantucket, enter shoals passage)
+    lat: 41.4200
+    lon: -69.9500
+    cum_nm: 10.01
+    course_out: 47
+    chart_label: Great Point
+  - id: WP3
+    name: E of Chatham (clear of Nantucket Shoals & Pollock Rip)
+    lat: 41.7000
+    lon: -69.5500
+    cum_nm: 34.61
+    course_out: 327
+    chart_label: E of Chatham
+  - id: WP4
+    name: Off Nauset — backside of the outer Cape
+    lat: 42.0200
+    lon: -69.8300
+    cum_nm: 57.55
+    course_out: 291
+    chart_label: Off Nauset
+  - id: WP5
+    name: Race Point offing (Provincetown) — round into Mass Bay
+    lat: 42.1300
+    lon: -70.2200
+    cum_nm: 76.14
+    course_out: 308
+    chart_label: Race Point
+  - id: WP6
+    name: Mid Massachusetts Bay
+    lat: 42.3200
+    lon: -70.5500
+    cum_nm: 94.72
+    course_out: 272
+    chart_label: Mass Bay
+  - id: WP7
+    name: Boston Approach — Boston Light / The Graves
+    lat: 42.3300
+    lon: -70.8900
+    cum_nm: 109.83
+    course_out: 285
+    chart_label: Boston Light
+  - id: WP8
+    name: Boston Inner Harbor (President Roads)
+    lat: 42.3540
+    lon: -71.0100
+    cum_nm: 115.35
+    course_out: null
+    chart_label: Boston
+
+plans:
+  - id: plan_a
+    tab_label: "Plan A - Thu 5 AM Depart"
+    qualifier: "first-light departure from Nantucket (Thu 9 July ~5:00 AM EDT), full offshore route WP1->WP8; primary — targets a late-afternoon daylight Boston arrival"
+    depart_day: Thu
+    depart_date: 2026-07-09
+    depart_hour: 5.0
+  - id: plan_b
+    tab_label: "Plan B - Thu 6 AM Depart"
+    qualifier: "LATEST-SAFE departure (Thu 9 July ~6:00 AM EDT), full offshore route WP1->WP8; reverse-calculator boundary — the last start that still lands Boston inside the dusk-twilight window (any later tips into a night arrival)"
+    depart_day: Thu
+    depart_date: 2026-07-09
+    depart_hour: 6.0
+
+route_buoys:
+  - id: 44020
+    name: Nantucket Sound
+    lat: 41.443
+    lon: -70.186
+    relevant_wps:
+      WP1: "departure-region ground truth (Nantucket Sound wind/pressure)"
+      WP2: "~10 NM SW — Great Point / shoals-passage reference"
+  - id: 44008
+    name: Nantucket SE 54 NM
+    lat: 40.502
+    lon: -69.247
+    relevant_wps:
+      WP2: "offshore wind/sea + SST (fog driver) reference"
+      WP3: "~30 NM S — best offshore reference for the E-of-shoals leg"
+  - id: 44090
+    name: Cape Cod Bay
+    lat: 42.281
+    lon: -70.187
+    relevant_wps:
+      WP5: "~10 NM SE — Race Point / Cape approach wave reference"
+      WP6: "Mass Bay / Cape Cod Bay sea-state reference"
+  - id: 44013
+    name: Boston (Massachusetts Bay)
+    lat: 42.346
+    lon: -70.651
+    relevant_wps:
+      WP6: "HIGHEST priority for arrival — Mass Bay wind/sea/pressure"
+      WP7: "Boston approach ground truth (wind, seas, visibility)"
+
+forecast_offices:
+  - office: NWS Boston/Norton MA (KBOX)
+    code: BOX
+    zones:
+      ANZ232: Nantucket Sound
+      ANZ254: Coastal waters from Provincetown to Chatham to Nantucket out 20 NM
+      ANZ251: Massachusetts Bay and Ipswich Bay
+      ANZ230: Boston Harbor
+
+tide_stations:
+  - id: 8449130
+    name: Nantucket Harbor, MA
+    relevance: departure
+  - id: 8443970
+    name: Boston, MA
+    relevance: arrival
