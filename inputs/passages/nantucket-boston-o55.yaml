@@ -7,14 +7,14 @@
 # Vessel block carries full Outremer attribution (VPLP / Outremer Yachting /
 # Outremer base polar). Stability is ESTIMATE (multihull — monohull RM N/A).
 # Pre-departure build (NOT underway): two departure-time scenarios, full
-# route WP1->WP8 on each. No vessel_position / underway_start.
+# route WP1->WP10 on each. No vessel_position / underway_start.
 
 passage:
   id: nantucket-boston-o55
   name: Nantucket-Boston-Outremer55
   origin: Nantucket, MA (Nantucket Harbor Entrance / Brant Point)
   destination: Boston, MA (President Roads / Inner Harbor)
-  total_nm: 115.35
+  total_nm: 103.73
 
 vessel:
   designation: Outremer 55
@@ -80,75 +80,145 @@ arrival_timing:
 
 waypoints:
   - id: WP1
-    name: Nantucket Harbor Entrance (Brant Point)
-    lat: 41.2917
-    lon: -70.0917
+    name: Nantucket Harbor Entrance (off Brant Point)
+    lat: 41.31719
+    lon: -70.10362
     cum_nm: 0.00
-    course_out: 40
+    course_out: 20
     chart_label: Nantucket
   - id: WP2
-    name: N of Great Point (clear Nantucket, enter shoals passage)
-    lat: 41.4200
-    lon: -69.9500
-    cum_nm: 10.01
-    course_out: 47
-    chart_label: Great Point
+    name: NE of Nantucket, standing toward the shoals passage
+    lat: 41.53539
+    lon: -69.99727
+    cum_nm: 13.95
+    course_out: 70
+    chart_label: NE Nantucket
   - id: WP3
-    name: E of Chatham (clear of Nantucket Shoals & Pollock Rip)
-    lat: 41.7000
-    lon: -69.5500
-    cum_nm: 34.61
-    course_out: 327
-    chart_label: E of Chatham
+    name: Enter Nantucket Shoals / Pollock Rip passage
+    lat: 41.55591
+    lon: -69.92042
+    cum_nm: 17.62
+    course_out: 7
+    chart_label: Pollock Rip
   - id: WP4
-    name: Off Nauset — backside of the outer Cape
-    lat: 42.0200
-    lon: -69.8300
-    cum_nm: 57.55
-    course_out: 291
-    chart_label: Off Nauset
+    name: E of Chatham — clear the shoals, turn N up the backside
+    lat: 41.76942
+    lon: -69.88281
+    cum_nm: 30.55
+    course_out: 349
+    chart_label: E of Chatham
   - id: WP5
-    name: Race Point offing (Provincetown) — round into Mass Bay
-    lat: 42.1300
-    lon: -70.2200
-    cum_nm: 76.14
-    course_out: 308
-    chart_label: Race Point
+    name: Backside of the outer Cape (off Nauset / Wellfleet)
+    lat: 42.04983
+    lon: -69.95811
+    cum_nm: 47.71
+    course_out: 299
+    chart_label: Off Nauset
   - id: WP6
-    name: Mid Massachusetts Bay
-    lat: 42.3200
-    lon: -70.5500
-    cum_nm: 94.72
-    course_out: 272
-    chart_label: Mass Bay
+    name: Race Point / Peaked Hill Bars round (outside the bars)
+    lat: 42.12281
+    lon: -70.13349
+    cum_nm: 56.67
+    course_out: 300
+    chart_label: Race Point
   - id: WP7
-    name: Boston Approach — Boston Light / The Graves
-    lat: 42.3300
-    lon: -70.8900
-    cum_nm: 109.83
-    course_out: 285
-    chart_label: Boston Light
+    name: Mid Massachusetts Bay
+    lat: 42.34422
+    lon: -70.64988
+    cum_nm: 83.20
+    course_out: 283
+    chart_label: Mass Bay
   - id: WP8
-    name: Boston Inner Harbor (President Roads)
-    lat: 42.3540
-    lon: -71.0100
-    cum_nm: 115.35
+    name: N Massachusetts Bay — Boston outer approach
+    lat: 42.37970
+    lon: -70.85753
+    cum_nm: 92.66
+    course_out: 261
+    chart_label: Boston Approach
+  - id: WP9
+    name: Boston Light / Broad Sound approach (TSS crossing)
+    lat: 42.37318
+    lon: -70.91055
+    cum_nm: 95.04
+    course_out: 224
+    chart_label: Boston Light
+  - id: WP10
+    name: President Roads approach
+    lat: 42.36138
+    lon: -70.92621
+    cum_nm: 96.03
+    course_out: 205
+    chart_label: President Roads
+  - id: WP11
+    name: President Roads
+    lat: 42.34253
+    lon: -70.93790
+    cum_nm: 97.28
+    course_out: 238
+    chart_label: President Roads
+  - id: WP12
+    name: President Roads inner
+    lat: 42.33704
+    lon: -70.94994
+    cum_nm: 97.90
+    course_out: 260
+    chart_label: Pres Roads inner
+  - id: WP13
+    name: Inner Harbor approach (off Governors Island)
+    lat: 42.33273
+    lon: -70.98396
+    cum_nm: 99.44
+    course_out: 275
+    chart_label: Inner Hbr appr
+  - id: WP14
+    name: Inner Harbor entrance
+    lat: 42.33340
+    lon: -70.99420
+    cum_nm: 99.89
+    course_out: 306
+    chart_label: Inner Harbor
+  - id: WP15
+    name: Inner Harbor channel (N reach)
+    lat: 42.35596
+    lon: -71.03579
+    cum_nm: 102.18
+    course_out: 313
+    chart_label: Inner Hbr ch
+  - id: WP16
+    name: Inner Harbor
+    lat: 42.36212
+    lon: -71.04490
+    cum_nm: 102.73
+    course_out: 346
+    chart_label: Inner Harbor
+  - id: WP17
+    name: Inner Harbor (Charlestown / Mystic)
+    lat: 42.37134
+    lon: -71.04793
+    cum_nm: 103.30
+    course_out: 14
+    chart_label: Charlestown
+  - id: WP18
+    name: Boston — arrival berth (inner harbor)
+    lat: 42.37824
+    lon: -71.04552
+    cum_nm: 103.73
     course_out: null
     chart_label: Boston
 
 plans:
   - id: plan_a
     tab_label: "Plan A - Thu 5 AM Depart"
-    qualifier: "first-light departure from Nantucket (Thu 9 July ~5:00 AM EDT), full offshore route WP1->WP8; primary — targets a late-afternoon daylight Boston arrival"
+    qualifier: "first-light departure from Nantucket (Thu 9 July ~5:00 AM EDT), full route WP1->WP18 (skipper Terra Aqua route R_6_7_2026); primary — targets a late-afternoon daylight Boston arrival"
     depart_day: Thu
     depart_date: 2026-07-09
     depart_hour: 5.0
   - id: plan_b
-    tab_label: "Plan B - Thu 6 AM Depart"
-    qualifier: "LATEST-SAFE departure (Thu 9 July ~6:00 AM EDT), full offshore route WP1->WP8; reverse-calculator boundary — the last start that still lands Boston inside the dusk-twilight window (any later tips into a night arrival)"
+    tab_label: "Plan B - Thu 7 AM Depart"
+    qualifier: "LATEST-SAFE departure (Thu 9 July ~7:00 AM EDT), full route WP1->WP18 (skipper Terra Aqua route R_6_7_2026); reverse-calculator boundary — the last start that still lands Boston inside the dusk-twilight window (any later tips into a night arrival)"
     depart_day: Thu
     depart_date: 2026-07-09
-    depart_hour: 6.0
+    depart_hour: 7.0
 
 route_buoys:
   - id: 44020
@@ -157,28 +227,28 @@ route_buoys:
     lon: -70.186
     relevant_wps:
       WP1: "departure-region ground truth (Nantucket Sound wind/pressure)"
-      WP2: "~10 NM SW — Great Point / shoals-passage reference"
+      WP2: "N of Nantucket — shoals-passage approach reference"
   - id: 44008
     name: Nantucket SE 54 NM
     lat: 40.502
     lon: -69.247
     relevant_wps:
-      WP2: "offshore wind/sea + SST (fog driver) reference"
-      WP3: "~30 NM S — best offshore reference for the E-of-shoals leg"
+      WP3: "offshore wind/sea + SST (fog driver) — Pollock Rip vicinity"
+      WP4: "~offshore reference for the E-of-Chatham shoals leg"
   - id: 44090
     name: Cape Cod Bay
     lat: 42.281
     lon: -70.187
     relevant_wps:
-      WP5: "~10 NM SE — Race Point / Cape approach wave reference"
-      WP6: "Mass Bay / Cape Cod Bay sea-state reference"
+      WP6: "~10 NM W — Race Point / Peaked Hill Bars round wave reference"
+      WP7: "Mass Bay / Cape Cod Bay sea-state reference"
   - id: 44013
     name: Boston (Massachusetts Bay)
     lat: 42.346
     lon: -70.651
     relevant_wps:
-      WP6: "HIGHEST priority for arrival — Mass Bay wind/sea/pressure"
-      WP7: "Boston approach ground truth (wind, seas, visibility)"
+      WP7: "HIGHEST priority for arrival — Mass Bay wind/sea/pressure"
+      WP8: "Boston outer approach ground truth (wind, seas, visibility)"
 
 forecast_offices:
   - office: NWS Boston/Norton MA (KBOX)

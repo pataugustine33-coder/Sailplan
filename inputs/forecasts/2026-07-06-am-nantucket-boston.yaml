@@ -106,18 +106,28 @@ waypoint_assignments:
       pressure: 30.10
       pressure_trend_auto: true
       notes_addendum: >
-        Thu ~5:00 AM EDT first-light departure, Brant Point. Ridge in
-        control after the Tue-Wed unsettled spell clears — dry, SW 10-15 kt.
-        Round Great Point and stand offshore as the sun comes up (sunrise
-        5:14 AM). Nantucket Hbr Thu tides: L 1:26 AM, H 7:49 AM, L 1:25 PM —
-        the morning flood is making, easing the Great Point set. Course
-        040°. * Sea Angle synoptic estimate (NWS drops Wave Detail in the
-        Thu period).
+        Thu ~5:00 AM EDT first-light departure, off Brant Point (sunrise 5:14
+        AM). Building ridge after the Tue-Wed unsettled spell - dry, SW 10-15
+        kt. Nantucket Hbr Thu tides: L 1:26 AM, H 7:49 AM, L 1:25 PM - morning
+        flood making. Course 020. * Sea Angle synoptic estimate (NWS drops Wave
+        Detail in the Thu period).
       weather_risk: >
-        Benign first-light departure under a building ridge. Light-moderate
-        SW, low seas. Only discipline is a clear-eyed round of Great Point
-        in improving light.
+        Benign first-light departure, building ridge, light-moderate SW. Clean
+        round of the harbor entrance in improving light.
     WP2:
+      zone: ANZ254
+      period: THU
+      risk_level: green
+      row_band: green
+      pressure: 30.09
+      pressure_trend_auto: true
+      notes_addendum: >
+        Thu early morning, standing NE clear of Nantucket toward the shoals
+        passage. SW-W 10-15 kt on the quarter - broad reach. Buoy 44020 for
+        departure ground truth. Course 070. * Sea Angle synoptic estimate.
+      weather_risk: >
+        Easy broad reach clear of Nantucket. Benign; the shoals passage is next.
+    WP3:
       zone: ANZ254
       period: THU
       risk_level: yellow
@@ -125,18 +135,31 @@ waypoint_assignments:
       pressure: 30.09
       pressure_trend_auto: true
       notes_addendum: >
-        Thu mid-morning, N of Great Point entering the shoals passage.
-        NANTUCKET SHOALS & POLLOCK RIP: strong tidal streams and breaking
-        shoals — this is a pilotage leg, not a weather leg. Stand EAST; do
-        not cut inside toward Monomoy. W 10-15 kt (ANZ254) puts the wind on
-        the quarter for the NE track — broad reach, comfortable. Buoy 44008
-        for offshore wind/sea and SST (fog driver). Course 047°.
-        * Sea Angle synoptic estimate.
+        Thu mid-morning, entering the NANTUCKET SHOALS / POLLOCK RIP passage.
+        Strong tidal streams and breaking shoals - pilotage, not weather. Hold
+        the drawn track, chartplotter + eyeball; stay E of the breaking water. W
+        10-15 kt (ANZ254). Buoy 44008 offshore reference + SST (fog). Course
+        007. * Sea Angle synoptic estimate.
       weather_risk: >
         Weather benign (W 10-15, 2-4 ft) but Nantucket Shoals / Pollock Rip
-        demand full attention: stay east of the shoals, watch the tidal set,
-        chartplotter + eyeball. Daylight transit at this pace.
-    WP3:
+        demand full attention - breaking shoals + tidal rips. Hold the track,
+        daylight transit.
+    WP4:
+      zone: ANZ254
+      period: THU
+      risk_level: yellow
+      row_band: yellow
+      pressure: 30.08
+      pressure_trend_auto: true
+      notes_addendum: >
+        Thu mid-morning, E of Chatham (~3 NM off) clearing the shoals and
+        turning N up the backside. Chatham/Monomoy bars and tidal rips to the W
+        - do not cut inside. W 10-15 kt, seas 2-4 ft, wind on the quarter.
+        Course 349. * Sea Angle synoptic estimate.
+      weather_risk: >
+        Benign weather; E-of-Chatham shoals + tidal set the real workload. Stay
+        on the drawn line, do not cut W toward Monomoy.
+    WP5:
       zone: ANZ254
       period: THU
       risk_level: green
@@ -144,84 +167,154 @@ waypoint_assignments:
       pressure: 30.08
       pressure_trend_auto: true
       notes_addendum: >
-        Thu midday, E of Chatham and clear of the shoals — turn N up the
-        backside of the outer Cape. Open water now. W 10-15 kt, seas 2-4 ft;
-        course bends to 327° so the W wind comes onto the beam/forward
-        quarter — beam-to-close reach. Decaying SE swell (~1 ft, long
-        period) underneath from the Tue event. Course 327°.
-        * Sea Angle synoptic estimate.
+        Thu late morning, backside of the outer Cape off Nauset/Wellfleet (~4 NM
+        off). Open water. W 10-15 kt beam/close reach, seas 2-4 ft; decaying
+        long-period SE swell underneath. Course 299. * Sea Angle synoptic
+        estimate.
       weather_risk: >
-        Clear of Nantucket Shoals into open water. W 10-15 kt beam/close
-        reach, low-moderate seas. The easy middle of the passage.
-    WP4:
+        Open-water reach up the outer Cape, W 10-15 kt, low-moderate seas. The
+        easy stretch.
+    WP6:
       zone: ANZ254
+      period: THU
+      risk_level: yellow
+      row_band: yellow
+      pressure: 30.07
+      pressure_trend_auto: true
+      notes_addendum: >
+        Thu ~midday, rounding RACE POINT / PEAKED HILL BARS - held ~3-4 NM off,
+        OUTSIDE the bars (good berth). Race Point carries a tidal race; time the
+        round to fair/slack current. No NOAA current station at Race Point
+        (nearest Stellwagen ~16 NM N, ~0.6 kt) - keyed to the Provincetown tide
+        2.8 NM away: slack near HW 6:48 AM / LW 12:51 PM / HW 7:10 PM EDT.
+        Modeled midday rounding lands near the 12:51 PM low - slack then light
+        building flood, benign with the light SW; verify set underway. Course
+        300 into the bay. * Sea Angle synoptic estimate.
+      weather_risk: >
+        Light weather but Race Point tidal race + Peaked Hill Bars: the wide
+        berth (drawn) keeps you outside the shoals - round on the modeled light
+        building flood, confirm the set.
+    WP7:
+      zone: ANZ251
       period: THU
       risk_level: green
       row_band: green
       pressure: 30.06
       pressure_trend_auto: true
       notes_addendum: >
-        Thu early afternoon, off Nauset on the backside of the Cape,
-        ~10 NM off the outer beach. W 10-15 kt, 2-4 ft. Course bends WNW
-        (291°) toward Race Point — wind draws forward (close reach; if the
-        breeze holds true W this edges toward a beat, so watch the layline
-        to Race Point). Course 291°. * Sea Angle synoptic estimate.
+        Thu early afternoon, mid Massachusetts Bay. SW 10-15 kt, seas 2-3 ft.
+        Course 283 (WNW) toward Boston - SW on the beam/quarter, easier reaching
+        than the old due-W leg. Buoy 44013 (Boston) HIGHEST-priority ground
+        truth for arrival wind + visibility. Course 283. * Sea Angle synoptic
+        estimate.
       weather_risk: >
-        Open-water reach up the outer Cape, W 10-15 kt. Benign; only note is
-        the wind drawing forward as the course bends toward Race Point.
-    WP5:
+        Open Mass Bay, SW 10-15 kt beam/quarter reach, low seas. Benign, better
+        VMG than a due-W leg.
+    WP8:
       zone: ANZ251
+      period: THU
+      risk_level: green
+      row_band: green
+      pressure: 30.06
+      pressure_trend_auto: true
+      notes_addendum: >
+        Thu mid-afternoon, N Mass Bay on the Boston outer approach. SW 10-15 kt,
+        2-3 ft. Course bends WSW (261) toward Boston Light. Course 261. * Sea
+        Angle synoptic estimate.
+      weather_risk: >
+        Open approach, SW 10-15 kt, low seas. Benign; Boston Light + TSS ahead.
+    WP9:
+      zone: ANZ230
       period: THU
       risk_level: yellow
       row_band: yellow
       pressure: 30.05
       pressure_trend_auto: true
       notes_addendum: >
-        Thu mid-afternoon, Race Point offing — round Provincetown into
-        Massachusetts Bay. RACE POINT rips: strong tidal streams off the
-        point, can kick up a short steep sea against wind — round it with a
-        margin. Converging Boston-bound shipping begins here. SW 10-15 kt
-        (ANZ251) as you enter the bay. Buoy 44090 (Cape Cod Bay) for local
-        seas. Course 308°. * Sea Angle synoptic estimate.
+        Thu afternoon, Boston Light / Broad Sound approach - CROSS the Boston
+        Traffic Separation Scheme. Monitor AIS/VHF 13, cross lanes at right
+        angles, keep clear of ships. SW 10-15 kt, good visibility under the
+        ridge. Boston Thu tides: H 6:42 AM, L 12:50 PM, H 7:04 PM. Course 224. *
+        Sea Angle synoptic estimate.
       weather_risk: >
-        Weather light (SW 10-15, 2-3 ft) but Race Point tidal rips + start
-        of the Boston shipping approach warrant a wide, attentive rounding.
-    WP6:
-      zone: ANZ251
+        Light weather; the busy Boston approach (TSS, shipping) is the real
+        workload. AIS/VHF watch, cross lanes cleanly.
+    WP10:
+      zone: ANZ230
+      period: THU
+      risk_level: green
+      row_band: green
+      pressure: 30.05
+      pressure_trend_auto: true
+      notes_addendum: >
+        Thu afternoon, President Roads approach. Main deep-draft channel -
+        commercial + ferry traffic; stay to the side of the channel, monitor
+        traffic. Light SW, harbor seas 1-2 ft. Course 205.
+      weather_risk: >
+        Benign weather; deep-draft channel traffic is the workload - keep clear,
+        monitor.
+    WP11:
+      zone: ANZ230
+      period: THU
+      risk_level: green
+      row_band: green
+      pressure: 30.04
+      pressure_trend_auto: true
+      notes_addendum: >
+        Thu afternoon, President Roads. Marked channel, harbor traffic; benign
+        weather. Course 238.
+      weather_risk: >
+        Benign harbor weather; marked-channel pilotage + traffic.
+    WP12:
+      zone: ANZ230
       period: THU
       risk_level: green
       row_band: green
       pressure: 30.03
       pressure_trend_auto: true
       notes_addendum: >
-        Thu late afternoon, mid Massachusetts Bay. SW 10-15 kt, seas 2-3 ft.
-        Course 272° (W) toward Boston puts the SW wind on the bow quarter —
-        close-hauled / motor-sailing likely as the wind is near the nose;
-        this is the slow, upwind half of the passage. Buoy 44013 (Boston)
-        is the HIGHEST-priority ground truth here for wind + arrival
-        visibility. Course 272°. * Sea Angle synoptic estimate.
+        Thu afternoon, President Roads inner. Harbor pilotage, ferry lanes.
+        Course 260.
       weather_risk: >
-        Open Mass Bay, SW 10-15 kt, low seas. Upwind/close-hauled toward
-        Boston — expect motor-sailing; benign but slower VMG.
-    WP7:
-      zone: ANZ251
+        Benign; harbor traffic + ferry lanes.
+    WP13:
+      zone: ANZ230
       period: THU
-      risk_level: yellow
-      row_band: yellow
+      risk_level: green
+      row_band: green
+      pressure: 30.03
+      pressure_trend_auto: true
+      notes_addendum: >
+        Thu afternoon, inner harbor approach off Governors Island. Marked
+        channels, speed limits, heavy small-craft + ferry traffic. Course 275.
+      weather_risk: >
+        Benign weather; heavy inner-harbor traffic, speed limits - full pilotage
+        attention.
+    WP14:
+      zone: ANZ230
+      period: THU
+      risk_level: green
+      row_band: green
       pressure: 30.02
       pressure_trend_auto: true
       notes_addendum: >
-        Thu evening, Boston approach off Boston Light / The Graves. Boston
-        Traffic Separation Scheme + commercial traffic — monitor AIS/VHF 13,
-        cross lanes at right angles, keep clear of ships. SW 10-15 kt, seas
-        2-3 ft, good visibility expected under the ridge. Boston Thu tides:
-        H 6:42 AM, L 12:50 PM, H 7:04 PM — an evening flood carries you in.
-        Course 285°. * Sea Angle synoptic estimate.
+        Thu afternoon, inner harbor entrance. Harbor pilotage; benign weather.
+        Course 306.
       weather_risk: >
-        Light weather but the busy Boston approach (TSS, shipping) is the
-        real workload. AIS/VHF watch, cross lanes cleanly. Evening flood
-        assists the entrance.
-    WP8:
+        Benign; harbor pilotage.
+    WP15:
+      zone: ANZ230
+      period: THU
+      risk_level: green
+      row_band: green
+      pressure: 30.02
+      pressure_trend_auto: true
+      notes_addendum: >
+        Thu afternoon, inner harbor channel (N reach) toward Charlestown. Marked
+        channel, traffic. Course 313.
+      weather_risk: >
+        Benign; marked channel + traffic.
+    WP16:
       zone: ANZ230
       period: THU
       risk_level: green
@@ -229,15 +322,36 @@ waypoint_assignments:
       pressure: 30.01
       pressure_trend_auto: true
       notes_addendum: >
-        Thu evening arrival, President Roads / inner harbor. At the Plan A
-        (5 AM) pace this lands in late-afternoon / early-evening DAYLIGHT,
-        comfortably ahead of sunset (8:23 PM EDT) — the target window.
-        Light SW 10-15 kt, harbor seas 1-2 ft, well-lit channels. Course
-        into President Roads then the inner harbor. * Sea Angle synoptic
-        estimate.
+        Thu afternoon, inner harbor. Harbor pilotage. Course 346.
       weather_risk: >
-        Calm, well-marked harbor entry in daylight. The clean arrival the
-        early departure is designed to produce.
+        Benign; harbor pilotage.
+    WP17:
+      zone: ANZ230
+      period: THU
+      risk_level: green
+      row_band: green
+      pressure: 30.00
+      pressure_trend_auto: true
+      notes_addendum: >
+        Thu afternoon, inner harbor off Charlestown / Mystic. Slow-speed harbor
+        zone, traffic. Course 014.
+      weather_risk: >
+        Benign; slow-speed harbor zone.
+    WP18:
+      zone: ANZ230
+      period: THU
+      risk_level: green
+      row_band: green
+      pressure: 30.00
+      pressure_trend_auto: true
+      notes_addendum: >
+        Thu arrival, inner-harbor berth. At the Plan A (5 AM) pace this lands
+        mid/late afternoon in full DAYLIGHT, well ahead of sunset (8:23 PM EDT)
+        - the comfortable target window with margin to spare on this shorter
+        route.
+      weather_risk: >
+        Calm daylight harbor arrival with margin - the clean finish the early
+        start produces.
   plan_b:
     WP1:
       zone: ANZ232
@@ -247,17 +361,28 @@ waypoint_assignments:
       pressure: 30.10
       pressure_trend_auto: true
       notes_addendum: >
-        Thu ~6:00 AM EDT departure, Brant Point — one hour after first
-        light, full daylight. Same ridge, SW 10-15 kt. Morning flood past
-        Great Point. Course 040°. * Sea Angle synoptic estimate. This is the
-        LATEST start that still makes a dusk-twilight Boston arrival (~8:42
-        PM, ahead of civil dusk 8:56 PM); every WP runs ~1 hr later than
-        Plan A — see WP8.
+        Thu ~7:00 AM EDT departure, off Brant Point - full daylight. Same ridge,
+        SW 10-15 kt. Morning flood past the shoals. Course 020. * Sea Angle
+        synoptic estimate. LATEST-SAFE start (reverse-calc) for a daylight/dusk
+        Boston arrival on this 103.7 NM route; every WP runs ~2 hr later than
+        Plan A - see WP18.
       weather_risk: >
-        Easy daylight departure, building ridge, light-moderate SW. Same
-        benign weather as Plan A; the only tradeoff is the tighter,
-        dusk-twilight arrival.
+        Benign first-light departure, building ridge, light-moderate SW. Clean
+        round of the harbor entrance in improving light.
     WP2:
+      zone: ANZ254
+      period: THU
+      risk_level: green
+      row_band: green
+      pressure: 30.09
+      pressure_trend_auto: true
+      notes_addendum: >
+        Thu early morning, standing NE clear of Nantucket toward the shoals
+        passage. SW-W 10-15 kt on the quarter - broad reach. Buoy 44020 for
+        departure ground truth. Course 070. * Sea Angle synoptic estimate.
+      weather_risk: >
+        Easy broad reach clear of Nantucket. Benign; the shoals passage is next.
+    WP3:
       zone: ANZ254
       period: THU
       risk_level: yellow
@@ -265,13 +390,31 @@ waypoint_assignments:
       pressure: 30.09
       pressure_trend_auto: true
       notes_addendum: >
-        Mid-morning N of Great Point, shoals passage. Nantucket Shoals &
-        Pollock Rip pilotage — stand east. W 10-15 kt broad reach. Buoy
-        44008 offshore reference. Course 047°. * Sea Angle synoptic estimate.
+        Thu mid-morning, entering the NANTUCKET SHOALS / POLLOCK RIP passage.
+        Strong tidal streams and breaking shoals - pilotage, not weather. Hold
+        the drawn track, chartplotter + eyeball; stay E of the breaking water. W
+        10-15 kt (ANZ254). Buoy 44008 offshore reference + SST (fog). Course
+        007. * Sea Angle synoptic estimate.
       weather_risk: >
-        Benign weather; Nantucket Shoals / Pollock Rip demand attention.
-        Stay east, watch the tidal set. Daylight transit.
-    WP3:
+        Weather benign (W 10-15, 2-4 ft) but Nantucket Shoals / Pollock Rip
+        demand full attention - breaking shoals + tidal rips. Hold the track,
+        daylight transit.
+    WP4:
+      zone: ANZ254
+      period: THU
+      risk_level: yellow
+      row_band: yellow
+      pressure: 30.08
+      pressure_trend_auto: true
+      notes_addendum: >
+        Thu mid-morning, E of Chatham (~3 NM off) clearing the shoals and
+        turning N up the backside. Chatham/Monomoy bars and tidal rips to the W
+        - do not cut inside. W 10-15 kt, seas 2-4 ft, wind on the quarter.
+        Course 349. * Sea Angle synoptic estimate.
+      weather_risk: >
+        Benign weather; E-of-Chatham shoals + tidal set the real workload. Stay
+        on the drawn line, do not cut W toward Monomoy.
+    WP5:
       zone: ANZ254
       period: THU
       risk_level: green
@@ -279,87 +422,186 @@ waypoint_assignments:
       pressure: 30.08
       pressure_trend_auto: true
       notes_addendum: >
-        Late morning E of Chatham, clear of the shoals; turn N up the
-        backside. W 10-15 kt, 2-4 ft, beam/close reach. Course 327°.
-        * Sea Angle synoptic estimate.
+        Thu late morning, backside of the outer Cape off Nauset/Wellfleet (~4 NM
+        off). Open water. W 10-15 kt beam/close reach, seas 2-4 ft; decaying
+        long-period SE swell underneath. Course 299. * Sea Angle synoptic
+        estimate.
       weather_risk: >
-        Open water past the shoals, W 10-15 kt beam/close reach. Easy.
-    WP4:
+        Open-water reach up the outer Cape, W 10-15 kt, low-moderate seas. The
+        easy stretch.
+    WP6:
       zone: ANZ254
+      period: THU
+      risk_level: yellow
+      row_band: yellow
+      pressure: 30.07
+      pressure_trend_auto: true
+      notes_addendum: >
+        Thu early afternoon, rounding RACE POINT / PEAKED HILL BARS ~3-4 NM off
+        (outside the bars). At the ~2 hr-later Plan B pace the round falls on
+        the afternoon building flood after the 12:51 PM Provincetown low -
+        benign with light SW; verify set. No NOAA current station at Race Point
+        (keyed to Provincetown tide 2.8 NM away). Course 300. * Sea Angle
+        synoptic estimate.
+      weather_risk: >
+        Light weather but Race Point tidal race + Peaked Hill Bars: the wide
+        berth (drawn) keeps you outside the shoals - round on the modeled light
+        building flood, confirm the set.
+    WP7:
+      zone: ANZ251
       period: THU
       risk_level: green
       row_band: green
       pressure: 30.06
       pressure_trend_auto: true
       notes_addendum: >
-        Early afternoon off Nauset, ~10 NM off the outer beach. W 10-15 kt;
-        course bends WNW toward Race Point, wind draws forward. Course 291°.
-        * Sea Angle synoptic estimate.
+        Thu early afternoon, mid Massachusetts Bay. SW 10-15 kt, seas 2-3 ft.
+        Course 283 (WNW) toward Boston - SW on the beam/quarter, easier reaching
+        than the old due-W leg. Buoy 44013 (Boston) HIGHEST-priority ground
+        truth for arrival wind + visibility. Course 283. * Sea Angle synoptic
+        estimate.
       weather_risk: >
-        Open-water reach up the outer Cape, W 10-15 kt. Benign; wind drawing
-        forward toward Race Point.
-    WP5:
+        Open Mass Bay, SW 10-15 kt beam/quarter reach, low seas. Benign, better
+        VMG than a due-W leg.
+    WP8:
       zone: ANZ251
+      period: THU
+      risk_level: green
+      row_band: green
+      pressure: 30.06
+      pressure_trend_auto: true
+      notes_addendum: >
+        Thu mid-afternoon, N Mass Bay on the Boston outer approach. SW 10-15 kt,
+        2-3 ft. Course bends WSW (261) toward Boston Light. Course 261. * Sea
+        Angle synoptic estimate.
+      weather_risk: >
+        Open approach, SW 10-15 kt, low seas. Benign; Boston Light + TSS ahead.
+    WP9:
+      zone: ANZ230
       period: THU
       risk_level: yellow
       row_band: yellow
       pressure: 30.05
       pressure_trend_auto: true
       notes_addendum: >
-        Mid-afternoon Race Point offing, rounding into Mass Bay. Race Point
-        tidal rips + start of Boston shipping approach. SW 10-15 kt. Course
-        308°. * Sea Angle synoptic estimate.
+        Thu afternoon, Boston Light / Broad Sound approach - CROSS the Boston
+        Traffic Separation Scheme. Monitor AIS/VHF 13, cross lanes at right
+        angles, keep clear of ships. SW 10-15 kt, good visibility under the
+        ridge. Boston Thu tides: H 6:42 AM, L 12:50 PM, H 7:04 PM. Course 224. *
+        Sea Angle synoptic estimate.
       weather_risk: >
-        Light weather; Race Point rips + shipping approach warrant a wide,
-        attentive rounding.
-    WP6:
-      zone: ANZ251
+        Light weather; the busy Boston approach (TSS, shipping) is the real
+        workload. AIS/VHF watch, cross lanes cleanly.
+    WP10:
+      zone: ANZ230
+      period: THU
+      risk_level: green
+      row_band: green
+      pressure: 30.05
+      pressure_trend_auto: true
+      notes_addendum: >
+        Thu afternoon, President Roads approach. Main deep-draft channel -
+        commercial + ferry traffic; stay to the side of the channel, monitor
+        traffic. Light SW, harbor seas 1-2 ft. Course 205.
+      weather_risk: >
+        Benign weather; deep-draft channel traffic is the workload - keep clear,
+        monitor.
+    WP11:
+      zone: ANZ230
+      period: THU
+      risk_level: green
+      row_band: green
+      pressure: 30.04
+      pressure_trend_auto: true
+      notes_addendum: >
+        Thu afternoon, President Roads. Marked channel, harbor traffic; benign
+        weather. Course 238.
+      weather_risk: >
+        Benign harbor weather; marked-channel pilotage + traffic.
+    WP12:
+      zone: ANZ230
       period: THU
       risk_level: green
       row_band: green
       pressure: 30.03
       pressure_trend_auto: true
       notes_addendum: >
-        Late afternoon mid Mass Bay. SW 10-15 kt, 2-3 ft, close-hauled /
-        motor-sailing toward Boston (upwind half). Buoy 44013 ground truth.
-        Course 272°. * Sea Angle synoptic estimate.
+        Thu afternoon, President Roads inner. Harbor pilotage, ferry lanes.
+        Course 260.
       weather_risk: >
-        Open Mass Bay, SW 10-15 kt, low seas, upwind — motor-sailing likely.
-        Benign but slower.
-    WP7:
-      zone: ANZ251
+        Benign; harbor traffic + ferry lanes.
+    WP13:
+      zone: ANZ230
       period: THU
-      risk_level: yellow
-      row_band: yellow
+      risk_level: green
+      row_band: green
+      pressure: 30.03
+      pressure_trend_auto: true
+      notes_addendum: >
+        Thu afternoon, inner harbor approach off Governors Island. Marked
+        channels, speed limits, heavy small-craft + ferry traffic. Course 275.
+      weather_risk: >
+        Benign weather; heavy inner-harbor traffic, speed limits - full pilotage
+        attention.
+    WP14:
+      zone: ANZ230
+      period: THU
+      risk_level: green
+      row_band: green
       pressure: 30.02
       pressure_trend_auto: true
       notes_addendum: >
-        Early evening Boston approach off Boston Light (~8 PM at this pace).
-        Boston TSS + commercial traffic — AIS/VHF 13 watch. SW 10-15 kt,
-        seas 2-3 ft, good visibility. Evening flood (Boston H 7:04 PM)
-        carries you in. Daylight is fading toward sunset (8:23 PM) — cross
-        the lanes and get into President Roads before dark. Course 285°.
-        * Sea Angle synoptic estimate.
+        Thu afternoon, inner harbor entrance. Harbor pilotage; benign weather.
+        Course 306.
       weather_risk: >
-        Busy Boston approach as daylight fades — TSS, shipping. Manageable
-        in a well-lit harbor; tighter than Plan A's comfortable margin.
-    WP8:
+        Benign; harbor pilotage.
+    WP15:
       zone: ANZ230
       period: THU
-      risk_level: yellow
-      row_band: yellow
+      risk_level: green
+      row_band: green
+      pressure: 30.02
+      pressure_trend_auto: true
+      notes_addendum: >
+        Thu afternoon, inner harbor channel (N reach) toward Charlestown. Marked
+        channel, traffic. Course 313.
+      weather_risk: >
+        Benign; marked channel + traffic.
+    WP16:
+      zone: ANZ230
+      period: THU
+      risk_level: green
+      row_band: green
       pressure: 30.01
       pressure_trend_auto: true
       notes_addendum: >
-        Dusk-twilight arrival, President Roads / inner harbor. At the Plan B
-        (6 AM) pace this lands ~8:42 PM EDT — after sunset (8:23 PM) but
-        inside civil twilight (civil dusk 8:56 PM), a well-lit Boston entry.
-        This is the reverse-calculator BOUNDARY: leave any later than ~6:15
-        AM and the arrival crosses civil dusk into a true night entry. Plan
-        A (5 AM) buys the full-daylight margin; Plan B is the honest
-        latest-safe fallback. Course into President Roads.
-        * Sea Angle synoptic estimate.
+        Thu afternoon, inner harbor. Harbor pilotage. Course 346.
       weather_risk: >
-        Weather calm; ARRIVAL TIMING is the whole story — a dusk-twilight
-        Boston entry (yellow), just inside the acceptable window. The
-        latest departure that avoids a night arrival.
+        Benign; harbor pilotage.
+    WP17:
+      zone: ANZ230
+      period: THU
+      risk_level: green
+      row_band: green
+      pressure: 30.00
+      pressure_trend_auto: true
+      notes_addendum: >
+        Thu afternoon, inner harbor off Charlestown / Mystic. Slow-speed harbor
+        zone, traffic. Course 014.
+      weather_risk: >
+        Benign; slow-speed harbor zone.
+    WP18:
+      zone: ANZ230
+      period: THU
+      risk_level: green
+      row_band: green
+      pressure: 30.00
+      pressure_trend_auto: true
+      notes_addendum: >
+        Thu arrival, inner-harbor berth. At the Plan B (latest-safe) pace this
+        lands late afternoon / early evening - verify against sunset (8:23 PM) /
+        civil dusk (8:56 PM) in the arrival-timing check; this is the reverse-
+        calc boundary for a non-night entry.
+      weather_risk: >
+        Weather calm; ARRIVAL TIMING is the story - latest-safe departure that
+        keeps the Boston entry out of true night. Verify the margin.
