@@ -11,13 +11,10 @@
 # Buoy 44018 (formerly SE of the Cape) is DISCONTINUED (realtime2 404).
 
 pull:
-  label: "8:40 AM EDT (1240 GMT) Mon 7/6 — pre-departure AM pull"
+  label: "8:40 AM EDT (1240 GMT) Mon 7/6 — pre-departure AM pull (INSIDE route; 44008 offshore station dropped — not on this track)"
   utc: "2026-07-06T12:40:00Z"
 
 synopsis:
-  # NOTE (inside route): Buzzards Bay ground-truth station BUZM3 not pulled
-  # (Chrome MCP unresponsive at build). Add BUZM3 obs on the pre-departure refresh
-  # for the Woods Hole/Buzzards Bay legs (WP4-WP8). Obs below are live 8:40 AM Mon 7/6.
   description: |
     Monday AM: low pres sliding S of the waters, E-NE gusts 20-30 kt today
     into Tue with heavy rain / embedded tstms (SCA open waters through Tue
@@ -29,7 +26,7 @@ synopsis:
 
 stations:
   - id: 44020
-    name: "Nantucket Sound (departure + Woods Hole approach ground truth, WP1-WP3)"
+    name: "Nantucket Sound (departure + Sound crossing, WP1-WP3)"
     lat: 41.443
     lon: -70.186
     reading_time: "8:40 AM EDT Mon 7/6"
@@ -72,7 +69,7 @@ stations:
       ridge building in. Exactly the settled setup the Thursday plan needs.
       Re-pull here for wind + visibility before the final GO/NO-GO.
   - id: 44090
-    name: "Cape Cod Bay (Canal E end / Cape Cod Bay crossing reference, WP9-WP10)"
+    name: "Cape Cod Bay (Canal east end / Cape Cod Bay reference, WP9-WP10)"
     lat: 42.281
     lon: -70.187
     reading_time: "8:30 AM EDT Mon 7/6"
@@ -108,3 +105,10 @@ pressure_trend:
     interpretation: >
       Departure area on the back edge of today's E'ly flow; pressure
       climbing as the system pulls S and the ridge fills in.
+  - station: "44008 Nantucket SE 54 NM"
+    time: "Mon 8:40 AM"
+    pressure: 30.13
+    delta: "steady-rising"
+    interpretation: >
+      Offshore reference steady-high; warm SST (71 F) keeps approach fog
+      risk low for Thursday.

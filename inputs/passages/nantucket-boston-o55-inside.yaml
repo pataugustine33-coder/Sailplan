@@ -92,77 +92,77 @@ waypoints:
     lon: -70.17337
     cum_nm: 6.22
     course_out: 290
-    chart_label: Nantucket Sd
+    chart_label: Nantucket Sound
   - id: WP3
-    name: W across Nantucket Sound — Woods Hole approach
+    name: W Nantucket Sound — toward the Woods Hole approach
     lat: 41.51134
     lon: -70.56203
     cum_nm: 24.79
     course_out: 268
-    chart_label: Woods Hole appr
+    chart_label: W Nant Sound
   - id: WP4
-    name: Woods Hole passage — E entrance
+    name: Woods Hole approach (Vineyard Sound side)
     lat: 41.50891
     lon: -70.66861
     cum_nm: 29.59
     course_out: 342
-    chart_label: Woods Hole E
+    chart_label: Woods Hole appr
   - id: WP5
-    name: Woods Hole — The Strait (peak current)
+    name: Woods Hole — The Strait (rock-bound pinch, fair ebb)
     lat: 41.52107
     lon: -70.67386
     cum_nm: 30.35
     course_out: 259
     chart_label: Woods Hole
   - id: WP6
-    name: Woods Hole — W into Buzzards Bay
+    name: Woods Hole exit into Buzzards Bay
     lat: 41.51839
     lon: -70.69167
     cum_nm: 31.17
     course_out: 357
-    chart_label: Woods Hole W
+    chart_label: Buzzards Bay
   - id: WP7
-    name: Buzzards Bay (mid) — N toward the Canal
+    name: Up Buzzards Bay (SW 15-20 — windiest leg)
     lat: 41.62486
     lon: -70.70014
     cum_nm: 37.58
     course_out: 17
     chart_label: Buzzards Bay
   - id: WP8
-    name: Cape Cod Canal — Buzzards Bay entrance (Wings Neck)
+    name: Cape Cod Canal west entrance (Wings Neck) — fair flood
     lat: 41.69197
     lon: -70.67268
     cum_nm: 41.79
     course_out: 52
-    chart_label: Canal W entr
+    chart_label: Canal W
   - id: WP9
-    name: Cape Cod Canal — Cape Cod Bay end (Sandwich)
+    name: Cape Cod Canal east end (Sandwich) — into Cape Cod Bay
     lat: 41.82335
     lon: -70.44526
     cum_nm: 54.67
     course_out: 335
-    chart_label: Canal E end
+    chart_label: Canal E
   - id: WP10
     name: N across Cape Cod Bay into Massachusetts Bay
     lat: 42.26205
     lon: -70.72808
     cum_nm: 83.87
     course_out: 297
-    chart_label: Cape Cod Bay
+    chart_label: Mass Bay
   - id: WP11
-    name: Boston outer approach
+    name: Boston Light / Broad Sound approach (TSS crossing)
     lat: 42.31950
     lon: -70.88115
     cum_nm: 91.50
     course_out: 267
-    chart_label: Boston Approach
+    chart_label: Boston Light
   - id: WP12
-    name: Boston Light / President Roads approach (TSS)
+    name: President Roads approach
     lat: 42.31843
     lon: -70.90981
     cum_nm: 92.77
     course_out: 293
-    chart_label: Boston Light
+    chart_label: President Roads
   - id: WP13
     name: President Roads
     lat: 42.32435
@@ -171,14 +171,14 @@ waypoints:
     course_out: 315
     chart_label: President Roads
   - id: WP14
-    name: President Roads inner
+    name: Inner Harbor approach
     lat: 42.33230
     lon: -70.93913
     cum_nm: 94.34
     course_out: 314
-    chart_label: Pres Roads inner
+    chart_label: Inner Harbor
   - id: WP15
-    name: Boston — arrival (inner harbor approach)
+    name: Boston — arrival (President Roads / inner harbor)
     lat: 42.33780
     lon: -70.94682
     cum_nm: 94.82
@@ -187,17 +187,17 @@ waypoints:
 
 plans:
   - id: plan_a
-    tab_label: "Plan A - Thu 6 AM Depart"
-    qualifier: "primary (Thu 9 July ~6:00 AM EDT), full inside route WP1->WP15 via the Cape Cod Canal; tuned to transit Woods Hole on the morning ebb (~10:30 AM, fair) and the Cape Cod Canal on the early-afternoon flood (~12 PM, riding a 3+ kt push) - late-afternoon daylight Boston arrival"
+    tab_label: "Plan A - Thu 6.30 AM Depart"
+    qualifier: "dawn departure (Thu 9 July ~6:30 AM EDT), full inside route WP1->WP15; primary — times Woods Hole on the fair morning ebb and the Cape Cod Canal on the fair early-afternoon flood, daylight Boston arrival"
     depart_day: Thu
     depart_date: 2026-07-09
-    depart_hour: 6.0
+    depart_hour: 6.5
   - id: plan_b
-    tab_label: "Plan B - Thu 7 AM Depart"
-    qualifier: "LATEST-SAFE-for-fair-current (Thu 9 July ~7:00 AM EDT); the last start that still catches Woods Hole before its ebb ends (~11:24 AM, ahead of 12:04 PM slack) and the Canal on the afternoon flood (~1 PM) - later starts hit Woods Hole foul"
+    tab_label: "Plan B - Thu 7.15 AM Depart"
+    qualifier: "later departure (Thu 9 July ~7:15 AM EDT), full inside route WP1->WP15; still catches the Woods Hole fair ebb (ends 12:04 PM) and hits the Canal flood nearer its 1:43 PM peak — a stronger push; ~45 min later at every WP"
     depart_day: Thu
     depart_date: 2026-07-09
-    depart_hour: 7.0
+    depart_hour: 7.25
 
 route_buoys:
   - id: 44020
@@ -207,21 +207,24 @@ route_buoys:
     relevant_wps:
       WP1: "departure-region ground truth (Nantucket Sound wind/pressure)"
       WP2: "Nantucket Sound crossing reference"
-      WP3: "W Nantucket Sound — Woods Hole approach reference"
+      WP3: "W Nantucket Sound / Woods Hole approach reference"
   - id: 44090
     name: Cape Cod Bay
     lat: 42.281
     lon: -70.187
     relevant_wps:
-      WP9: "Cape Cod Canal E end / Cape Cod Bay sea-state reference"
-      WP10: "Cape Cod Bay -> Mass Bay crossing reference"
+      WP9: "~Canal east end / Cape Cod Bay sea-state reference"
+      WP10: "Cape Cod Bay / Mass Bay crossing reference"
   - id: 44013
     name: Boston (Massachusetts Bay)
     lat: 42.346
     lon: -70.651
     relevant_wps:
       WP10: "HIGHEST priority for arrival — Mass Bay wind/sea/pressure"
-      WP11: "Boston outer approach ground truth (wind, seas, visibility)"
+      WP11: "Boston approach ground truth (wind, seas, visibility)"
+  # NOTE: no dedicated Buzzards Bay buoy (BUZM3/44085) in this set — obs not
+  # pulled this session (Chrome unresponsive). ANZ234 zone forecast covers the
+  # Buzzards Bay leg (WP5-WP8); add BUZM3 obs on the pre-departure re-pull.
 
 forecast_offices:
   - office: NWS Boston/Norton MA (KBOX)
