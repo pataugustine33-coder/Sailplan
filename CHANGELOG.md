@@ -17,6 +17,10 @@ Wind is pulled from the primary plan's `legs` (`wind_dir_text`,
 `wp_id`. When `write_kml` is called without `legs` (plain-line fallback), the
 wind lines are simply omitted — no behavior change for that path.
 
+The leg wind is also appended to each route **segment label** (e.g.
+`WP7 → WP8 (Day arrival) · SW 15-20 kt G25`), so it reads at a glance on the
+line in Google Earth without opening the balloon.
+
 Applies to every build going forward (all routes/vessels), since it lives in
 the shared exporter, not per-passage YAML.
 

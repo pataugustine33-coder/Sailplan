@@ -207,8 +207,11 @@ def write_kml(passage: dict, output_path: str, legs: list = None) -> str:
                 seg_label += f" ({window})"
 
             parts.append('  <Placemark>')
-            parts.append(f'    <name>{xml_escape(seg_label)}</name>')
             _segw = wind_by_wp.get(wp_a["id"])
+            # Show the leg wind on the segment label itself (visible without
+            # opening the balloon), and keep it in the description too.
+            _seg_name = f"{seg_label} · {_segw}" if _segw else seg_label
+            parts.append(f'    <name>{xml_escape(_seg_name)}</name>')
             if _segw:
                 parts.append(
                     f'    <description>Leg wind: {xml_escape(_segw)}</description>'
