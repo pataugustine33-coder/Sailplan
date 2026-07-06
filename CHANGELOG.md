@@ -18,8 +18,11 @@ Wind is pulled from the primary plan's `legs` (`wind_dir_text`,
 wind lines are simply omitted — no behavior change for that path.
 
 The leg wind is also appended to each route **segment label** (e.g.
-`WP7 → WP8 (Day arrival) · SW 15-20 kt G25`), so it reads at a glance on the
-line in Google Earth without opening the balloon.
+`WP7 → WP8 (Day arrival) · SW 15-20 kt G25`). Because Google Earth does NOT
+render LineString names/descriptions as on-map labels, a hidden-icon **label
+Point is also dropped at each leg midpoint** (style `legwind_label`, IconStyle
+scale 0), so the wind (e.g. `SW 15-20 G25`) paints directly on the map at each
+leg without clicking.
 
 Applies to every build going forward (all routes/vessels), since it lives in
 the shared exporter, not per-passage YAML.

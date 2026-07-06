@@ -124,6 +124,15 @@ def write_kml(passage: dict, output_path: str, legs: list = None) -> str:
     parts.append('  <Style id="route_night">')
     parts.append('    <LineStyle><color>ff4D50C0</color><width>5</width></LineStyle>')  # red-ish
     parts.append('  </Style>')
+    # Leg-wind label: hidden icon (scale 0), text-only label. Used for a Point
+    # at each leg midpoint so the wind paints on the map — Google Earth does not
+    # render LineString names/descriptions as on-map labels.
+    parts.append('  <Style id="legwind_label">')
+    parts.append('    <IconStyle><scale>0</scale>'
+                 '<Icon><href>https://maps.google.com/mapfiles/kml/shapes/placemark_circle.png</href></Icon>'
+                 '</IconStyle>')
+    parts.append('    <LabelStyle><scale>0.85</scale></LabelStyle>')
+    parts.append('  </Style>')
 
     # Waypoint placemarks
     for wp in waypoints:
@@ -225,8 +234,21 @@ def write_kml(passage: dict, output_path: str, legs: list = None) -> str:
             parts.append('      </coordinates>')
             parts.append('    </LineString>')
             parts.append('  </Placemark>')
-    else:
-        # Plain route line (no daylight info)
+
+            # Leg-wind map label: a hidden-icon Point at the leg midpoint so the
+            # wind reads directly on the map without clicking (LineString names
+            # do not render as on-map labels in Google Earth).
+            if _segw:
+                _mlat = (wp_a["lat"] + wp_b["lat"]) / 2.0
+                _mlon = (wp_a["lon"] + wp_b["lon"]) / 2.0
+                _label = _segw.replace(" kt", "")
+                parts.append('  <Placemark>')
+                parts.append(f'    <name>{xml_escape(_label)}</name>')
+                parts.append('    <styleUrl>#legwind_label</styleUrl>')
+                parts.append(
+                    f'    <Point><coordinates>{_mlon:.6f},{_mlat:.6f},0</coordinates></Point>'
+                )
+                parts.append('  </Placemark>')
         parts.append('  <Placemark>')
         parts.append(f'    <name>{xml_escape(route_name)} Route Line</name>')
         parts.append('    <styleUrl>#route_style</styleUrl>')
