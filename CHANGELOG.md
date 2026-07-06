@@ -3,6 +3,24 @@
 Major design decisions and feature additions, in reverse chronological order.
 
 ---
+## 2026-07-06 — Leg wind in KML placemark notes
+
+`sailbuild/export.py` (`write_kml`) now writes the forecast leg wind into
+the Google Earth / KML notes, so the route file is self-contained for
+at-a-glance routing without opening the workbook.
+
+- Each **waypoint pin** description gains a line: `Wind (leg): SW 10-15 kt G20`.
+- Each **route segment** line gains a `<description>`: `Leg wind: SW 10-15 kt G20`.
+
+Wind is pulled from the primary plan's `legs` (`wind_dir_text`,
+`wind_kt_low/high`, `gust_kt`) via a new `_leg_wind_str()` helper, keyed by
+`wp_id`. When `write_kml` is called without `legs` (plain-line fallback), the
+wind lines are simply omitted — no behavior change for that path.
+
+Applies to every build going forward (all routes/vessels), since it lives in
+the shared exporter, not per-passage YAML.
+
+---
 ## 2026-05-19 — Methodology compliance verifier
 
 Added `_check_methodology_compliance()` to `sailbuild/verify.py`. This is

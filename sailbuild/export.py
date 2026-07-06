@@ -29,21 +29,51 @@ def _route_name_for_files(passage: dict) -> str:
     return safe
 
 
+def _leg_wind_str(leg) -> str:
+    """Format a leg's forecast wind for KML notes, e.g. 'SW 10-15 kt G20'.
+
+    Returns '' if the leg has no usable wind numbers.
+    """
+    try:
+        lo = int(round(leg.wind_kt_low))
+        hi = int(round(leg.wind_kt_high))
+    except (TypeError, ValueError, AttributeError):
+        return ""
+    direction = (getattr(leg, "wind_dir_text", "") or "").strip()
+    s = f"{direction} {lo}-{hi} kt".strip()
+    gust = getattr(leg, "gust_kt", None)
+    if gust:
+        s += f" G{int(round(gust))}"
+    return s
+
+
 def write_kml(passage: dict, output_path: str, legs: list = None) -> str:
     """Write a KML 2.2 route file. Returns the path.
 
     The KML contains:
       - <Document> with name and description
-      - One <Placemark> per waypoint as a Point (so they show as labeled pins)
+      - One <Placemark> per waypoint as a Point (so they show as labeled pins).
+        When `legs` is provided, each waypoint's notes include the forecast leg
+        wind (e.g. "Wind (leg): SW 10-15 kt G20").
       - Route line segments, optionally color-coded by daylight window
         when `legs` is provided (one segment per leg, colored by destination
-        WP's ETA color: green=day, yellow=twilight, red=night).
+        WP's ETA color: green=day, yellow=twilight, red=night). Each segment's
+        notes carry the leg wind for that leg.
     """
     waypoints = passage["waypoints"]
     route_name = passage["passage"]["name"]
     origin = passage["passage"].get("origin", "")
     dest = passage["passage"].get("destination", "")
     total_nm = passage["passage"].get("total_nm", 0)
+
+    # Per-WP forecast wind (from the primary plan's legs) for placemark notes.
+    # Keyed by wp_id; empty when legs are not supplied.
+    wind_by_wp = {}
+    if legs:
+        for _l in legs:
+            _w = _leg_wind_str(_l)
+            if _w:
+                wind_by_wp[_l.wp_id] = _w
 
     parts = ['<?xml version="1.0" encoding="UTF-8"?>']
     parts.append('<kml xmlns="http://www.opengis.net/kml/2.2">')
@@ -102,10 +132,15 @@ def write_kml(passage: dict, output_path: str, legs: list = None) -> str:
         cum_nm = wp.get("cum_nm", 0)
         lat = wp["lat"]
         lon = wp["lon"]
+        wind_line = ""
+        _w = wind_by_wp.get(wp_id)
+        if _w:
+            wind_line = f"\nWind (leg): {xml_escape(_w)}"
         parts.append('  <Placemark>')
         parts.append(f'    <name>{xml_escape(wp_id)} — {xml_escape(wp_name)}</name>')
         parts.append(
             f'    <description>{xml_escape(wp_name)}\nCum: {cum_nm:.1f} NM'
+            f'{wind_line}'
             f'\nLat: {lat:.4f}, Lon: {lon:.4f}</description>'
         )
         parts.append('    <styleUrl>#wp_style</styleUrl>')
@@ -173,6 +208,11 @@ def write_kml(passage: dict, output_path: str, legs: list = None) -> str:
 
             parts.append('  <Placemark>')
             parts.append(f'    <name>{xml_escape(seg_label)}</name>')
+            _segw = wind_by_wp.get(wp_a["id"])
+            if _segw:
+                parts.append(
+                    f'    <description>Leg wind: {xml_escape(_segw)}</description>'
+                )
             parts.append(f'    <styleUrl>#{style_id}</styleUrl>')
             parts.append('    <LineString>')
             parts.append('      <tessellate>1</tessellate>')
