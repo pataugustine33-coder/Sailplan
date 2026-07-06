@@ -1,0 +1,242 @@
+# Nantucket MA → Boston MA — OUTREMER 55.
+# OFFSHORE route around the OUTSIDE of Cape Cod: round Great Point, stand
+# EAST of Nantucket Shoals and Pollock Rip, up the backside (eastern shore)
+# of the outer Cape, round Race Point / Provincetown, then SW across
+# Massachusetts Bay to Boston. Deliberately avoids the Cape Cod Canal.
+#
+# Vessel block carries full Outremer attribution (VPLP / Outremer Yachting /
+# Outremer base polar). Stability is ESTIMATE (multihull — monohull RM N/A).
+# Pre-departure build (NOT underway): two departure-time scenarios, full
+# route WP1->WP10 on each. No vessel_position / underway_start.
+
+passage:
+  id: nantucket-boston-o55-inside
+  name: Nantucket-Boston-Outremer55-Inside
+  origin: Nantucket, MA (Nantucket Harbor Entrance / Brant Point)
+  destination: Boston, MA (President Roads / Inner Harbor)
+  total_nm: 94.82
+
+vessel:
+  designation: Outremer 55
+  design_number: O55
+  load_config: cruising-loaded
+  displacement_lb: 25353
+  motor_speed_kt: 7.5
+  motor_crossover_tws_kt: 9.0
+  fuel_capacity_gal: 243
+  fuel_burn_gph: 1.7
+
+  designer: VPLP (Van Peteghem - Lauriot Prévost)
+  builder: Outremer Yachting
+  ce_category: A
+  ce_category_note: Ocean — unlimited offshore
+  polar_source: Outremer base polar table (PW_O55_Base_Polar.xlsx)
+  data_sheet_source: Outremer Yachting catalog
+  stability_source: >
+    ESTIMATE — monohull RM/RMC framework does not directly apply to
+    multihulls. Catamaran stability is dominated by form (beam) not
+    ballast. Outremer 55 is CE Category A with ~7.8 m beam giving
+    high initial stability. Diagonal stability (the cat-relevant
+    failure mode — pitchpoling) and capsize threshold are not
+    captured by the monohull RM curve. Values below are rough
+    proxies set so the build does not fail; treat as not-applicable.
+
+  rmc_kgm: 0
+  rm_30deg_kgm: 0
+  rm_max_kgm: 0
+  brewer_cr: 22.5
+  csf: 2.55
+
+calibration:
+  sea_factors:
+    steep_chop_bow: 0.65
+    close_reach: 0.85
+    beam_reach: 0.94
+    broad_reach: 0.95
+    reefed_active_trough: 0.85
+
+# Boston arrival envelope (President Roads ~42.35N 70.99W), Thu 9 July 2026.
+# Sun times live-fetched for the date: sunrise 5:14 AM EDT, sunset 8:23 PM
+# EDT; civil dawn ~4:42 AM, civil dusk ~8:56 PM EDT.
+# Night arrival NOT accepted for the standard (daylight-preferred rule).
+# NOTE: Boston is a major, heavily-lit commercial harbor and IS routinely
+# enterable after dark — a night arrival here is far lower-consequence than
+# at Nantucket. Kept false so any post-dusk ETA flags for a conscious skipper
+# decision rather than passing silently.
+arrival_timing:
+  destination_label: "Boston, MA (President Roads / Inner Harbor)"
+  civil_dawn: 4.700
+  sunrise: 5.233
+  sunset: 20.383
+  civil_dusk: 20.933
+  day_window: [5.233, 20.383]
+  twilight_windows:
+    - [4.700, 5.233]
+    - [20.383, 20.933]
+  night_arrival_accepted: false
+  preferred_window:
+    start: 6.0
+    end: 20.0
+
+waypoints:
+  - id: WP1
+    name: Nantucket Harbor Entrance (off Brant Point)
+    lat: 41.31749
+    lon: -70.10435
+    cum_nm: 0.00
+    course_out: 330
+    chart_label: Nantucket
+  - id: WP2
+    name: NW into Nantucket Sound
+    lat: 41.40725
+    lon: -70.17337
+    cum_nm: 6.22
+    course_out: 290
+    chart_label: Nantucket Sd
+  - id: WP3
+    name: W across Nantucket Sound — Woods Hole approach
+    lat: 41.51134
+    lon: -70.56203
+    cum_nm: 24.79
+    course_out: 268
+    chart_label: Woods Hole appr
+  - id: WP4
+    name: Woods Hole passage — E entrance
+    lat: 41.50891
+    lon: -70.66861
+    cum_nm: 29.59
+    course_out: 342
+    chart_label: Woods Hole E
+  - id: WP5
+    name: Woods Hole — The Strait (peak current)
+    lat: 41.52107
+    lon: -70.67386
+    cum_nm: 30.35
+    course_out: 259
+    chart_label: Woods Hole
+  - id: WP6
+    name: Woods Hole — W into Buzzards Bay
+    lat: 41.51839
+    lon: -70.69167
+    cum_nm: 31.17
+    course_out: 357
+    chart_label: Woods Hole W
+  - id: WP7
+    name: Buzzards Bay (mid) — N toward the Canal
+    lat: 41.62486
+    lon: -70.70014
+    cum_nm: 37.58
+    course_out: 17
+    chart_label: Buzzards Bay
+  - id: WP8
+    name: Cape Cod Canal — Buzzards Bay entrance (Wings Neck)
+    lat: 41.69197
+    lon: -70.67268
+    cum_nm: 41.79
+    course_out: 52
+    chart_label: Canal W entr
+  - id: WP9
+    name: Cape Cod Canal — Cape Cod Bay end (Sandwich)
+    lat: 41.82335
+    lon: -70.44526
+    cum_nm: 54.67
+    course_out: 335
+    chart_label: Canal E end
+  - id: WP10
+    name: N across Cape Cod Bay into Massachusetts Bay
+    lat: 42.26205
+    lon: -70.72808
+    cum_nm: 83.87
+    course_out: 297
+    chart_label: Cape Cod Bay
+  - id: WP11
+    name: Boston outer approach
+    lat: 42.31950
+    lon: -70.88115
+    cum_nm: 91.50
+    course_out: 267
+    chart_label: Boston Approach
+  - id: WP12
+    name: Boston Light / President Roads approach (TSS)
+    lat: 42.31843
+    lon: -70.90981
+    cum_nm: 92.77
+    course_out: 293
+    chart_label: Boston Light
+  - id: WP13
+    name: President Roads
+    lat: 42.32435
+    lon: -70.92831
+    cum_nm: 93.67
+    course_out: 315
+    chart_label: President Roads
+  - id: WP14
+    name: President Roads inner
+    lat: 42.33230
+    lon: -70.93913
+    cum_nm: 94.34
+    course_out: 314
+    chart_label: Pres Roads inner
+  - id: WP15
+    name: Boston — arrival (inner harbor approach)
+    lat: 42.33780
+    lon: -70.94682
+    cum_nm: 94.82
+    course_out: null
+    chart_label: Boston
+
+plans:
+  - id: plan_a
+    tab_label: "Plan A - Thu 6 AM Depart"
+    qualifier: "primary (Thu 9 July ~6:00 AM EDT), full inside route WP1->WP15 via the Cape Cod Canal; tuned to transit Woods Hole on the morning ebb (~10:30 AM, fair) and the Cape Cod Canal on the early-afternoon flood (~12 PM, riding a 3+ kt push) - late-afternoon daylight Boston arrival"
+    depart_day: Thu
+    depart_date: 2026-07-09
+    depart_hour: 6.0
+  - id: plan_b
+    tab_label: "Plan B - Thu 7 AM Depart"
+    qualifier: "LATEST-SAFE-for-fair-current (Thu 9 July ~7:00 AM EDT); the last start that still catches Woods Hole before its ebb ends (~11:24 AM, ahead of 12:04 PM slack) and the Canal on the afternoon flood (~1 PM) - later starts hit Woods Hole foul"
+    depart_day: Thu
+    depart_date: 2026-07-09
+    depart_hour: 7.0
+
+route_buoys:
+  - id: 44020
+    name: Nantucket Sound
+    lat: 41.443
+    lon: -70.186
+    relevant_wps:
+      WP1: "departure-region ground truth (Nantucket Sound wind/pressure)"
+      WP2: "Nantucket Sound crossing reference"
+      WP3: "W Nantucket Sound — Woods Hole approach reference"
+  - id: 44090
+    name: Cape Cod Bay
+    lat: 42.281
+    lon: -70.187
+    relevant_wps:
+      WP9: "Cape Cod Canal E end / Cape Cod Bay sea-state reference"
+      WP10: "Cape Cod Bay -> Mass Bay crossing reference"
+  - id: 44013
+    name: Boston (Massachusetts Bay)
+    lat: 42.346
+    lon: -70.651
+    relevant_wps:
+      WP10: "HIGHEST priority for arrival — Mass Bay wind/sea/pressure"
+      WP11: "Boston outer approach ground truth (wind, seas, visibility)"
+
+forecast_offices:
+  - office: NWS Boston/Norton MA (KBOX)
+    code: BOX
+    zones:
+      ANZ232: Nantucket Sound
+      ANZ234: Buzzards Bay
+      ANZ231: Cape Cod Bay
+      ANZ251: Massachusetts Bay and Ipswich Bay
+      ANZ230: Boston Harbor
+
+tide_stations:
+  - id: 8449130
+    name: Nantucket Harbor, MA
+    relevance: departure
+  - id: 8443970
+    name: Boston, MA
+    relevance: arrival
