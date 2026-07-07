@@ -26,18 +26,18 @@
 # crossing the SW wind — a gentle beam cross-swell, called out in the WP notes.
 
 cycle:
-  label: "Mon 7/6 PM — refreshed pull for Thu 9 July, INSIDE route (Woods Hole + Cape Cod Canal). CWFBOX 404 PM / AFDBOX 328 PM / buoys 4:30-4:40 PM (live Chrome fetch). Thu now within the bulletin horizon with explicit Wave Detail (no synoptic estimates). Dry warm ridge Wed-Thu; cold front pushes through sometime Thu (FROPA timing uncertain) with showers/tstms mainly Fri. Canal COD0901 + Woods Hole COD0911 currents Thu 7/9 (astronomical, unchanged)."
+  label: "Tue 7/7 AM — refreshed pull for Thu 9 July, INSIDE route (Woods Hole + Cape Cod Canal). CWFBOX 1003 AM / AFDBOX 703 AM / buoys ~11 AM Tue (live Chrome fetch). Active low + SCA Tue-Wed (E/NE 20-30, rain); ridge builds Wed-Thu (~90F), wind shifts SW for Thu. Cold-front FROPA guided later Thu after peak heating (evening/night); showers/tstms mainly Fri. Currents (Woods Hole COD0911, Cape Cod Canal COD0901, Cleveland Ledge/Buzzards Bay COD0907) astronomical, unchanged for Thu 7/9."
   cwfbox:
-    issued: "2026-07-06T16:04:00-04:00"
-    label_short: "Mon 7/6 404 PM"
-    label_full: "404 PM EDT Mon Jul 6 2026 (CWFBOX FZUS51 KBOX 062004; low S of waters today-Tue w/ heavy rain, drier Wed, SW Thu ahead of a Thu cold front)"
+    issued: "2026-07-07T10:03:00-04:00"
+    label_short: "Tue 7/7 1003 AM"
+    label_full: "1003 AM EDT Tue Jul 7 2026 (CWFBOX FZUS51 KBOX 071403; low S of waters Tue w/ rain, drier Wed N/NE, SW Thu; cold front later Thu)"
   afdbox:
-    issued: "2026-07-06T15:28:00-04:00"
-    label_short: "Mon 7/6 328 PM"
-    label_full: "328 PM EDT Mon Jul 6 2026 (AFDBOX; dry warm ridge Wed-Thu ~90F, cold front sometime Thu, showers/tstms mainly Fri; marine winds <25 kt, seas approaching 5 ft outer waters Thu)"
+    issued: "2026-07-07T07:03:00-04:00"
+    label_short: "Tue 7/7 703 AM"
+    label_full: "703 AM EDT Tue Jul 7 2026 (AFDBOX; ridge builds Wed-Thu ~90F, FROPA later Thu well after peak heating, showers/tstms mainly Fri; marine winds <25 kt, seas approaching 5 ft outer)"
 
 zones:
-  # ── ANZ232 — Nantucket Sound (BOX). Departure + W-Sound crossing (WP1-WP4).
+  # ── ANZ232 Nantucket Sound (WP1-4)
   ANZ232:
     description: "Nantucket Sound"
     office: BOX
@@ -49,11 +49,11 @@ zones:
         wind_gust_kt: 20
         sea_ft: [2, 3]
         wave_detail:
-          primary: {direction: SW, direction_deg: 225, height_ft: 3, period_s: 4}
+          primary: {direction: SW, direction_deg: 225, height_ft: 2, period_s: 3}
           secondary: {direction: E, direction_deg: 90, height_ft: 2, period_s: 8}
 
-  # ── ANZ234 — Buzzards Bay (BOX). Woods Hole exit + Buzzards Bay leg (WP5-WP8).
-  #    Windiest zone Thu: SW 15-20 G25.
+  # ── ANZ234 Buzzards Bay (WP5-8). SW 10-15 building to 15-20 in the AFTERNOON
+  #    (our late-morning transit catches the lighter end). Gust 25.
   ANZ234:
     description: "Buzzards Bay"
     office: BOX
@@ -61,14 +61,14 @@ zones:
       THU:
         wind_dir: "SW"
         wind_dir_deg: 225
-        wind_kt: [15, 20]
+        wind_kt: [10, 20]
         wind_gust_kt: 25
         sea_ft: [2, 4]
         wave_detail:
           primary: {direction: SW, direction_deg: 225, height_ft: 3, period_s: 4}
-          secondary: {direction: NE, direction_deg: 45, height_ft: 1, period_s: 3}
+          secondary: {direction: SE, direction_deg: 135, height_ft: 1, period_s: 9}
 
-  # ── ANZ231 — Cape Cod Bay (BOX). Canal east end + Cape Cod Bay (WP9). Gust to 25 kt.
+  # ── ANZ231 Cape Cod Bay (WP9)
   ANZ231:
     description: "Cape Cod Bay"
     office: BOX
@@ -77,14 +77,13 @@ zones:
         wind_dir: "SW"
         wind_dir_deg: 225
         wind_kt: [10, 15]
-        wind_gust_kt: 25
+        wind_gust_kt: 20
         sea_ft: [2, 3]
         wave_detail:
           primary: {direction: SW, direction_deg: 225, height_ft: 2, period_s: 3}
-          secondary: {direction: N, direction_deg: 0, height_ft: 1, period_s: 5}
+          secondary: {direction: E, direction_deg: 90, height_ft: 1, period_s: 8}
 
-  # ── ANZ251 — Massachusetts Bay (BOX). Mass Bay crossing (WP10-WP11).
-  #    PRIMARY sea is a residual E swell (3 ft @ 8s) crossing the SW wind.
+  # ── ANZ251 Massachusetts Bay (WP10-11). Residual E swell 3 ft @ 8s primary.
   ANZ251:
     description: "Massachusetts Bay and Ipswich Bay"
     office: BOX
@@ -99,7 +98,7 @@ zones:
           primary: {direction: E, direction_deg: 90, height_ft: 3, period_s: 8}
           secondary: {direction: SW, direction_deg: 225, height_ft: 2, period_s: 3}
 
-  # ── ANZ230 — Boston Harbor (BOX). President Roads + inner harbor (WP12-WP15).
+  # ── ANZ230 Boston Harbor (WP12-15)
   ANZ230:
     description: "Boston Harbor"
     office: BOX
@@ -108,7 +107,7 @@ zones:
         wind_dir: "SW"
         wind_dir_deg: 225
         wind_kt: [10, 15]
-        wind_gust_kt: 20
+        wind_gust_kt: 18
         sea_ft: [1, 2]
         wave_detail:
           primary: {direction: SW, direction_deg: 225, height_ft: 2, period_s: 3}
@@ -120,30 +119,30 @@ waypoint_assignments:
       period: THU
       risk_level: green
       row_band: green
-      pressure: 30.06
+      pressure: 30.02
       pressure_trend_auto: true
       notes_addendum: >
         Thu ~6:30 AM EDT dawn departure, off Brant Point (sunrise 5:14 AM, full
-        daylight). Post-frontal SW behind the Tue-Wed low - dry, warm (~90F
-        ashore), SW 10-15 kt G20 in Nantucket Sound. Nantucket Hbr Thu tides: L
-        1:26 AM, H 7:49 AM, L 1:25 PM. Wave Detail: SW 3 ft @ 4s with a residual
-        E 2 ft @ 8s underneath. Course 330. Departure timed so the fast O55 does
-        NOT beat the 11:08 AM Canal flood-turn.
+        daylight). Post-system SW behind the Tue-Wed low (which clears Wed) -
+        dry, warm, SW 10-15 kt G20 in Nantucket Sound. Nantucket Hbr Thu tides:
+        L 1:26 AM, H 7:49 AM, L 1:25 PM. Wave Detail: SW 2 ft @ 3s with residual
+        E 2 ft @ 8s. Course 330. Departure timed so the fast O55 does not beat
+        the 11:08 AM Canal flood-turn.
       weather_risk: >
-        Benign dawn departure, building/warm ridge, SW 10-15 G20. Clean start
+        Benign dawn departure behind the Tue-Wed low, SW 10-15 G20. Clean start
         into Nantucket Sound.
     WP2:
       zone: ANZ232
       period: THU
       risk_level: green
       row_band: green
-      pressure: 30.05
+      pressure: 30.02
       pressure_trend_auto: true
       notes_addendum: >
         Thu ~7 AM, NW across Nantucket Sound. SW 10-15 kt G20 on the
         beam/quarter - reaching. Buoy 44020 (Nantucket Sound) departure ground
-        truth (this afternoon E 17 G19 around the low; SW by the window). Course
-        290.
+        truth (Tue AM it was ENE 23 G31 in the low; SW light by the Thu window).
+        Course 290.
       weather_risk: >
         Easy reach across Nantucket Sound, SW 10-15 kt. Benign.
     WP3:
@@ -151,11 +150,11 @@ waypoint_assignments:
       period: THU
       risk_level: green
       row_band: green
-      pressure: 30.05
+      pressure: 30.01
       pressure_trend_auto: true
       notes_addendum: >
         Thu ~8-9 AM, W across Nantucket Sound toward Woods Hole. SW 10-15 kt,
-        seas 2-3 ft (SW 3 ft @ 4s primary). Course 268.
+        2-3 ft (SW 2 ft @ 3s primary). Course 268.
       weather_risk: >
         Open Sound crossing toward Woods Hole, benign SW 10-15 kt.
     WP4:
@@ -163,14 +162,13 @@ waypoint_assignments:
       period: THU
       risk_level: yellow
       row_band: yellow
-      pressure: 30.04
+      pressure: 30.01
       pressure_trend_auto: true
       notes_addendum: >
         Thu ~10:20 AM, approaching WOODS HOLE from the Vineyard Sound side.
         Narrow rock-bound passage, strong tidal streams - time the FAIR
-        WESTBOUND EBB (sets 261, W). Woods Hole current COD0911 Thu: fair ebb
-        6:11 AM-12:04 PM, peak 3.5 kt at 8:22 AM. Modeled ~10:25 AM = fair, well
-        before the 12:04 PM slack. Course 342.
+        WESTBOUND EBB (261, W). Woods Hole COD0911 Thu: fair ebb 6:11 AM-12:04
+        PM, peak 3.5 kt at 8:22 AM. Modeled ~10:25 AM = fair. Course 342.
       weather_risk: >
         Weather benign; WOODS HOLE is the workload - rock-bound passage + strong
         tidal streams. Times the fair westbound ebb; hold the marked line.
@@ -179,13 +177,12 @@ waypoint_assignments:
       period: THU
       risk_level: yellow
       row_band: yellow
-      pressure: 30.04
+      pressure: 30.00
       pressure_trend_auto: true
       notes_addendum: >
-        Thu ~10:25 AM, in WOODS HOLE THE STRAIT. Ebb carries you W toward
-        Buzzards Bay at up to 3.5 kt (fair). Rocks/ledges close both sides; stay
-        mid-channel on the marked line, VHF 13. Current boost not in the modeled
-        ETA - actual transit quicker. Course 259.
+        Thu ~10:25 AM, in WOODS HOLE THE STRAIT. Ebb carries you W into Buzzards
+        Bay at up to 3.5 kt (fair). Rocks/ledges close both sides; mid-channel
+        on the marked line, VHF 13. Boost not in the modeled ETA. Course 259.
       weather_risk: >
         Benign weather; Woods Hole pilotage - rocks close aboard, strong fair
         current. Mid-channel, VHF 13.
@@ -194,106 +191,111 @@ waypoint_assignments:
       period: THU
       risk_level: yellow
       row_band: yellow
-      pressure: 30.04
+      pressure: 30.00
       pressure_trend_auto: true
       notes_addendum: >
-        Thu ~10:30 AM, exiting Woods Hole into Buzzards Bay. SW 15-20 kt G25
-        (ANZ234) builds as you leave the lee. Course 357.
+        Thu ~10:30 AM, exiting Woods Hole into BUZZARDS BAY. NO WIND-OVER-
+        CURRENT here: Cleveland Ledge (COD0907, mid-bay) floods NNE 037 from
+        slack 10:03 AM - i.e. WITH the SW wind - and it's light (<0.4 kt max).
+        Wind SW 10-15 now, building to 15-20 in the afternoon (ANZ234), so the
+        late-morning transit catches the lighter end. Course 357.
       weather_risk: >
-        Benign; clearing the rocks into Buzzards Bay as the SW builds.
+        Benign; into Buzzards Bay with the current fair (Cleveland Ledge NNE
+        flood, with the SW wind) - no wind-over-tide. Wind still light this
+        early.
     WP7:
       zone: ANZ234
       period: THU
       risk_level: yellow
       row_band: yellow
-      pressure: 30.03
+      pressure: 30.00
       pressure_trend_auto: true
       notes_addendum: >
-        Thu ~11 AM, up BUZZARDS BAY. Windiest leg: SW 15-20 kt G25, seas 2-4 ft
-        (SW 3 ft @ 4s) - the classic Buzzards Bay afternoon SW blow, building
-        through the day. SW on the quarter for the N track = broad reach with a
-        short steep chop. Course 017.
+        Thu ~11 AM, up BUZZARDS BAY past Cleveland Ledge. Current on the
+        building NNE flood (COD0907), aligned with the SW wind - fair and no
+        wind-against-tide chop. Windiest leg of the route: SW building toward
+        15-20 kt G25 later, seas 2-4 ft (SW 3 ft @ 4s), broad reach. Course 017.
       weather_risk: >
-        Buzzards Bay SW 15-20 G25 - the windiest leg. Broad reach with a short
-        steep chop; not hazardous for the O55, just the bumpiest stretch.
+        Buzzards Bay - windiest leg (SW building toward 15-20 G25), but current
+        is fair (NNE flood, with the wind), so broad reach with a short chop,
+        not steep wind-against-tide.
     WP8:
       zone: ANZ234
       period: THU
       risk_level: yellow
       row_band: yellow
-      pressure: 30.02
+      pressure: 29.99
       pressure_trend_auto: true
       notes_addendum: >
         Thu ~11:35 AM, N Buzzards Bay at the CAPE COD CANAL WEST ENTRANCE (Wings
-        Neck). TIME THE CANAL TO A FAIR EASTBOUND FLOOD (sets 053, NE). Canal
-        current COD0901 Thu: fair flood 11:08 AM-5:30 PM, peak 3.5 kt at 1:43
-        PM; 5:12-11:08 AM is EBB (foul) - the 6:30 AM start puts you here ~28
-        min AFTER the turn, riding the building flood. Federal channel, ~10 kt
-        limit, VHF 13, land cut ~7 NM. Course 052.
+        Neck). Fair EASTBOUND FLOOD (053, NE): Canal COD0901 Thu flood 11:08
+        AM-5:30 PM, peak 3.5 kt at 1:43 PM; the 6:30 AM start puts you here ~28
+        min after the turn, riding the building flood - and the flood sets WITH
+        the SW wind. Federal channel, ~10 kt limit, VHF 13, land cut ~7 NM.
+        Course 052.
       weather_risk: >
-        Weather benign; the CANAL current window is the constraint - 6:30 AM
-        start enters on the fair flood just after the turn. Federal channel
-        traffic + timing = the workload.
+        Weather benign; CANAL current the constraint - fair flood just after the
+        turn, setting with the SW wind. Federal channel traffic + timing = the
+        workload.
     WP9:
       zone: ANZ231
       period: THU
       risk_level: yellow
       row_band: yellow
-      pressure: 30.02
+      pressure: 29.99
       pressure_trend_auto: true
       notes_addendum: >
         Thu ~12:15 PM, CANAL EAST END (Sandwich) into Cape Cod Bay. Fair flood
-        carried you through (~3.5 kt boost, not in modeled ETA). SW 10-15 kt G25
-        (ANZ231), seas 2-3 ft (SW 2 ft @ 3s). Course 335.
+        carried you through (~3.5 kt boost, not in modeled ETA). SW 10-15 kt G20
+        (ANZ231), 2-3 ft (SW 2 ft @ 3s). Course 335.
       weather_risk: >
-        Fair flood carried you through; benign opening into Cape Cod Bay, clear
-        of canal traffic.
+        Fair flood carried you through; benign into Cape Cod Bay, clear of canal
+        traffic.
     WP10:
       zone: ANZ251
       period: THU
       risk_level: green
       row_band: green
-      pressure: 30.01
+      pressure: 29.98
       pressure_trend_auto: true
       notes_addendum: >
         Thu early-mid afternoon, N across Cape Cod Bay into Massachusetts Bay.
-        SW 10-15 kt G20 (ANZ251). NOTE: primary sea is a residual E swell 3 ft @
-        8s CROSSING the SW wind (secondary SW 2 ft @ 3s) - a gentle long-period
-        cross-swell on the beam, not hazardous. Buoy 44090 (Cape Cod Bay) then
-        44013 (Boston) ground truth. Course 297.
+        SW 10-15 kt G20 (ANZ251). Primary sea a residual E swell 3 ft @ 8s
+        CROSSING the SW wind (secondary SW 2 ft @ 3s) - gentle long-period beam
+        cross-swell, benign. Buoy 44090 then 44013 ground truth. Course 297.
       weather_risk: >
-        Open Mass Bay, SW 10-15 kt; the residual E 8s swell is a gentle beam
-        cross-swell, benign. Easy run toward Boston.
+        Open Mass Bay, SW 10-15 kt; residual E 8s swell a gentle beam cross-
+        swell, benign. Easy run to Boston.
     WP11:
       zone: ANZ251
       period: THU
       risk_level: yellow
       row_band: yellow
-      pressure: 30.01
+      pressure: 29.98
       pressure_trend_auto: true
       notes_addendum: >
         Thu mid-afternoon, Boston approach off Boston Light / The Graves. CROSS
         the Boston TSS - AIS/VHF 13, cross lanes at right angles, keep clear of
-        ships. SW 10-15 kt, E 3 ft @ 8s cross-swell easing near the harbor.
-        WATCH: a cold front pushes through sometime Thu (FROPA timing uncertain
-        per AFDBOX) - showers/tstms mainly Fri, but if it speeds up it could
-        bring a late-day SW-to-NW shift near arrival; monitor. Boston Thu tides:
-        H 6:42 AM, L 12:50 PM, H 7:04 PM. Course 267.
+        ships. SW 10-15 kt. COLD-FRONT WATCH: AFD guides FROPA later Thu, well
+        after peak heating (evening/night) with showers/tstms mainly Fri - both
+        arrivals are AHEAD of it, but Plan B (later) has less margin; monitor
+        front timing on the Wed PM / Thu AM re-pull. Boston Thu tides: H 6:42
+        AM, L 12:50 PM, H 7:04 PM. Course 267.
       weather_risk: >
-        Light weather; busy Boston approach (TSS, shipping) is the workload,
-        plus a Thu cold-front WATCH (timing uncertain) - monitor for a late-day
-        shift. AIS/VHF, cross lanes cleanly.
+        Light weather; busy Boston approach (TSS) + a later-Thu cold-front WATCH
+        - arrivals ahead of it, Plan B less margin. AIS/VHF, cross lanes
+        cleanly.
     WP12:
       zone: ANZ230
       period: THU
       risk_level: green
       row_band: green
-      pressure: 30.00
+      pressure: 29.98
       pressure_trend_auto: true
       notes_addendum: >
         Thu mid-afternoon, President Roads approach. Deep-draft channel + ferry
-        traffic; stay to the side, monitor. SW 10-15 kt, harbor seas 1-2 ft.
-        Course 293.
+        traffic; stay to the side, monitor. SW 10-15 kt, harbor 1-2 ft. Course
+        293.
       weather_risk: >
         Benign harbor weather; deep-draft channel traffic - keep clear, monitor.
     WP13:
@@ -301,7 +303,7 @@ waypoint_assignments:
       period: THU
       risk_level: green
       row_band: green
-      pressure: 30.00
+      pressure: 29.97
       pressure_trend_auto: true
       notes_addendum: >
         Thu mid-afternoon, President Roads. Marked channel, harbor traffic;
@@ -313,7 +315,7 @@ waypoint_assignments:
       period: THU
       risk_level: green
       row_band: green
-      pressure: 29.99
+      pressure: 29.97
       pressure_trend_auto: true
       notes_addendum: >
         Thu mid-afternoon, inner harbor approach. Marked channels, speed limits,
@@ -325,46 +327,45 @@ waypoint_assignments:
       period: THU
       risk_level: green
       row_band: green
-      pressure: 29.99
+      pressure: 29.96
       pressure_trend_auto: true
       notes_addendum: >
         Thu arrival, inner harbor (President Roads). At the Plan A (6:30 AM)
         pace this lands mid-afternoon in DAYLIGHT, hours ahead of sunset (8:23
-        PM EDT) and well ahead of any Thu-evening frontal showers - the fair
-        Canal/Woods Hole currents (not modeled) put the real arrival earlier
-        still.
+        PM) and ahead of the later-Thu frontal showers - fair Canal/Woods Hole
+        currents (not modeled) put the real arrival earlier still.
       weather_risk: >
-        Calm daylight harbor arrival with hours of margin, ahead of any evening
-        frontal showers.
+        Calm daylight harbor arrival with margin, ahead of the later-Thu frontal
+        showers.
   plan_b:
     WP1:
       zone: ANZ232
       period: THU
       risk_level: green
       row_band: green
-      pressure: 30.06
+      pressure: 30.02
       pressure_trend_auto: true
       notes_addendum: >
         Thu ~7:15 AM EDT departure, off Brant Point - full daylight, ~45 min
-        after Plan A. Post-frontal SW, dry/warm. SW 10-15 G20; SW 3 ft @ 4s with
+        after Plan A. Post-system SW, dry/warm. SW 10-15 G20; SW 2 ft @ 3s +
         residual E 2 ft @ 8s. Course 330. Later option: still catches the Woods
         Hole fair ebb (ends 12:04 PM) and hits the Canal flood NEARER its 1:43
         PM peak (stronger push); every WP ~45 min later than Plan A - see WP15.
       weather_risk: >
-        Benign dawn departure, building/warm ridge, SW 10-15 G20. Clean start
+        Benign dawn departure behind the Tue-Wed low, SW 10-15 G20. Clean start
         into Nantucket Sound.
     WP2:
       zone: ANZ232
       period: THU
       risk_level: green
       row_band: green
-      pressure: 30.05
+      pressure: 30.02
       pressure_trend_auto: true
       notes_addendum: >
         Thu ~7 AM, NW across Nantucket Sound. SW 10-15 kt G20 on the
         beam/quarter - reaching. Buoy 44020 (Nantucket Sound) departure ground
-        truth (this afternoon E 17 G19 around the low; SW by the window). Course
-        290.
+        truth (Tue AM it was ENE 23 G31 in the low; SW light by the Thu window).
+        Course 290.
       weather_risk: >
         Easy reach across Nantucket Sound, SW 10-15 kt. Benign.
     WP3:
@@ -372,11 +373,11 @@ waypoint_assignments:
       period: THU
       risk_level: green
       row_band: green
-      pressure: 30.05
+      pressure: 30.01
       pressure_trend_auto: true
       notes_addendum: >
         Thu ~8-9 AM, W across Nantucket Sound toward Woods Hole. SW 10-15 kt,
-        seas 2-3 ft (SW 3 ft @ 4s primary). Course 268.
+        2-3 ft (SW 2 ft @ 3s primary). Course 268.
       weather_risk: >
         Open Sound crossing toward Woods Hole, benign SW 10-15 kt.
     WP4:
@@ -384,13 +385,13 @@ waypoint_assignments:
       period: THU
       risk_level: yellow
       row_band: yellow
-      pressure: 30.04
+      pressure: 30.01
       pressure_trend_auto: true
       notes_addendum: >
-        Thu ~11:05 AM, approaching WOODS HOLE. Fair westbound ebb (261) still
-        running - COD0911 ebb ends 12:04 PM, so the Plan B pace still catches it
-        (tail, ~1 hr margin). Rocks + strong current; hold the marked line.
-        Course 342.
+        Thu ~10:20 AM, approaching WOODS HOLE from the Vineyard Sound side.
+        Narrow rock-bound passage, strong tidal streams - time the FAIR
+        WESTBOUND EBB (261, W). Woods Hole COD0911 Thu: fair ebb 6:11 AM-12:04
+        PM, peak 3.5 kt at 8:22 AM. Modeled ~10:25 AM = fair. Course 342.
       weather_risk: >
         Weather benign; WOODS HOLE is the workload - rock-bound passage + strong
         tidal streams. Times the fair westbound ebb; hold the marked line.
@@ -399,13 +400,12 @@ waypoint_assignments:
       period: THU
       risk_level: yellow
       row_band: yellow
-      pressure: 30.04
+      pressure: 30.00
       pressure_trend_auto: true
       notes_addendum: >
-        Thu ~10:25 AM, in WOODS HOLE THE STRAIT. Ebb carries you W toward
-        Buzzards Bay at up to 3.5 kt (fair). Rocks/ledges close both sides; stay
-        mid-channel on the marked line, VHF 13. Current boost not in the modeled
-        ETA - actual transit quicker. Course 259.
+        Thu ~10:25 AM, in WOODS HOLE THE STRAIT. Ebb carries you W into Buzzards
+        Bay at up to 3.5 kt (fair). Rocks/ledges close both sides; mid-channel
+        on the marked line, VHF 13. Boost not in the modeled ETA. Course 259.
       weather_risk: >
         Benign weather; Woods Hole pilotage - rocks close aboard, strong fair
         current. Mid-channel, VHF 13.
@@ -414,102 +414,106 @@ waypoint_assignments:
       period: THU
       risk_level: yellow
       row_band: yellow
-      pressure: 30.04
+      pressure: 30.00
       pressure_trend_auto: true
       notes_addendum: >
-        Thu ~10:30 AM, exiting Woods Hole into Buzzards Bay. SW 15-20 kt G25
-        (ANZ234) builds as you leave the lee. Course 357.
+        Thu ~11:15 AM, exiting Woods Hole into BUZZARDS BAY. NO WIND-OVER-
+        CURRENT: Cleveland Ledge (COD0907) on the building NNE flood (037, with
+        the SW wind), light (<0.4 kt). Wind SW building toward 15-20 kt in the
+        afternoon (ANZ234) - Plan B's later pace sees a bit more breeze here
+        than Plan A, still a fair-current broad reach. Course 357.
       weather_risk: >
-        Benign; clearing the rocks into Buzzards Bay as the SW builds.
+        Benign; into Buzzards Bay, current fair (NNE flood with the SW wind), no
+        wind-over-tide. A touch more breeze than Plan A this later.
     WP7:
       zone: ANZ234
       period: THU
       risk_level: yellow
       row_band: yellow
-      pressure: 30.03
+      pressure: 30.00
       pressure_trend_auto: true
       notes_addendum: >
-        Thu ~11 AM, up BUZZARDS BAY. Windiest leg: SW 15-20 kt G25, seas 2-4 ft
-        (SW 3 ft @ 4s) - the classic Buzzards Bay afternoon SW blow, building
-        through the day. SW on the quarter for the N track = broad reach with a
-        short steep chop. Course 017.
+        Thu ~11 AM, up BUZZARDS BAY past Cleveland Ledge. Current on the
+        building NNE flood (COD0907), aligned with the SW wind - fair and no
+        wind-against-tide chop. Windiest leg of the route: SW building toward
+        15-20 kt G25 later, seas 2-4 ft (SW 3 ft @ 4s), broad reach. Course 017.
       weather_risk: >
-        Buzzards Bay SW 15-20 G25 - the windiest leg. Broad reach with a short
-        steep chop; not hazardous for the O55, just the bumpiest stretch.
+        Buzzards Bay - windiest leg (SW building toward 15-20 G25), but current
+        is fair (NNE flood, with the wind), so broad reach with a short chop,
+        not steep wind-against-tide.
     WP8:
       zone: ANZ234
       period: THU
       risk_level: yellow
       row_band: yellow
-      pressure: 30.02
+      pressure: 29.99
       pressure_trend_auto: true
       notes_addendum: >
-        Thu ~12:20 PM, CANAL WEST ENTRANCE. Enter on the fair EASTBOUND FLOOD
-        (053) - COD0901 flood 11:08 AM-5:30 PM, peak 3.5 kt at 1:43 PM; Plan B
-        hits it near peak (stronger push, faster transit). Federal channel, VHF
-        13, ~10 kt limit. Course 052.
+        Thu ~12:20 PM, CANAL WEST ENTRANCE. Fair EASTBOUND FLOOD (053, NE, with
+        the SW wind): COD0901 flood 11:08 AM-5:30 PM, peak 3.5 kt at 1:43 PM;
+        Plan B hits it near peak (stronger push). Federal channel, VHF 13, ~10
+        kt limit. Course 052.
       weather_risk: >
-        Weather benign; the CANAL current window is the constraint - 6:30 AM
-        start enters on the fair flood just after the turn. Federal channel
-        traffic + timing = the workload.
+        Weather benign; CANAL current the constraint - fair flood just after the
+        turn, setting with the SW wind. Federal channel traffic + timing = the
+        workload.
     WP9:
       zone: ANZ231
       period: THU
       risk_level: yellow
       row_band: yellow
-      pressure: 30.02
+      pressure: 29.99
       pressure_trend_auto: true
       notes_addendum: >
         Thu ~12:15 PM, CANAL EAST END (Sandwich) into Cape Cod Bay. Fair flood
-        carried you through (~3.5 kt boost, not in modeled ETA). SW 10-15 kt G25
-        (ANZ231), seas 2-3 ft (SW 2 ft @ 3s). Course 335.
+        carried you through (~3.5 kt boost, not in modeled ETA). SW 10-15 kt G20
+        (ANZ231), 2-3 ft (SW 2 ft @ 3s). Course 335.
       weather_risk: >
-        Fair flood carried you through; benign opening into Cape Cod Bay, clear
-        of canal traffic.
+        Fair flood carried you through; benign into Cape Cod Bay, clear of canal
+        traffic.
     WP10:
       zone: ANZ251
       period: THU
       risk_level: green
       row_band: green
-      pressure: 30.01
+      pressure: 29.98
       pressure_trend_auto: true
       notes_addendum: >
         Thu early-mid afternoon, N across Cape Cod Bay into Massachusetts Bay.
-        SW 10-15 kt G20 (ANZ251). NOTE: primary sea is a residual E swell 3 ft @
-        8s CROSSING the SW wind (secondary SW 2 ft @ 3s) - a gentle long-period
-        cross-swell on the beam, not hazardous. Buoy 44090 (Cape Cod Bay) then
-        44013 (Boston) ground truth. Course 297.
+        SW 10-15 kt G20 (ANZ251). Primary sea a residual E swell 3 ft @ 8s
+        CROSSING the SW wind (secondary SW 2 ft @ 3s) - gentle long-period beam
+        cross-swell, benign. Buoy 44090 then 44013 ground truth. Course 297.
       weather_risk: >
-        Open Mass Bay, SW 10-15 kt; the residual E 8s swell is a gentle beam
-        cross-swell, benign. Easy run toward Boston.
+        Open Mass Bay, SW 10-15 kt; residual E 8s swell a gentle beam cross-
+        swell, benign. Easy run to Boston.
     WP11:
       zone: ANZ251
       period: THU
       risk_level: yellow
       row_band: yellow
-      pressure: 30.01
+      pressure: 29.98
       pressure_trend_auto: true
       notes_addendum: >
         Thu mid-late afternoon, Boston approach off Boston Light. CROSS the
-        Boston TSS - AIS/VHF 13. SW 10-15 kt. COLD-FRONT WATCH: front sometime
-        Thu (FROPA timing uncertain); Plan B's later pace sits marginally closer
-        to any evening frontal showers - monitor the front timing on the
-        underway re-pull. Boston tides H 7:04 PM. Course 267.
+        Boston TSS - AIS/VHF 13. SW 10-15 kt. COLD-FRONT WATCH: FROPA guided
+        later Thu after peak heating; Plan B's later timing sits marginally
+        closer to any evening frontal showers - monitor the front timing closely
+        on the underway re-pull. Course 267.
       weather_risk: >
-        Light weather; busy Boston approach (TSS) + Thu cold-front WATCH - Plan
-        B's later timing is marginally closer to any evening showers, so
-        monitor. AIS/VHF, cross lanes cleanly.
+        Light weather; Boston approach (TSS) + later-Thu front WATCH - Plan B's
+        later timing is marginally closer to any evening showers, monitor.
+        AIS/VHF, cross lanes cleanly.
     WP12:
       zone: ANZ230
       period: THU
       risk_level: green
       row_band: green
-      pressure: 30.00
+      pressure: 29.98
       pressure_trend_auto: true
       notes_addendum: >
         Thu mid-afternoon, President Roads approach. Deep-draft channel + ferry
-        traffic; stay to the side, monitor. SW 10-15 kt, harbor seas 1-2 ft.
-        Course 293.
+        traffic; stay to the side, monitor. SW 10-15 kt, harbor 1-2 ft. Course
+        293.
       weather_risk: >
         Benign harbor weather; deep-draft channel traffic - keep clear, monitor.
     WP13:
@@ -517,7 +521,7 @@ waypoint_assignments:
       period: THU
       risk_level: green
       row_band: green
-      pressure: 30.00
+      pressure: 29.97
       pressure_trend_auto: true
       notes_addendum: >
         Thu mid-afternoon, President Roads. Marked channel, harbor traffic;
@@ -529,7 +533,7 @@ waypoint_assignments:
       period: THU
       risk_level: green
       row_band: green
-      pressure: 29.99
+      pressure: 29.97
       pressure_trend_auto: true
       notes_addendum: >
         Thu mid-afternoon, inner harbor approach. Marked channels, speed limits,
@@ -541,13 +545,13 @@ waypoint_assignments:
       period: THU
       risk_level: green
       row_band: green
-      pressure: 29.99
+      pressure: 29.96
       pressure_trend_auto: true
       notes_addendum: >
         Thu arrival, inner harbor. At the Plan B (7:15 AM) pace this lands late
-        afternoon - still comfortably DAYLIGHT (sunset 8:23 PM) and ahead of the
-        Fri-favored frontal showers; fair currents pull the real arrival
-        earlier. Monitor the Thu FROPA timing on the underway update.
+        afternoon - DAYLIGHT (sunset 8:23 PM) and ahead of the later-Thu front,
+        but with less margin than Plan A. Fair currents pull the real arrival
+        earlier. Watch the FROPA timing.
       weather_risk: >
-        Weather calm; later start than Plan A but fair currents + shorter route
-        keep it comfortably in daylight, ahead of Fri-favored frontal showers.
+        Weather calm; DAYLIGHT arrival ahead of the later-Thu front, less margin
+        than Plan A. Fair currents help. Watch FROPA timing.

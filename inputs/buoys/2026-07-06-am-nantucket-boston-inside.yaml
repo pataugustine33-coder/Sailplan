@@ -11,97 +11,97 @@
 # Buoy 44018 (formerly SE of the Cape) is DISCONTINUED (realtime2 404).
 
 pull:
-  label: "4:40 PM EDT (2040 GMT) Mon 7/6 — refreshed PM pull (INSIDE route; buoys re-read against the 404 PM CWFBOX cycle; 44008 offshore station not on this track)"
-  utc: "2026-07-06T20:40:00Z"
+  label: "11:00 AM EDT (1500 GMT) Tue 7/7 — refreshed pull (INSIDE route; re-read against the Tue 1003 AM CWFBOX cycle; 44008 offshore not on this track)"
+  utc: "2026-07-07T15:00:00Z"
 
 synopsis:
   description: |
-    Monday PM: low pressure S of the waters with heavy rain / embedded tstms
-    today into Tue (SCA ANZ231-234/251 from 2 AM Tue; Flood Watch ashore).
-    E-NE gusts 20-30 kt track N tonight into Tue. Current obs show the E'ly
-    circulation: Nantucket Sound 44020 E 17 G19, Boston 44013 ESE 8, pressure
-    30.14-30.19 and high (ridge to the N). Drier Wed, then SW for Thu ahead of
-    a cold front that pushes through sometime Thu (FROPA timing uncertain;
-    showers/tstms mainly Fri). Thursday departs ahead of the front. Re-pull a
-    fresh cycle Wed PM / Thu AM before the GO call.
+    Tuesday AM: weak low S of the waters with periods of rain/thunder today,
+    E-NE gusts 20-30 kt; SCA through Wed AM (outer) / 8 PM Tue (bays). Current
+    obs show it: Nantucket Sound 44020 ENE 23 G31, Boston 44013 ENE 17 G21
+    falling (-1.0 hPa/3h), pressure 29.97-30.07. Drier Wed on N/NE, then wind
+    shifts SW for Thu behind the system. Thursday departs into that SW window,
+    ahead of the next cold front (FROPA guided later Thu after peak heating;
+    showers/tstms mainly Fri). Re-pull Wed PM / Thu AM before the GO call.
 
 stations:
   - id: 44020
     name: "Nantucket Sound (departure + Sound crossing, WP1-WP3)"
     lat: 41.443
     lon: -70.186
-    reading_time: "4:40 PM EDT Mon 7/6"
+    reading_time: "11:00 AM EDT Tue 7/7"
     status: "fresh"
     wind_dir: "ENE"
     wind_dir_deg: 70
-    wind_kt: 17.5
-    gust_kt: 19.4
-    wave_ft: 2.0
+    wind_kt: 23.3
+    gust_kt: 31.1
+    wave_ft: 3.3
     period_s: 4.0
     swell_dir: "E"
-    swell_dir_deg: 95
-    pressure_hpa: 1020.7
-    pressure_trend: "Steady-high (30.14 inHg, ridge; E'ly around the southern low)"
-    water_temp_f: 73.6
+    swell_dir_deg: 80
+    pressure_hpa: 1014.8
+    pressure_trend: "Steady-low (29.97 inHg; E'ly around the Tue low, SCA)"
+    water_temp_f: 72.1
     findings: |
-      ENE 17 G 19 — today's E'ly flow around the low S of the waters (SCA
-      from 2 AM Tue). Not the Thursday state; backs/eases to the forecast SW
-      10-15 by the window. Seas 2 ft @ 4s from E. Pressure 30.14, ridge to N.
+      ENE 23 G 31 in the Tuesday low - blustery E'ly, SCA. This is TWO DAYS
+      before the passage; clears Wed and backs to the forecast SW 10-15 for
+      Thu. Seas 3.3 ft @ 4s from E. Pressure 29.97, low nearby.
   - id: 44013
     name: "Boston / Massachusetts Bay (ARRIVAL — highest priority, WP10-WP11)"
     lat: 42.346
     lon: -70.651
-    reading_time: "4:40 PM EDT Mon 7/6"
+    reading_time: "11:00 AM EDT Tue 7/7"
     status: "fresh"
-    wind_dir: "ESE"
-    wind_dir_deg: 110
-    wind_kt: 7.8
-    gust_kt: 9.7
-    wave_ft: 1.6
-    period_s: 3.0
-    swell_dir: "SE"
-    swell_dir_deg: 133
-    pressure_hpa: 1022.2
-    pressure_trend: "High/steady (30.19 inHg, ridge)"
-    water_temp_f: 70.2
+    wind_dir: "ENE"
+    wind_dir_deg: 60
+    wind_kt: 17.5
+    gust_kt: 21.4
+    wave_ft: 3.6
+    period_s: 4.0
+    swell_dir: "E"
+    swell_dir_deg: 92
+    pressure_hpa: 1018.4
+    pressure_trend: "Falling (-1.0 hPa/3h, 30.07 inHg; low approaching/passing)"
+    water_temp_f: 68.5
     findings: |
-      ESE 8 G 10, seas 1.6 ft @ 3s from SE — light at the arrival area (the
-      low sits to the S). Pressure 30.19, ridge overhead. Thursday backs to
-      SW 10-15. Re-pull here for wind + visibility before the final GO/NO-GO.
+      ENE 17 G 21, seas 3.6 ft @ 4s from E - the Tuesday E'ly at the arrival
+      area, pressure 30.07 falling as the low passes. Two days out; backs to
+      SW 10-15 for Thu. Re-pull here for wind + visibility before the final
+      GO/NO-GO.
   - id: 44090
     name: "Cape Cod Bay (Canal east end / Cape Cod Bay reference, WP9-WP10)"
     lat: 42.281
     lon: -70.187
-    reading_time: "4:30 PM EDT Mon 7/6"
+    reading_time: "10:30 AM EDT Tue 7/7"
     status: "partial (wave/temp only — no wind sensor)"
     wind_dir: null
     wind_dir_deg: null
     wind_kt: null
     gust_kt: null
-    wave_ft: 1.3
-    period_s: 2.0
+    wave_ft: 2.6
+    period_s: 4.0
     swell_dir: "E"
-    swell_dir_deg: 83
+    swell_dir_deg: 82
     pressure_hpa: null
     pressure_trend: "n/a (wave station)"
-    water_temp_f: 69.3
+    water_temp_f: 62.1
     findings: |
-      Seas 1.3 ft @ 2s from E — Cape Cod Bay near-flat even under today's
-      system. Wave/temp only (no wind channel). Sea-state reference for the
-      Canal east-end / Cape Cod Bay approach legs.
+      Seas 2.6 ft @ 4s from E under the Tue E'ly. Wave/temp only (no wind
+      channel). Sea-state reference for the Canal east-end / Cape Cod Bay
+      approach legs; eases by the Thu window.
 
 pressure_trend:
   - station: "44013 Boston (arrival)"
-    time: "Mon 4:40 PM"
-    pressure: 30.19
-    delta: "high/steady"
+    time: "Tue 11:00 AM"
+    pressure: 30.07
+    delta: "falling (-1.0 hPa/3h)"
     interpretation: >
-      Ridge overhead at the arrival area behind today's low — settled, light
-      SE now, backing to SW 10-15 for the Thursday window.
+      Low passing S of the arrival area Tue; pressure falling. Recovers Wed as
+      the ridge builds, then SW flow for Thu - the passage window.
   - station: "44020 Nantucket Sound (departure)"
-    time: "Mon 4:40 PM"
-    pressure: 30.14
-    delta: "steady-high"
+    time: "Tue 11:00 AM"
+    pressure: 29.97
+    delta: "steady-low"
     interpretation: >
-      Departure area still in today's E'ly flow around the southern low;
-      pressure high as the ridge holds. Clears to SW by Thursday.
+      Departure area in the Tue low's E'ly (ENE 23 G31, SCA). Two days out;
+      backs to SW and eases by Thursday.
