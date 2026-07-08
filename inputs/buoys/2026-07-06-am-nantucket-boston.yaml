@@ -11,8 +11,8 @@
 # Buoy 44018 (formerly SE of the Cape) is DISCONTINUED (realtime2 404).
 
 pull:
-  label: "8:40 AM EDT (1240 GMT) Mon 7/6 — pre-departure AM pull"
-  utc: "2026-07-06T12:40:00Z"
+  label: "8:20 AM EDT (1220 GMT) Wed 7/8 — pre-departure refresh (OUTSIDE route; re-read against the Wed 704 AM CWFBOX cycle)"
+  utc: "2026-07-08T12:20:00Z"
 
 synopsis:
   description: |
@@ -29,108 +29,103 @@ stations:
     name: "Nantucket Sound (departure ground truth, WP1-WP2)"
     lat: 41.443
     lon: -70.186
-    reading_time: "8:40 AM EDT Mon 7/6"
+    reading_time: "8:10 AM EDT Wed 7/8"
     status: "fresh"
-    wind_dir: "ESE"
-    wind_dir_deg: 110
-    wind_kt: 17.5
-    gust_kt: 23.3
-    wave_ft: 1.3
-    period_s: 3.0
-    swell_dir: "SE"
-    swell_dir_deg: 127
-    pressure_hpa: 1018.9
-    pressure_trend: "Rising slow (30.09 inHg, ridge building behind today's low)"
-    water_temp_f: 73.0
+    wind_dir: "N"
+    wind_dir_deg: 360
+    wind_kt: 23.3
+    gust_kt: 31.1
+    wave_ft: 3.6
+    period_s: 4.0
+    swell_dir: "N"
+    swell_dir_deg: 11
+    pressure_hpa: 1012.9
+    pressure_trend: "Low-recovering (29.91 inHg; today's N flow, SCA)"
+    water_temp_f: 71.2
     findings: |
-      ESE 17 G 23 — today's low-driven E'ly flow in the Sound (SCA
-      conditions). Not the Thursday state; by the window this backs/eases to
-      the forecast SW 10-15. Pressure 30.09 and climbing as the ridge builds.
+      N 23 G 31 in today's post-frontal N flow (SCA through 8 PM Wed). Day
+      BEFORE the passage; eases/backs to the forecast SW 10-15 for Thu as high
+      pressure builds. Seas 3.6 ft.
   - id: 44008
     name: "Nantucket SE 54 NM (offshore + SST/fog reference, WP3-WP4)"
     lat: 40.502
     lon: -69.247
-    reading_time: "8:40 AM EDT Mon 7/6"
+    reading_time: "8:20 AM EDT Wed 7/8"
     status: "fresh"
-    wind_dir: "E"
-    wind_dir_deg: 90
-    wind_kt: 15.6
-    gust_kt: 19.4
-    wave_ft: 3.6
-    period_s: 4.0
-    swell_dir: "E"
-    swell_dir_deg: 94
-    pressure_hpa: 1020.5
-    pressure_trend: "Steady-rising (30.13 inHg)"
-    water_temp_f: 71.4
+    wind_dir: "NW"
+    wind_dir_deg: 330
+    wind_kt: 17.5
+    gust_kt: 21.4
+    wave_ft: 5.2
+    period_s: 8.0
+    swell_dir: "ESE"
+    swell_dir_deg: 108
+    pressure_hpa: 1008.9
+    pressure_trend: "Low (29.79 inHg; rising as ridge builds)"
+    water_temp_f: 73.0
     findings: |
-      E 16 G 19, seas 3.6 ft @ 4 s from E — the offshore edge of today's
-      system. SST 71.4 F (well warmed for July) keeps advection-fog risk
-      LOW for the Thursday approach — a favorable contrast to the late-June
-      cold-shelf readings. Best offshore reference for the E-of-shoals leg.
+      NW 17 G 21 behind the low; seas 5.2 ft @ 8s from ESE — the residual E
+      swell that eases to E 4 ft @ 8s on the outer Cape (ANZ254) by Thu, a
+      long-period beam swell up the backside. SST 73 F keeps fog risk LOW.
   - id: 44013
-    name: "Boston / Massachusetts Bay (ARRIVAL — highest priority, WP7-WP8)"
+    name: "Boston / Massachusetts Bay (ARRIVAL — highest priority, WP8-WP9)"
     lat: 42.346
     lon: -70.651
-    reading_time: "8:30 AM EDT Mon 7/6"
+    reading_time: "8:10 AM EDT Wed 7/8"
     status: "fresh"
-    wind_dir: "SSE"
-    wind_dir_deg: 150
+    wind_dir: "NNE"
+    wind_dir_deg: 20
     wind_kt: 11.7
-    gust_kt: 11.7
-    wave_ft: 2.0
-    period_s: 4.0
-    swell_dir: "SE"
-    swell_dir_deg: 124
-    pressure_hpa: 1021.2
-    pressure_trend: "Rising (30.16 inHg, +1.9 hPa/3hr)"
-    water_temp_f: 69.6
+    gust_kt: 13.6
+    wave_ft: 5.2
+    period_s: 5.0
+    swell_dir: "E"
+    swell_dir_deg: 91
+    pressure_hpa: 1015.9
+    pressure_trend: "Steady (30.00 inHg)"
+    water_temp_f: 64.0
     findings: |
-      SSE 12 kt, seas 2 ft, pressure 30.16 and RISING sharply (+1.9/3hr) —
-      the arrival area is already the benign side of the system, with the
-      ridge building in. Exactly the settled setup the Thursday plan needs.
-      Re-pull here for wind + visibility before the final GO/NO-GO.
+      NNE 12 G 14, seas 5.2 ft from E — residual E swell reaching Mass Bay
+      (eases to E 3 ft @ 8s Thu). Water 64 F (upwelling). Backs to SW 5-15 Thu.
+      Re-pull for wind + visibility before the final GO/NO-GO.
   - id: 44090
-    name: "Cape Cod Bay (Cape/Mass Bay approach wave reference, WP6-WP7)"
+    name: "Cape Cod Bay (Cape/Mass Bay approach wave reference, WP6-WP8)"
     lat: 42.281
     lon: -70.187
-    reading_time: "8:30 AM EDT Mon 7/6"
+    reading_time: "8:00 AM EDT Wed 7/8"
     status: "partial (wave/temp only — no wind sensor)"
     wind_dir: null
     wind_dir_deg: null
     wind_kt: null
     gust_kt: null
-    wave_ft: 1.0
-    period_s: 2.0
-    swell_dir: "SE"
-    swell_dir_deg: 139
+    wave_ft: 4.3
+    period_s: 5.0
+    swell_dir: "N"
+    swell_dir_deg: 355
     pressure_hpa: null
     pressure_trend: "n/a (wave station)"
-    water_temp_f: 65.5
+    water_temp_f: 55.6
     findings: |
-      Seas 1 ft — Cape Cod Bay essentially flat even under today's system.
-      Wave/temp only (no wind channel). Local sea-state reference for the
-      Race Point / Mass Bay approach legs.
-
+      Seas 4.3 ft @ 5s from N under today's N flow; eases by Thu. Wave/temp
+      only (no wind). Cold 55.6 F (upwelling). Race Point / Cape Cod Bay ref.
 pressure_trend:
   - station: "44013 Boston (arrival)"
-    time: "Mon 8:30 AM"
-    pressure: 30.16
-    delta: "rising (+1.9)"
+    time: "Wed 8:10 AM"
+    pressure: 30.00
+    delta: "steady"
     interpretation: >
-      Ridge building into the arrival area behind today's low — settled,
-      light SW expected for the Thursday window.
+      Ridge building into the arrival area behind today's low — settling to
+      the light SW forecast for the Thursday window.
   - station: "44020 Nantucket Sound (departure)"
-    time: "Mon 8:40 AM"
-    pressure: 30.09
-    delta: "rising slow"
+    time: "Wed 8:10 AM"
+    pressure: 29.91
+    delta: "low-recovering"
     interpretation: >
-      Departure area on the back edge of today's E'ly flow; pressure
-      climbing as the system pulls S and the ridge fills in.
+      Departure area in today's post-low N flow (SCA); pressure recovering as
+      the system pulls away and the ridge fills in for Thursday.
   - station: "44008 Nantucket SE 54 NM"
-    time: "Mon 8:40 AM"
-    pressure: 30.13
-    delta: "steady-rising"
+    time: "Wed 8:20 AM"
+    pressure: 29.79
+    delta: "low, rising"
     interpretation: >
-      Offshore reference steady-high; warm SST (71 F) keeps approach fog
-      risk low for Thursday.
+      Offshore low nearby; warm SST (73 F) keeps approach fog risk low for Thu.
