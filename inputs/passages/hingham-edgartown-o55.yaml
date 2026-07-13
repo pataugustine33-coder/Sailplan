@@ -1,0 +1,231 @@
+# ============================================================================
+# Hingham MA -> Edgartown MA (Martha's Vineyard) via Cape Cod Canal + Woods Hole
+# Outremer 55.  WESTBOUND Canal (Cape Cod Bay -> Buzzards Bay), SOUTHBOUND Woods
+# Hole (Buzzards Bay -> Vineyard Sound), then E along the Vineyard north shore
+# into Nantucket Sound to Edgartown.  15 WPs, 76.71 NM.
+# Tue 14 July 2026.  Skipper elected a 7 AM departure and ACCEPTS a foul
+# (against) current at Woods Hole.
+# ============================================================================
+
+passage:
+  id: hingham-edgartown-o55
+  name: Hingham-Edgartown-Outremer55
+  origin: "Hingham, MA (Hingham Harbor)"
+  destination: "Edgartown, MA (Martha's Vineyard, Edgartown Harbor)"
+  total_nm: 76.71
+  route_note: >
+    Westbound Cape Cod Canal + southbound Woods Hole. Three current chokepoints
+    in sequence: Canal (fair EBB westbound), Buzzards Bay (fair EBB down-bay),
+    Woods Hole (fair FLOOD toward Vineyard Sound). On 14 July these do not all
+    align for a single fair passage; skipper elected 7 AM (fair Canal + Buzzards
+    Bay, FOUL Woods Hole accepted).
+
+vessel:
+  designation: Outremer 55
+  design_number: O55
+  load_config: cruising-loaded
+  displacement_lb: 25353
+  motor_speed_kt: 7.5
+  motor_crossover_tws_kt: 9.0
+  fuel_capacity_gal: 243
+  fuel_burn_gph: 1.7
+
+  designer: VPLP (Van Peteghem - Lauriot Prévost)
+  builder: Outremer Yachting
+  ce_category: A
+  ce_category_note: Ocean — unlimited offshore
+  polar_source: Outremer base polar table (PW_O55_Base_Polar.xlsx)
+  data_sheet_source: Outremer Yachting catalog
+  stability_source: >
+    ESTIMATE — monohull RM/RMC framework does not directly apply to
+    multihulls. Catamaran stability is dominated by form (beam) not
+    ballast. Outremer 55 is CE Category A with ~7.8 m beam giving
+    high initial stability. Diagonal stability (the cat-relevant
+    failure mode — pitchpoling) and capsize threshold are not
+    captured by the monohull RM curve. Values below are rough
+    proxies set so the build does not fail; treat as not-applicable.
+
+  rmc_kgm: 0
+  rm_30deg_kgm: 0
+  rm_max_kgm: 0
+  brewer_cr: 22.5
+  csf: 2.55
+
+calibration:
+  sea_factors:
+    steep_chop_bow: 0.65
+    close_reach: 0.85
+    beam_reach: 0.94
+    broad_reach: 0.95
+    reefed_active_trough: 0.85
+
+# Edgartown arrival envelope (Edgartown Harbor ~41.389N 70.513W), Tue 14 Jul 2026.
+# Sun times (almanac, Martha's Vineyard): sunrise ~5:19 AM EDT, sunset ~8:14 PM
+# EDT; civil dawn ~4:48 AM, civil dusk ~8:46 PM EDT.
+# Night arrival NOT accepted (daylight-preferred rule); Edgartown is a busy
+# summer mooring field, so a daylight arrival is strongly preferred.
+arrival_timing:
+  destination_label: "Edgartown, MA (Martha's Vineyard, Edgartown Harbor)"
+  civil_dawn: 4.80
+  sunrise: 5.317
+  sunset: 20.233
+  civil_dusk: 20.767
+  day_window: [5.317, 20.233]
+  twilight_windows:
+    - [4.80, 5.317]
+    - [20.233, 20.767]
+  night_arrival_accepted: false
+  preferred_window:
+    start: 6.0
+    end: 20.0
+
+plans:
+  - id: plan_a
+    tab_label: "Plan A - Tue 7 AM Depart"
+    qualifier: "skipper's choice (Tue 14 July 7:00 AM EDT); 7 AM reaches the Cape Cod Canal east entrance ~12:30 PM on the fair ebb near its 12:38 PM max, and Buzzards Bay on its fair down-bay ebb; Woods Hole ~3 PM is a FOUL ebb (accepted, ~2-2.5 kt against, past the max); back half inside the Tue SCA (SW 20-25 G30, 3-5 ft); daylight arrival ~5:30 PM"
+    depart_day: Tue
+    depart_date: 2026-07-14
+    depart_hour: 7.0
+  - id: plan_b
+    tab_label: "Plan B - Tue 8.30 AM Depart"
+    qualifier: "tide-optimal sensitivity (Tue 14 July 8:30 AM EDT); a later start reaches Woods Hole near its 4:57 PM slack (fair evening flood into Vineyard Sound) instead of the foul ebb, at the cost of a later arrival (~6:30-7 PM) deeper into the SCA afternoon wind; Plan A is the skipper's pick"
+    depart_day: Tue
+    depart_date: 2026-07-14
+    depart_hour: 8.5
+
+waypoints:
+  - id: WP1
+    name: "Hingham Harbor (depart)"
+    chart_label: "Hingham"
+    lat: 42.2500
+    lon: -70.8900
+    cum_nm: 0.0
+    course_out: 336
+  - id: WP2
+    name: "Hull Gut (exit Hingham Bay)"
+    chart_label: "Hull Gut"
+    lat: 42.3000
+    lon: -70.9200
+    cum_nm: 3.28
+    course_out: 67
+  - id: WP3
+    name: "Off Pt Allerton / Nantasket (round Hull)"
+    chart_label: "Pt Allerton"
+    lat: 42.3200
+    lon: -70.8550
+    cum_nm: 6.41
+    course_out: 168
+  - id: WP4
+    name: "SE across Cape Cod Bay"
+    chart_label: "Cape Cod Bay"
+    lat: 41.9800
+    lon: -70.5600
+    cum_nm: 30.68
+    course_out: 251
+  - id: WP5
+    name: "Cape Cod Canal EAST entrance (Sandwich)"
+    chart_label: "Canal E"
+    lat: 41.7720
+    lon: -70.5010
+    cum_nm: 43.45
+    course_out: 205
+  - id: WP6
+    name: "Cape Cod Canal WEST entrance (Wings Neck)"
+    chart_label: "Canal W"
+    lat: 41.7400
+    lon: -70.6250
+    cum_nm: 49.32
+    course_out: 174
+  - id: WP7
+    name: "Buzzards Bay (Cleveland Ledge)"
+    chart_label: "Buzzards Bay"
+    lat: 41.6200
+    lon: -70.7000
+    cum_nm: 57.27
+    course_out: 210
+  - id: WP8
+    name: "Woods Hole N approach"
+    chart_label: "WH approach"
+    lat: 41.5320
+    lon: -70.6870
+    cum_nm: 62.59
+    course_out: 123
+  - id: WP9
+    name: "Woods Hole - The Strait"
+    chart_label: "Woods Hole"
+    lat: 41.5150
+    lon: -70.7000
+    cum_nm: 63.77
+    course_out: 105
+  - id: WP10
+    name: "Vineyard Sound (off Nobska)"
+    chart_label: "Vineyard Snd"
+    lat: 41.4980
+    lon: -70.6650
+    cum_nm: 65.64
+    course_out: 114
+  - id: WP11
+    name: "Off West Chop"
+    chart_label: "West Chop"
+    lat: 41.4850
+    lon: -70.6000
+    cum_nm: 68.67
+    course_out: 146
+  - id: WP12
+    name: "Off East Chop / Oak Bluffs"
+    chart_label: "East Chop"
+    lat: 41.4700
+    lon: -70.5550
+    cum_nm: 70.88
+    course_out: 165
+  - id: WP13
+    name: "Nantucket Sound (Edgartown approach)"
+    chart_label: "Nant Sound"
+    lat: 41.4200
+    lon: -70.5100
+    cum_nm: 74.51
+    course_out: 236
+  - id: WP14
+    name: "Edgartown Harbor entrance (off Chappaquiddick)"
+    chart_label: "Edgartown ent"
+    lat: 41.3950
+    lon: -70.5010
+    cum_nm: 76.06
+    course_out: 236
+  - id: WP15
+    name: "Edgartown Harbor (arrive)"
+    chart_label: "Edgartown"
+    lat: 41.3890
+    lon: -70.5130
+    cum_nm: 76.71
+    course_out: null
+
+route_buoys:
+  - station: 44013
+    wp_range: [WP1, WP4]
+    note: "Boston / Mass Bay - departure + Cape Cod Bay ground truth"
+  - station: 44085
+    wp_range: [WP6, WP8]
+    note: "Buzzards Bay - the windy down-bay leg (SCA)"
+  - station: 44020
+    wp_range: [WP12, WP14]
+    note: "Nantucket Sound - Edgartown approach ground truth"
+
+forecast_offices:
+  - office: NWS Boston/Norton MA (KBOX)
+    code: BOX
+    zones:
+      ANZ230: Boston Harbor
+      ANZ251: Massachusetts Bay and Ipswich Bay
+      ANZ231: Cape Cod Bay
+      ANZ234: Buzzards Bay
+      ANZ233: Vineyard Sound
+      ANZ232: Nantucket Sound
+
+tide_stations:
+  - id: 8443970
+    name: Boston, MA (Hingham reference)
+    relevance: departure
+  - id: 8448725
+    name: Edgartown, MA
+    relevance: arrival

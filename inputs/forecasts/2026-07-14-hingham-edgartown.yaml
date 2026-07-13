@@ -1,0 +1,536 @@
+# ============================================================================
+# FORECAST - Hingham -> Edgartown (Outremer 55) - Tue 14 July 2026
+# CWFBOX 435 PM Mon 7/13 (FZUS51 KBOX 132035) + AFDBOX 417 PM Mon 7/13.
+# HEADLINE: SCA day. High pres stationary offshore + a low passing to the N
+# tighten the gradient -> gusty SW building through the afternoon to 20-25 G30
+# (localized 35-40 Cape/Islands), seas 3-5 ft in Buzzards Bay / Vineyard Snd /
+# Nantucket Snd. Heat Advisory ashore. A 7 AM start clears Boston Hbr -> Cape
+# Cod Bay -> Canal in the calm morning; the back half (Buzzards Bay from noon,
+# Woods Hole, the Sounds) is all inside the SCA. Wind-over-current in Buzzards
+# Bay (SW wind vs down-bay ebb). Woods Hole foul-ebb accepted by skipper.
+# ============================================================================
+
+cycle:
+  label: "Tue 14 July target - CWFBOX 435 PM / AFDBOX 417 PM Mon 7/13 (live Chrome). SCA Tue: Buzzards Bay + Vineyard/Nantucket Snd from noon, Boston Hbr/Mass Bay/Cape Cod Bay 4-11 PM. SW building to 20-25 G30. Heat Advisory. Currents (Canal COD0901 fair ebb 10:10 AM-4:04 PM, Buzzards Bay COD0907 fair ebb 9:17 AM-3:52 PM, Woods Hole COD0911 FOUL ebb 11:09 AM-4:57 PM) astronomical for 7/14."
+  cwfbox:
+    issued: "2026-07-13T16:35:00-04:00"
+    label_short: "Mon 7/13 435 PM"
+    label_full: "435 PM EDT Mon Jul 13 2026 (CWFBOX FZUS51 KBOX 132035; SCA Tue, gusty SW building 20-25 G30, seas 3-5 ft the Sounds)"
+  afdbox:
+    issued: "2026-07-13T16:17:00-04:00"
+    label_short: "Mon 7/13 417 PM"
+    label_full: "417 PM EDT Mon Jul 13 2026 (AFDBOX; Heat Advisory Tue-Wed AM, gusty SW gusts 25-30 kt localized 35-40 Cape/Islands late day, SCA issued)"
+
+zones:
+  # SCA Tue: Boston Hbr/Mass Bay/Cape Cod Bay 4-11 PM; Buzzards Bay noon-5 AM Wed;
+  # Vineyard & Nantucket Sounds noon-11 AM Wed. SW builds through the afternoon,
+  # localized gusts 35-40 kt Cape/Islands late day. Heat Advisory ashore.
+  ANZ230:
+    description: "Boston Harbor"
+    office: BOX
+    periods:
+      TUE:
+        wind_dir: "SW"
+        wind_dir_deg: 225
+        wind_kt: [10, 20]
+        wind_gust_kt: 25
+        sea_ft: [1, 2]
+        wave_detail:
+          primary: {direction: SW, direction_deg: 225, height_ft: 2, period_s: 3}
+  ANZ251:
+    description: "Massachusetts Bay and Ipswich Bay"
+    office: BOX
+    periods:
+      TUE:
+        wind_dir: "SW"
+        wind_dir_deg: 225
+        wind_kt: [10, 15]
+        wind_gust_kt: 25
+        sea_ft: [2, 3]
+        wave_detail:
+          primary: {direction: SW, direction_deg: 225, height_ft: 2, period_s: 3}
+          secondary: {direction: E, direction_deg: 90, height_ft: 1, period_s: 8}
+  ANZ231:
+    description: "Cape Cod Bay"
+    office: BOX
+    periods:
+      TUE:
+        wind_dir: "SW"
+        wind_dir_deg: 225
+        wind_kt: [10, 20]
+        wind_gust_kt: 30
+        sea_ft: [2, 4]
+        wave_detail:
+          primary: {direction: SW, direction_deg: 225, height_ft: 3, period_s: 4}
+          secondary: {direction: E, direction_deg: 90, height_ft: 1, period_s: 10}
+  ANZ234:
+    description: "Buzzards Bay"
+    office: BOX
+    periods:
+      TUE:
+        wind_dir: "SW"
+        wind_dir_deg: 225
+        wind_kt: [15, 25]
+        wind_gust_kt: 30
+        sea_ft: [3, 5]
+        wave_detail:
+          primary: {direction: SW, direction_deg: 225, height_ft: 5, period_s: 4}
+          secondary: {direction: SE, direction_deg: 135, height_ft: 1, period_s: 9}
+  ANZ233:
+    description: "Vineyard Sound"
+    office: BOX
+    periods:
+      TUE:
+        wind_dir: "SW"
+        wind_dir_deg: 225
+        wind_kt: [15, 25]
+        wind_gust_kt: 30
+        sea_ft: [3, 5]
+        wave_detail:
+          primary: {direction: SW, direction_deg: 225, height_ft: 5, period_s: 6}
+          secondary: {direction: SE, direction_deg: 135, height_ft: 1, period_s: 9}
+  ANZ232:
+    description: "Nantucket Sound"
+    office: BOX
+    periods:
+      TUE:
+        wind_dir: "SW"
+        wind_dir_deg: 225
+        wind_kt: [20, 25]
+        wind_gust_kt: 30
+        sea_ft: [3, 4]
+        wave_detail:
+          primary: {direction: SW, direction_deg: 225, height_ft: 4, period_s: 5}
+          secondary: {direction: SE, direction_deg: 135, height_ft: 1, period_s: 10}
+
+waypoint_assignments:
+  plan_a:
+    WP1:
+      zone: ANZ230
+      period: TUE
+      risk_level: green
+      row_band: green
+      pressure: 30.08
+      pressure_trend_auto: true
+      notes_addendum: >
+        Tue 7:00 AM EDT departure, Hingham Harbor (sunrise 5:19 AM, full
+        daylight). Morning is the CALM part of the day: SW 10-15 kt, pre-SCA
+        (Boston Hbr SCA doesn't start until 4 PM). Heat Advisory ashore 11 AM-
+        Wed (mid-90s, index ~100 - hydrate). Boston Thu... Tue tides: L 5:31 AM,
+        H 11:43 AM, L 5:40 PM. Course 336 out toward Hull Gut.
+      weather_risk: >
+        Benign daylight departure, SW 10-15, pre-SCA. Clean start; make time
+        down Cape Cod Bay before the wind builds.
+    WP2:
+      zone: ANZ230
+      period: TUE
+      risk_level: green
+      row_band: green
+      pressure: 30.07
+      pressure_trend_auto: true
+      notes_addendum: >
+        Tue ~7:25 AM, HULL GUT (narrow, between Hull and Peddocks I.) - tidal
+        set, watch traffic. SW 10-15 kt. Course 067 toward Pt Allerton.
+      weather_risk: >
+        Hull Gut pilotage (narrow, tidal) + traffic; weather benign.
+    WP3:
+      zone: ANZ251
+      period: TUE
+      risk_level: green
+      row_band: green
+      pressure: 30.07
+      pressure_trend_auto: true
+      notes_addendum: >
+        Tue ~7:45 AM, rounding Pt Allerton off Nantasket, turning SE into Mass
+        Bay for the Cape Cod Bay crossing. SW 10-15 kt on the quarter -
+        reaching. Buoy 44013 ground truth. Course 168.
+      weather_risk: >
+        Easy reach into Mass Bay, SW 10-15. Benign.
+    WP4:
+      zone: ANZ231
+      period: TUE
+      risk_level: yellow
+      row_band: yellow
+      pressure: 30.06
+      pressure_trend_auto: true
+      notes_addendum: >
+        Tue mid-morning, SE across CAPE COD BAY. SW 10-15 building to 15-20 G30
+        later (ANZ231), seas building 2-4 ft. Broad reach. This is the long open
+        leg (~24 NM) - make time before the wind builds. Course 251 toward the
+        Canal.
+      weather_risk: >
+        Open Cape Cod Bay reach; SW building 15-20 G30 later + SCA from 4 PM.
+        Get across before the afternoon peak. Monitor.
+    WP5:
+      zone: ANZ231
+      period: TUE
+      risk_level: yellow
+      row_band: yellow
+      pressure: 30.06
+      pressure_trend_auto: true
+      notes_addendum: >
+        Tue ~12:15-12:30 PM, CAPE COD CANAL EAST ENTRANCE (Sandwich). FAIR EBB
+        westbound: Canal COD0901 ebb 10:10 AM-4:04 PM, max 3.4 kt at 12:38 PM -
+        you arrive right at the max = strong fair push. Federal channel, ~10 kt
+        limit, VHF 13, land cut ~7 NM. Course 205 (W through the cut).
+      weather_risk: >
+        Weather still moderate; the CANAL fair-ebb timing is the win (near-max
+        push). Channel traffic + ~10 kt limit = the workload.
+    WP6:
+      zone: ANZ234
+      period: TUE
+      risk_level: yellow
+      row_band: yellow
+      pressure: 30.05
+      pressure_trend_auto: true
+      notes_addendum: >
+        Tue ~1:00 PM, CANAL WEST ENTRANCE (Wings Neck) into BUZZARDS BAY. Fair
+        ebb carried you through. Now the hard part begins: SW 15-20 building to
+        20-25 G30 (ANZ234), SCA in effect (from noon). Course 174 down-bay.
+      weather_risk: >
+        Entering Buzzards Bay as the SW builds into SCA (from noon). Fair ebb,
+        but the wind is the story from here.
+    WP7:
+      zone: ANZ234
+      period: TUE
+      risk_level: red
+      row_band: red
+      pressure: 30.05
+      pressure_trend_auto: true
+      notes_addendum: >
+        Tue ~1:45 PM, mid BUZZARDS BAY (Cleveland Ledge). WIND-OVER-CURRENT: the
+        down-bay ebb (COD0907, 212 SSW) runs AGAINST the SW 20-25 G30 wind =
+        steep, short Buzzards Bay chop, seas 3-5 ft. You're beating/close-
+        reaching SW into it. The roughest leg of the trip - reef down, it'll be
+        wet. Course 210.
+      weather_risk: >
+        ROUGHEST LEG: SW 20-25 G30 vs the down-bay ebb = wind-over-current,
+        steep 3-5 ft Buzzards Bay chop, SCA. Reef down; wet, hard beat. Not
+        dangerous for the O55 but genuinely uncomfortable.
+    WP8:
+      zone: ANZ234
+      period: TUE
+      risk_level: yellow
+      row_band: yellow
+      pressure: 30.04
+      pressure_trend_auto: true
+      notes_addendum: >
+        Tue ~2:30 PM, S Buzzards Bay approaching Woods Hole. SW 20-25 G30
+        continues. Buoy 44085 ground truth. Course 123 toward the strait.
+      weather_risk: >
+        SCA SW 20-25 G30 continues; approaching the Woods Hole workload.
+    WP9:
+      zone: ANZ233
+      period: TUE
+      risk_level: red
+      row_band: red
+      pressure: 30.04
+      pressure_trend_auto: true
+      notes_addendum: >
+        Tue ~2:45-3:15 PM, WOODS HOLE - THE STRAIT. FOUL current ACCEPTED by
+        skipper: Woods Hole COD0911 ebbs (261, toward Buzzards Bay) 11:09
+        AM-4:57 PM; at ~3 PM it's past the 1:12 PM max (~2-2.5 kt AGAINST you)
+        but still foul + SW 20-25 wind = rips/standing waves. Rock-bound, mid-
+        channel on the marked line, VHF 13, full attention. SOG will drop to
+        ~5-6 kt. Course 105 out into Vineyard Sound.
+      weather_risk: >
+        WOODS HOLE: foul current (accepted, ~2-2.5 kt against) + SW 20-25 wind +
+        rock-bound rips = the highest-attention point of the passage. Slack was
+        11:09 AM / next 4:57 PM; you're mid-foul-ebb. Mid-channel, VHF 13, hand-
+        steer.
+    WP10:
+      zone: ANZ233
+      period: TUE
+      risk_level: red
+      row_band: red
+      pressure: 30.03
+      pressure_trend_auto: true
+      notes_addendum: >
+        Tue ~3:30 PM, VINEYARD SOUND off Nobska, clear of Woods Hole. SW 20-25
+        G30 (ANZ233), seas 3-5 ft, SCA. Exposed - beam/quarter reach E toward
+        the Vineyard chops. Course 114.
+      weather_risk: >
+        Exposed Vineyard Sound, SW 20-25 G30, seas 3-5 ft, SCA. Lumpy beam reach
+        - the boat's fine, it's just rough.
+    WP11:
+      zone: ANZ233
+      period: TUE
+      risk_level: yellow
+      row_band: yellow
+      pressure: 30.03
+      pressure_trend_auto: true
+      notes_addendum: >
+        Tue ~3:50 PM, off WEST CHOP (NW corner of the Vineyard), turning into
+        the top of Nantucket Sound. SW 20-25 G30. Course 146.
+      weather_risk: >
+        SCA SW 20-25 G30 rounding West Chop into Nantucket Sound.
+    WP12:
+      zone: ANZ232
+      period: TUE
+      risk_level: yellow
+      row_band: yellow
+      pressure: 30.02
+      pressure_trend_auto: true
+      notes_addendum: >
+        Tue ~4:10 PM, off EAST CHOP / Oak Bluffs into NANTUCKET SOUND. SW 20-25
+        G30 (ANZ232), seas 3-4 ft. Course 165 SE toward Edgartown.
+      weather_risk: >
+        Nantucket Sound, SW 20-25 G30, 3-4 ft, SCA. Beam/quarter chop toward
+        Edgartown.
+    WP13:
+      zone: ANZ232
+      period: TUE
+      risk_level: yellow
+      row_band: yellow
+      pressure: 30.02
+      pressure_trend_auto: true
+      notes_addendum: >
+        Tue ~4:45 PM, NANTUCKET SOUND on the Edgartown approach. SW 20-25 G30,
+        short 3-4 ft chop on the beam/quarter. Buoy 44020 ground truth. Course
+        236.
+      weather_risk: >
+        SCA continues on the Edgartown approach; short steep chop. Nearly there.
+    WP14:
+      zone: ANZ232
+      period: TUE
+      risk_level: yellow
+      row_band: yellow
+      pressure: 30.01
+      pressure_trend_auto: true
+      notes_addendum: >
+        Tue ~5:15 PM, EDGARTOWN HARBOR ENTRANCE (between Chappaquiddick and the
+        town; watch the Cape Poge / Chappaquiddick shoals). Wind eases as you
+        get into the lee. Edgartown Tue tides: H 8:30 AM, L 2:24 PM, H 9:01 PM.
+        Course 236 in.
+      weather_risk: >
+        Wind easing into the harbor lee; watch the Chappaquiddick/Cape Poge
+        shoals on the entrance.
+    WP15:
+      zone: ANZ232
+      period: TUE
+      risk_level: green
+      row_band: green
+      pressure: 30.01
+      pressure_trend_auto: true
+      notes_addendum: >
+        Tue arrival ~5:30 PM, Edgartown Harbor. DAYLIGHT (sunset 8:14 PM) with
+        ~2.5 hr to spare. Busy summer mooring field - call the harbormaster (VHF
+        9) for a mooring; anchoring outside is exposed to the SW blow. The fair
+        Canal/Buzzards Bay push (not modeled) likely puts the real arrival a bit
+        earlier.
+      weather_risk: >
+        Calm daylight arrival with margin. Grab a mooring (harbormaster VHF 9) -
+        the SW blow makes the outer anchorage exposed.
+  plan_b:
+    WP1:
+      zone: ANZ230
+      period: TUE
+      risk_level: green
+      row_band: green
+      pressure: 30.08
+      pressure_trend_auto: true
+      notes_addendum: >
+        Tue 8:30 AM EDT departure, Hingham Harbor - 1.5 hr later than Plan A
+        (skipper's pick is Plan A). Same SW 10-15 morning, pre-SCA. Timed so
+        Woods Hole lands near its 4:57 PM slack (fair evening flood) instead of
+        the foul ebb. Course 336.
+      weather_risk: >
+        Benign daylight departure, SW 10-15, pre-SCA. Clean start; make time
+        down Cape Cod Bay before the wind builds.
+    WP2:
+      zone: ANZ230
+      period: TUE
+      risk_level: green
+      row_band: green
+      pressure: 30.07
+      pressure_trend_auto: true
+      notes_addendum: >
+        Tue ~7:25 AM, HULL GUT (narrow, between Hull and Peddocks I.) - tidal
+        set, watch traffic. SW 10-15 kt. Course 067 toward Pt Allerton.
+      weather_risk: >
+        Hull Gut pilotage (narrow, tidal) + traffic; weather benign.
+    WP3:
+      zone: ANZ251
+      period: TUE
+      risk_level: green
+      row_band: green
+      pressure: 30.07
+      pressure_trend_auto: true
+      notes_addendum: >
+        Tue ~7:45 AM, rounding Pt Allerton off Nantasket, turning SE into Mass
+        Bay for the Cape Cod Bay crossing. SW 10-15 kt on the quarter -
+        reaching. Buoy 44013 ground truth. Course 168.
+      weather_risk: >
+        Easy reach into Mass Bay, SW 10-15. Benign.
+    WP4:
+      zone: ANZ231
+      period: TUE
+      risk_level: yellow
+      row_band: yellow
+      pressure: 30.06
+      pressure_trend_auto: true
+      notes_addendum: >
+        Tue mid-morning, SE across CAPE COD BAY. SW 10-15 building to 15-20 G30
+        later (ANZ231), seas building 2-4 ft. Broad reach. This is the long open
+        leg (~24 NM) - make time before the wind builds. Course 251 toward the
+        Canal.
+      weather_risk: >
+        Open Cape Cod Bay reach; SW building 15-20 G30 later + SCA from 4 PM.
+        Get across before the afternoon peak. Monitor.
+    WP5:
+      zone: ANZ231
+      period: TUE
+      risk_level: yellow
+      row_band: yellow
+      pressure: 30.06
+      pressure_trend_auto: true
+      notes_addendum: >
+        Tue ~12:15-12:30 PM, CAPE COD CANAL EAST ENTRANCE (Sandwich). FAIR EBB
+        westbound: Canal COD0901 ebb 10:10 AM-4:04 PM, max 3.4 kt at 12:38 PM -
+        you arrive right at the max = strong fair push. Federal channel, ~10 kt
+        limit, VHF 13, land cut ~7 NM. Course 205 (W through the cut).
+      weather_risk: >
+        Weather still moderate; the CANAL fair-ebb timing is the win (near-max
+        push). Channel traffic + ~10 kt limit = the workload.
+    WP6:
+      zone: ANZ234
+      period: TUE
+      risk_level: yellow
+      row_band: yellow
+      pressure: 30.05
+      pressure_trend_auto: true
+      notes_addendum: >
+        Tue ~1:00 PM, CANAL WEST ENTRANCE (Wings Neck) into BUZZARDS BAY. Fair
+        ebb carried you through. Now the hard part begins: SW 15-20 building to
+        20-25 G30 (ANZ234), SCA in effect (from noon). Course 174 down-bay.
+      weather_risk: >
+        Entering Buzzards Bay as the SW builds into SCA (from noon). Fair ebb,
+        but the wind is the story from here.
+    WP7:
+      zone: ANZ234
+      period: TUE
+      risk_level: red
+      row_band: red
+      pressure: 30.05
+      pressure_trend_auto: true
+      notes_addendum: >
+        Tue ~1:45 PM, mid BUZZARDS BAY (Cleveland Ledge). WIND-OVER-CURRENT: the
+        down-bay ebb (COD0907, 212 SSW) runs AGAINST the SW 20-25 G30 wind =
+        steep, short Buzzards Bay chop, seas 3-5 ft. You're beating/close-
+        reaching SW into it. The roughest leg of the trip - reef down, it'll be
+        wet. Course 210.
+      weather_risk: >
+        ROUGHEST LEG: SW 20-25 G30 vs the down-bay ebb = wind-over-current,
+        steep 3-5 ft Buzzards Bay chop, SCA. Reef down; wet, hard beat. Not
+        dangerous for the O55 but genuinely uncomfortable.
+    WP8:
+      zone: ANZ234
+      period: TUE
+      risk_level: yellow
+      row_band: yellow
+      pressure: 30.04
+      pressure_trend_auto: true
+      notes_addendum: >
+        Tue ~2:30 PM, S Buzzards Bay approaching Woods Hole. SW 20-25 G30
+        continues. Buoy 44085 ground truth. Course 123 toward the strait.
+      weather_risk: >
+        SCA SW 20-25 G30 continues; approaching the Woods Hole workload.
+    WP9:
+      zone: ANZ233
+      period: TUE
+      risk_level: red
+      row_band: red
+      pressure: 30.04
+      pressure_trend_auto: true
+      notes_addendum: >
+        Tue ~4:45-5:00 PM, WOODS HOLE - THE STRAIT. Near the 4:57 PM SLACK, then
+        the FAIR evening FLOOD (077, toward Vineyard Sound) - no foul punch,
+        unlike Plan A. Trade-off: you're here later, in the full SW 20-25 G30
+        SCA afternoon, and arrive Edgartown ~6:30-7 PM. Rock-bound, mid-channel,
+        VHF 13. Course 105.
+      weather_risk: >
+        WOODS HOLE at/near slack (fair) - easier current than Plan A's foul ebb,
+        but transited later in the peak SW 20-25 G30 SCA wind. Mid-channel, VHF
+        13.
+    WP10:
+      zone: ANZ233
+      period: TUE
+      risk_level: red
+      row_band: red
+      pressure: 30.03
+      pressure_trend_auto: true
+      notes_addendum: >
+        Tue ~3:30 PM, VINEYARD SOUND off Nobska, clear of Woods Hole. SW 20-25
+        G30 (ANZ233), seas 3-5 ft, SCA. Exposed - beam/quarter reach E toward
+        the Vineyard chops. Course 114.
+      weather_risk: >
+        Exposed Vineyard Sound, SW 20-25 G30, seas 3-5 ft, SCA. Lumpy beam reach
+        - the boat's fine, it's just rough.
+    WP11:
+      zone: ANZ233
+      period: TUE
+      risk_level: yellow
+      row_band: yellow
+      pressure: 30.03
+      pressure_trend_auto: true
+      notes_addendum: >
+        Tue ~3:50 PM, off WEST CHOP (NW corner of the Vineyard), turning into
+        the top of Nantucket Sound. SW 20-25 G30. Course 146.
+      weather_risk: >
+        SCA SW 20-25 G30 rounding West Chop into Nantucket Sound.
+    WP12:
+      zone: ANZ232
+      period: TUE
+      risk_level: yellow
+      row_band: yellow
+      pressure: 30.02
+      pressure_trend_auto: true
+      notes_addendum: >
+        Tue ~4:10 PM, off EAST CHOP / Oak Bluffs into NANTUCKET SOUND. SW 20-25
+        G30 (ANZ232), seas 3-4 ft. Course 165 SE toward Edgartown.
+      weather_risk: >
+        Nantucket Sound, SW 20-25 G30, 3-4 ft, SCA. Beam/quarter chop toward
+        Edgartown.
+    WP13:
+      zone: ANZ232
+      period: TUE
+      risk_level: yellow
+      row_band: yellow
+      pressure: 30.02
+      pressure_trend_auto: true
+      notes_addendum: >
+        Tue ~4:45 PM, NANTUCKET SOUND on the Edgartown approach. SW 20-25 G30,
+        short 3-4 ft chop on the beam/quarter. Buoy 44020 ground truth. Course
+        236.
+      weather_risk: >
+        SCA continues on the Edgartown approach; short steep chop. Nearly there.
+    WP14:
+      zone: ANZ232
+      period: TUE
+      risk_level: yellow
+      row_band: yellow
+      pressure: 30.01
+      pressure_trend_auto: true
+      notes_addendum: >
+        Tue ~5:15 PM, EDGARTOWN HARBOR ENTRANCE (between Chappaquiddick and the
+        town; watch the Cape Poge / Chappaquiddick shoals). Wind eases as you
+        get into the lee. Edgartown Tue tides: H 8:30 AM, L 2:24 PM, H 9:01 PM.
+        Course 236 in.
+      weather_risk: >
+        Wind easing into the harbor lee; watch the Chappaquiddick/Cape Poge
+        shoals on the entrance.
+    WP15:
+      zone: ANZ232
+      period: TUE
+      risk_level: green
+      row_band: green
+      pressure: 30.01
+      pressure_trend_auto: true
+      notes_addendum: >
+        Tue arrival ~6:30-7 PM, Edgartown Harbor. DAYLIGHT (sunset 8:14 PM) but
+        later than Plan A and after a longer stint in the peak-wind SCA
+        afternoon. Mooring via harbormaster VHF 9.
+      weather_risk: >
+        Daylight arrival but later, after more time in the SCA afternoon peak.
+        Plan A (earlier) is the skipper's pick; this shows the fair-Woods-Hole
+        trade.

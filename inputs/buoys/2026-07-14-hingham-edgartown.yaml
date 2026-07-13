@@ -1,0 +1,92 @@
+# Buoys - Hingham -> Edgartown (Outremer 55) - pre-departure pull Mon 7/13 4:30 PM
+# Current conditions the evening BEFORE the Tue 7/14 passage: SW building ahead
+# of Tuesday's gusty SW / SCA. Shows the pre-event state; Tue builds to 20-25 G30.
+pull:
+  label: "4:30 PM EDT (2030 GMT) Mon 7/13 - pre-departure pull for the Tue 7/14 Hingham->Edgartown run"
+  utc: "2026-07-13T20:30:00Z"
+
+synopsis:
+  description: |
+    Monday PM: SW 12-17 kt building ahead of Tuesday's gusty SW. High pressure
+    nearly stationary offshore; a low passing to the N tightens the gradient
+    Tue -> SW 20-25 G30, SCA (Buzzards Bay + Vineyard/Nantucket Sounds from
+    noon Tue). Buoys show the pre-event state: Nantucket Sound 44020 SSW 17
+    G21, Mass Bay 44013 S 12 G16, Buzzards Bay 44085 seas 2.6 ft from SW.
+    Pressure 30.07-30.12. Re-pull Tue AM before the GO.
+
+stations:
+  - id: 44013
+    name: "Boston / Massachusetts Bay (departure + Cape Cod Bay, WP1-WP4)"
+    lat: 42.346
+    lon: -70.651
+    reading_time: "4:30 PM EDT Mon 7/13"
+    status: "fresh"
+    wind_dir: "S"
+    wind_dir_deg: 170
+    wind_kt: 11.7
+    gust_kt: 15.6
+    wave_ft: 2.0
+    period_s: 4.0
+    swell_dir: "S"
+    swell_dir_deg: 170
+    pressure_hpa: 1018.3
+    pressure_trend: "Steady (30.07 inHg, high stationary offshore)"
+    water_temp_f: 69.0
+    findings: |
+      S 12 G16 Monday evening - the calm before. Tue builds to SW 15-20 G25
+      (SCA 4-11 PM). Departure/Cape Cod Bay legs are the pre-peak morning window.
+  - id: 44085
+    name: "Buzzards Bay (down-bay leg - the windy stretch, WP6-WP8)"
+    lat: 41.755
+    lon: -70.756
+    reading_time: "4:30 PM EDT Mon 7/13"
+    status: "partial (wave/temp only - no wind sensor reporting)"
+    wind_dir: null
+    wind_dir_deg: null
+    wind_kt: null
+    gust_kt: null
+    wave_ft: 2.6
+    period_s: 4.0
+    swell_dir: "SSW"
+    swell_dir_deg: 212
+    pressure_hpa: null
+    pressure_trend: "n/a"
+    water_temp_f: 70.0
+    findings: |
+      Seas 2.6 ft from SSW Monday evening. Tue builds to 3-5 ft as SW goes
+      20-25 G30 - and against the down-bay ebb = wind-over-current chop. This
+      is the roughest leg of the passage (SCA from noon Tue).
+  - id: 44020
+    name: "Nantucket Sound (Edgartown approach, WP12-WP14)"
+    lat: 41.443
+    lon: -70.186
+    reading_time: "4:30 PM EDT Mon 7/13"
+    status: "fresh"
+    wind_dir: "SSW"
+    wind_dir_deg: 200
+    wind_kt: 17.5
+    gust_kt: 21.4
+    wave_ft: 2.5
+    period_s: 4.0
+    swell_dir: "SSW"
+    swell_dir_deg: 200
+    pressure_hpa: 1020.1
+    pressure_trend: "Steady-high (30.12 inHg)"
+    water_temp_f: 73.0
+    findings: |
+      SSW 17 G21 already Monday evening. Tue builds to SW 20-25 G30, seas 3-4
+      ft, SCA (from noon) - the exposed Edgartown-approach crossing. Warm 73 F.
+
+pressure_trend:
+  - station: "44020 Nantucket Sound (arrival approach)"
+    time: "Mon 4:30 PM"
+    pressure: 30.12
+    delta: "steady-high"
+    interpretation: >
+      High stationary offshore; steady. SW builds Tue with the gradient tightening.
+  - station: "44013 Boston (departure)"
+    time: "Mon 4:30 PM"
+    pressure: 30.07
+    delta: "steady"
+    interpretation: >
+      Calm departure-area conditions Monday PM; SW builds through Tue afternoon.
