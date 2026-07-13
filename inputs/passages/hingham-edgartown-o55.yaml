@@ -12,7 +12,7 @@ passage:
   name: Hingham-Edgartown-Outremer55
   origin: "Hingham, MA (Hingham Harbor)"
   destination: "Edgartown, MA (Martha's Vineyard, Edgartown Harbor)"
-  total_nm: 76.71
+  total_nm: 79.18
   route_note: >
     Westbound Cape Cod Canal + southbound Woods Hole. Three current chokepoints
     in sequence: Canal (fair EBB westbound), Buzzards Bay (fair EBB down-bay),
@@ -95,120 +95,120 @@ plans:
 
 waypoints:
   - id: WP1
-    name: "Hingham Harbor (depart)"
+    name: "Hingham (Hingham Shipyard / Hewitts Cove) - depart"
     chart_label: "Hingham"
-    lat: 42.2500
-    lon: -70.8900
-    cum_nm: 0.0
-    course_out: 336
+    lat: 42.25433
+    lon: -70.92069
+    cum_nm: 0
+    course_out: 356
   - id: WP2
     name: "Hull Gut (exit Hingham Bay)"
     chart_label: "Hull Gut"
-    lat: 42.3000
-    lon: -70.9200
-    cum_nm: 3.28
-    course_out: 67
+    lat: 42.31015
+    lon: -70.92588
+    cum_nm: 3.36
+    course_out: 74
   - id: WP3
-    name: "Off Pt Allerton / Nantasket (round Hull)"
+    name: "Off Pt Allerton (into Mass Bay)"
     chart_label: "Pt Allerton"
-    lat: 42.3200
-    lon: -70.8550
-    cum_nm: 6.41
-    course_out: 168
+    lat: 42.32535
+    lon: -70.85387
+    cum_nm: 6.68
+    course_out: 123
   - id: WP4
-    name: "SE across Cape Cod Bay"
-    chart_label: "Cape Cod Bay"
-    lat: 41.9800
-    lon: -70.5600
-    cum_nm: 30.68
-    course_out: 251
+    name: "Massachusetts Bay"
+    chart_label: "Mass Bay"
+    lat: 42.27260
+    lon: -70.74465
+    cum_nm: 12.48
+    course_out: 143
   - id: WP5
+    name: "Cape Cod Bay (N)"
+    chart_label: "Cape Cod Bay"
+    lat: 42.20487
+    lon: -70.67550
+    cum_nm: 17.57
+    course_out: 154
+  - id: WP6
+    name: "Cape Cod Bay (approach Sandwich)"
+    chart_label: "CCB Sandwich"
+    lat: 41.91399
+    lon: -70.48805
+    cum_nm: 36.94
+    course_out: 175
+  - id: WP7
     name: "Cape Cod Canal EAST entrance (Sandwich)"
     chart_label: "Canal E"
-    lat: 41.7720
-    lon: -70.5010
-    cum_nm: 43.45
-    course_out: 205
-  - id: WP6
-    name: "Cape Cod Canal WEST entrance (Wings Neck)"
-    chart_label: "Canal W"
-    lat: 41.7400
-    lon: -70.6250
-    cum_nm: 49.32
-    course_out: 174
-  - id: WP7
-    name: "Buzzards Bay (Cleveland Ledge)"
-    chart_label: "Buzzards Bay"
-    lat: 41.6200
-    lon: -70.7000
-    cum_nm: 57.27
-    course_out: 210
+    lat: 41.78247
+    lon: -70.47198
+    cum_nm: 44.86
+    course_out: 238
   - id: WP8
-    name: "Woods Hole N approach"
-    chart_label: "WH approach"
-    lat: 41.5320
-    lon: -70.6870
-    cum_nm: 62.59
-    course_out: 123
+    name: "Cape Cod Canal WEST / upper Buzzards Bay"
+    chart_label: "Canal W"
+    lat: 41.68726
+    lon: -70.67544
+    cum_nm: 55.62
+    course_out: 185
   - id: WP9
+    name: "Woods Hole N approach (lower Buzzards Bay)"
+    chart_label: "WH approach"
+    lat: 41.52905
+    lon: -70.69403
+    cum_nm: 65.16
+    course_out: 172
+  - id: WP10
     name: "Woods Hole - The Strait"
     chart_label: "Woods Hole"
-    lat: 41.5150
-    lon: -70.7000
-    cum_nm: 63.77
-    course_out: 105
-  - id: WP10
-    name: "Vineyard Sound (off Nobska)"
-    chart_label: "Vineyard Snd"
-    lat: 41.4980
-    lon: -70.6650
-    cum_nm: 65.64
-    course_out: 114
+    lat: 41.51948
+    lon: -70.69230
+    cum_nm: 65.74
+    course_out: 90
   - id: WP11
-    name: "Off West Chop"
-    chart_label: "West Chop"
-    lat: 41.4850
-    lon: -70.6000
-    cum_nm: 68.67
-    course_out: 146
+    name: "Woods Hole E / into Vineyard Sound"
+    chart_label: "Vineyard Snd"
+    lat: 41.51951
+    lon: -70.67282
+    cum_nm: 66.62
+    course_out: 152
   - id: WP12
-    name: "Off East Chop / Oak Bluffs"
-    chart_label: "East Chop"
-    lat: 41.4700
-    lon: -70.5550
-    cum_nm: 70.88
-    course_out: 165
+    name: "Vineyard Sound (off Nobska)"
+    chart_label: "Nobska"
+    lat: 41.50724
+    lon: -70.66404
+    cum_nm: 67.45
+    course_out: 109
   - id: WP13
+    name: "Vineyard Sound / East Chop approach"
+    chart_label: "East Chop"
+    lat: 41.48257
+    lon: -70.56826
+    cum_nm: 72.01
+    course_out: 130
+  - id: WP14
     name: "Nantucket Sound (Edgartown approach)"
     chart_label: "Nant Sound"
-    lat: 41.4200
-    lon: -70.5100
-    cum_nm: 74.51
-    course_out: 236
-  - id: WP14
-    name: "Edgartown Harbor entrance (off Chappaquiddick)"
-    chart_label: "Edgartown ent"
-    lat: 41.3950
-    lon: -70.5010
-    cum_nm: 76.06
-    course_out: 236
+    lat: 41.43204
+    lon: -70.48866
+    cum_nm: 76.7
+    course_out: 186
   - id: WP15
     name: "Edgartown Harbor (arrive)"
     chart_label: "Edgartown"
-    lat: 41.3890
-    lon: -70.5130
-    cum_nm: 76.71
+    lat: 41.39098
+    lon: -70.49489
+    cum_nm: 79.18
     course_out: null
 
 route_buoys:
   - station: 44013
-    wp_range: [WP1, WP4]
+    wp_range: [WP1, WP6]
     note: "Boston / Mass Bay - departure + Cape Cod Bay ground truth"
   - station: 44085
-    wp_range: [WP6, WP8]
+    wp_range: [WP8, WP9]
     note: "Buzzards Bay - the windy down-bay leg (SCA)"
   - station: 44020
-    wp_range: [WP12, WP14]
+    wp_range: [WP13, WP15]
     note: "Nantucket Sound - Edgartown approach ground truth"
 
 forecast_offices:
