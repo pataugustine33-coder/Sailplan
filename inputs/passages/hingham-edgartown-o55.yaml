@@ -81,14 +81,14 @@ arrival_timing:
 
 plans:
   - id: plan_a
-    tab_label: "Plan A - Wed 7 AM Depart"
-    qualifier: "skipper's choice (Wed 15 July 7:00 AM EDT); 7 AM reaches the Cape Cod Canal east entrance ~12:40 PM on the fair ebb (11:05 AM-4:58 PM, max 1:44 PM), and Buzzards Bay on its fair down-bay ebb; Woods Hole ~3:25 PM is a FOUL ebb (accepted, ~2.5-3 kt against, past the 2:08 PM max); MUCH calmer than Tue - W 15-20 diminishing to 10-15, no active SCA, seas subsiding; daylight arrival ~4:50 PM"
+    tab_label: "Plan A - Wed 8 AM Depart"
+    qualifier: "skipper's choice (Wed 15 July 8:00 AM EDT); 8 AM reaches the Cape Cod Canal east entrance ~1:25 PM near the fair-ebb max (11:05 AM-4:58 PM, max 1:44 PM = strong push), Buzzards Bay on the fair down-bay ebb; Woods Hole ~4:00 PM is a FOUL ebb (accepted, ~1.5-2 kt, well past the 2:08 PM max = gentle); W 15-20 diminishing to 10-15 on reaching angles; SCA in effect on the southern waters (Buzzards Bay/Sounds) through Wed 8 PM; CHANCE of afternoon showers/tstms (low confidence, could be strong); daylight arrival ~5:30 PM, comfortably before the evening"
     depart_day: Wed
     depart_date: 2026-07-15
-    depart_hour: 7.0
+    depart_hour: 8.0
   - id: plan_b
     tab_label: "Plan B - Wed 9.30 AM Depart"
-    qualifier: "tide-optimal sensitivity (Wed 15 July 9:30 AM EDT); a later start reaches Woods Hole near its 5:53 PM slack (fair evening flood into Vineyard Sound) instead of the foul ebb, at the cost of a later arrival (~7:20 PM, still daylight); Plan A is the skipper's pick"
+    qualifier: "tide-optimal sensitivity (Wed 15 July 9:30 AM EDT); reaches Woods Hole near its 5:53 PM slack (fair evening flood) instead of the foul ebb - but arrives ~7:00 PM, LATER into the afternoon thunderstorm window and nearer dusk; given Wed's convection chance the earlier Plan A is preferable"
     depart_day: Wed
     depart_date: 2026-07-15
     depart_hour: 9.5

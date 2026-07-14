@@ -1,92 +1,95 @@
-# Buoys - Hingham -> Edgartown (Outremer 55) - pre-departure pull Mon 7/13 4:30 PM
-# Current conditions the evening BEFORE the Wed 7/15 passage: SW building ahead
-# of Tuesday's gusty SW / SCA. Shows the pre-event state; Tue builds to 20-25 G30.
+# Buoys - Hingham -> Edgartown (Outremer 55) - Wed 7/15 passage
+# Fresh pull Tue 7/14 ~9:40 AM EDT (day-before baseline). Tuesday is the SCA/SW
+# day building to 20-25 G30 PM; conditions EASE into the Wed passage (front
+# passes, winds veer NW/W and diminish). Re-pull Wed AM before the GO.
 pull:
-  label: "4:30 PM EDT (2030 GMT) Mon 7/13 - pre-departure BASELINE (2 days ahead of the Wed 7/15 passage) - re-pull Wed AM before the GO. Shows Mon evening state; Wed is the diminishing-W day after Tue's SCA."
-  utc: "2026-07-13T20:30:00Z"
+  label: "Tue 7/14 ~9:40 AM EDT baseline (day before the Wed 7/15 passage). Tue builds to SW 20-25 G30/SCA PM; eases to NW/W for Wed. Re-pull Wed AM."
+  utc: "2026-07-14T13:40:00Z"
 
 synopsis:
   description: |
-    Monday PM: SW 12-17 kt building ahead of Tuesday's gusty SW. High pressure
-    nearly stationary offshore; a low passing to the N tightens the gradient
-    Tue (SW 20-25 G30, SCA). By WED the SCA ends: winds veer W 15-20
-    diminishing to 10-15 and seas subside 3-5 -> 2-3 ft - the calmer day. Buoys show the pre-event state: Nantucket Sound 44020 SSW 17
-    G21, Mass Bay 44013 S 12 G16, Buzzards Bay 44085 seas 2.6 ft from SW.
-    Pressure 30.07-30.12. Re-pull Tue AM before the GO.
-
+    Tue late morning: W/SW 10-17 kt, building through Tue afternoon to SW 20-25
+    G30 (Tue SCA). A cold front then sinks south Wed, veering winds NW/W and
+    diminishing to 10-20, seas subsiding to 2-4 ft. SCA continues on the
+    SOUTHERN waters (Buzzards Bay/Vineyard-Nantucket Snd) through Wed 8 PM.
+    Watch item: chance of afternoon showers/tstms Wed. Buoys now: Buzzards Bay
+    44085 seas 3.9 ft SW, Nantucket Snd 44020 W 17 G21, Boston 44013 WSW 10.
 stations:
   - id: 44013
-    name: "Boston / Massachusetts Bay (departure + Cape Cod Bay, WP1-WP4)"
+    name: "Boston / Massachusetts Bay (departure + Cape Cod Bay, WP1-WP6)"
     lat: 42.346
     lon: -70.651
-    reading_time: "4:30 PM EDT Mon 7/13"
-    status: "fresh"
-    wind_dir: "S"
-    wind_dir_deg: 170
-    wind_kt: 11.7
-    gust_kt: 15.6
-    wave_ft: 2.0
-    period_s: 4.0
-    swell_dir: "S"
-    swell_dir_deg: 170
-    pressure_hpa: 1018.3
-    pressure_trend: "Steady (30.07 inHg, high stationary offshore)"
-    water_temp_f: 69.0
+    reading_time: "9:50 AM EDT Tue 7/14"
+    status: "fresh (day-before baseline)"
+    wind_dir: "WSW"
+    wind_dir_deg: 250
+    wind_kt: 9.7
+    gust_kt: 9.7
+    wave_ft: 1.3
+    period_s: 3.0
+    swell_dir: "WSW"
+    swell_dir_deg: 245
+    pressure_hpa: 1014.9
+    pressure_trend: "29.97 inHg; front approaching, rising behind it Wed"
+    water_temp_f: 67.3
     findings: |
-      S 12 G16 Monday evening - the calm before. Tue builds to SW 15-20 G25
-      (SCA 4-11 PM). Departure/Cape Cod Bay legs are the pre-peak morning window.
+      WSW 10 Tue morning - light. Wed departure zone: NW 10-15, chance of an
+      early shower with the front nearby, then diminishing. Boston Hbr SCA
+      ends Tue evening (not in effect for the Wed morning departure).
   - id: 44085
-    name: "Buzzards Bay (down-bay leg - the windy stretch, WP6-WP8)"
+    name: "Buzzards Bay (down-bay leg, WP8-WP9)"
     lat: 41.755
     lon: -70.756
-    reading_time: "4:30 PM EDT Mon 7/13"
-    status: "partial (wave/temp only - no wind sensor reporting)"
+    reading_time: "9:30 AM EDT Tue 7/14"
+    status: "partial (wave/temp only - no wind sensor)"
     wind_dir: null
     wind_dir_deg: null
     wind_kt: null
     gust_kt: null
-    wave_ft: 2.6
-    period_s: 4.0
-    swell_dir: "SSW"
-    swell_dir_deg: 212
+    wave_ft: 3.9
+    period_s: 6.0
+    swell_dir: "SW"
+    swell_dir_deg: 218
     pressure_hpa: null
     pressure_trend: "n/a"
-    water_temp_f: 70.0
+    water_temp_f: 66.7
     findings: |
-      Seas 2.6 ft from SSW Monday evening. Tue builds to 3-5 ft as SW goes
-      20-25 G30 - and against the down-bay ebb = wind-over-current chop. This
-      is the roughest leg of the passage (SCA from noon Tue).
+      Already 3.9 ft SW Tue morning, building with Tue's SW 20-25. By the Wed
+      passage the front veers it W 15-20 dim to 10-15, seas subsiding to 2-4 ft.
+      SCA continues here through Wed 8 PM; afternoon tstm chance.
   - id: 44020
-    name: "Nantucket Sound (Edgartown approach, WP12-WP14)"
+    name: "Nantucket Sound (Edgartown approach, WP13-WP15)"
     lat: 41.443
     lon: -70.186
-    reading_time: "4:30 PM EDT Mon 7/13"
-    status: "fresh"
-    wind_dir: "SSW"
-    wind_dir_deg: 200
+    reading_time: "9:50 AM EDT Tue 7/14"
+    status: "fresh (day-before baseline)"
+    wind_dir: "W"
+    wind_dir_deg: 260
     wind_kt: 17.5
     gust_kt: 21.4
-    wave_ft: 2.5
-    period_s: 4.0
-    swell_dir: "SSW"
-    swell_dir_deg: 200
-    pressure_hpa: 1020.1
-    pressure_trend: "Steady-high (30.12 inHg)"
-    water_temp_f: 73.0
+    wave_ft: 2.6
+    period_s: 3.0
+    swell_dir: "W"
+    swell_dir_deg: 252
+    pressure_hpa: 1015.7
+    pressure_trend: "30.00 inHg"
+    water_temp_f: 73.8
     findings: |
-      SSW 17 G21 already Monday evening. Tue builds to SW 20-25 G30, seas 3-4
-      ft, SCA (from noon) - the exposed Edgartown-approach crossing. Warm 73 F.
+      W 17 G21 Tue morning. Wed: W->SW 10-15, seas subsiding to 2-3 ft, SCA
+      through 8 PM. Open-water approach - watch radar for a late afternoon cell.
+      Warm 74 F.
 
 pressure_trend:
   - station: "44020 Nantucket Sound (arrival approach)"
-    time: "Mon 4:30 PM"
-    pressure: 30.12
-    delta: "steady-high"
+    time: "Tue 9:50 AM"
+    pressure: 30.00
+    delta: "front approaching"
     interpretation: >
-      High stationary offshore; steady. SW builds Tue with the gradient tightening.
+      Cold front sinks south Wed; pressure rises behind it, winds veer NW/W and
+      diminish. SCA continues on the southern waters through Wed 8 PM.
   - station: "44013 Boston (departure)"
-    time: "Mon 4:30 PM"
-    pressure: 30.07
-    delta: "steady"
+    time: "Tue 9:50 AM"
+    pressure: 29.97
+    delta: "front approaching"
     interpretation: >
-      Calm departure-area conditions Monday PM; SW builds through Tue afternoon.
+      Light WSW Tue AM; Wed departure NW 10-15 with an early-shower chance.
