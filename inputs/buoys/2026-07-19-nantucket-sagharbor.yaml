@@ -1,0 +1,63 @@
+# Buoys - Nantucket -> Sag Harbor (Outremer 55) - Sun 7/19 passage
+# Pull Sat 7/18 ~11 AM EDT (day-before baseline). Saturday is the unsettled
+# storm day; Sunday DRIES OUT and eases. Re-pull Sun AM before the GO.
+pull:
+  label: "Sat 7/18 ~11:00 AM EDT baseline (day before the Sun 7/19 passage). Sat = storms/SCA; Sun dries out, W backing NW diminishing. Re-pull Sun AM."
+  utc: "2026-07-18T15:00:00Z"
+synopsis:
+  description: |
+    Sat late morning: Nantucket Sound 44020 SSW 14 G18, pressure 29.95 FALLING
+    (-1.3) ahead of Sat's showers/storms; RI/Block Island Sound 44097 a 2 ft
+    long-period SE swell (13 s) - the residual offshore swell. Sunday clears
+    ("drying out"), winds back W->NW 10-15 diminishing, seas subside 3-5 -> 2-4
+    ft (Gardiners Bay ~2 ft). Montauk buoy 44017 offline. Re-pull Sun AM.
+stations:
+  - id: 44020
+    name: "Nantucket Sound (departure, WP1-WP4)"
+    lat: 41.443
+    lon: -70.186
+    reading_time: "11:00 AM EDT Sat 7/18"
+    status: "fresh (day-before baseline)"
+    wind_dir: "SSW"
+    wind_dir_deg: 210
+    wind_kt: 13.6
+    gust_kt: 17.5
+    wave_ft: null
+    period_s: null
+    swell_dir: "SSW"
+    swell_dir_deg: 210
+    pressure_hpa: 1014.1
+    pressure_trend: "Falling (29.95 inHg, PTDY -1.3) ahead of Sat's system; RISES Sun behind the front"
+    water_temp_f: 73.0
+    findings: |
+      SSW 14 G18 with falling pressure Sat (pre-storm). Sunday veers W 15-20
+      backing NW 10-15, seas 2-4 ft; heading W out of here = a beat early.
+  - id: 44097
+    name: "Block Island / Rhode Island Sound (residual-swell middle, WP6-WP8)"
+    lat: 40.967
+    lon: -71.126
+    reading_time: "10:56 AM EDT Sat 7/18"
+    status: "partial (wave/temp only)"
+    wind_dir: null
+    wind_dir_deg: null
+    wind_kt: null
+    gust_kt: null
+    wave_ft: 2.0
+    period_s: 13.0
+    swell_dir: "SE"
+    swell_dir_deg: 138
+    pressure_hpa: null
+    pressure_trend: "n/a"
+    water_temp_f: 68.0
+    findings: |
+      2 ft long-period (13 s) SE swell Sat AM - the residual offshore swell that
+      builds to 3-5 ft in Rhode Island Sound with Sat's SW, then subsides Sun.
+      This is the lumpy middle of the passage (WP6 RI Sound).
+pressure_trend:
+  - station: "44020 Nantucket Sound (departure)"
+    time: "Sat 11:00 AM"
+    pressure: 29.95
+    delta: "falling (-1.3), pre-front"
+    interpretation: >
+      Falling ahead of Sat's storms; rises Sun behind the front as it dries out
+      and winds back NW. Improving trend into the Sun passage.

@@ -1,0 +1,507 @@
+# ============================================================================
+# FORECAST - Nantucket -> Sag Harbor (Outremer 55) - SUN 19 July 2026
+# CWFBOX 1004 AM Sat 7/18 (FZUS51 KBOX 181405) + CWFOKX 231 AM Sat 7/18
+# (FZUS51 KOKX 180631) + AFDBOX 830 AM Sat 7/18 (FXUS61 KBOX 181230).
+# HEADLINE: "Drying out Sunday" - Sat's showers/torrential storms + flash-flood
+# threat clear tonight; SUNDAY HAS NO SIGNIFICANT CONVECTION. SCA tail runs
+# THROUGH SUNDAY MORNING on the Sounds/RI/Block Island Sound, then eases. Winds
+# W 15-20 backing NW 10-15, diminishing (G25 AM). Seas 2-4 ft in the Sounds,
+# 3-5 ft residual SW swell in Rhode Island Sound early (subsiding); Gardiners
+# Bay light NW 5-10 ~2 ft. Upwind BEAT out of Nantucket early; reaching middle;
+# light finish. Daylight arrival at 8+ kt but speed-dependent.
+# CURRENTS/TIDES: CO-OPS predictions API DOWN at build (no data any station) -
+# tide/current timing is QUALITATIVE, pending re-pull before the GO.
+# ============================================================================
+
+cycle:
+  label: "Sun 19 July - CWFBOX 1004 AM / CWFOKX 231 AM / AFDBOX 830 AM Sat 7/18 (live Chrome). Drying out Sun (no convection); SCA tail through Sun AM; W 15-20 backing NW 10-15 diminishing; 3-5 ft residual swell RI Sound subsiding; Gardiners Bay light NW. CO-OPS currents/tides DOWN at build - qualitative, pending re-pull."
+  cwfbox:
+    issued: "2026-07-18T10:04:00-04:00"
+    label_short: "Sat 7/18 1004 AM"
+    label_full: "1004 AM EDT Sat Jul 18 2026 (CWFBOX FZUS51 KBOX 181405; SUN W 15-20 backing NW 10-15, SCA through Sun AM, 2-5 ft subsiding)"
+  afdbox:
+    issued: "2026-07-18T08:30:00-04:00"
+    label_short: "Sat 7/18 830 AM"
+    label_full: "830 AM EDT Sat Jul 18 2026 (AFDBOX FXUS61 KBOX 181230; 'Drying out Sunday' - Sat storms clear, no Sun convection; SCAs ease into Sun)"
+  cwfokx:
+    issued: "2026-07-18T02:31:00-04:00"
+    label_short: "Sat 7/18 231 AM"
+    label_full: "231 AM EDT Sat Jul 18 2026 (CWFOKX FZUS51 KOKX 180631; ANZ340 Peconic & Gardiners Bays SUN NW 5-10 G20 ~2 ft, SCA ended Sat eve)"
+zones:
+  # SUN 7/19: "Drying out Sunday" (Sat's showers/torrential storms clear tonight)
+  # - NO significant convection Sunday. SCA tail THROUGH SUNDAY MORNING on the
+  # Sounds + RI/Block Island Sound, then eases. Winds W 15-20 backing NW 10-15,
+  # diminishing; G25 AM. Seas 2-4 ft in the Sounds, 3-5 ft residual SW swell in
+  # Rhode Island Sound early (subsiding); Gardiners Bay light NW 5-10, ~2 ft.
+  ANZ232:
+    description: "Nantucket Sound"
+    office: BOX
+    periods:
+      SUN:
+        wind_dir: "W"
+        wind_dir_deg: 270
+        wind_kt: [15, 20]
+        wind_gust_kt: 25
+        sea_ft: [2, 4]
+        wave_detail:
+          primary: {direction: S, direction_deg: 180, height_ft: 3, period_s: 7}
+          secondary: {direction: W, direction_deg: 270, height_ft: 2, period_s: 4}
+  ANZ233:
+    description: "Vineyard Sound"
+    office: BOX
+    periods:
+      SUN:
+        wind_dir: "W"
+        wind_dir_deg: 270
+        wind_kt: [10, 15]
+        wind_gust_kt: 25
+        sea_ft: [2, 4]
+        wave_detail:
+          primary: {direction: W, direction_deg: 270, height_ft: 4, period_s: 6}
+          secondary: {direction: SE, direction_deg: 135, height_ft: 1, period_s: 8}
+  ANZ235:
+    description: "Rhode Island Sound"
+    office: BOX
+    periods:
+      SUN:
+        wind_dir: "W"
+        wind_dir_deg: 270
+        wind_kt: [10, 15]
+        wind_gust_kt: 25
+        sea_ft: [3, 5]
+        wave_detail:
+          primary: {direction: SW, direction_deg: 225, height_ft: 5, period_s: 7}
+          secondary: {direction: SE, direction_deg: 135, height_ft: 2, period_s: 8}
+  ANZ237:
+    description: "Block Island Sound"
+    office: BOX
+    periods:
+      SUN:
+        wind_dir: "NW"
+        wind_dir_deg: 315
+        wind_kt: [10, 15]
+        wind_gust_kt: 25
+        sea_ft: [2, 4]
+        wave_detail:
+          primary: {direction: SW, direction_deg: 225, height_ft: 4, period_s: 7}
+          secondary: {direction: SE, direction_deg: 135, height_ft: 1, period_s: 8}
+  ANZ340:
+    description: "Peconic and Gardiners Bays"
+    office: OKX
+    periods:
+      SUN:
+        wind_dir: "NW"
+        wind_dir_deg: 315
+        wind_kt: [5, 10]
+        wind_gust_kt: 20
+        sea_ft: [1, 2]
+        wave_detail:
+          primary: {direction: NW, direction_deg: 315, height_ft: 2, period_s: 3}
+
+waypoint_assignments:
+  plan_a:
+    WP1:
+      zone: ANZ232
+      period: SUN
+      risk_level: yellow
+      row_band: yellow
+      pressure: 29.95
+      pressure_trend_auto: true
+      notes_addendum: >
+        Sun 6:00 AM EDT departure, Nantucket Harbor (Brant Point; sunrise 5:22
+        AM, daylight). SCA tail through Sun AM: W 15-20 G25, seas 2-4 ft.
+        Heading W into a W wind = a BEAT - reefed, close-hauled or motor-sailing
+        the first ~20 NM; this is the slow part of the day. Pressure rising
+        behind Sat's front (drying out - no storms Sun). CURRENT/TIDE: CO-OPS
+        API down at build; Nantucket Sound current is weak (~1 kt) - re-pull
+        before GO. Course 269.
+      weather_risk: >
+        SCA tail (through Sun AM): W 15-20 G25, seas 2-4, and heading W = a
+        BEAT. Reefed, slow start - the toughest leg for making time. No storms
+        (drying out).
+    WP2:
+      zone: ANZ232
+      period: SUN
+      risk_level: yellow
+      row_band: yellow
+      pressure: 29.96
+      pressure_trend_auto: true
+      notes_addendum: >
+        Sun ~7:15 AM, mid NANTUCKET SOUND. W 15-20 G25, still beating W. Seas
+        2-4 ft (S 3ft@7s swell + W windchop). Buoy 44020. Course 291.
+      weather_risk: >
+        Nantucket Sound beat continues, W 15-20 G25. Monitor; eases through the
+        morning.
+    WP3:
+      zone: ANZ232
+      period: SUN
+      risk_level: yellow
+      row_band: yellow
+      pressure: 29.97
+      pressure_trend_auto: true
+      notes_addendum: >
+        Sun ~8:30 AM, W NANTUCKET SOUND off West Chop, bearing toward Vineyard
+        Sound. W 15-20 easing. Course 250.
+      weather_risk: >
+        W Nantucket Sound, W 15-20 easing as you turn toward Vineyard Sound.
+    WP4:
+      zone: ANZ233
+      period: SUN
+      risk_level: yellow
+      row_band: yellow
+      pressure: 29.98
+      pressure_trend_auto: true
+      notes_addendum: >
+        Sun ~9:15 AM, VINEYARD SOUND. W 10-15 G25 - now more of a close reach as
+        the course frees to WSW. Seas 2-4 ft. Course 245.
+      weather_risk: >
+        Vineyard Sound, W 10-15 G25, close reach. SCA easing. Monitor.
+    WP5:
+      zone: ANZ233
+      period: SUN
+      risk_level: yellow
+      row_band: yellow
+      pressure: 29.99
+      pressure_trend_auto: true
+      notes_addendum: >
+        Sun ~10:30 AM, SW VINEYARD SOUND off GAY HEAD / Cuttyhunk, exiting into
+        Rhode Island Sound. W 10-15. Menemsha (Gay Head) + Cuttyhunk are bail-
+        outs. Course 252.
+      weather_risk: >
+        Off Gay Head into RI Sound; W 10-15. Menemsha/Cuttyhunk bail-outs.
+    WP6:
+      zone: ANZ235
+      period: SUN
+      risk_level: yellow
+      row_band: yellow
+      pressure: 30.00
+      pressure_trend_auto: true
+      notes_addendum: >
+        Sun ~12:30 PM, RHODE ISLAND SOUND - the exposed, lumpy middle: seas 3-5
+        ft residual SW swell (SW 5ft@7s), W 10-15. Beam-close reach. Point
+        Judith is the bail-out to the N. Course 261.
+      weather_risk: >
+        RHODE ISLAND SOUND - lumpy middle: 3-5 ft residual SW swell, W 10-15.
+        Beam reach; the boat handles it, just rolly. Pt Judith bail-out.
+    WP7:
+      zone: ANZ237
+      period: SUN
+      risk_level: yellow
+      row_band: yellow
+      pressure: 30.02
+      pressure_trend_auto: true
+      notes_addendum: >
+        Sun ~2:00 PM, N of BLOCK ISLAND / off Pt Judith, into Block Island
+        Sound. Wind veering NW 10-15, seas subsiding 2-4 ft. Block Island (Great
+        Salt Pond) is a superb bail-out here. Course 263.
+      weather_risk: >
+        Block Island Sound, NW 10-15, seas subsiding, SCA lifting. Block Island
+        bail-out. Improving.
+    WP8:
+      zone: ANZ237
+      period: SUN
+      risk_level: green
+      row_band: green
+      pressure: 30.03
+      pressure_trend_auto: true
+      notes_addendum: >
+        Sun ~3:15 PM, BLOCK ISLAND SOUND W of Block Is. NW 10-15, seas easing,
+        SCA lifting. Beam reach. Course 264.
+      weather_risk: >
+        Block Island Sound easing - NW 10-15, benign beam reach.
+    WP9:
+      zone: ANZ237
+      period: SUN
+      risk_level: green
+      row_band: green
+      pressure: 30.04
+      pressure_trend_auto: true
+      notes_addendum: >
+        Sun ~4:15 PM, Block Island Sound approaching MONTAUK. NW 10-15
+        diminishing. Montauk Harbor is the last major bail-out before Gardiners
+        Bay. Course 244.
+      weather_risk: >
+        Approaching Montauk, NW 10-15 diminishing. Montauk Harbor bail-out.
+        Benign.
+    WP10:
+      zone: ANZ340
+      period: SUN
+      risk_level: green
+      row_band: green
+      pressure: 30.05
+      pressure_trend_auto: true
+      notes_addendum: >
+        Sun ~4:45 PM, N of MONTAUK POINT, entering GARDINERS BAY. Wind goes
+        light: NW 5-10, seas ~2 ft. Broad reach but LIGHT - may motor-sail to
+        hold speed. Course 240.
+      weather_risk: >
+        Entering Gardiners Bay - NW goes LIGHT (5-10), ~2 ft. Benign but may
+        need to motor-sail to hold O55 speed for a daylight arrival.
+    WP11:
+      zone: ANZ340
+      period: SUN
+      risk_level: green
+      row_band: green
+      pressure: 30.06
+      pressure_trend_auto: true
+      notes_addendum: >
+        Sun ~5:15 PM, GARDINERS BAY (E). NW 5-10, calm-ish, ~2 ft. Three Mile
+        Harbor is a bail-out on the S shore. Course 241.
+      weather_risk: >
+        Gardiners Bay, light NW 5-10, calm. Benign. Three Mile Harbor bail-out.
+    WP12:
+      zone: ANZ340
+      period: SUN
+      risk_level: green
+      row_band: green
+      pressure: 30.07
+      pressure_trend_auto: true
+      notes_addendum: >
+        Sun ~5:45 PM, GARDINERS BAY W toward Shelter Island. NW 5-10 light.
+        Course 217.
+      weather_risk: >
+        Gardiners Bay W, light NW. Benign.
+    WP13:
+      zone: ANZ340
+      period: SUN
+      risk_level: green
+      row_band: green
+      pressure: 30.08
+      pressure_trend_auto: true
+      notes_addendum: >
+        Sun ~6:00 PM, SHELTER ISLAND SOUND / Sag Harbor approach. Light NW;
+        thread between Cedar Point (South Fork) and Shelter Island. CURRENT:
+        Shelter Island Sound runs ~1-1.5 kt - re-pull CO-OPS for the slack.
+        Course 204.
+      weather_risk: >
+        Shelter Island Sound approach, light NW. Watch the ~1-1.5 kt sound
+        current (re-pull CO-OPS). Benign wind.
+    WP14:
+      zone: ANZ340
+      period: SUN
+      risk_level: green
+      row_band: green
+      pressure: 30.09
+      pressure_trend_auto: true
+      notes_addendum: >
+        Sun ~6:10 PM, SAG HARBOR BREAKWATER entrance. Light NW, calm. TIDE: Sag
+        Harbor (8511629) pending re-pull - Sag is deep, not depth-critical for
+        the O55. Course 204.
+      weather_risk: >
+        Sag Harbor entrance, calm. Benign.
+    WP15:
+      zone: ANZ340
+      period: SUN
+      risk_level: green
+      row_band: green
+      pressure: 30.10
+      pressure_trend_auto: true
+      notes_addendum: >
+        Sun arrival ~6:15-7:00 PM (speed-dependent), SAG HARBOR. DAYLIGHT
+        (sunset 8:17 PM) - a good reaching middle banks the margin; the light-NW
+        finish is the risk to it. Windmill/village dock + moorings; call the
+        dockmaster. A dry, clearing evening behind Sat's front.
+      weather_risk: >
+        Daylight arrival with margin if the reaching middle held speed. Dry,
+        clearing evening. Grab a mooring / call the dockmaster.
+  plan_b:
+    WP1:
+      zone: ANZ232
+      period: SUN
+      risk_level: yellow
+      row_band: yellow
+      pressure: 29.95
+      pressure_trend_auto: true
+      notes_addendum: >
+        Sun 5:00 AM EDT departure, Nantucket Harbor - 1 hr earlier than Plan A
+        to bank daylight margin against the light-NW finish. Pre-dawn (civil
+        dawn ~4:54 AM), lit-harbor exit. SCA tail W 15-20 G25, beat out of
+        Nantucket Sound. CO-OPS down at build - re-pull currents/tides. Course
+        269.
+      weather_risk: >
+        Pre-dawn lit-harbor departure to bank daylight margin. SCA tail W 15-20
+        G25 beat - same slow start, 1 hr earlier. No storms.
+    WP2:
+      zone: ANZ232
+      period: SUN
+      risk_level: yellow
+      row_band: yellow
+      pressure: 29.96
+      pressure_trend_auto: true
+      notes_addendum: >
+        Sun ~7:15 AM, mid NANTUCKET SOUND. W 15-20 G25, still beating W. Seas
+        2-4 ft (S 3ft@7s swell + W windchop). Buoy 44020. Course 291.
+      weather_risk: >
+        Nantucket Sound beat continues, W 15-20 G25. Monitor; eases through the
+        morning.
+    WP3:
+      zone: ANZ232
+      period: SUN
+      risk_level: yellow
+      row_band: yellow
+      pressure: 29.97
+      pressure_trend_auto: true
+      notes_addendum: >
+        Sun ~8:30 AM, W NANTUCKET SOUND off West Chop, bearing toward Vineyard
+        Sound. W 15-20 easing. Course 250.
+      weather_risk: >
+        W Nantucket Sound, W 15-20 easing as you turn toward Vineyard Sound.
+    WP4:
+      zone: ANZ233
+      period: SUN
+      risk_level: yellow
+      row_band: yellow
+      pressure: 29.98
+      pressure_trend_auto: true
+      notes_addendum: >
+        Sun ~9:15 AM, VINEYARD SOUND. W 10-15 G25 - now more of a close reach as
+        the course frees to WSW. Seas 2-4 ft. Course 245.
+      weather_risk: >
+        Vineyard Sound, W 10-15 G25, close reach. SCA easing. Monitor.
+    WP5:
+      zone: ANZ233
+      period: SUN
+      risk_level: yellow
+      row_band: yellow
+      pressure: 29.99
+      pressure_trend_auto: true
+      notes_addendum: >
+        Sun ~10:30 AM, SW VINEYARD SOUND off GAY HEAD / Cuttyhunk, exiting into
+        Rhode Island Sound. W 10-15. Menemsha (Gay Head) + Cuttyhunk are bail-
+        outs. Course 252.
+      weather_risk: >
+        Off Gay Head into RI Sound; W 10-15. Menemsha/Cuttyhunk bail-outs.
+    WP6:
+      zone: ANZ235
+      period: SUN
+      risk_level: yellow
+      row_band: yellow
+      pressure: 30.00
+      pressure_trend_auto: true
+      notes_addendum: >
+        Sun ~12:30 PM, RHODE ISLAND SOUND - the exposed, lumpy middle: seas 3-5
+        ft residual SW swell (SW 5ft@7s), W 10-15. Beam-close reach. Point
+        Judith is the bail-out to the N. Course 261.
+      weather_risk: >
+        RHODE ISLAND SOUND - lumpy middle: 3-5 ft residual SW swell, W 10-15.
+        Beam reach; the boat handles it, just rolly. Pt Judith bail-out.
+    WP7:
+      zone: ANZ237
+      period: SUN
+      risk_level: yellow
+      row_band: yellow
+      pressure: 30.02
+      pressure_trend_auto: true
+      notes_addendum: >
+        Sun ~2:00 PM, N of BLOCK ISLAND / off Pt Judith, into Block Island
+        Sound. Wind veering NW 10-15, seas subsiding 2-4 ft. Block Island (Great
+        Salt Pond) is a superb bail-out here. Course 263.
+      weather_risk: >
+        Block Island Sound, NW 10-15, seas subsiding, SCA lifting. Block Island
+        bail-out. Improving.
+    WP8:
+      zone: ANZ237
+      period: SUN
+      risk_level: green
+      row_band: green
+      pressure: 30.03
+      pressure_trend_auto: true
+      notes_addendum: >
+        Sun ~3:15 PM, BLOCK ISLAND SOUND W of Block Is. NW 10-15, seas easing,
+        SCA lifting. Beam reach. Course 264.
+      weather_risk: >
+        Block Island Sound easing - NW 10-15, benign beam reach.
+    WP9:
+      zone: ANZ237
+      period: SUN
+      risk_level: green
+      row_band: green
+      pressure: 30.04
+      pressure_trend_auto: true
+      notes_addendum: >
+        Sun ~4:15 PM, Block Island Sound approaching MONTAUK. NW 10-15
+        diminishing. Montauk Harbor is the last major bail-out before Gardiners
+        Bay. Course 244.
+      weather_risk: >
+        Approaching Montauk, NW 10-15 diminishing. Montauk Harbor bail-out.
+        Benign.
+    WP10:
+      zone: ANZ340
+      period: SUN
+      risk_level: green
+      row_band: green
+      pressure: 30.05
+      pressure_trend_auto: true
+      notes_addendum: >
+        Sun ~4:45 PM, N of MONTAUK POINT, entering GARDINERS BAY. Wind goes
+        light: NW 5-10, seas ~2 ft. Broad reach but LIGHT - may motor-sail to
+        hold speed. Course 240.
+      weather_risk: >
+        Entering Gardiners Bay - NW goes LIGHT (5-10), ~2 ft. Benign but may
+        need to motor-sail to hold O55 speed for a daylight arrival.
+    WP11:
+      zone: ANZ340
+      period: SUN
+      risk_level: green
+      row_band: green
+      pressure: 30.06
+      pressure_trend_auto: true
+      notes_addendum: >
+        Sun ~5:15 PM, GARDINERS BAY (E). NW 5-10, calm-ish, ~2 ft. Three Mile
+        Harbor is a bail-out on the S shore. Course 241.
+      weather_risk: >
+        Gardiners Bay, light NW 5-10, calm. Benign. Three Mile Harbor bail-out.
+    WP12:
+      zone: ANZ340
+      period: SUN
+      risk_level: green
+      row_band: green
+      pressure: 30.07
+      pressure_trend_auto: true
+      notes_addendum: >
+        Sun ~5:45 PM, GARDINERS BAY W toward Shelter Island. NW 5-10 light.
+        Course 217.
+      weather_risk: >
+        Gardiners Bay W, light NW. Benign.
+    WP13:
+      zone: ANZ340
+      period: SUN
+      risk_level: green
+      row_band: green
+      pressure: 30.08
+      pressure_trend_auto: true
+      notes_addendum: >
+        Sun ~6:00 PM, SHELTER ISLAND SOUND / Sag Harbor approach. Light NW;
+        thread between Cedar Point (South Fork) and Shelter Island. CURRENT:
+        Shelter Island Sound runs ~1-1.5 kt - re-pull CO-OPS for the slack.
+        Course 204.
+      weather_risk: >
+        Shelter Island Sound approach, light NW. Watch the ~1-1.5 kt sound
+        current (re-pull CO-OPS). Benign wind.
+    WP14:
+      zone: ANZ340
+      period: SUN
+      risk_level: green
+      row_band: green
+      pressure: 30.09
+      pressure_trend_auto: true
+      notes_addendum: >
+        Sun ~6:10 PM, SAG HARBOR BREAKWATER entrance. Light NW, calm. TIDE: Sag
+        Harbor (8511629) pending re-pull - Sag is deep, not depth-critical for
+        the O55. Course 204.
+      weather_risk: >
+        Sag Harbor entrance, calm. Benign.
+    WP15:
+      zone: ANZ340
+      period: SUN
+      risk_level: green
+      row_band: green
+      pressure: 30.10
+      pressure_trend_auto: true
+      notes_addendum: >
+        Sun arrival ~5:15-6:00 PM (speed-dependent), SAG HARBOR - ~1 hr earlier
+        than Plan A, a comfortable daylight cushion. Sunset 8:17 PM. Dry
+        clearing evening. Moorings / dockmaster.
+      weather_risk: >
+        Comfortable daylight arrival with the earlier start - the better hedge
+        if the light-NW Gardiners Bay finish slows the boat.

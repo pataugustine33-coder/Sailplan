@@ -1,0 +1,238 @@
+# ============================================================================
+# Nantucket MA -> Sag Harbor NY (Outremer 55) - Sun 19 July 2026
+# 105.3 NM open-water passage across TWO forecast offices: KBOX (Nantucket Sound,
+# Vineyard Sound, Rhode Island Sound, Block Island Sound) and KOKX (Peconic &
+# Gardiners Bays). Route: Nantucket -> W through the Sounds -> past Gay Head/
+# Cuttyhunk -> Rhode Island Sound -> N of Block Island -> past Montauk into
+# Gardiners Bay -> Shelter Island Sound -> Sag Harbor. Depart 6 AM (skipper).
+# NOTE: the strong Race/Plum Gut gates are OFF this route (Gardiners Bay is
+# entered from the SE past Montauk), so currents are a secondary factor.
+# CURRENTS/TIDES: CO-OPS predictions API was DOWN at build time (returned no
+# data for all stations incl. today) - tide/current timing here is QUALITATIVE,
+# pending a re-pull before the GO. Weather is fully sourced (fresh Chrome pull).
+# ============================================================================
+
+passage:
+  id: nantucket-sagharbor-o55
+  name: Nantucket-SagHarbor-Outremer55
+  origin: "Nantucket, MA (Nantucket Harbor)"
+  destination: "Sag Harbor, NY (Shelter Island Sound / Gardiners Bay)"
+  total_nm: 105.27
+  route_note: >
+    Long open-water run Nantucket->Sag Harbor across KBOX + KOKX waters. NW/W
+    wind day (Sun 7/19): upwind BEAT out of Nantucket (heading W into a W wind)
+    for the first ~20 NM, freeing to a reach farther W; light NW 5-10 in
+    Gardiners Bay on the approach. Daylight arrival achievable at O55 speeds
+    (8+ kt) but speed-dependent. Currents secondary (no strong on-route gates).
+
+vessel:
+  designation: Outremer 55
+  design_number: O55
+  load_config: cruising-loaded
+  displacement_lb: 25353
+  motor_speed_kt: 7.5
+  motor_crossover_tws_kt: 9.0
+  fuel_capacity_gal: 243
+  fuel_burn_gph: 1.7
+
+  designer: VPLP (Van Peteghem - Lauriot Prévost)
+  builder: Outremer Yachting
+  ce_category: A
+  ce_category_note: Ocean — unlimited offshore
+  polar_source: Outremer base polar table (PW_O55_Base_Polar.xlsx)
+  data_sheet_source: Outremer Yachting catalog
+  stability_source: >
+    ESTIMATE — monohull RM/RMC framework does not directly apply to
+    multihulls. Catamaran stability is dominated by form (beam) not
+    ballast. Outremer 55 is CE Category A with ~7.8 m beam giving
+    high initial stability. Diagonal stability (the cat-relevant
+    failure mode — pitchpoling) and capsize threshold are not
+    captured by the monohull RM curve. Values below are rough
+    proxies set so the build does not fail; treat as not-applicable.
+
+  rmc_kgm: 0
+  rm_30deg_kgm: 0
+  rm_max_kgm: 0
+  brewer_cr: 22.5
+  csf: 2.55
+
+calibration:
+  sea_factors:
+    steep_chop_bow: 0.65
+    close_reach: 0.85
+    beam_reach: 0.94
+    broad_reach: 0.95
+    reefed_active_trough: 0.85
+
+# Sag Harbor arrival envelope (~41.00N 72.29W), Sun 19 Jul 2026.
+# Sun times (almanac, eastern Long Island): sunrise ~5:25 AM EDT, sunset ~8:17
+# PM EDT; civil dawn ~4:54 AM, civil dusk ~8:49 PM EDT.
+# Night arrival NOT accepted (daylight-preferred); Sag Harbor approach threads
+# Shelter Island Sound - a daylight arrival is strongly preferred.
+arrival_timing:
+  destination_label: "Sag Harbor, NY (Shelter Island Sound)"
+  civil_dawn: 4.90
+  sunrise: 5.42
+  sunset: 20.28
+  civil_dusk: 20.82
+  day_window: [5.42, 20.28]
+  twilight_windows:
+    - [4.90, 5.42]
+    - [20.28, 20.82]
+  night_arrival_accepted: false
+  preferred_window:
+    start: 6.0
+    end: 20.28
+
+plans:
+  - id: plan_a
+    tab_label: "Plan A - Sun 6 AM Depart"
+    qualifier: "skipper's choice (Sun 19 July 6:00 AM EDT). 105.3 NM; upwind beat out of Nantucket Sound early (W 15-20 G25, SCA tail through Sun AM), freeing to a reach across Vineyard/Rhode Island Sound (3-5 ft residual SW swell), then light NW 5-10 in Gardiners Bay. Daylight arrival achievable at 8+ kt avg (~7 PM at 8 kt, ~5:40 PM at 9 kt); the beat-start and light-NW finish are the risks to daylight."
+    depart_day: Sun
+    depart_date: 2026-07-19
+    depart_hour: 6.0
+  - id: plan_b
+    tab_label: "Plan B - Sun 5 AM Depart"
+    qualifier: "daylight-margin hedge (Sun 19 July 5:00 AM EDT, one hour earlier). Banks an hour against the risk that the upwind start + light-NW Gardiners Bay finish slow the O55 and push the 6 AM arrival toward dusk. Pre-dawn Nantucket Harbor departure (civil dawn ~4:54 AM), so lit-harbor exit. Same weather; ~1 hr earlier at every WP."
+    depart_day: Sun
+    depart_date: 2026-07-19
+    depart_hour: 5.0
+
+waypoints:
+  - id: WP1
+    name: "Nantucket Harbor entrance (Brant Point) - depart"
+    chart_label: "Nantucket"
+    lat: 41.3030
+    lon: -70.0900
+    cum_nm: 0.0
+    course_out: 269
+  - id: WP2
+    name: "W through Nantucket Sound"
+    chart_label: "Nant Sound"
+    lat: 41.3000
+    lon: -70.3500
+    cum_nm: 11.73
+    course_out: 291
+  - id: WP3
+    name: "W Nantucket Sound / off West Chop"
+    chart_label: "W Nant Snd"
+    lat: 41.3600
+    lon: -70.5600
+    cum_nm: 21.86
+    course_out: 250
+  - id: WP4
+    name: "Vineyard Sound (mid)"
+    chart_label: "Vineyard Snd"
+    lat: 41.3950
+    lon: -70.7200
+    cum_nm: 29.37
+    course_out: 245
+  - id: WP5
+    name: "SW Vineyard Sound / off Gay Head-Cuttyhunk"
+    chart_label: "Gay Head"
+    lat: 41.3400
+    lon: -70.9200
+    cum_nm: 38.97
+    course_out: 252
+  - id: WP6
+    name: "Rhode Island Sound"
+    chart_label: "RI Sound"
+    lat: 41.2400
+    lon: -71.2000
+    cum_nm: 52.95
+    course_out: 261
+  - id: WP7
+    name: "N of Block Island / off Pt Judith"
+    chart_label: "Block Is Snd"
+    lat: 41.1800
+    lon: -71.4500
+    cum_nm: 64.8
+    course_out: 263
+  - id: WP8
+    name: "Block Island Sound (W of Block Is)"
+    chart_label: "Block Is Snd W"
+    lat: 41.1500
+    lon: -71.7000
+    cum_nm: 76.25
+    course_out: 264
+  - id: WP9
+    name: "Block Island Sound / approach Montauk"
+    chart_label: "Montauk appr"
+    lat: 41.1300
+    lon: -71.9000
+    cum_nm: 85.37
+    course_out: 244
+  - id: WP10
+    name: "N of Montauk Point, entering Gardiners Bay"
+    chart_label: "Gardiners E"
+    lat: 41.1200
+    lon: -72.0200
+    cum_nm: 90.83
+    course_out: 240
+  - id: WP11
+    name: "Gardiners Bay (E)"
+    chart_label: "Gardiners Bay"
+    lat: 41.0800
+    lon: -72.1300
+    cum_nm: 96.36
+    course_out: 241
+  - id: WP12
+    name: "Gardiners Bay W toward Shelter Island"
+    chart_label: "Shelter Is"
+    lat: 41.0400
+    lon: -72.2200
+    cum_nm: 101.09
+    course_out: 217
+  - id: WP13
+    name: "Shelter Island Sound / Sag Harbor approach"
+    chart_label: "Sag appr"
+    lat: 41.0150
+    lon: -72.2800
+    cum_nm: 104.19
+    course_out: 204
+  - id: WP14
+    name: "Sag Harbor breakwater entrance"
+    chart_label: "Sag entrance"
+    lat: 41.0050
+    lon: -72.2900
+    cum_nm: 104.94
+    course_out: 204
+  - id: WP15
+    name: "Sag Harbor (arrive)"
+    chart_label: "Sag Harbor"
+    lat: 41.0000
+    lon: -72.2930
+    cum_nm: 105.27
+    course_out: null
+
+route_buoys:
+  - station: 44020
+    wp_range: [WP1, WP4]
+    note: "Nantucket Sound - departure ground truth"
+  - station: 44097
+    wp_range: [WP6, WP8]
+    note: "Block Island / Rhode Island Sound - the residual-swell middle"
+  - station: 44008
+    wp_range: [WP9, WP10]
+    note: "SE New England shelf / Montauk approach (44017 Montauk offline)"
+
+forecast_offices:
+  - office: NWS Boston/Norton MA (KBOX)
+    code: BOX
+    zones:
+      ANZ232: Nantucket Sound
+      ANZ233: Vineyard Sound
+      ANZ235: Rhode Island Sound
+      ANZ237: Block Island Sound
+  - office: NWS New York NY (KOKX)
+    code: OKX
+    zones:
+      ANZ340: Peconic and Gardiners Bays
+
+tide_stations:
+  - id: 8449130
+    name: Nantucket, MA (departure) - PENDING re-pull (CO-OPS API down at build)
+    relevance: departure
+  - id: 8511629
+    name: Sag Harbor, NY (arrival) - PENDING re-pull (CO-OPS API down at build)
+    relevance: arrival
